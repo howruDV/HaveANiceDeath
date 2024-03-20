@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimExtern.h" />
     <ClInclude Include="CCameraMoveScript.h" />
     <ClInclude Include="CCreateTempLevel.h" />
     <ClInclude Include="CEditorObj.h" />
@@ -163,6 +164,9 @@
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="UIAnimator2D.h" />
+    <ClInclude Include="UIAnimPannel.h" />
+    <ClInclude Include="UIAnimDetail.h" />
+    <ClInclude Include="UIAnimPreview.h" />
     <ClInclude Include="UIAsset.h" />
     <ClInclude Include="UICamera.h" />
     <ClInclude Include="UICollider2D.h" />
@@ -211,6 +215,9 @@
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="UIAnimator2D.cpp" />
+    <ClCompile Include="UIAnimPannel.cpp" />
+    <ClCompile Include="UIAnimDetail.cpp" />
+    <ClCompile Include="UIAnimPreview.cpp" />
     <ClCompile Include="UIAsset.cpp" />
     <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="UICollider2D.cpp" />

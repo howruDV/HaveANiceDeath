@@ -78,6 +78,20 @@ void CCreateTempLevel::CreateTempLevel()
 	pTempLevel->GetLayer(5)->SetName(L"Light");
 	pTempLevel->GetLayer(31)->SetName(L"UI");
 
+	CGameObject* m_Preview = new CGameObject;
+	m_Preview->SetName(L"AnimationPreview");
+	m_Preview->AddComponent(new CTransform);
+	m_Preview->AddComponent(new CMeshRender);
+	m_Preview->AddComponent(new CAnimator2D);
+
+	m_Preview->Transform()->SetRelativePos(Vec3(30000.f, 30000.f, 30200.f));
+	m_Preview->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
+
+	m_Preview->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	m_Preview->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
+	//m_Preview->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex"));
+	pTempLevel->AddObject(m_Preview, L"Default", false);
+
 	// Computer Shader Test
 	/*Ptr<CTexture> pTestTex = CAssetMgr::GetInst()->CreateTexture(L"texture\\TestTex.png", 1600, 900
 		, DXGI_FORMAT_R8G8B8A8_UNORM

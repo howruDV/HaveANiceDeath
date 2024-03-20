@@ -10,6 +10,9 @@
 #include "UIListPannel.h"
 #include "UIMenuPannel.h"
 #include "UIParam.h"
+#include "UIAnimPannel.h"
+#include "UIAnimDetail.h"
+#include "UIAnimPreview.h"
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
 #include <Engine/CGameObject.h>
@@ -35,6 +38,14 @@ CImGuiMgr::~CImGuiMgr()
 
 	// 디렉터리 변경 감시 종료
 	FindCloseChangeNotification(m_hNotify);
+}
+
+void CImGuiMgr::begin()
+{
+	for (const auto& pair : m_mapUI)
+	{
+		pair.second->begin();
+	}
 }
 
 void CImGuiMgr::tick()
@@ -89,6 +100,14 @@ void CImGuiMgr::CreateUI()
 
 	// List
 	pUI = new UIListPannel;
+	AddUI(pUI->GetID(), pUI);
+
+	// Animation Tool
+	pUI = new UIAnimPannel;
+	AddUI(pUI->GetID(), pUI);
+	pUI = new UIAnimDetail;
+	AddUI(pUI->GetID(), pUI);
+	pUI = new UIAnimPreview;
 	AddUI(pUI->GetID(), pUI);
 }
 

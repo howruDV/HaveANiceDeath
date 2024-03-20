@@ -79,6 +79,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // ImGUI init
     CImGuiMgr::GetInst()->init(hWnd, DEVICE, CONTEXT);
+    CImGuiMgr::GetInst()->begin();
 #endif
 
     // ------------------

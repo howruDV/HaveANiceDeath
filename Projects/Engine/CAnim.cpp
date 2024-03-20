@@ -80,7 +80,7 @@ void CAnim::Create(CAnimator2D* _Animator, Ptr<CTexture> _AtlasTex, Vec2 _vLeftT
 	for (int i = 0; i < _FrmCount; ++i)
 	{
 		// UV값으로 세팅
-		tAnimFrm frm = {};
+		FAnimFrm frm = {};
 		frm.vCutSizeUV = Vec2(_vCutSize.x / (float)_AtlasTex->GetWidth(), _vCutSize.y / (float)_AtlasTex->GetHeight());
 		frm.vLeftTopUV = Vec2(_vLeftTop.x / (float)_AtlasTex->GetWidth() + frm.vCutSizeUV.x * i, _vLeftTop.y / (float)_AtlasTex->GetHeight());
 		frm.vOffsetUV = Vec2(_vOffset.x / (float)_AtlasTex->GetWidth(), _vOffset.y / (float)_AtlasTex->GetHeight());
@@ -88,6 +88,31 @@ void CAnim::Create(CAnimator2D* _Animator, Ptr<CTexture> _AtlasTex, Vec2 _vLeftT
 		frm.vBackgroundSize = Vec2(_vBackground.x / (float)_AtlasTex->GetWidth(), _vBackground.y / (float)_AtlasTex->GetHeight());
 
 		m_vecFrm.push_back(frm);
+	}
+}
+
+void CAnim::Create(CAnimator2D* _Animator, Ptr<CTexture> _Atlas, const vector<FAnimFrm> _vecFrm, bool aleardyUV)
+{
+	m_Animator = _Animator;
+	m_AtlasTex = _Atlas;
+
+	if (not aleardyUV)
+	{
+		for (int i = 0; i < _vecFrm.size(); ++i)
+		{
+			FAnimFrm frm = {};
+			frm.vCutSizeUV = Vec2(_vecFrm[i].vCutSizeUV.x / (float)_Atlas->GetWidth(), _vecFrm[i].vCutSizeUV.y / (float)_Atlas->GetHeight());
+			frm.vLeftTopUV = Vec2(_vecFrm[i].vLeftTopUV.x / (float)_Atlas->GetWidth(), _vecFrm[i].vLeftTopUV.y / (float)_Atlas->GetHeight());
+			frm.vOffsetUV = Vec2(_vecFrm[i].vOffsetUV.x / (float)_Atlas->GetWidth(), _vecFrm[i].vOffsetUV.y / (float)_Atlas->GetHeight());
+			frm.fDuration = _vecFrm[i].fDuration;
+			frm.vBackgroundSize = Vec2(_vecFrm[i].vBackgroundSize.x / (float)_Atlas->GetWidth(), _vecFrm[i].vBackgroundSize.y / (float)_Atlas->GetHeight());
+
+			m_vecFrm.push_back(frm);
+		}
+	}
+	else
+	{
+		m_vecFrm = _vecFrm;
 	}
 }
 
@@ -99,7 +124,7 @@ void CAnim::SaveToFile(FILE* _File)
 	// 모든 프레임 정보 저장
 	size_t FrmSize = m_vecFrm.size();
 	fwrite(&FrmSize, sizeof(size_t), 1, _File);
-	fwrite(m_vecFrm.data(), sizeof(tAnimFrm), m_vecFrm.size(), _File);
+	fwrite(m_vecFrm.data(), sizeof(FAnimFrm), m_vecFrm.size(), _File);
 
 	// 애니메이션이 참조하던 텍스쳐 정보 저장
 	SaveAssetRef(m_AtlasTex, _File);
@@ -116,7 +141,7 @@ void CAnim::LoadFromFile(FILE* _File)
 	size_t FrmSize = 0;
 	fread(&FrmSize, sizeof(size_t), 1, _File);
 	m_vecFrm.resize(FrmSize);
-	fread(m_vecFrm.data(), sizeof(tAnimFrm), m_vecFrm.size(), _File);
+	fread(m_vecFrm.data(), sizeof(FAnimFrm), m_vecFrm.size(), _File);
 
 	// 애니메이션이 참조하던 텍스쳐 정보 로드
 	LoadAssetRef(m_AtlasTex, _File);

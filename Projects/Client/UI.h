@@ -18,6 +18,7 @@ private:
 	vector<UI*>		m_vecChild;
 
 public:
+	virtual void begin() {};
 	virtual void tick();
 	virtual void render();
 	virtual void render_update() = 0;

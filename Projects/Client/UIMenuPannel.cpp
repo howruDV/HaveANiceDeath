@@ -2,6 +2,8 @@
 #include "UIMenuPannel.h"
 #include "CImGuiMgr.h"
 #include "UIInspectorPannel.h"
+#include "UIAnimPannel.h"
+#include "UIAnimDetail.h"
 #include "CLevelSaveLoad.h"
 
 #include <Engine/CPathMgr.h>
@@ -36,6 +38,7 @@ void UIMenuPannel::render()
 void UIMenuPannel::render_update()
 {
     File();
+    Tool();
     Level();
     GameObject();
     Asset();
@@ -101,6 +104,20 @@ void UIMenuPannel::File()
                 UIInspectorPannel* pInspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
                 pInspector->SetTargetObject(nullptr);
             }
+        }
+
+        ImGui::EndMenu();
+    }
+}
+
+void UIMenuPannel::Tool()
+{
+    if (ImGui::BeginMenu("Tool"))
+    {
+        if (ImGui::MenuItem("Create Animation"))
+        {
+            UIAnimPannel* pAnimToolMain = (UIAnimPannel*)CImGuiMgr::GetInst()->FindUI("##Animation Tool_Main");
+            pAnimToolMain->Activate();  // UIAnimPannel가 관련된 창 모두 같이 끄고 닫음 처리
         }
 
         ImGui::EndMenu();

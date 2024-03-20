@@ -4,9 +4,10 @@
 // =======================================
 // CAnim: Animation 단위 (Components가 소유하는 정보)
 // =======================================
+
 class CAnimator2D;
 
-struct tAnimFrm
+struct FAnimFrm
 {
     Vec2    vLeftTopUV;
     Vec2    vCutSizeUV;
@@ -21,7 +22,7 @@ class CAnim :
 private:
     CAnimator2D*        m_Animator;
     Ptr<CTexture>       m_AtlasTex;
-    vector<tAnimFrm>    m_vecFrm;
+    vector<FAnimFrm>    m_vecFrm;
     int                 m_CurFrmIdx;
     float               m_AccTime;
     bool                m_bFinish;
@@ -35,6 +36,7 @@ public:
     
     static void Clear();
     void Create(CAnimator2D* _Animator, Ptr<CTexture> _AtlasTex, Vec2 _vLeftTop, Vec2 _vOffset, Vec2 _vCutSize, Vec2 _vBackground, int _FrmCount, float _FPS);
+    void Create(CAnimator2D* _Animator, Ptr<CTexture> _Atlas, const vector<FAnimFrm> _vecFrm, bool aleardyUV = false);
 
 public:
     bool IsFinish() { return m_bFinish; }
@@ -52,5 +54,6 @@ public:
     ~CAnim();
 
     friend class CAnimator2D;
+    friend class UIAnimPannel;
 };
 

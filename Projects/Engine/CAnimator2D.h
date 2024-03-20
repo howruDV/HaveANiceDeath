@@ -1,6 +1,7 @@
 #pragma once
 #include "CComponent.h"
 #include "CTexture.h"
+#include "CAnim.h"
 // =======================================
 // CAnimtor2D: Animtion 할당 및 상태 관리 
 // =======================================
@@ -23,6 +24,7 @@ public:
 
     static void Clear();    // Animator가 없어도 동작해야하는 함수
     void Create(const wstring& _strKey, Ptr<CTexture> _AtlasTex, Vec2 _vLeftTop, Vec2 _vOffset, Vec2 _vCutSize, Vec2 _vBackgroundSize, int _FrmCount, float _FPS);
+    void Create(const wstring& _strKey, Ptr<CTexture> _AltasTex, const vector<FAnimFrm>& _vecFrm);
     CAnim* FindAnim(const wstring& _strAnimName);
     void Play(const wstring& _strAnimName, bool _bRepeat = true);
 

@@ -30,7 +30,7 @@ void UITransform::render_update()
 	vRot.ToDegree(); // radion to degree
 
 	// draw
-	ImGui::Text("Position"); ImGui::SameLine();  ImGui::DragFloat3("##Relative Position", vPos);
+	ImGui::Text("Position"); ImGui::SameLine(); ImGui::DragFloat3("##Relative Position", vPos);
 	ImGui::Text("Scale   "); ImGui::SameLine(); ImGui::DragFloat3("##Relative Scale", vScale);
 	ImGui::Text("Rotation"); ImGui::SameLine(); ImGui::DragFloat3("##Relative Rotation", vRot);
 	ImGui::Text("Scale Absolute"); ImGui::SameLine(); ImGui::Checkbox("##TransformAbsolute", &bAbsolute);

@@ -67,6 +67,22 @@ void CAnimator2D::Create(const wstring& _strKey, Ptr<CTexture> _AtlasTex, Vec2 _
     m_mapAnim.insert({ _strKey, pAnim });
 }
 
+void CAnimator2D::Create(const wstring& _strKey, Ptr<CTexture> _AltasTex, const vector<FAnimFrm>& _vecFrm)
+{
+    CAnim* pAnim = FindAnim(_strKey);
+    if (pAnim && _strKey == L"PreviewAnim")
+    {
+        m_mapAnim.erase(m_mapAnim.find(_strKey));
+        pAnim->Clear();
+    }
+    else
+        assert(!pAnim);
+
+    pAnim = new CAnim;
+    pAnim->Create(this, _AltasTex, _vecFrm);
+    m_mapAnim.insert(make_pair(_strKey, pAnim));
+}
+
 CAnim* CAnimator2D::FindAnim(const wstring& _strAnimName)
 {
     unordered_map<wstring, CAnim*>::iterator iter = m_mapAnim.find(_strAnimName);

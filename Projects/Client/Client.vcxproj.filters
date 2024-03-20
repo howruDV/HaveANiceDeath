@@ -114,9 +114,6 @@
     <Filter Include="02. UI\3. InspectorPannel\Component\Script">
       <UniqueIdentifier>{2acd7a33-10e5-4581-948d-77ccee21f583}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. UI\6. AnimToolPannel">
-      <UniqueIdentifier>{dd5f576c-1038-49f1-806b-5b9f4ae08329}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. UI\7. Module">
       <UniqueIdentifier>{b16a776e-fe59-4351-83a7-ce1b6024f53e}</UniqueIdentifier>
     </Filter>
@@ -126,13 +123,16 @@
     <Filter Include="02. UI\7. Module\UIParam">
       <UniqueIdentifier>{82bbc365-0bfb-46f9-b9e7-108f04063a04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. UI\6. AnimToolPannel\AnimatorTool">
-      <UniqueIdentifier>{8a0a0fae-d55b-4eac-9bf2-f8b5f9dded0c}</UniqueIdentifier>
+    <Filter Include="02. UI\6. AnimatorPannel">
+      <UniqueIdentifier>{dd5f576c-1038-49f1-806b-5b9f4ae08329}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. UI\6. AnimToolPannel\Detail">
+    <Filter Include="02. UI\6. AnimatorPannel\trash">
+      <UniqueIdentifier>{0c1b7ca2-8174-409b-bb72-012d0b13f06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. UI\6. AnimatorPannel\Detail">
       <UniqueIdentifier>{17c6c8b9-ce45-49cc-aef2-4d3966dfe8ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. UI\6. AnimToolPannel\Preview">
+    <Filter Include="02. UI\6. AnimatorPannel\Preview">
       <UniqueIdentifier>{eabe9802-b917-4831-b385-d720f5d0c867}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -284,6 +284,18 @@
     <ClInclude Include="UIScript.h">
       <Filter>02. UI\3. InspectorPannel\Component\Script</Filter>
     </ClInclude>
+    <ClInclude Include="UIAnimPreview.h">
+      <Filter>02. UI\6. AnimatorPannel\Preview</Filter>
+    </ClInclude>
+    <ClInclude Include="UIAnimDetail.h">
+      <Filter>02. UI\6. AnimatorPannel\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimExtern.h">
+      <Filter>02. UI\6. AnimatorPannel\trash</Filter>
+    </ClInclude>
+    <ClInclude Include="UIAnimPannel.h">
+      <Filter>02. UI\6. AnimatorPannel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -434,6 +446,15 @@
     </ClCompile>
     <ClCompile Include="UIScript.cpp">
       <Filter>02. UI\3. InspectorPannel\Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="UIAnimPreview.cpp">
+      <Filter>02. UI\6. AnimatorPannel\Preview</Filter>
+    </ClCompile>
+    <ClCompile Include="UIAnimDetail.cpp">
+      <Filter>02. UI\6. AnimatorPannel\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="UIAnimPannel.cpp">
+      <Filter>02. UI\6. AnimatorPannel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
