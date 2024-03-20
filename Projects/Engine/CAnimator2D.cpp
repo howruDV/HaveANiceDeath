@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CAnimator2D.h"
 #include "CAnim.h"
+#include "CTransform.h"
 
 CAnimator2D::CAnimator2D()
     : CComponent(COMPONENT_TYPE::ANIMATOR2D)
@@ -119,6 +120,15 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
     CAnim* pAnim = FindAnim(_strAnimName);
     if (!pAnim)
         return;
+
+    // set background size
+    Vec3 newBgSize = Vec3(pAnim->m_vecFrm[0].vBackgroundSize.x, pAnim->m_vecFrm[0].vBackgroundSize.y, 0.f);
+    newBgSize.x *= pAnim->m_AtlasTex->GetWidth();
+    newBgSize.y *= pAnim->m_AtlasTex->GetHeight();
+    if (Transform()->GetRelativeScale() != newBgSize)
+    {
+        Transform()->SetRelativeScale(newBgSize);
+    }
 
     m_bRepeat = _bRepeat;
     m_CurAnim = pAnim;

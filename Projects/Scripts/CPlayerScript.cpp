@@ -25,9 +25,9 @@ CPlayerScript::~CPlayerScript()
 void CPlayerScript::begin()
 {
 	Ptr<CTexture> pAltasTex = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\link.png");
-	Animator2D()->Create(L"IDLE_UP", pAltasTex, Vec2(0.f, 260.f), Vec2(0.f, -60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 1, 10);
+	Animator2D()->Create(L"IDLE_UP", pAltasTex, Vec2(0.f, 260.f), Vec2(0.f, 60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 1, 10);
 	
-	Animator2D()->Create(L"IDLE_DOWN", pAltasTex, Vec2(0.f, 0.f), Vec2(0.f, -60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 3, 10);
+	Animator2D()->Create(L"IDLE_DOWN", pAltasTex, Vec2(0.f, 0.f), Vec2(0.f, 60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 3, 10);
 	
 	//FILE* pFile = nullptr;
 	//_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\offsetZelda.anim").c_str(), L"rb");
@@ -35,13 +35,13 @@ void CPlayerScript::begin()
 	//pAnim->LoadFromFile(pFile);
 	//Animator2D()->Create(pAnim, L"IDLE_DOWN");
 	
-	Animator2D()->Create(L"IDLE_LEFT", pAltasTex, Vec2(0.f, 130.f), Vec2(0.f, 0.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 3, 10);
-	Animator2D()->Create(L"IDLE_RIGHT", pAltasTex, Vec2(0.f, 390.f), Vec2(0.f, 0.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 3, 10);
+	Animator2D()->Create(L"IDLE_LEFT", pAltasTex, Vec2(0.f, 130.f), Vec2(0.f, 60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 3, 10);
+	Animator2D()->Create(L"IDLE_RIGHT", pAltasTex, Vec2(0.f, 390.f), Vec2(0.f, 60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 3, 10);
 
-	Animator2D()->Create(L"MOVE_UP", pAltasTex, Vec2(0.f, 780.f), Vec2(0.f, 0.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 10, 20);
-	Animator2D()->Create(L"MOVE_DOWN", pAltasTex, Vec2(0.f, 520.f), Vec2(0.f, 0.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 10, 20);
-	Animator2D()->Create(L"MOVE_LEFT", pAltasTex, Vec2(0.f, 650.f), Vec2(0.f, 0.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 10, 20);
-	Animator2D()->Create(L"MOVE_RIGHT", pAltasTex, Vec2(0.f, 910.f), Vec2(0.f, 0.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 10, 20);
+	Animator2D()->Create(L"MOVE_UP", pAltasTex, Vec2(0.f, 780.f), Vec2(0.f, 60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 10, 20);
+	Animator2D()->Create(L"MOVE_DOWN", pAltasTex, Vec2(0.f, 520.f), Vec2(0.f, 60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 10, 20);
+	Animator2D()->Create(L"MOVE_LEFT", pAltasTex, Vec2(0.f, 650.f), Vec2(0.f, 60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 10, 20);
+	Animator2D()->Create(L"MOVE_RIGHT", pAltasTex, Vec2(0.f, 910.f), Vec2(0.f, 60.f), Vec2(120.f, 130.f), Vec2(120.f, 130.f), 10, 20);
 
 	//Animator2D()->Play(L"IDLE_DOWN");
 	GetRenderComponent()->GetDynamicMaterial();
