@@ -73,14 +73,13 @@ void UIAnimDetail::render_update()
 			ImVec2 UV;
 			UV.x = m_vecAnimUV[i].vLeftTopUV.x;
 			UV.y = m_vecAnimUV[i].vLeftTopUV.y;
-			UV += ImVec2(m_vecAnimUV[i].vOffsetUV.x, m_vecAnimUV[i].vOffsetUV.y);
 			ImGui::Image(m_Atlas->GetSRV().Get(), ImVec2(70, 70), UV, UV + ImVec2(m_vecAnimUV[i].vCutSizeUV.x, m_vecAnimUV[i].vCutSizeUV.y), ImVec4(1, 1, 1, 1), ImVec4(0.8f, 0.8f, 0.8f, 0.8f));
 
 			// offset input
 			Vec3 vOffset = Vec3(m_vecAnimUV[i].vOffsetUV.x * (float)m_Atlas->GetWidth(), m_vecAnimUV[i].vOffsetUV.y * (float)m_Atlas->GetHeight(), 0.f);
 			string ID = "##detail" + std::to_string(i);
 			ImGui::SameLine();
-			//ImGui::BeginGroup();
+
 			ImGui::BeginChild(ID.c_str(), ImVec2(0, 70));
 
 			ImGui::Text("[ %i ]", i);
@@ -90,7 +89,6 @@ void UIAnimDetail::render_update()
 			int fFps = 1.f / m_vecAnimUV[i].fDuration;
 			ImGui::Text("FPS     "); ImGui::SameLine(); ImGui::DragInt(ID.c_str(), &fFps, 0.1f);
 
-			//ImGui::EndGroup();
 			ImGui::EndChild();
 			ImGui::Separator();
 

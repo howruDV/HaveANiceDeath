@@ -26,6 +26,7 @@ private:
     ImVec2                  m_vGridNum;
     ImVec2                  m_vGridSize;
     vector<vector<bool>>    m_vecGridSelect;    // 해당 칸 선택 기록
+    vector<Vec2>            m_vecOffset;
     vector<FAnimFrm>        m_vecAnim;          // 선택한 frame
     bool                    m_bPrevActive;
 
@@ -42,11 +43,11 @@ public:
     Ptr<CTexture> GetAtlas() { return m_Atlas; }
     ImVec2 GetGridSize() { return m_vGridSize; }
 
-
 private:
     // btn
     void Compile();
     void Save();
+    Vec2 LoadMeta(const wstring& _strMetaRelativePath);
     void OpenFileWindow();
     void LoadAtlas(const wstring& _RelativePath);
 
@@ -56,6 +57,8 @@ private:
     bool SelectionRect(ImVec2* start_pos, ImVec2* end_pos, ImGuiMouseButton mouse_button = ImGuiMouseButton_Left);
     void ResetSelectVec(bool _bool = false);
     void Clear();
+    void ClearOffset();
+    void openFileDialog(vector<wstring>& _FilesName);
 
 public:
     UIAnimPannel();

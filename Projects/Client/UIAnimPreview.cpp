@@ -61,32 +61,31 @@ void UIAnimPreview::render_update()
 	// draw img
 	ImGui::BeginChild("##Prevew Image");
 
-	ImVec2 Size = ImGui::GetWindowContentRegionMax();
-	ImVec2 calcSize;
-	if (m_MainPannel->GetGridSize() != ImVec2(0, 0))
-	{
-		ImVec2 GridSize = m_MainPannel->GetGridSize();
-		float ratio = GridSize.x / GridSize.y;
-		calcSize = Size;
-		calcSize.y = 1 / ratio * calcSize.x;
-	}
-	else
-	{
-		calcSize.x = m_CurFrm->vBackgroundSize.x * m_AtlasTex->GetWidth();
-		calcSize.y = m_CurFrm->vBackgroundSize.y * m_AtlasTex->GetHeight();
-	}
+	// size: grid
+	static float previewScaling = 800.f;
+	ImVec2 Size = ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y);
+	ImGuiIO& io = ImGui::GetIO();
 
-	if (calcSize.y > Size.y)
+	if (io.MouseWheel != 0.0f && ImGui::IsWindowHovered()) 
 	{
-		float ratio = Size.y / calcSize.y;
-		calcSize.y = Size.y;
-		calcSize.x *= ratio;
+		float zoomSpeed = 50.f;
+		float zoomDelta = io.MouseWheel * zoomSpeed;
+		previewScaling += zoomDelta;
 	}
+	Size *= previewScaling;
 
-	ImVec2 LeftTopUV = ImVec2(m_CurFrm->vLeftTopUV.x, m_CurFrm->vLeftTopUV.y) + ImVec2(m_CurFrm->vOffsetUV.x, m_CurFrm->vOffsetUV.x);
-	ImVec2 RightBottomUV = LeftTopUV + ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y) + ImVec2(m_CurFrm->vOffsetUV.x, m_CurFrm->vOffsetUV.x);
+	// 그리는 좌표: offset 계산 (y축 좌표 반대로)
+	ImVec2 CenterPos = ImGui::GetWindowContentRegionMax() * 0.5f;
+	ImVec2 ImgPos = CenterPos - (Size * 0.5) + ImVec2(m_CurFrm->vOffsetUV.x, m_CurFrm->vOffsetUV.y) * previewScaling;
+	ImGui::SetCursorPos(ImgPos);
+	ImVec2 LeftTopUV = ImVec2(m_CurFrm->vLeftTopUV.x, m_CurFrm->vLeftTopUV.y);
+	ImVec2 RightBottomUV = LeftTopUV + ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y);
 	
-	ImGui::Image(m_AtlasTex->GetSRV().Get(), calcSize, LeftTopUV, RightBottomUV);
+	ImGui::Image(m_AtlasTex->GetSRV().Get(), Size, LeftTopUV, RightBottomUV);
+
+	// cross hair
+	ImDrawList* drawList = ImGui::GetWindowDrawList();
+	DrawCrosshair(ImGui::GetWindowPos() + CenterPos, 30.f, drawList);
 	
 	ImGui::EndChild();
 }
@@ -98,4 +97,16 @@ void UIAnimPreview::Clear()
 	m_CurFrmIdx = -1;
 	m_FrmSize = 0;
 	m_AccTime = 0;
+}
+
+void UIAnimPreview::DrawCrosshair(const ImVec2& center, float size, ImDrawList* drawList)
+{
+	float halfSize = size * 0.5f;
+	ImVec2 topLeft = ImVec2(center.x - halfSize, center.y - halfSize);
+	ImVec2 bottomRight = ImVec2(center.x + halfSize, center.y + halfSize);
+
+	drawList->AddLine(ImVec2(topLeft.x, center.y), ImVec2(bottomRight.x, center.y), IM_COL32(0, 0, 0, 255), 6);
+	drawList->AddLine(ImVec2(center.x, topLeft.y), ImVec2(center.x, bottomRight.y), IM_COL32(0, 0, 0, 255), 6);
+	drawList->AddLine(ImVec2(topLeft.x, center.y), ImVec2(bottomRight.x, center.y), IM_COL32(255, 255, 255, 255), 3);
+	drawList->AddLine(ImVec2(center.x, topLeft.y), ImVec2(center.x, bottomRight.y), IM_COL32(255, 255, 255, 255), 3);
 }

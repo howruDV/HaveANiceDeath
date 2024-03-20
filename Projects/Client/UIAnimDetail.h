@@ -37,7 +37,7 @@ public:
     void SetFrm(vector<FAnimFrm> _vec) { m_vecAnimUV = _vec; }
     void UpdateFrm(vector<FAnimFrm>& _vec);
 
-    string GetAniName() { return string(m_AnimName); }
+    string GetAnimName() { return string(m_AnimName); }
     ImVec2 GetGridNum() { return ImVec2(m_NumCellsX, m_NumCellsY); }
     int GetFPS() { return m_FPS; }
     FAnimFrm& GetFrmByIdx(int idx) { return m_vecAnimUV[idx]; }

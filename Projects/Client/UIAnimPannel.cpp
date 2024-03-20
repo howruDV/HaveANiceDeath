@@ -3,7 +3,8 @@
 #include "UIAnimPannel.h"
 #include "UIAnimDetail.h"
 #include "UIAnimPreview.h"
-#include "AnimExtern.h"
+#include <Shobjidl.h> // 파일 대화 상자 헤더
+#include <iostream>
 
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
@@ -66,6 +67,23 @@ void UIAnimPannel::render_update()
 	if (ImGui::Button("Save", ImVec2(80.f, 30.f)))
 		Save();
 	ImGui::SameLine();
+	if (ImGui::Button("Meta", ImVec2(80.f, 30.f)))
+	{
+		m_vecOffset.clear();
+
+		// File 다중 선택
+		vector<wstring> FilesName;
+
+		// 파일 대화창 열기
+		openFileDialog(FilesName);
+
+		for (size_t i = 0; i < FilesName.size(); ++i)
+		{
+			Vec2 CurFrmOffset = LoadMeta(FilesName[FilesName.size() - i - 1]);
+			m_vecOffset.push_back(CurFrmOffset);
+		}
+	}
+	ImGui::SameLine();
 	if (ImGui::Button("Brouse", ImVec2(100.f, 30.f)))
 		OpenFileWindow();
 
@@ -74,15 +92,22 @@ void UIAnimPannel::render_update()
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.25f, 0.25f, 0.25f, 1.f));
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.25f, 0.25f, 0.25f, 1.f));
 
+
+	ImGui::PushID(2);
+	ImGui::SameLine(ImGui::GetWindowWidth() - 180);
+	if (ImGui::Button("meta clear", ImVec2(70.f, 30.f)))
+		ClearOffset();
+	ImGui::PopID();
+
 	ImGui::PushID(0);
 	ImGui::SameLine(ImGui::GetWindowWidth() - 120);
-	if (ImGui::Button("all", ImVec2(50.f, 30.f)))
+	if (ImGui::Button("select all", ImVec2(70.f, 30.f)))
 		ResetSelectVec(true);
 	ImGui::PopID();
 	
 	ImGui::PushID(1);
 	ImGui::SameLine(ImGui::GetWindowWidth() - 60);
-	if( ImGui::Button("clear", ImVec2(50.f, 30.f)))
+	if( ImGui::Button("select clear", ImVec2(70.f, 30.f)))
 		ResetSelectVec(false);
 	
 	ImGui::PopStyleColor(3);
@@ -187,18 +212,18 @@ void UIAnimPannel::Deactivate()
 void UIAnimPannel::OpenFileWindow()
 {
 	// 탐색창
-	OPENFILENAME OFN;
-	TCHAR lpstrFile[100] = L"";
-	static TCHAR filter[] = L"모든 파일\0*.*\0텍스트 파일\0*.txt\0fbx 파일\0*.fbx";
-
-	HWND hWnd = CEngine::GetInst()->GetMainWind();
-	memset(&OFN, 0, sizeof(OPENFILENAME));
-	OFN.lStructSize = sizeof(OPENFILENAME);
-	OFN.hwndOwner = hWnd;
-	OFN.lpstrFilter = filter;
-	OFN.lpstrFile = lpstrFile;
-	OFN.nMaxFile = 100;
-	wstring strInitPath = CPathMgr::GetContentPath();
+	wchar_t szSelect[256] = {};
+	OPENFILENAME OFN = {};
+	OFN.lStructSize = sizeof(OFN);
+	OFN.hwndOwner = nullptr;
+	OFN.lpstrFile = szSelect;
+	OFN.lpstrFile[0] = '\0';
+	OFN.nMaxFile = sizeof(szSelect);
+	OFN.lpstrFilter = L"ALL\0*.*\0애니메이션 파일\0*.anim";
+	OFN.nFilterIndex = 1;
+	OFN.lpstrFileTitle = NULL;
+	OFN.nMaxFileTitle = 0;
+	wstring strInitPath = CPathMgr::GetContentPath() + (wstring)L"texture\\";
 	OFN.lpstrInitialDir = strInitPath.c_str();
 	OFN.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 
@@ -222,8 +247,6 @@ void UIAnimPannel::OpenFileWindow()
 		}
 		else if (strExt == L".anim")
 		{
-			// 애니메이션 로드
-			//LoadAnim(m_AtlasKey);
 			// open save file
 			FILE* pFile = nullptr;
 			_wfopen_s(&pFile, (CPathMgr::GetContentPath() + relativePath).c_str(), L"rb");
@@ -275,6 +298,21 @@ void UIAnimPannel::Compile()
 
 	if (m_vecAnim.empty()) return;
 
+	// 오프셋 저장
+	if (m_vecAnim.size() != m_vecOffset.size())
+	{
+		MessageBoxA(nullptr, "선택된 프레임의 개수와 Offset파일의 개수가 다릅니다.", "Compile Failed", MB_OK);
+		//return;
+	}
+	else
+	{
+		// 저장
+		for (size_t i = 0; i < m_vecAnim.size(); ++i)
+		{
+			m_vecAnim[i].vOffsetUV = m_vecOffset[i];
+		}
+	}
+
 	// Animation Frm 기록
 	m_DetailPannel->SetAtlas(m_Atlas);
 	m_DetailPannel->UpdateFrm(m_vecAnim);
@@ -290,7 +328,7 @@ void UIAnimPannel::Save()
 	// create anim
 	CAnim* pAnim = new CAnim;
 	pAnim->Create(nullptr, m_Atlas, m_DetailPannel->GetFrms(), true);
-	pAnim->SetName(StrToWstr(m_DetailPannel->GetName()));
+	pAnim->SetName(StrToWstr(m_DetailPannel->GetAnimName()));
 
 	// open save file
 	FILE* pFile = nullptr;
@@ -389,4 +427,184 @@ void UIAnimPannel::Clear()
 	m_vecAnim.clear();
 	m_DetailPannel->Clear();
 	m_PreviewPannel->Clear();
+}
+
+void UIAnimPannel::ClearOffset()
+{
+	for (size_t i = 0; i < m_vecAnim.size(); ++i)
+	{
+		m_vecAnim[i].vOffsetUV = Vec2(0.f, 0.f);
+	}
+
+	m_vecOffset.clear();
+	m_DetailPannel->UpdateFrm(m_vecAnim);
+}
+
+// Usage: meta file 여는용 (최신버전)
+void UIAnimPannel::openFileDialog(vector<wstring>& _FilesName)
+{
+	// 탐색창
+	//wchar_t szSelect[256] = {};
+	//OPENFILENAME OFN = {};
+	//OFN.lStructSize = sizeof(OFN);
+	//OFN.hwndOwner = nullptr;
+	//OFN.lpstrFile = szSelect;
+	//OFN.lpstrFile[0] = '\0';
+	//OFN.nMaxFile = sizeof(szSelect);
+	//OFN.lpstrFilter = L"ALL\0*.*\0메타 파일\0*.meta";
+	//OFN.nFilterIndex = 1;
+	//OFN.lpstrFileTitle = NULL;
+	//OFN.nMaxFileTitle = 0;
+	//wstring strInitPath = CPathMgr::GetContentPath() + (wstring)L"meta\\";
+	//OFN.lpstrInitialDir = strInitPath.c_str();
+
+	IFileOpenDialog* pFileDialog;
+	HRESULT hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileDialog));
+	if (FAILED(hr)) {
+		std::cerr << "Failed to create FileOpenDialog instance" << std::endl;
+		return;
+	}
+
+	if (SUCCEEDED(hr)) {
+		// 원하는 초기 디렉토리 경로를 여기에 설정
+		wstring MetaPath = CPathMgr::GetContentPath() + (wstring)L"meta\\";
+		PWSTR initialDir = (PWSTR)(MetaPath.c_str());
+		IShellItem* pInitialDirItem;
+
+		hr = SHCreateItemFromParsingName(initialDir, NULL, IID_IShellItem, reinterpret_cast<void**>(&pInitialDirItem));
+
+		// 파일 대화 상자 인터페이스에 초기 디렉토리 설정
+		hr = pFileDialog->SetFolder(pInitialDirItem);
+	}
+
+	// 다중 선택 가능 설정
+	DWORD dwOptions;
+	hr = pFileDialog->GetOptions(&dwOptions);
+	if (SUCCEEDED(hr)) {
+		hr = pFileDialog->SetOptions(dwOptions | FOS_ALLOWMULTISELECT);
+	}
+
+	// 파일 필터 설정
+	COMDLG_FILTERSPEC fileTypes[] = { { L"All Files", L"*.*" }, { L"Text Files", L"*.txt" }, { L"FBX Files", L"*.fbx" } };
+	hr = pFileDialog->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
+	if (FAILED(hr)) {
+		std::cerr << "Failed to set file types" << std::endl;
+		pFileDialog->Release();
+		return;
+	}
+
+	// 대화 상자 열기
+	hr = pFileDialog->Show(NULL);
+	if (FAILED(hr)) {
+		std::cerr << "Failed to open FileOpenDialog" << std::endl;
+		pFileDialog->Release();
+		return;
+	}
+
+	// 선택된 파일 목록 가져오기
+	IShellItemArray* pItems;
+	hr = pFileDialog->GetResults(&pItems);
+	if (FAILED(hr)) {
+		std::cerr << "Failed to get selected items" << std::endl;
+		pFileDialog->Release();
+		return;
+	}
+
+	// 선택된 파일들의 경로 가져오기
+	DWORD itemCount;
+	hr = pItems->GetCount(&itemCount);
+	if (SUCCEEDED(hr)) {
+		for (DWORD i = 0; i < itemCount; ++i) {
+			IShellItem* pItem;
+			hr = pItems->GetItemAt(i, &pItem);
+			if (SUCCEEDED(hr)) {
+				PWSTR pszFilePath;
+				hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+				if (SUCCEEDED(hr)) {
+					_FilesName.push_back(pszFilePath);
+					CoTaskMemFree(pszFilePath);
+				}
+				pItem->Release();
+			}
+		}
+	}
+	pItems->Release();
+	pFileDialog->Release();
+}
+
+Vec2 UIAnimPannel::LoadMeta(const wstring& _strMetaRelativePath)
+{
+	Vec2 retVec = { -1,-1 };
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, (_strMetaRelativePath).c_str(), L"r");
+
+	if (nullptr == pFile)
+	{
+		MessageBoxA(nullptr, "Meta 파일이 존재하지 않습니다.", "Meta File No Exist!", MB_OK);
+		return {};
+	}
+
+	// Animation 이름 로드
+
+	while (true)
+	{
+		wchar_t szRead[256] = {};
+		float tmpfloat = -1.f;
+
+		if (EOF == fwscanf_s(pFile, L"%s", szRead, 256))
+		{
+			break;
+		}
+
+
+		if (!wcscmp(szRead, L"m_Offset:"))
+		{
+			while (true)
+			{
+				fwscanf_s(pFile, L"%s", szRead, 256);
+
+				if (!wcscmp(szRead, L"{x:"))
+				{
+					fwscanf_s(pFile, L"%f", &retVec.x);
+
+				}
+				if (!wcscmp(szRead, L"y:"))
+				{
+					fwscanf_s(pFile, L"%s", szRead, 256);
+
+					int length = (int)wcslen(szRead);
+
+					// 끝에 한글자 잘라야됨 1.24} 라고 되어있음
+					if (length > 0) {
+						szRead[length - 1] = '\0';
+					}
+
+					wchar_t* end;
+					float tmp = wcstof(szRead, &end);
+
+					if (*end == L'\0') {
+						retVec.y = -tmp;
+					}
+
+					return retVec;
+				}
+
+				// 탈출 조건
+				if (!wcscmp(szRead, L"m_Border:"))
+				{
+					break;
+				}
+			}
+
+		}
+		// 탈출 조건
+		if (!wcscmp(szRead, L"m_Border:"))
+			break;
+
+	}
+
+	fclose(pFile);
+
+	return retVec;
 }

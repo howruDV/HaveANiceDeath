@@ -29,6 +29,9 @@ public:
 
     void Clear();
 
+private:
+    void DrawCrosshair(const ImVec2& center, float size, ImDrawList* drawList);
+
 public:
     void SetAtlas(Ptr<CTexture> _atlas) { m_AtlasTex = _atlas; }
     void SetFrmSize(int _FrmSize) { m_FrmSize = _FrmSize; }

@@ -126,9 +126,6 @@
     <Filter Include="02. UI\6. AnimatorPannel">
       <UniqueIdentifier>{dd5f576c-1038-49f1-806b-5b9f4ae08329}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. UI\6. AnimatorPannel\trash">
-      <UniqueIdentifier>{0c1b7ca2-8174-409b-bb72-012d0b13f06c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. UI\6. AnimatorPannel\Detail">
       <UniqueIdentifier>{17c6c8b9-ce45-49cc-aef2-4d3966dfe8ca}</UniqueIdentifier>
     </Filter>
@@ -289,9 +286,6 @@
     </ClInclude>
     <ClInclude Include="UIAnimDetail.h">
       <Filter>02. UI\6. AnimatorPannel\Detail</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimExtern.h">
-      <Filter>02. UI\6. AnimatorPannel\trash</Filter>
     </ClInclude>
     <ClInclude Include="UIAnimPannel.h">
       <Filter>02. UI\6. AnimatorPannel</Filter>
