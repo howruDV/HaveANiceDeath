@@ -69,8 +69,9 @@ cbuffer ANIM_DATA2D : register(b2)
     float2  g_vCutSize;
     float2  g_vBackgroundSize;
     float2  g_vOffset;
+    float2  g_vAtlasSize;
     int     g_UseAnim2D;
-    float3  padding;
+    float  padding;
 }
 
 cbuffer GLOBAL_DATA : register(b3)

@@ -256,7 +256,7 @@ void UIAnimPannel::OpenFileWindow()
 			pAnim->LoadFromFile(pFile);
 
 			// close save file
-			fclose(pFile);
+			//fclose(pFile);
 
 			// atlas 세팅
 			LoadAtlas(pAnim->m_AtlasTex->GetKey());
@@ -443,21 +443,6 @@ void UIAnimPannel::ClearOffset()
 // Usage: meta file 여는용 (최신버전)
 void UIAnimPannel::openFileDialog(vector<wstring>& _FilesName)
 {
-	// 탐색창
-	//wchar_t szSelect[256] = {};
-	//OPENFILENAME OFN = {};
-	//OFN.lStructSize = sizeof(OFN);
-	//OFN.hwndOwner = nullptr;
-	//OFN.lpstrFile = szSelect;
-	//OFN.lpstrFile[0] = '\0';
-	//OFN.nMaxFile = sizeof(szSelect);
-	//OFN.lpstrFilter = L"ALL\0*.*\0메타 파일\0*.meta";
-	//OFN.nFilterIndex = 1;
-	//OFN.lpstrFileTitle = NULL;
-	//OFN.nMaxFileTitle = 0;
-	//wstring strInitPath = CPathMgr::GetContentPath() + (wstring)L"meta\\";
-	//OFN.lpstrInitialDir = strInitPath.c_str();
-
 	IFileOpenDialog* pFileDialog;
 	HRESULT hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileDialog));
 	if (FAILED(hr)) {

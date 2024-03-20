@@ -6,7 +6,7 @@
 // CMaterial: GameObject의 graphic 관련 관리
 // =======================================
 // - GameObject: mesh, matrial 가짐
-// - material은 shader를 가짐
+// - material은 texture, shader를 가짐
 
 class CMaterial :
     public CAsset

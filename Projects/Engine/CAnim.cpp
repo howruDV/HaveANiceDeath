@@ -54,6 +54,7 @@ void CAnim::UpdatePipeline()
 	data.vOffset = m_vecFrm[m_CurFrmIdx].vOffsetUV;
 	data.vCutSize = m_vecFrm[m_CurFrmIdx].vCutSizeUV;
 	data.vBackgroundSize = m_vecFrm[m_CurFrmIdx].vBackgroundSize;
+	data.g_vAtlasSize = Vec2(m_AtlasTex->GetWidth(), m_AtlasTex->GetHeight());
 
 	pCB->SetData(&data);
 	pCB->UpdatePipeline();

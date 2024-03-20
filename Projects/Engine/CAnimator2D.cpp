@@ -83,6 +83,29 @@ void CAnimator2D::Create(const wstring& _strKey, Ptr<CTexture> _AltasTex, const 
     m_mapAnim.insert(make_pair(_strKey, pAnim));
 }
 
+void CAnimator2D::Create(FILE* _File)
+{
+    CAnim* pAnim = new CAnim;
+    pAnim->LoadFromFile(_File);
+    pAnim->m_Animator = this;
+    m_mapAnim.insert(make_pair(pAnim->GetName(), pAnim));
+}
+
+void CAnimator2D::Create(CAnim* _Anim, const wstring& _strKey)
+{
+    wstring key = (_strKey == "")? _Anim->GetName() : _strKey;
+    if (not _Anim || key == "" || FindAnim(key))
+    {
+        MessageBoxA(nullptr, "No animation key specified.", "Failed to Create Animation", MB_OK);
+        return;
+    }
+
+    CAnim* pAnim = _Anim->Clone();
+    pAnim->SetName(key);
+    pAnim->m_Animator = this;
+    m_mapAnim.insert(make_pair(key, pAnim));
+}
+
 CAnim* CAnimator2D::FindAnim(const wstring& _strAnimName)
 {
     unordered_map<wstring, CAnim*>::iterator iter = m_mapAnim.find(_strAnimName);

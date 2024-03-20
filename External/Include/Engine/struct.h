@@ -173,8 +173,9 @@ struct FAnimData2D
 	Vec2 vCutSize;
 	Vec2 vBackgroundSize;
 	Vec2 vOffset;
-	int UseAnim2D;
-	Vec3 vPadding;
+	Vec2 g_vAtlasSize;
+	int	 UseAnim2D;
+	float vPadding;
 };
 
 struct FGlobalData		// 자주 사용하는 정보들 전달
