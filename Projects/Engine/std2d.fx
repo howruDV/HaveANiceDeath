@@ -28,7 +28,7 @@ VS_OUT VS_Std2D(VS_IN _in)
     
     // Offset 가져오기
     float2 vOffset = { g_vOffset.x * g_vAtlasSize.x, g_vOffset.y * g_vAtlasSize.y };
-    output.vPosition += float4(vOffset.x, vOffset.y, 0.f, 0.f);
+    output.vPosition -= float4(vOffset.x, vOffset.y, 0.f, 0.f);
     
     // World 저장
     output.vWorldPos = output.vPosition;

@@ -55,9 +55,9 @@ void UIInspectorPannel::SetTargetObject(CGameObject* _Object)
 	}
 	else
 	{
-		ResizeScriptVec(_Object->GetScripts().size());
-
 		const vector<CScript*>& vecScripts = _Object->GetScripts();
+		ResizeScriptVec(vecScripts.size());
+
 		for (size_t i = 0; i < vecScripts.size(); ++i)
 		{
 			m_vecScriptUI[i]->SetTargetObject(_Object);
@@ -89,12 +89,30 @@ void UIInspectorPannel::SetTargetAsset(Ptr<CAsset> _Asset)
 
 void UIInspectorPannel::ResizeScriptVec(UINT _Size)
 {
-	Delete_Vec(m_vecScriptUI);
+	if (m_vecScriptUI.size() > _Size)
+	{
+		for (int i = _Size; i < m_vecScriptUI.size(); ++i)
+		{
+			//m_vecScriptUI[i] = nullptr;
+			m_vecScriptUI[i]->Deactivate();
+		}
+	}
 
-	for (int i = 0; i < _Size; ++i)
+	while (m_vecScriptUI.size() < _Size)
 	{
 		UIScript* pScriptUI = new UIScript;
-		AddChild(pScriptUI);
 		m_vecScriptUI.push_back(pScriptUI);
+		AddChild(pScriptUI);
 	}
+
+	//Delete_Vec(m_vecScriptUI);
+
+	//for (int i = 0; i < _Size; ++i)
+	//{
+	//	UIScript* pScriptUI = new UIScript;
+	//	AddChild(pScriptUI);
+	//	m_vecScriptUI.push_back(pScriptUI);
+	//}
+
+	//m_vecScriptUI[0]->Deactivate();
 }

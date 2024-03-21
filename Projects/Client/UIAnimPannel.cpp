@@ -63,9 +63,15 @@ void UIAnimPannel::render_update()
 	// menu button
 	if (ImGui::Button("Compile", ImVec2(80.f, 30.f)))
 		Compile();
+
 	ImGui::SameLine();
 	if (ImGui::Button("Save", ImVec2(80.f, 30.f)))
 		Save();
+
+	ImGui::SameLine();
+	if (ImGui::Button("Brouse", ImVec2(80.f, 30.f)))
+		OpenFileWindow();
+
 	ImGui::SameLine();
 	if (ImGui::Button("Meta", ImVec2(80.f, 30.f)))
 	{
@@ -79,35 +85,31 @@ void UIAnimPannel::render_update()
 
 		for (size_t i = 0; i < FilesName.size(); ++i)
 		{
-			Vec2 CurFrmOffset = LoadMeta(FilesName[FilesName.size() - i - 1]);
+			Vec2 CurFrmOffset = LoadMeta(FilesName[i]);
 			m_vecOffset.push_back(CurFrmOffset);
 		}
 	}
-	ImGui::SameLine();
-	if (ImGui::Button("Brouse", ImVec2(100.f, 30.f)))
-		OpenFileWindow();
 
 	// UI button
 	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.25f, 0.25f, 0.25f, 1.f));
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.25f, 0.25f, 0.25f, 1.f));
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.25f, 0.25f, 0.25f, 1.f));
 
-
+	ImGui::SameLine();
 	ImGui::PushID(2);
-	ImGui::SameLine(ImGui::GetWindowWidth() - 180);
-	if (ImGui::Button("meta clear", ImVec2(70.f, 30.f)))
+	if (ImGui::Button("Meta clear", ImVec2(80.f, 30.f)))
 		ClearOffset();
 	ImGui::PopID();
 
 	ImGui::PushID(0);
 	ImGui::SameLine(ImGui::GetWindowWidth() - 120);
-	if (ImGui::Button("select all", ImVec2(70.f, 30.f)))
+	if (ImGui::Button("all", ImVec2(50.f, 30.f)))
 		ResetSelectVec(true);
 	ImGui::PopID();
 	
 	ImGui::PushID(1);
 	ImGui::SameLine(ImGui::GetWindowWidth() - 60);
-	if( ImGui::Button("select clear", ImVec2(70.f, 30.f)))
+	if( ImGui::Button("clear", ImVec2(50.f, 30.f)))
 		ResetSelectVec(false);
 	
 	ImGui::PopStyleColor(3);
@@ -341,6 +343,8 @@ void UIAnimPannel::Save()
 	// close save file
 	fclose(pFile);
 	delete pAnim;
+
+	MessageBoxA(nullptr, "Animation Saved", "Animation Saved", MB_OK);
 }
 
 void UIAnimPannel::LoadAtlas(const wstring& _RelativePath)
@@ -552,7 +556,6 @@ Vec2 UIAnimPannel::LoadMeta(const wstring& _strMetaRelativePath)
 				if (!wcscmp(szRead, L"{x:"))
 				{
 					fwscanf_s(pFile, L"%f", &retVec.x);
-
 				}
 				if (!wcscmp(szRead, L"y:"))
 				{

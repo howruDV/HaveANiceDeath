@@ -123,6 +123,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pCamObj->Camera()->SetCameraPriority(0);
 	pCamObj->Camera()->LayerCheckAll();
 	pCamObj->Camera()->LayerCheck(31, false);
+	pCamObj->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
 
 	pTempLevel->AddObject(pCamObj, L"Default", false);
 
@@ -253,25 +254,25 @@ void CCreateTempLevel::CreateTempLevel()
 	//pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 
 	// child
-	/*CGameObject* pChild = new CGameObject;
-	pChild->SetName(L"Child");
+	///*CGameObject* pChild = new CGameObject;
+	//pChild->SetName(L"Child");
 
-	pChild->AddComponent(new CTransform);
-	pChild->AddComponent(new CMeshRender);
+	//pChild->AddComponent(new CTransform);
+	//pChild->AddComponent(new CMeshRender);
 
-	pChild->Transform()->SetAbsolute(true);
-	pChild->Transform()->SetRelativePos(Vec3(100.f, 0.f, 0.f));
-	pChild->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+	//pChild->Transform()->SetAbsolute(true);
+	//pChild->Transform()->SetRelativePos(Vec3(100.f, 0.f, 0.f));
+	//pChild->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
 
-	pChild->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pChild->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
+	//pChild->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	//pChild->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
 
-	pObj->AddChild(pChild);*/
-	pTempLevel->AddObject(pObj, L"Player", false);
+	//pObj->AddChild(pChild);*/
+	//pTempLevel->AddObject(pObj, L"Player", false);
 
-	pObj = pObj->Clone();
-	pObj->SetName(L"PlayerClone");
-	pObj->Transform()->SetRelativePos(Vec3(-300.f, 0.f, 100.f));
+	//pObj = pObj->Clone();
+	//pObj->SetName(L"PlayerClone");
+	//pObj->Transform()->SetRelativePos(Vec3(-300.f, 0.f, 100.f));
 	pTempLevel->AddObject(pObj, L"Player", false);
 
 	// Monster

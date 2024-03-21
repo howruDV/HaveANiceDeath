@@ -62,21 +62,23 @@ void UIAnimPreview::render_update()
 	ImGui::BeginChild("##Prevew Image");
 
 	// size: grid
-	static float previewScaling = 800.f;
-	ImVec2 Size = ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y);
+	static float previewScaling = 0.5f;
+	ImVec2 atlasSize = ImVec2(m_AtlasTex->GetWidth(), m_AtlasTex->GetHeight());
+	ImVec2 Size = ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y) * atlasSize;
 	ImGuiIO& io = ImGui::GetIO();
 
 	if (io.MouseWheel != 0.0f && ImGui::IsWindowHovered()) 
 	{
-		float zoomSpeed = 50.f;
+		float zoomSpeed = 0.5f;
 		float zoomDelta = io.MouseWheel * zoomSpeed;
 		previewScaling += zoomDelta;
+		if (previewScaling < 0) previewScaling = 0;
 	}
 	Size *= previewScaling;
 
 	// 그리는 좌표: offset 계산 (y축 좌표 반대로)
 	ImVec2 CenterPos = ImGui::GetWindowContentRegionMax() * 0.5f;
-	ImVec2 ImgPos = CenterPos - (Size * 0.5) + ImVec2(m_CurFrm->vOffsetUV.x, m_CurFrm->vOffsetUV.y) * previewScaling;
+	ImVec2 ImgPos = CenterPos - (Size * 0.5) - ImVec2(m_CurFrm->vOffsetUV.x, m_CurFrm->vOffsetUV.y) * atlasSize * previewScaling;
 	ImGui::SetCursorPos(ImgPos);
 	ImVec2 LeftTopUV = ImVec2(m_CurFrm->vLeftTopUV.x, m_CurFrm->vLeftTopUV.y);
 	ImVec2 RightBottomUV = LeftTopUV + ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y);

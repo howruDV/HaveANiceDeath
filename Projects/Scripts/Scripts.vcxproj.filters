@@ -7,17 +7,17 @@
     <ClInclude Include="pch.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="CMissileScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayerScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="CScriptMgr.h">
       <Filter>ScriptMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CMissileScript.h">
+      <Filter>Scripts\Dummy</Filter>
+    </ClInclude>
     <ClInclude Include="CMonsterScript.h">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Dummy</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>Scripts\Dummy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -27,17 +27,17 @@
     <ClCompile Include="Scripts.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="CMissileScript.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="CScriptMgr.cpp">
       <Filter>ScriptMgr</Filter>
     </ClCompile>
+    <ClCompile Include="CMissileScript.cpp">
+      <Filter>Scripts\Dummy</Filter>
+    </ClCompile>
     <ClCompile Include="CMonsterScript.cpp">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>Scripts\Dummy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +49,9 @@
     </Filter>
     <Filter Include="ScriptMgr">
       <UniqueIdentifier>{7145593e-0694-420e-a0e1-38eef2e47fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Dummy">
+      <UniqueIdentifier>{1f12f475-b2cb-4dd4-84e6-e282ced10a1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

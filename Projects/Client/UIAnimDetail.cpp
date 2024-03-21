@@ -8,11 +8,11 @@
 UIAnimDetail::UIAnimDetail()
 	: UI("Detail", "##Animation Tool_Detail")
 	, m_AnimName("Untitled")
-	, m_NumCellsX(1)
+	, m_NumCellsX(10)
 	, m_NumCellsY(1)
 	, m_FPS(32)
 {
-	buf1[0] = '1';
+	buf1[0] = '1'; buf1[1] = '0';
 	buf2[0] = '1';
 	buf3[0] = '3'; buf3[1] = '2';
 	Deactivate();
@@ -120,10 +120,10 @@ void UIAnimDetail::Clear()
 	m_Atlas = nullptr;
 	m_vecAnimUV.clear();
 	sprintf(m_AnimName, "%s", "Untitled");
-	m_NumCellsX = 1;
+	m_NumCellsX = 10;
 	m_NumCellsY = 1;
-	sprintf(buf1, "%s", "1");
-	sprintf(buf1, "%s", "1");
+	sprintf(buf1, "%s", "10");
+	sprintf(buf2, "%s", "1");
 }
 
 void UIAnimDetail::UpdateFrm(vector<FAnimFrm>& _vec)
