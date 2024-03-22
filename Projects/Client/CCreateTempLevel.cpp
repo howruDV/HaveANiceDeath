@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "CCreateTempLevel.h"
 #include "CLevelSaveLoad.h"
-#include "CIdleState.h"
-#include "CTraceState.h"
+
+#include <States/CIdleState.h>
+#include <States/CTraceState.h>
 
 #include <Engine/CLevelMgr.h>
 #include <Engine/CAssetMgr.h>
@@ -51,6 +52,21 @@ void CCreateTempLevel::Init()
 
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"NormalMonsterFSM", pFSM.Get());
 
+	// -----------------------------------------------FSM CODEGEN TEST
+	//CFSM* pFSM = new CFSM(nullptr, true);
+
+	//pFSM->AddState(L"IdleState", new CIdleState);
+	////pFSM->AddState(L"TraceState", new CTraceState);
+
+	//wchar_t szPath[255] = {};
+	//wstring FilePath = CPathMgr::GetContentPath();
+
+	//swprintf_s(szPath, L"FSM//TestFSM.fsm");
+
+	//pFSM->SetName(szPath);
+	//pFSM->Save(szPath);
+
+	//CAssetMgr::GetInst()->AddAsset<CFSM>(szPath, pFSM);
 }
 
 void CCreateTempLevel::CreateTempLevel()
@@ -253,6 +269,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
 	//pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 
+
 	// child
 	///*CGameObject* pChild = new CGameObject;
 	//pChild->SetName(L"Child");
@@ -283,7 +300,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->AddComponent(new CMeshRender);
 	pObj->AddComponent(new CCollider2D);
 	pObj->AddComponent(new CStateMachine);
-	pObj->AddComponent(new CMonsterScript_Test);
+	//pObj->AddComponent(new CMonsterScript_Test);
 
 	pObj->Transform()->SetRelativePos(Vec3(200.f, 0.f, 100.f));
 	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
@@ -296,7 +313,12 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Fighter.bmp"));
 
-	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"NormalMonsterFSM"));
+	//pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"NormalMonsterFSM"));
+
+	wchar_t szPath[255] = {};
+	wstring FilePath = CPathMgr::GetContentPath();
+	swprintf_s(szPath, L"FSM\\TestFSM.fsm");
+	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->Load<CFSM>(szPath));
 
 	pTempLevel->AddObject(pObj, L"Monster", false);
 

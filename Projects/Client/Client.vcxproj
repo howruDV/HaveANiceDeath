@@ -148,11 +148,9 @@
     <ClInclude Include="CCreateTempLevel.h" />
     <ClInclude Include="CEditorObj.h" />
     <ClInclude Include="CEditorObjMgr.h" />
-    <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CImGuiMgr.h" />
     <ClInclude Include="CLevelSaveLoad.h" />
     <ClInclude Include="Client.h" />
-    <ClInclude Include="CTraceState.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
@@ -202,10 +200,8 @@
     <ClCompile Include="CCreateTempLevel.cpp" />
     <ClCompile Include="CEditorObj.cpp" />
     <ClCompile Include="CEditorObjMgr.cpp" />
-    <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CImGuiMgr.cpp" />
     <ClCompile Include="CLevelSaveLoad.cpp" />
-    <ClCompile Include="CTraceState.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />

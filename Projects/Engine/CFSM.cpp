@@ -2,6 +2,7 @@
 #include "CFSM.h"
 #include "CTaskMgr.h"
 #include "CStateMachine.h"
+#include <States/CStateMgr.h>
 
 CFSM::CFSM(CFSM* _Origin, bool _bEngine)
 	: CAsset(ASSET_TYPE::FSM, _bEngine)
@@ -33,6 +34,76 @@ void CFSM::finaltick()
 		m_CurState->m_FSM = this;
 		m_CurState->finaltick();
 	}
+}
+
+int CFSM::Save(const wstring& _strRelativePath)
+{
+	wstring strFilePath = CPathMgr::GetContentPath();
+	strFilePath += _strRelativePath;
+
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, strFilePath.c_str(), L"wb");
+
+	// State의 개수 저장
+	size_t StateCount = m_mapState.size();
+	fwrite(&StateCount, sizeof(size_t), 1, pFile);
+
+	// State 저장
+	unordered_map<wstring, CState*>::iterator iter = m_mapState.begin();
+
+	for (; iter != m_mapState.end(); ++iter)
+	{
+		// State Key 저장
+		SaveWString(iter->first, pFile);
+
+		// State Type 저장
+		UINT StateType = iter->second->GetStateType();
+		fwrite(&StateType, sizeof(UINT), 1, pFile);
+
+		// State 저장
+		SaveWString(CStateMgr::GetStateName(iter->second), pFile);
+		//iter->second->SaveToFile(pFile);
+	}
+
+	fclose(pFile);
+
+	return S_OK;
+}
+
+int CFSM::Load(const wstring& _strFilePath)
+{
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, _strFilePath.c_str(), L"rb");
+
+	if (nullptr == pFile)
+		return E_FAIL;
+
+	// State 개수 로드
+	size_t StateCount = 0;
+	fread(&StateCount, sizeof(size_t), 1, pFile);
+
+	// 스테이트 로드
+	for (size_t i = 0; i < StateCount; ++i)
+	{
+		// 스테이트 키 로드
+		wstring StateKey;
+		LoadWString(StateKey, pFile);
+
+		// 스테이트 타입 로드
+		UINT StateType;
+		fread(&StateType, sizeof(UINT), 1, pFile);
+
+		// 스테이트 생성
+		CState* pState = CStateMgr::GetState(StateType);
+		//pState->LoadFromFile(pFile);
+
+		pState->m_FSM = this;
+		m_mapState.insert(make_pair(StateKey, pState));
+	}
+
+	fclose(pFile);
+
+	return S_OK;
 }
 
 void CFSM::AddState(const wstring& _StateName, CState* _State)

@@ -19,7 +19,6 @@
     <ClInclude Include="CPlayerScript_Test.h">
       <Filter>Scripts\Dummy</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -40,7 +39,6 @@
     <ClCompile Include="CPlayerScript_Test.cpp">
       <Filter>Scripts\Dummy</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">

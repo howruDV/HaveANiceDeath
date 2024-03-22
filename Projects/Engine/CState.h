@@ -15,11 +15,15 @@ class CState :
 {
 private:
     CFSM* m_FSM;    // 이 state를 소유한 FSM (AI)
+    const UINT              m_StateType;
 
 public:
     virtual void finaltick() = 0;
     virtual void Enter() = 0;
     virtual void Exit() = 0;
+
+public:
+    UINT GetStateType() { return m_StateType; }
 
 protected:
     void ChangeState(const wstring& _strStateName);
@@ -28,8 +32,7 @@ protected:
 
 public:
     CLONE_DISABLE(CState);
-
-    CState();
+    CState(UINT StateType);
     ~CState();
 
     friend class CFSM;

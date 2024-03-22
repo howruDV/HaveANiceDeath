@@ -105,9 +105,6 @@
     <Filter Include="02. UI\3. InspectorPannel\AssetUI\Prefab">
       <UniqueIdentifier>{cd12a3d7-5045-4d30-909f-811d49852eff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. State">
-      <UniqueIdentifier>{ec347e82-5476-4c04-9b15-2acaf272266a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. UI\3. InspectorPannel\AssetUI\FSM">
       <UniqueIdentifier>{afa46d5e-3651-44f3-ae7b-e91fd42674bb}</UniqueIdentifier>
     </Filter>
@@ -269,12 +266,6 @@
     <ClInclude Include="UIPrefab.h">
       <Filter>02. UI\3. InspectorPannel\AssetUI\Prefab</Filter>
     </ClInclude>
-    <ClInclude Include="CTraceState.h">
-      <Filter>04. State</Filter>
-    </ClInclude>
-    <ClInclude Include="CIdleState.h">
-      <Filter>04. State</Filter>
-    </ClInclude>
     <ClInclude Include="UIFSM.h">
       <Filter>02. UI\3. InspectorPannel\AssetUI\FSM</Filter>
     </ClInclude>
@@ -428,12 +419,6 @@
     </ClCompile>
     <ClCompile Include="UIPrefab.cpp">
       <Filter>02. UI\3. InspectorPannel\AssetUI\Prefab</Filter>
-    </ClCompile>
-    <ClCompile Include="CTraceState.cpp">
-      <Filter>04. State</Filter>
-    </ClCompile>
-    <ClCompile Include="CIdleState.cpp">
-      <Filter>04. State</Filter>
     </ClCompile>
     <ClCompile Include="UIFSM.cpp">
       <Filter>02. UI\3. InspectorPannel\AssetUI\FSM</Filter>

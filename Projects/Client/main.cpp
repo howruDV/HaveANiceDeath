@@ -7,12 +7,15 @@
 #include <Engine\CEngine.h>
 #include <Engine/CDevice.h>
 #include <Engine/CPrefab.h>
+
 #ifdef _DEBUG
 #pragma comment(lib, "Engine\\Engine_debug.lib")
 #pragma comment(lib, "Scripts\\Scripts_debug.lib")
+#pragma comment(lib, "States\\States_d.lib")
 #else
 #pragma comment(lib, "Engine\\Engine.lib")
 #pragma comment(lib, "Scripts\\Scripts.lib")
+#pragma comment(lib, "States\\States.lib")
 #endif
 
 #include "imgui.h"

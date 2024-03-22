@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Default">
+      <UniqueIdentifier>{001ab9d7-e656-49be-8771-50c97d4a1614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{76c1e4c2-d3df-4952-b9ad-0be3da670c2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StateMgr">
+      <UniqueIdentifier>{362bcb0c-c278-4639-bded-1a733a81f9eb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="CStateMgr.h">
+      <Filter>StateMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CIdleState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="CTraceState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="States.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="CStateMgr.cpp">
+      <Filter>StateMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CIdleState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="CTraceState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -24,6 +24,10 @@ private:
     CBlackboard*                    m_Blackboard_FSM;   // 기록한 FSM 정보 (실제소유: 컴포넌트)
 
 public:
+    virtual int Save(const wstring& _strRelativePath);
+    virtual int Load(const wstring& _strFilePath);
+
+public:
     void SetStateMachine(CStateMachine* _SM) { if (m_Origin) { m_StateMachie = _SM; } }
     void AddState(const wstring& _StateName, CState* _State);
     void SetState(const wstring& _strState) {m_CurState = FindState(_strState); }

@@ -162,7 +162,6 @@ call ScriptsCopy.bat</Command>
   <ItemGroup>
     <ClInclude Include="CMissileScript_Test.h" />
     <ClInclude Include="CMonsterScript_Test.h" />
-    <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayerScript_Test.h" />
     <ClInclude Include="CScriptMgr.h" />
     <ClInclude Include="framework.h" />
@@ -171,7 +170,6 @@ call ScriptsCopy.bat</Command>
   <ItemGroup>
     <ClCompile Include="CMissileScript_Test.cpp" />
     <ClCompile Include="CMonsterScript_Test.cpp" />
-    <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayerScript_Test.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />
     <ClCompile Include="pch.cpp">
