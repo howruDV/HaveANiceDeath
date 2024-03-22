@@ -40,6 +40,12 @@ void CStateMachine::AddBlackboardData(const wstring& _strKey, BB_DATA _Type, voi
 
 Ptr<CFSM> CStateMachine::GetFSM()
 {
+	if (not m_FSM_Origin.Get())
+	{
+		MessageBoxA(nullptr, "There is No Original FSM", "Failed to return FSM Instance", MB_OK);
+		return nullptr;
+	}
+
 	if (not m_FSM_Inst.Get())
 	{
 		//return m_FSM_Origin;  // @TODO: Instance 안만들고?

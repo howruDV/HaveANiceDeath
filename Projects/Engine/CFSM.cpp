@@ -8,7 +8,7 @@ CFSM::CFSM(CFSM* _Origin, bool _bEngine)
 	: CAsset(ASSET_TYPE::FSM, _bEngine)
 	, m_Origin(_Origin)
 	, m_Blackboard_OBJ(nullptr)
-	, m_StateMachie(nullptr)
+	, m_StateMachine(nullptr)
 	, m_CurState(nullptr)
 {
 	// origin인 경우
@@ -111,6 +111,7 @@ void CFSM::AddState(const wstring& _StateName, CState* _State)
 	assert(!(FindState(_StateName)));
 
 	_State->m_FSM = this;
+	_State->SetName(_StateName);
 	m_mapState.insert(make_pair(_StateName, _State));
 }
 
@@ -126,6 +127,9 @@ CState* CFSM::FindState(const wstring& _StateName)
 
 void CFSM::ChangeState(const wstring& _strState)
 {
+	if (_strState == m_CurState->GetName())
+		return;
+
 	// 1. next state check
 	CState* pNextState = FindState(_strState);
 	assert(pNextState);
@@ -134,7 +138,7 @@ void CFSM::ChangeState(const wstring& _strState)
 	// Param1: Parent Object    |   Param2: Next State
 	FTask pTask = {};
 	pTask.Type = TASK_TYPE::CHANGE_STATE;
-	pTask.Param_1 = (UINT_PTR)m_StateMachie->GetOwner();
+	pTask.Param_1 = (UINT_PTR)m_StateMachine->GetOwner();
 	pTask.Param_2 = (UINT_PTR)pNextState;
 	CTaskMgr::GetInst()->AddTask(pTask);
 }
@@ -151,7 +155,7 @@ void CFSM::ChangeState_proc(CState* _pNextState)
 
 CFSM* CFSM::GetFSMIstance()
 {
-	CFSM* pFSMInst = new CFSM(this);
+	CFSM* pFSMInst = new CFSM(this, true);	// @TODO 터지면 엔진에셋 true체크
 
 	pFSMInst->m_mapState = m_mapState;
 	pFSMInst->m_Blackboard_OBJ = nullptr;

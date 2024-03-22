@@ -14,8 +14,8 @@ class CState :
     public CEntity
 {
 private:
-    CFSM* m_FSM;    // 이 state를 소유한 FSM (AI)
-    const UINT              m_StateType;
+    CFSM*           m_FSM;    // 이 state를 소유한 FSM (AI)
+    const UINT      m_StateType;
 
 public:
     virtual void finaltick() = 0;

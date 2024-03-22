@@ -170,8 +170,8 @@ void CImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11
 	//IM_ASSERT(font != nullptr);
 
 	wstring strContentPath = CPathMgr::GetContentPath();
-	wstring fontPath = strContentPath + L"font\\AppleSDGothicNeoL.ttf";
-	//io.Fonts->AddFontFromFileTTF(WstrToStr(fontPath).c_str(), 17.0f, NULL, io.Fonts->GetGlyphRangesKorean());
+	wstring fontPath = strContentPath + L"font\\NanumSquare_acR.ttf";
+	io.Fonts->AddFontFromFileTTF(WstrToStr(fontPath).c_str(), 15.0f, NULL, io.Fonts->GetGlyphRangesKorean());
 
 	// ---------------------------
 	// Mgr Initializing

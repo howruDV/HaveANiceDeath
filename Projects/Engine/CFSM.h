@@ -16,7 +16,7 @@ class CFSM :
 {
 private:
     CFSM*                           m_Origin;       // 원본 FSM
-    CStateMachine*                  m_StateMachie;  // FSM을 사용하는 StateMachine
+    CStateMachine*                  m_StateMachine;  // FSM을 사용하는 StateMachine
 
     unordered_map<wstring, CState*> m_mapState;     // FSM이 가질 수 있는 상태
     CState*                         m_CurState;     // FSM의 현재 상태
@@ -28,16 +28,18 @@ public:
     virtual int Load(const wstring& _strFilePath);
 
 public:
-    void SetStateMachine(CStateMachine* _SM) { if (m_Origin) { m_StateMachie = _SM; } }
+    void SetStateMachine(CStateMachine* _SM) { if (m_Origin) { m_StateMachine = _SM; } }
     void AddState(const wstring& _StateName, CState* _State);
-    void SetState(const wstring& _strState) {m_CurState = FindState(_strState); }
+    void SetState(const wstring& _strState) { m_CurState = FindState(_strState); }
     void ChangeState(const wstring& _strStateName);
-    void ChangeState_proc(CState* _pNextState);
     CState* FindState(const wstring& _StateName);
     CFSM* GetFSMIstance();
-    CStateMachine* GetStateMachine() { return m_StateMachie; }
+    CStateMachine* GetStateMachine() { return m_StateMachine; }
     CBlackboard* GetBlackboard_OBJ() { return m_Blackboard_OBJ; }
     CBlackboard* GetBlackboard_FSM() { return m_Blackboard_FSM; }
+
+private:
+    void ChangeState_proc(CState* _pNextState);
 
 public:
     void finaltick();
@@ -46,4 +48,6 @@ public:
     CLONE_DISABLE(CFSM);
     CFSM(CFSM* _Origin, bool _bEngine = false);
     ~CFSM();
+
+    friend class CTaskMgr;
 };

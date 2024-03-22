@@ -10,6 +10,9 @@
     <Filter Include="StateMgr">
       <UniqueIdentifier>{362bcb0c-c278-4639-bded-1a733a81f9eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Dummy">
+      <UniqueIdentifier>{884800aa-1073-47f6-9fe0-2e16c1475f79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -22,10 +25,10 @@
       <Filter>StateMgr</Filter>
     </ClInclude>
     <ClInclude Include="CIdleState.h">
-      <Filter>States</Filter>
+      <Filter>States\Dummy</Filter>
     </ClInclude>
     <ClInclude Include="CTraceState.h">
-      <Filter>States</Filter>
+      <Filter>States\Dummy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -39,10 +42,10 @@
       <Filter>StateMgr</Filter>
     </ClCompile>
     <ClCompile Include="CIdleState.cpp">
-      <Filter>States</Filter>
+      <Filter>States\Dummy</Filter>
     </ClCompile>
     <ClCompile Include="CTraceState.cpp">
-      <Filter>States</Filter>
+      <Filter>States\Dummy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

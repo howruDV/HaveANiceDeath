@@ -12,7 +12,7 @@ class CStateMachine :
     public CComponent
 {
 private:
-    Ptr<CFSM>       m_FSM_Origin;          // 선택한 인공지능 원본
+    Ptr<CFSM>       m_FSM_Origin;   // 선택한 인공지능 원본
     Ptr<CFSM>       m_FSM_Inst;     // 선택한 인공지능 Instance
     CBlackboard     m_Blackboard;   // obj 전용 기록
 
@@ -20,6 +20,7 @@ public:
     void SetFSM(Ptr<CFSM> _FSM);
     void AddBlackboardData(const wstring& _strKey, BB_DATA _Type, void* _pData);
     Ptr<CFSM> GetFSM();
+    Ptr<CFSM> GetFSMOrigin() { return m_FSM_Origin; }
     void* GetBlackboardData(const wstring& _strKey);
 
 public:
