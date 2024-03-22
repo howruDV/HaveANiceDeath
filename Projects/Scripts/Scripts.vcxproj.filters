@@ -19,6 +19,7 @@
     <ClInclude Include="CPlayerScript_Test.h">
       <Filter>Scripts\Dummy</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -39,6 +40,7 @@
     <ClCompile Include="CPlayerScript_Test.cpp">
       <Filter>Scripts\Dummy</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -52,6 +54,12 @@
     </Filter>
     <Filter Include="Scripts\Dummy">
       <UniqueIdentifier>{1f12f475-b2cb-4dd4-84e6-e282ced10a1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State">
+      <UniqueIdentifier>{0ed44883-8b47-4f02-afc8-115965b6b6e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit">
+      <UniqueIdentifier>{4df81294-5a06-45c1-8ba4-413d46147310}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
