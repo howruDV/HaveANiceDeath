@@ -10,13 +10,13 @@
     <ClInclude Include="CScriptMgr.h">
       <Filter>ScriptMgr</Filter>
     </ClInclude>
-    <ClInclude Include="CMissileScript.h">
+    <ClInclude Include="CMissileScript_Test.h">
       <Filter>Scripts\Dummy</Filter>
     </ClInclude>
-    <ClInclude Include="CMonsterScript.h">
+    <ClInclude Include="CMonsterScript_Test.h">
       <Filter>Scripts\Dummy</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerScript.h">
+    <ClInclude Include="CPlayerScript_Test.h">
       <Filter>Scripts\Dummy</Filter>
     </ClInclude>
   </ItemGroup>
@@ -30,13 +30,13 @@
     <ClCompile Include="CScriptMgr.cpp">
       <Filter>ScriptMgr</Filter>
     </ClCompile>
-    <ClCompile Include="CMissileScript.cpp">
+    <ClCompile Include="CMissileScript_Test.cpp">
       <Filter>Scripts\Dummy</Filter>
     </ClCompile>
-    <ClCompile Include="CMonsterScript.cpp">
+    <ClCompile Include="CMonsterScript_Test.cpp">
       <Filter>Scripts\Dummy</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
+    <ClCompile Include="CPlayerScript_Test.cpp">
       <Filter>Scripts\Dummy</Filter>
     </ClCompile>
   </ItemGroup>

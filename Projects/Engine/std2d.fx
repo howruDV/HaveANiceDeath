@@ -31,7 +31,7 @@ VS_OUT VS_Std2D(VS_IN _in)
     output.vPosition -= float4(vOffset.x, vOffset.y, 0.f, 0.f);
     
     // World 저장
-    output.vWorldPos = output.vPosition;
+    output.vWorldPos = output.vPosition.xyz;
     
     // View, Proj 행렬 
     output.vPosition = mul(output.vPosition, g_matView);

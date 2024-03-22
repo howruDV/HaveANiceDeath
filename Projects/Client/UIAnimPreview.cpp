@@ -63,7 +63,7 @@ void UIAnimPreview::render_update()
 
 	// size: grid
 	static float previewScaling = 0.5f;
-	ImVec2 atlasSize = ImVec2(m_AtlasTex->GetWidth(), m_AtlasTex->GetHeight());
+	ImVec2 atlasSize = ImVec2((float)m_AtlasTex->GetWidth(), (float)m_AtlasTex->GetHeight());
 	ImVec2 Size = ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y) * atlasSize;
 	ImGuiIO& io = ImGui::GetIO();
 
@@ -78,7 +78,7 @@ void UIAnimPreview::render_update()
 
 	// 그리는 좌표: offset 계산 (y축 좌표 반대로)
 	ImVec2 CenterPos = ImGui::GetWindowContentRegionMax() * 0.5f;
-	ImVec2 ImgPos = CenterPos - (Size * 0.5) - ImVec2(m_CurFrm->vOffsetUV.x, m_CurFrm->vOffsetUV.y) * atlasSize * previewScaling;
+	ImVec2 ImgPos = CenterPos - (Size * 0.5) - ImVec2(m_CurFrm->vOffsetUV.x, -m_CurFrm->vOffsetUV.y) * atlasSize * previewScaling;
 	ImGui::SetCursorPos(ImgPos);
 	ImVec2 LeftTopUV = ImVec2(m_CurFrm->vLeftTopUV.x, m_CurFrm->vLeftTopUV.y);
 	ImVec2 RightBottomUV = LeftTopUV + ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y);

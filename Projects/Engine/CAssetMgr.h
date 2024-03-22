@@ -112,7 +112,10 @@ inline Ptr<T> CAssetMgr::Load(const wstring& _strKey, const wstring& _strRelativ
         return (T*)pAsset.Get();
 
     // 2. load asset
-    pAsset = new T;
+    if constexpr (std::is_same_v<CFSM, T>)
+        pAsset = new CFSM(nullptr);
+    else
+        pAsset = new T;
     wstring strFilePath = CPathMgr::GetContentPath() + _strRelativePath;
 
     if (FAILED(pAsset->Load(strFilePath)))
@@ -144,6 +147,7 @@ inline void CAssetMgr::AddAsset(const wstring& _strKey, T* _Asset)
     assert(iter == m_hashAsset[(UINT)Type].end());
 
     _Asset->SetKey(_strKey);
+    _Asset->SetRelativePath(_strKey);
     m_hashAsset[(UINT)Type].insert(make_pair(_strKey, _Asset));
 }
 

@@ -41,7 +41,7 @@ void CTimeMgr::tick()
 		m_DeltaTime = (1.f / 60.f);
 
 	// 1 tick
-	m_fTime += m_EngineDeltaTime;
+	m_fTime += (float)m_EngineDeltaTime;
 	m_szText[50] = {};
 	if (1.f <= m_fTime)
 	{		

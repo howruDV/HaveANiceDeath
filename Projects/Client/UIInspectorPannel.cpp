@@ -56,7 +56,7 @@ void UIInspectorPannel::SetTargetObject(CGameObject* _Object)
 	else
 	{
 		const vector<CScript*>& vecScripts = _Object->GetScripts();
-		ResizeScriptVec(vecScripts.size());
+		ResizeScriptVec((UINT)vecScripts.size());
 
 		for (size_t i = 0; i < vecScripts.size(); ++i)
 		{

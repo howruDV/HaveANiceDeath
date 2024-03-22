@@ -229,7 +229,7 @@ void UIMenuPannel::Asset()
             int num = 0;
             while (true)
             {
-                swprintf_s(szPath, L"Material//New Material_%d.mat", num);
+                swprintf_s(szPath, L"material\\New Material_%d.mat", num);
                 if (!exists(FilePath + szPath))
                     break;
                 ++num;
@@ -237,7 +237,7 @@ void UIMenuPannel::Asset()
 
             CMaterial* pMat = new CMaterial;
             pMat->SetName(szPath);
-            pMat->Save(szPath);
+            //pMat->Save(szPath); (level save시 일괄저장)
             GamePlayStatic::AddAsset(pMat);
         }
 

@@ -18,9 +18,9 @@
 
 #include <Engine/CSetColorShader.h>
 
-#include <Scripts/CPlayerScript.h>
-#include <Scripts/CMissileScript.h>
-#include <Scripts/CMonsterScript.h>
+#include <Scripts/CPlayerScript_Test.h>
+#include <Scripts/CMissileScript_Test.h>
+#include <Scripts/CMonsterScript_Test.h>
 
 
 void CCreateTempLevel::Init()
@@ -45,7 +45,7 @@ void CCreateTempLevel::Init()
 	//pMissilePrefab->Save(L"prefab\\missile.pref");
 
 	// 임시 FSM (AI Asset) 객체 생성
-	Ptr<CFSM>	pFSM = new CFSM(true);
+	Ptr<CFSM>	pFSM = new CFSM(nullptr, true);
 	pFSM->AddState(L"IdleState", new CIdleState);
 	pFSM->AddState(L"TraceState", new CTraceState);
 
@@ -237,7 +237,7 @@ void CCreateTempLevel::CreateTempLevel()
 
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CMeshRender);
-	pObj->AddComponent(new CPlayerScript);
+	pObj->AddComponent(new CPlayerScript_Test);
 	pObj->AddComponent(new CCollider2D);
 	pObj->AddComponent(new CAnimator2D);
 
@@ -283,7 +283,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->AddComponent(new CMeshRender);
 	pObj->AddComponent(new CCollider2D);
 	pObj->AddComponent(new CStateMachine);
-	pObj->AddComponent(new CMonsterScript);
+	pObj->AddComponent(new CMonsterScript_Test);
 
 	pObj->Transform()->SetRelativePos(Vec3(200.f, 0.f, 100.f));
 	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));

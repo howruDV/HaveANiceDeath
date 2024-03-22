@@ -33,12 +33,12 @@ public:
     virtual void Deactivate() override;
     void Clear();
 
-    void SetAtlas(Ptr<CTexture> _atlas) { m_Atlas = _atlas; }
+    void SetAtlas(Ptr<CTexture> _atlas, const string& _animName) { m_Atlas = _atlas; sprintf_s(m_AnimName, "%s", _animName.c_str()); }
     void SetFrm(vector<FAnimFrm> _vec) { m_vecAnimUV = _vec; }
     void UpdateFrm(vector<FAnimFrm>& _vec);
 
     string GetAnimName() { return string(m_AnimName); }
-    ImVec2 GetGridNum() { return ImVec2(m_NumCellsX, m_NumCellsY); }
+    ImVec2 GetGridNum() { return ImVec2((float)m_NumCellsX, (float)m_NumCellsY); }
     int GetFPS() { return m_FPS; }
     FAnimFrm& GetFrmByIdx(int idx) { return m_vecAnimUV[idx]; }
     vector<FAnimFrm>& GetFrms() { return m_vecAnimUV; }

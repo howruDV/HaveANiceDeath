@@ -19,6 +19,7 @@ CLevel::CLevel()
 CLevel::CLevel(const CLevel& _OriginLevel)
 	: CEntity(_OriginLevel)
 	, m_arrLayer{}
+	, m_State(_OriginLevel.m_State)
 {
 	for (UINT i = 0; i < LAYER_MAX; ++i)
 	{

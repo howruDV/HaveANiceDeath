@@ -86,6 +86,11 @@ void CAnimator2D::Create(const wstring& _strKey, Ptr<CTexture> _AltasTex, const 
 
 void CAnimator2D::Create(FILE* _File)
 {
+    if (not _File)
+    {
+        MessageBoxA(nullptr, "Can't open file or Animation file path is wrong!", "Failed To Open Create Animation", MB_OK);
+    }
+
     CAnim* pAnim = new CAnim;
     pAnim->LoadFromFile(_File);
     pAnim->m_Animator = this;

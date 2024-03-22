@@ -86,7 +86,7 @@ void UIAnimDetail::render_update()
 			ImGui::Text("Offset  "); ImGui::SameLine(); ImGui::DragFloat2(ID.c_str(), vOffset, 0.1f);
 
 			// frame input
-			int fFps = 1.f / m_vecAnimUV[i].fDuration;
+			int fFps = int(1.f / m_vecAnimUV[i].fDuration);
 			ImGui::Text("FPS     "); ImGui::SameLine(); ImGui::DragInt(ID.c_str(), &fFps, 0.1f);
 
 			ImGui::EndChild();

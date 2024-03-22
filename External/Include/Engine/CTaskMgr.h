@@ -33,6 +33,8 @@ enum class TASK_TYPE
     // Param1: Collider Address
     COLLIDER2D_DEACTIVE,
 
+    // Param1: Parent Object    |   Param2: Next State
+    CHANGE_STATE
 };
 
 struct FTask

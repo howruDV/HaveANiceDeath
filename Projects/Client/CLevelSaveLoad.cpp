@@ -9,13 +9,29 @@
 #include <Engine/components.h>
 #include <Engine/CAssetMgr.h>
 #include <Engine/CScript.h>
+#include <Engine/CMaterial.h>
 #include <Scripts/CScriptMgr.h>
 
 void CLevelSaveLoad::SaveLevel(CLevel* _Level, const wstring& _strLevelPath)
 {
 	assert(_Level);
 	if (not(_Level->GetState() == LEVEL_STATE::STOP || _Level->GetState() == LEVEL_STATE::NONE))
-		return;	// @TODO 알람
+	{
+		MessageBox(nullptr, L"Failed to Save Level", L"Failed to Save Level", MB_OK);
+		return;
+	}
+
+	// save all using materials
+	const unordered_map<wstring, Ptr<CAsset>>& mapAsset = CAssetMgr::GetInst()->GetAssetsByType(ASSET_TYPE::MATERIAL);
+	for (const pair<wstring, Ptr<CAsset>>& pair : mapAsset)
+	{
+		// case: 엔진 에셋인 경우, 엔진 에셋은 파일로부터 로딩된 에셋이 아니라 프로그램 실행 도중 만들어진 임시 에셋
+		if (pair.second->IsEngineAsset())
+			continue;
+
+		Ptr<CMaterial> saveMat = dynamic_cast<CMaterial*>(pair.second.Get());
+		saveMat->Save(pair.second->GetKey());
+	}
 
 	// open save file
 	FILE* pFile = nullptr;

@@ -118,7 +118,14 @@ void UIAnimPannel::render_update()
 	// atlas
 	if (m_Atlas.Get())
 	{
-		ImGui::Text("size : %d x %d", m_Atlas.Get()->GetWidth(), m_Atlas.Get()->GetHeight());
+		string fileName = path(m_AtlasKey).filename().stem().generic_string();
+		int selectCount = 0;
+		for (int i = 0; i < m_vecGridSelect.size(); ++i)
+		{
+			for (int j = 0; j < m_vecGridSelect[i].size(); ++j)
+				if (m_vecGridSelect[i][j])  selectCount++;
+		}
+		ImGui::Text("[%s] size : %d x %d, select : %d", fileName.c_str(), m_Atlas.Get()->GetWidth(), m_Atlas.Get()->GetHeight(), selectCount);
 
 		// draw atlas
 		ImGui::BeginChild("atlas_image");
@@ -264,12 +271,13 @@ void UIAnimPannel::OpenFileWindow()
 			LoadAtlas(pAnim->m_AtlasTex->GetKey());
 
 			// Animation Frm 기록
-			m_DetailPannel->SetAtlas(m_Atlas);
+			string fileName = path(m_AtlasKey).filename().stem().generic_string();
+			m_DetailPannel->SetAtlas(m_Atlas, fileName);
 			m_DetailPannel->SetFrm(pAnim->m_vecFrm);
 
 			// Play preview
 			m_PreviewPannel->SetAtlas(m_Atlas);
-			m_PreviewPannel->SetFrmSize(pAnim->m_vecFrm.size());
+			m_PreviewPannel->SetFrmSize((int)pAnim->m_vecFrm.size());
 			m_PreviewPannel->Init(m_DetailPannel->GetFrmByIdx(0));
 
 			// close save file
@@ -316,13 +324,14 @@ void UIAnimPannel::Compile()
 	}
 
 	// Animation Frm 기록
-	m_DetailPannel->SetAtlas(m_Atlas);
+	string fileName = path(m_AtlasKey).filename().stem().generic_string();
+	m_DetailPannel->SetAtlas(m_Atlas, fileName);
 	m_DetailPannel->UpdateFrm(m_vecAnim);
 
 	// Play preview
 	m_PreviewPannel->Init(m_DetailPannel->GetFrmByIdx(0));
 	m_PreviewPannel->SetAtlas(m_Atlas);
-	m_PreviewPannel->SetFrmSize(m_vecAnim.size());
+	m_PreviewPannel->SetFrmSize((int)m_vecAnim.size());
 }
 
 void UIAnimPannel::Save()
@@ -353,7 +362,7 @@ void UIAnimPannel::LoadAtlas(const wstring& _RelativePath)
 	if (not m_Atlas.Get())
 		m_Atlas = CAssetMgr::GetInst()->Load<CTexture>(_RelativePath);
 
-	m_vAtlasRenderSize = ImVec2(m_Atlas.Get()->GetWidth(), m_Atlas.Get()->GetHeight());
+	m_vAtlasRenderSize = ImVec2((float)m_Atlas.Get()->GetWidth(), (float)m_Atlas.Get()->GetHeight());
 	float resizeScale = 1;
 	float maxScale = ImGui::GetWindowHeight();
 	if (m_Atlas.Get()->GetHeight() > maxScale)
@@ -422,7 +431,7 @@ void UIAnimPannel::CreateFAnim(Vec2 _vLeftTop, Vec2 _vBackground)
 void UIAnimPannel::ResetSelectVec(bool _bool)
 {
 	m_vecGridSelect.clear();
-	m_vecGridSelect.resize(m_vGridNum.y, vector<bool>(m_vGridNum.x, _bool));
+	m_vecGridSelect.resize((int)m_vGridNum.y, vector<bool>((int)m_vGridNum.x, _bool));
 }
 
 void UIAnimPannel::Clear()
@@ -572,7 +581,7 @@ Vec2 UIAnimPannel::LoadMeta(const wstring& _strMetaRelativePath)
 					float tmp = wcstof(szRead, &end);
 
 					if (*end == L'\0') {
-						retVec.y = -tmp;
+						retVec.y = tmp;
 					}
 
 					return retVec;

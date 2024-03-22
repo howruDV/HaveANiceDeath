@@ -1,5 +1,4 @@
 #pragma once
-
 // =======================================
 // singleton.h:
 // 싱글톤으로 구현되는 class가 상속하는 parent class (template class)
