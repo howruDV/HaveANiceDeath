@@ -1,3 +1,4 @@
 CMissileScript_Test
 CMonsterScript_Test
+CPlayerScript
 CPlayerScript_Test

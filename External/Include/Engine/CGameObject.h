@@ -57,6 +57,7 @@ public:
     GET_COMPONENT(TileMap, TILEMAP);
     GET_COMPONENT(ParticleSystem, PARTICLESYSTEM);
     GET_COMPONENT(StateMachine, STATEMACHINE);
+    GET_COMPONENT(Movement, MOVEMENT);
 
 public:
     CLONE(CGameObject);

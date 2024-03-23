@@ -59,6 +59,7 @@ enum class COMPONENT_TYPE
 	LIGHT3D,	// 3차원 광원
 	CAMERA,		// 카메라 기능
 	STATEMACHINE, // 상태머신
+	MOVEMENT,
 
 	// Render Component
 	MESHRENDER,

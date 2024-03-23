@@ -187,7 +187,13 @@ void CGameObject::AddComponent(CComponent* _Component)
 	else
 	{
 		// already exist
-		assert(!m_arrCom[(UINT)type]);
+		//assert(!m_arrCom[(UINT)type]);
+		if (m_arrCom[(UINT)type])
+		{
+			MessageBox(nullptr, L"Already exist component", L"Failed to Add Component", MB_OK);
+			return;
+		}
+
 		m_arrCom[(UINT)type] = _Component;
 		_Component->m_Owner = this;
 

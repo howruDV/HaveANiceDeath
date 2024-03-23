@@ -158,6 +158,9 @@
     <Filter Include="04. Manager\FontMgr">
       <UniqueIdentifier>{a137a050-0c4b-4408-8453-102dd363cfab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Component\10. Movement">
+      <UniqueIdentifier>{41c08561-c267-4d28-95ac-0d3cea834116}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -326,6 +329,9 @@
     <ClInclude Include="CFontMgr.h">
       <Filter>04. Manager\FontMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CMovement.h">
+      <Filter>08. Component\10. Movement</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -481,6 +487,9 @@
     </ClCompile>
     <ClCompile Include="CFontMgr.cpp">
       <Filter>04. Manager\FontMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CMovement.cpp">
+      <Filter>08. Component\10. Movement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

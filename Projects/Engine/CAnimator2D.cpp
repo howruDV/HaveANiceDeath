@@ -127,7 +127,7 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
         return;
 
     // set background size
-    Vec3 newBgSize = Vec3(pAnim->m_vecFrm[0].vBackgroundSize.x, pAnim->m_vecFrm[0].vBackgroundSize.y, 0.f);
+    Vec3 newBgSize = Vec3(pAnim->m_vecFrm[0].vBackgroundSize.x, pAnim->m_vecFrm[0].vBackgroundSize.y, 1.f);
     newBgSize.x *= pAnim->m_AtlasTex->GetWidth();
     newBgSize.y *= pAnim->m_AtlasTex->GetHeight();
     if (Transform()->GetRelativeScale() != newBgSize)

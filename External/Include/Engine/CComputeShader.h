@@ -19,7 +19,7 @@ protected:
     const UINT                  m_ThreadX;
     const UINT                  m_ThreadY;
     const UINT                  m_ThreadZ;
-    FMatConst                  m_Const;
+    FMatConst                   m_Const;
 
 private:
     virtual int UpdatePipeline() = 0;

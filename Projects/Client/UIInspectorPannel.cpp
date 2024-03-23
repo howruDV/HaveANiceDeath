@@ -104,15 +104,4 @@ void UIInspectorPannel::ResizeScriptVec(UINT _Size)
 		m_vecScriptUI.push_back(pScriptUI);
 		AddChild(pScriptUI);
 	}
-
-	//Delete_Vec(m_vecScriptUI);
-
-	//for (int i = 0; i < _Size; ++i)
-	//{
-	//	UIScript* pScriptUI = new UIScript;
-	//	AddChild(pScriptUI);
-	//	m_vecScriptUI.push_back(pScriptUI);
-	//}
-
-	//m_vecScriptUI[0]->Deactivate();
 }

@@ -44,6 +44,10 @@ void UIInspectorPannel::CreateComponentUI()
 	m_arrCompUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM] = new UIParticleSystem;
 	AddChild(m_arrCompUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM]);
 
+	// @TODO: Movement
+	//m_arrCompUI[(UINT)COMPONENT_TYPE::MOVEMENT] = new UIMovement;
+	//AddChild(m_arrCompUI[(UINT)COMPONENT_TYPE::MOVEMENT]);
+
 	//SKYBOX,
 	//DECAL,
 	//LANDSCAPE,
@@ -53,7 +57,7 @@ void UIInspectorPannel::CreateComponentUI()
 	{
 		if (m_arrCompUI[i])
 		{
-			m_arrCompUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM]->SetInspector(this);
+			m_arrCompUI[i]->SetInspector(this);
 			m_arrCompUI[i]->Deactivate();
 		}
 	}

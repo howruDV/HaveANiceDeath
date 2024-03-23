@@ -189,6 +189,7 @@ call EngineCopy.bat</Command>
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshRender.h" />
+    <ClInclude Include="CMovement.h" />
     <ClInclude Include="components.h" />
     <ClInclude Include="CParticleSystem.h" />
     <ClInclude Include="CParticleUpdate.h" />
@@ -221,6 +222,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="CGC.cpp" />
     <ClCompile Include="CLight2D.cpp" />
     <ClCompile Include="CMaterial.cpp" />
+    <ClCompile Include="CMovement.cpp" />
     <ClCompile Include="CParticleSystem.cpp" />
     <ClCompile Include="CParticleUpdate.cpp" />
     <ClCompile Include="CPrefab.cpp" />

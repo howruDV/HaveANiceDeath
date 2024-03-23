@@ -6,8 +6,8 @@
 
 CCollider2D::CCollider2D()
 	: CComponent(COMPONENT_TYPE::COLLIDER2D)
-	, m_vOffsetScale(Vec3(1.f, 1.f, 1.f))
 	, m_Type(COLLIDER2D_TYPE::RECT)
+	, m_vOffsetScale(Vec3(1.f, 1.f, 1.f))
 	, m_bAbsolute(false)
 	, m_Active(true)
 	, m_SemiDeactive(false)
@@ -17,7 +17,7 @@ CCollider2D::CCollider2D()
 
 CCollider2D::CCollider2D(const CCollider2D& _OriginCollider2D)
 	: CComponent(_OriginCollider2D)
-	, m_Type(m_Type)
+	, m_Type(_OriginCollider2D.m_Type)
 	, m_vOffsetPos(_OriginCollider2D.m_vOffsetPos)
 	, m_vOffsetScale(_OriginCollider2D.m_vOffsetScale)
 	, m_vOffestRotation(_OriginCollider2D.m_vOffestRotation)

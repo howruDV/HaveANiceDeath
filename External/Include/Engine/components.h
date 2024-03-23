@@ -9,6 +9,7 @@
 #include "CTileMap.h"
 #include "CParticleSystem.h"
 #include "CStateMachine.h"
+#include "CMovement.h"
 
 /*
 #include "CCollider3D.h"

@@ -34,20 +34,20 @@ void UICollider2D::render_update()
 	const char* items[] = { "Rectangle", "Circle" };
 	static ImGuiComboFlags flags = 0;
 	ImGui::Text("Type	  "); ImGui::SameLine();
-	if (ImGui::BeginCombo(" ", items[item_currentType], flags))
-	{
-		for (int n = 0; n < IM_ARRAYSIZE(items); n++)
-		{
-			const bool is_selected = (item_currentType == n);
-			if (ImGui::Selectable(items[n], is_selected))
-				item_currentType = n;
+	//if (ImGui::BeginCombo(" ", items[item_currentType], flags))
+	//{
+	//	for (int i = 0; i < IM_ARRAYSIZE(items); i++)
+	//	{
+	//		const bool is_selected = (item_currentType == i);
+	//		if (ImGui::Selectable(items[i], is_selected))
+	//			item_currentType = i;
 
-			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-			if (is_selected)
-				ImGui::SetItemDefaultFocus();
-		}
-		ImGui::EndCombo();
-	}
+	//		// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+	//		if (is_selected)
+	//			ImGui::SetItemDefaultFocus();
+	//	}
+	//	ImGui::EndCombo();
+	//}
 	ImGui::Text("Collision "); ImGui::SameLine(); ImGui::Text(std::to_string(iCollisionCount).c_str());
 
 	// set collider member vars

@@ -22,6 +22,7 @@
 #include <Scripts/CPlayerScript_Test.h>
 #include <Scripts/CMissileScript_Test.h>
 #include <Scripts/CMonsterScript_Test.h>
+#include <Scripts/CPlayerScript.h>
 
 
 void CCreateTempLevel::Init()
@@ -92,21 +93,8 @@ void CCreateTempLevel::CreateTempLevel()
 	pTempLevel->GetLayer(3)->SetName(L"Player");
 	pTempLevel->GetLayer(4)->SetName(L"Monster");
 	pTempLevel->GetLayer(5)->SetName(L"Light");
+	pTempLevel->GetLayer(6)->SetName(L"Platform");
 	pTempLevel->GetLayer(31)->SetName(L"UI");
-
-	CGameObject* m_Preview = new CGameObject;
-	m_Preview->SetName(L"AnimationPreview");
-	m_Preview->AddComponent(new CTransform);
-	m_Preview->AddComponent(new CMeshRender);
-	m_Preview->AddComponent(new CAnimator2D);
-
-	m_Preview->Transform()->SetRelativePos(Vec3(30000.f, 30000.f, 30200.f));
-	m_Preview->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
-
-	m_Preview->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	m_Preview->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
-	//m_Preview->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex"));
-	pTempLevel->AddObject(m_Preview, L"Default", false);
 
 	// Computer Shader Test
 	/*Ptr<CTexture> pTestTex = CAssetMgr::GetInst()->CreateTexture(L"texture\\TestTex.png", 1600, 900
@@ -125,6 +113,7 @@ void CCreateTempLevel::CreateTempLevel()
 	//CCollisionMgr::GetInst()->LayerCheck(L"Monster", L"Monster");
 	CCollisionMgr::GetInst()->LayerCheck(3, 4);
 	CCollisionMgr::GetInst()->LayerCheck(4, 4);
+	CCollisionMgr::GetInst()->LayerCheck(3, 6);
 
 	// Create Main Camera
 	CGameObject* pCamObj = new CGameObject;
@@ -247,50 +236,75 @@ void CCreateTempLevel::CreateTempLevel()
 	m_CurLevel->AddObject(pObj, L"Tile", false);*/
 
 	// Create Player
-	pObj = new CGameObject;
-	pObj->SetName(L"Player");
-	pTex = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Fighter.bmp");
+	{
+		//pObj = new CGameObject;
+		//pObj->SetName(L"Player");
+		//pTex = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Fighter.bmp");
 
+		//pObj->AddComponent(new CTransform);
+		//pObj->AddComponent(new CMeshRender);
+		//pObj->AddComponent(new CPlayerScript_Test);
+		//pObj->AddComponent(new CCollider2D);
+		//pObj->AddComponent(new CAnimator2D);
+
+		//pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+		//pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+
+		//pObj->Collider2D()->SetAbsolute(false);
+		//pObj->Collider2D()->SetOffsetScale(Vec3(1.f, 1.f, 1.f));
+		//pObj->Collider2D()->SetOffsetPos(Vec3(0.f, 0.f, 0.f));
+
+		//pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		//pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
+		//pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
+		////pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+
+
+		//// child
+		/////*CGameObject* pChild = new CGameObject;
+		////pChild->SetName(L"Child");
+
+		////pChild->AddComponent(new CTransform);
+		////pChild->AddComponent(new CMeshRender);
+
+		////pChild->Transform()->SetAbsolute(true);
+		////pChild->Transform()->SetRelativePos(Vec3(100.f, 0.f, 0.f));
+		////pChild->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+
+		////pChild->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		////pChild->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
+
+		////pObj->AddChild(pChild);*/
+		////pTempLevel->AddObject(pObj, L"Player", false);
+
+		////pObj = pObj->Clone();
+		////pObj->SetName(L"PlayerClone");
+		////pObj->Transform()->SetRelativePos(Vec3(-300.f, 0.f, 100.f));
+		//pTempLevel->AddObject(pObj, L"Player", false);
+	}
+	pObj = new CGameObject;
+	pObj->SetName(L"Death");
 	pObj->AddComponent(new CTransform);
-	pObj->AddComponent(new CMeshRender);
-	pObj->AddComponent(new CPlayerScript_Test);
 	pObj->AddComponent(new CCollider2D);
+	pObj->AddComponent(new CMeshRender);
 	pObj->AddComponent(new CAnimator2D);
+	pObj->AddComponent(new CStateMachine);
+	pObj->AddComponent(new CMovement);
+	pObj->AddComponent(new CPlayerScript);
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
 	pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 
-	pObj->Collider2D()->SetAbsolute(false);
-	pObj->Collider2D()->SetOffsetScale(Vec3(1.f, 1.f, 1.f));
-	pObj->Collider2D()->SetOffsetPos(Vec3(0.f, 0.f, 0.f));
-
-	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
-	//pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
-
-
-	// child
-	///*CGameObject* pChild = new CGameObject;
-	//pChild->SetName(L"Child");
-
-	//pChild->AddComponent(new CTransform);
-	//pChild->AddComponent(new CMeshRender);
-
-	//pChild->Transform()->SetAbsolute(true);
-	//pChild->Transform()->SetRelativePos(Vec3(100.f, 0.f, 0.f));
-	//pChild->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
-
-	//pChild->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	//pChild->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
-
-	//pObj->AddChild(pChild);*/
-	//pTempLevel->AddObject(pObj, L"Player", false);
-
-	//pObj = pObj->Clone();
-	//pObj->SetName(L"PlayerClone");
-	//pObj->Transform()->SetRelativePos(Vec3(-300.f, 0.f, 100.f));
 	pTempLevel->AddObject(pObj, L"Player", false);
+
+	// Platform
+	pObj = new CGameObject;
+	pObj->SetName(L"Platform");
+	pObj->AddComponent(new CTransform);
+	pObj->AddComponent(new CCollider2D);
+	pObj->Transform()->SetRelativePos(Vec3(0.f, -500.f, 100.f));
+	pObj->Transform()->SetRelativeScale(Vec3(1500.f, 200.f, 1.f));
+	pTempLevel->AddObject(pObj, L"Platform", false);
 
 	// Monster
 	pObj = new CGameObject;
@@ -321,7 +335,6 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->Load<CFSM>(szPath));
 
 	pTempLevel->AddObject(pObj, L"Monster", false);
-
 
 	// UI Object Create
 	pObj = new CGameObject;
