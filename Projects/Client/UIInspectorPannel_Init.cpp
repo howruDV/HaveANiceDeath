@@ -10,6 +10,7 @@
 #include "UITileMap.h"
 #include "UIParticleSystem.h"
 #include "UIPrefab.h"
+#include "UIMovement.h"
 
 void UIInspectorPannel::CreateComponentUI()
 {
@@ -44,9 +45,8 @@ void UIInspectorPannel::CreateComponentUI()
 	m_arrCompUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM] = new UIParticleSystem;
 	AddChild(m_arrCompUI[(UINT)COMPONENT_TYPE::PARTICLESYSTEM]);
 
-	// @TODO: Movement
-	//m_arrCompUI[(UINT)COMPONENT_TYPE::MOVEMENT] = new UIMovement;
-	//AddChild(m_arrCompUI[(UINT)COMPONENT_TYPE::MOVEMENT]);
+	m_arrCompUI[(UINT)COMPONENT_TYPE::MOVEMENT] = new UIMovement;
+	AddChild(m_arrCompUI[(UINT)COMPONENT_TYPE::MOVEMENT]);
 
 	//SKYBOX,
 	//DECAL,

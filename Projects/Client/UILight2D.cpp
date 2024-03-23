@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "UILight2D.h"
+#include "func_ImGUI.h"
 #include <Engine/CLight2D.h>
 
 UILight2D::UILight2D()
@@ -23,13 +24,13 @@ void UILight2D::render_update()
 	Vec4 vColor = GetTargetObject()->Light2D()->GetLightColor();
 	Vec4 vSpecular = GetTargetObject()->Light2D()->GetSpecular();
 	Vec4 vAmbient = GetTargetObject()->Light2D()->GetAmbient();
-	float	fRadius = GetTargetObject()->Light2D()->GetRadius();
-	float	fAngle = GetTargetObject()->Light2D()->GetAngle();
+	float fRadius = GetTargetObject()->Light2D()->GetRadius();
+	float fAngle = GetTargetObject()->Light2D()->GetAngle();
 
 	// UI render
 	const char* items[] = { "Directional", "Point", "Spot" };
 	static ImGuiComboFlags flags = 0;
-	ImGui::Text("Type	 "); ImGui::SameLine();
+	TextBox("Type	 "); ImGui::SameLine();
 	if (ImGui::BeginCombo(" ", items[item_currentType], flags))
 	{
 		for (int n = 0; n < IM_ARRAYSIZE(items); n++)
@@ -44,19 +45,19 @@ void UILight2D::render_update()
 		}
 		ImGui::EndCombo();
 	}
-	ImGui::Text("Radius   "); ImGui::SameLine(); ImGui::DragFloat("##Collider Radius", &fRadius);
-	ImGui::Text("Angle    "); ImGui::SameLine(); ImGui::DragFloat("##Collider Angle", &fAngle);
+	TextBox("Radius   "); ImGui::SameLine(); ImGui::DragFloat("##Collider Radius", &fRadius);
+	TextBox("Angle    "); ImGui::SameLine(); ImGui::DragFloat("##Collider Angle", &fAngle);
 
-	ImGui::Text("Color    "); ImGui::SameLine();
+	TextBox("Color    "); ImGui::SameLine();
 	float w = (ImGui::GetContentRegionAvail().x - ImGui::GetStyle().ItemSpacing.y) * 0.5f;
 	ImGui::SetNextItemWidth(w);
 	ImGui::ColorPicker3("##Light Color", (float*)&vColor, ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoAlpha);
 
-	ImGui::Text("Specular "); ImGui::SameLine();
+	TextBox("Specular "); ImGui::SameLine();
 	ImGui::SetNextItemWidth(w);
 	ImGui::ColorPicker3("##Light Specular", (float*)&vSpecular, ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoAlpha);
 
-	ImGui::Text("Ambient  "); ImGui::SameLine();
+	TextBox("Ambient  "); ImGui::SameLine();
 	ImGui::SetNextItemWidth(w);
 	ImGui::ColorPicker3("##Light Ambient", (float*)&vAmbient, ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoAlpha);
 

@@ -129,6 +129,9 @@
     <Filter Include="02. UI\6. AnimatorPannel\Preview">
       <UniqueIdentifier>{eabe9802-b917-4831-b385-d720f5d0c867}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. UI\3. InspectorPannel\Component\Movement">
+      <UniqueIdentifier>{d0de29db-f8e1-404a-86fb-0f53467fc242}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -280,6 +283,12 @@
     </ClInclude>
     <ClInclude Include="UIAnimPannel.h">
       <Filter>02. UI\6. AnimatorPannel</Filter>
+    </ClInclude>
+    <ClInclude Include="UIMovement.h">
+      <Filter>02. UI\3. InspectorPannel\Component\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="func_ImGUI.h">
+      <Filter>02. UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -434,6 +443,12 @@
     </ClCompile>
     <ClCompile Include="UIAnimPannel.cpp">
       <Filter>02. UI\6. AnimatorPannel</Filter>
+    </ClCompile>
+    <ClCompile Include="UIMovement.cpp">
+      <Filter>02. UI\3. InspectorPannel\Component\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="func_ImGUI.cpp">
+      <Filter>02. UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

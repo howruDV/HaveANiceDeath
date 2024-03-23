@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "UICamera.h"
+#include "func_ImGUI.h"
 #include <Engine/CCamera.h>
 
 UICamera::UICamera()
@@ -30,7 +31,7 @@ void UICamera::render_update()
 	ImGui::SeparatorText("Common Setting");
 	const char* items[] = { "Orthographic", "Perspective" };
 	static ImGuiComboFlags flags = 0;
-	ImGui::Text("Projection"); ImGui::SameLine();
+	TextBox("Projection"); ImGui::SameLine();
 	if (ImGui::BeginCombo(" ", items[item_currentType], flags))
 	{
 		for (int n = 0; n < IM_ARRAYSIZE(items); n++)
@@ -45,14 +46,14 @@ void UICamera::render_update()
 		}
 		ImGui::EndCombo();
 	}
-	ImGui::Text("Far       "); ImGui::SameLine(); ImGui::DragFloat("##Camera Far", &m_Far);
+	TextBox("Far"); ImGui::SameLine(); ImGui::DragFloat("##Camera Far", &m_Far);
 
 	ImGui::SeparatorText("Orthographic Setting");
-	ImGui::Text("Width     "); ImGui::SameLine(); ImGui::DragFloat("##Camera Ortho Width", &m_Width);
-	ImGui::Text("Scale     "); ImGui::SameLine(); ImGui::DragFloat("##Camera Ortho Width", &m_Scale);
+	TextBox("Width"); ImGui::SameLine(); ImGui::DragFloat("##Camera Ortho Width", &m_Width);
+	TextBox("Scale"); ImGui::SameLine(); ImGui::DragFloat("##Camera Ortho Width", &m_Scale);
 
 	ImGui::SeparatorText("Perspective Setting");
-	ImGui::Text("FOV       "); ImGui::SameLine(); ImGui::DragFloat("##Camera Perspecitve FOV", &m_FOV);
+	TextBox("FOV"); ImGui::SameLine(); ImGui::DragFloat("##Camera Perspecitve FOV", &m_FOV);
 
 	// set camera member vars
 	GetTargetObject()->Camera()->SetProjType((PROJ_TYPE)item_currentType);

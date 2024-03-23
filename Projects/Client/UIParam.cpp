@@ -2,13 +2,14 @@
 #include "UIParam.h"
 #include "imgui.h"
 #include "UIListPannel.h"
+#include "func_ImGUI.h"
 #include <Engine/CAssetMgr.h>
 
 int UIParam::g_ID = 0;
 
 bool UIParam::Param_INT(int* _Data, const string& _Desc)
 {
-	ImGui::Text(_Desc.c_str());
+	TextBox(_Desc.c_str());
 	ImGui::SameLine();
 
 	char szID[256] = {};
@@ -22,7 +23,7 @@ bool UIParam::Param_INT(int* _Data, const string& _Desc)
 
 bool UIParam::Param_FLOAT(float* _Data, const string& _Desc)
 {
-	ImGui::Text(_Desc.c_str());
+	TextBox(_Desc.c_str());
 	ImGui::SameLine();
 
 	char szID[256] = {};
@@ -37,7 +38,7 @@ bool UIParam::Param_FLOAT(float* _Data, const string& _Desc)
 
 bool UIParam::Param_VEC2(Vec2* _Data, const string& _Desc)
 {
-	ImGui::Text(_Desc.c_str());
+	TextBox(_Desc.c_str());
 	ImGui::SameLine();
 
 	float arrFloat[2] = { _Data->x, _Data->y };
@@ -55,7 +56,7 @@ bool UIParam::Param_VEC2(Vec2* _Data, const string& _Desc)
 
 bool UIParam::Param_VEC4(Vec4* _Data, const string& _Desc)
 {
-	ImGui::Text(_Desc.c_str());
+	TextBox(_Desc.c_str());
 	ImGui::SameLine();
 
 	char szID[256] = {};
@@ -70,7 +71,7 @@ bool UIParam::Param_VEC4(Vec4* _Data, const string& _Desc)
 
 bool UIParam::Param_TEXTURE(Ptr<CTexture>& _Texture, const string& _Desc, UI* _Inst, DELEGATE_1 _Func)
 {
-	ImGui::Text(_Desc.c_str());
+	TextBox(_Desc.c_str());
 	ImGui::SameLine();
 
 	char szID[256] = {};

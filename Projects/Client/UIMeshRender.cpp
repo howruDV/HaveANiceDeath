@@ -3,9 +3,11 @@
 #include "UIInspectorPannel.h"
 #include "UIListPannel.h"
 #include "CImGuiMgr.h"
-#include "Engine/CMeshRender.h"
-#include "Engine/CAssetMgr.h"
-#include "Engine/CMesh.h"
+#include "func_ImGUI.h"
+
+#include <Engine/CMeshRender.h>
+#include <Engine/CAssetMgr.h>
+#include <Engine/CMesh.h>
 
 UIMeshRender::UIMeshRender()
 	: UIComponent("MeshRender", "##MeshRender", COMPONENT_TYPE::MESHRENDER)
@@ -30,7 +32,7 @@ void UIMeshRender::render_update()
 	if (pMesh.Get()) meshname = WstrToStr(pMesh->GetKey()).c_str();
 	if (pMat.Get()) matname = WstrToStr(pMat->GetKey()).c_str();
 
-	ImGui::Text("Mesh    "); ImGui::SameLine();
+	TextBox("Mesh    "); ImGui::SameLine();
 	ImGui::InputText("##MeshName", (char*)meshname.c_str(), meshname.length(), ImGuiInputTextFlags_ReadOnly);
 	
 	// Mesh Drop üũ
@@ -63,7 +65,7 @@ void UIMeshRender::render_update()
 		pList->Activate();
 	}
 
-	ImGui::Text("Material"); ImGui::SameLine();
+	TextBox("Material"); ImGui::SameLine();
 	ImGui::InputText("##MatName", (char*)matname.c_str(), matname.length(), ImGuiInputTextFlags_ReadOnly);
 	ImGui::SameLine();
 

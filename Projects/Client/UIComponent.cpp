@@ -25,6 +25,8 @@ void UIComponent::render()
 		const vector<UI*> vecChild = GetChilds();
 		for (size_t i = 0; i < vecChild.size(); ++i)
 			vecChild[i]->render();
+
+		ImGui::Dummy(ImVec2(0.0f, 10.0f));
 	}
 }
 
