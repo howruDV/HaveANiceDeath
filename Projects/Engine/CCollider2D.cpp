@@ -119,3 +119,11 @@ void CCollider2D::LoadFromFile(FILE* _File)
 	fread(&m_bAbsolute, sizeof(bool), 1, _File);
 	fread(&m_Type, sizeof(UINT), 1, _File);
 }
+
+void CCollider2D::Deactivate()
+{
+	FTask task = {};
+	task.Type = TASK_TYPE::COLLIDER2D_SEMI_DEACTIVE;
+	task.Param_1 = (DWORD_PTR)this;
+	CTaskMgr::GetInst()->AddTask(task);
+}

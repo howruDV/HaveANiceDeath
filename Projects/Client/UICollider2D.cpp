@@ -23,7 +23,7 @@ void UICollider2D::render_update()
 	Vec3 vPos = Vec3(GetTargetObject()->Collider2D()->GetOffsetPos().x, GetTargetObject()->Collider2D()->GetOffsetPos().y, 0.f);
 	Vec3 vScale = Vec3(GetTargetObject()->Collider2D()->GetOffsetScale().x, GetTargetObject()->Collider2D()->GetOffsetScale().y, 1.f);
 	int iCollisionCount = GetTargetObject()->Collider2D()->GetCollisionCount();
-	static int item_CollisionType = (int)GetTargetObject()->Collider2D()->GetType();
+	static int item_currentType = (int)GetTargetObject()->Collider2D()->GetColliderType();
 	bool bAbsolute = GetTargetObject()->Collider2D()->IsAbsolute();
 
 	ImGui::SeparatorText("Transform");
@@ -35,25 +35,25 @@ void UICollider2D::render_update()
 	const char* items[] = { "Rectangle", "Circle" };
 	static ImGuiComboFlags flags = 0;
 	TextBox("Type");			ImGui::SameLine();
-	//if (ImGui::BeginCombo("##CollisionType", items[item_CollisionType], flags))
-	//{
-	//	for (int i = 0; i < IM_ARRAYSIZE(items); i++)
-	//	{
-	//		const bool is_selected = (item_CollisionType == i);
-	//		if (ImGui::Selectable(items[i], is_selected))
-	//			item_CollisionType = i;
+	if (ImGui::BeginCombo(" ", items[item_currentType], flags))
+	{
+		for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+		{
+			const bool is_selected = (item_currentType == n);
+			if (ImGui::Selectable(items[n], is_selected))
+				item_currentType = n;
 
-	//		// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-	//		if (is_selected)
-	//			ImGui::SetItemDefaultFocus();
-	//	}
-	//	ImGui::EndCombo();
-	//}
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndCombo();
+	}
 	TextBox("Collision");		ImGui::SameLine(); ImGui::Text(std::to_string(iCollisionCount).c_str());
 
 	// set collider member vars
 	GetTargetObject()->Collider2D()->SetOffsetPos(vPos);
 	GetTargetObject()->Collider2D()->SetOffsetScale(vScale);
 	GetTargetObject()->Collider2D()->SetAbsolute(bAbsolute);
-	GetTargetObject()->Collider2D()->SetColliderType((COLLIDER2D_TYPE)item_CollisionType);
+	GetTargetObject()->Collider2D()->SetColliderType((COLLIDER2D_TYPE)item_currentType);
 }
