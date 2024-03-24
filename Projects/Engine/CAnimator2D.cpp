@@ -7,6 +7,7 @@ CAnimator2D::CAnimator2D()
     : CComponent(COMPONENT_TYPE::ANIMATOR2D)
     , m_CurAnim(nullptr)
     , m_bRepeat(false)
+    , m_bFlipX(false)
 {
 }
 
@@ -14,6 +15,7 @@ CAnimator2D::CAnimator2D(const CAnimator2D& _OriginAnimator)
     : CComponent(_OriginAnimator)
     , m_CurAnim(nullptr)
     , m_bRepeat(_OriginAnimator.m_bRepeat)
+    , m_bFlipX(_OriginAnimator.m_bFlipX)
 {
     unordered_map<wstring, CAnim*>::const_iterator iter = _OriginAnimator.m_mapAnim.begin();
     for (; iter != _OriginAnimator.m_mapAnim.end(); ++iter)
@@ -38,10 +40,29 @@ CAnimator2D::~CAnimator2D()
 void CAnimator2D::finaltick()
 {
     if (not m_CurAnim)
-        return;
+    {
+        if (m_listNextAnim.empty())
+            return;
+        else
+        {
+            m_CurAnim = m_listNextAnim.front().pAnim;
+            m_bRepeat = m_listNextAnim.front().bRepeat;
+            m_listNextAnim.pop_front();
+        }
+    }
 
-    if (m_CurAnim->IsFinish() && m_bRepeat)
-        m_CurAnim->Reset();
+    if (m_CurAnim->IsFinish())
+    {
+        if (m_bRepeat)
+            m_CurAnim->Reset();
+        else if (!m_bRepeat && !m_listNextAnim.empty())
+        {
+            m_CurAnim = m_listNextAnim.front().pAnim;
+            m_bRepeat = m_listNextAnim.front().bRepeat;
+            m_listNextAnim.pop_front();
+        }
+    }
+
     m_CurAnim->finaltick();
 }
 
@@ -138,6 +159,16 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
     m_bRepeat = _bRepeat;
     m_CurAnim = pAnim;
     m_CurAnim->Reset();
+}
+
+void CAnimator2D::PushNextAnim(const wstring& _strAnimName, bool _bRepeat)
+{
+    CAnim* pAnim = FindAnim(_strAnimName);
+    if (!pAnim)
+        return;
+
+    NextAnimInfo next = { pAnim, _bRepeat };
+    m_listNextAnim.push_back(next);
 }
 
 void CAnimator2D::SaveToFile(FILE* _File)

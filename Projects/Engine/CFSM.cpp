@@ -14,6 +14,8 @@ CFSM::CFSM(CFSM* _Origin, bool _bEngine)
 	// origin인 경우
 	if (not m_Origin)
 		m_Blackboard_FSM = new CBlackboard();
+	else
+		m_Blackboard_FSM = _Origin->m_Blackboard_FSM;
 }
 
 CFSM::~CFSM()
@@ -148,18 +150,16 @@ void CFSM::ChangeState_proc(CState* _pNextState)
 	if (m_CurState)
 		m_CurState->Exit();
 
-	//m_CurState = FindState(_strStateName); assert(m_CurState);
 	m_CurState = _pNextState;
+	m_CurState->m_FSM = this;
 	m_CurState->Enter();
 }
 
 CFSM* CFSM::GetFSMIstance()
 {
 	CFSM* pFSMInst = new CFSM(this, true);	// @TODO 터지면 엔진에셋 true체크
-
+	
 	pFSMInst->m_mapState = m_mapState;
-	pFSMInst->m_Blackboard_OBJ = nullptr;
-	pFSMInst->m_CurState = nullptr;
 
 	return pFSMInst;
 }

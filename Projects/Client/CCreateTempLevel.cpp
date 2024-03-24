@@ -2,9 +2,6 @@
 #include "CCreateTempLevel.h"
 #include "CLevelSaveLoad.h"
 
-#include <States/CIdleState.h>
-#include <States/CTraceState.h>
-
 #include <Engine/CLevelMgr.h>
 #include <Engine/CAssetMgr.h>
 #include <Engine/CCollisionMgr.h>
@@ -19,11 +16,16 @@
 
 #include <Engine/CSetColorShader.h>
 
+#include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript_Test.h>
 #include <Scripts/CMissileScript_Test.h>
 #include <Scripts/CMonsterScript_Test.h>
 #include <Scripts/CPlayerScript.h>
 
+#include <States/CIdleState.h>
+#include <States/CTraceState.h>
+#include <States/CPlayerIdle.h>
+#include <States/CPlayerRun.h>
 
 void CCreateTempLevel::Init()
 {
@@ -50,8 +52,12 @@ void CCreateTempLevel::Init()
 	Ptr<CFSM>	pFSM = new CFSM(nullptr, true);
 	pFSM->AddState(L"IdleState", new CIdleState);
 	pFSM->AddState(L"TraceState", new CTraceState);
-
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"NormalMonsterFSM", pFSM.Get());
+
+	pFSM = new CFSM(nullptr, true);
+	pFSM->AddState(L"Idle", new CPlayerIdle);
+	pFSM->AddState(L"Run", new CPlayerRun);
+	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST
 	//CFSM* pFSM = new CFSM(nullptr, true);
@@ -257,29 +263,29 @@ void CCreateTempLevel::CreateTempLevel()
 		//pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 		//pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
 		//pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
-		////pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+		//pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 
 
-		//// child
-		/////*CGameObject* pChild = new CGameObject;
-		////pChild->SetName(L"Child");
+		// child
+		///*CGameObject* pChild = new CGameObject;
+		//pChild->SetName(L"Child");
 
-		////pChild->AddComponent(new CTransform);
-		////pChild->AddComponent(new CMeshRender);
+		//pChild->AddComponent(new CTransform);
+		//pChild->AddComponent(new CMeshRender);
 
-		////pChild->Transform()->SetAbsolute(true);
-		////pChild->Transform()->SetRelativePos(Vec3(100.f, 0.f, 0.f));
-		////pChild->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+		//pChild->Transform()->SetAbsolute(true);
+		//pChild->Transform()->SetRelativePos(Vec3(100.f, 0.f, 0.f));
+		//pChild->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
 
-		////pChild->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-		////pChild->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
+		//pChild->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		//pChild->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
 
-		////pObj->AddChild(pChild);*/
-		////pTempLevel->AddObject(pObj, L"Player", false);
+		//pObj->AddChild(pChild);*/
+		//pTempLevel->AddObject(pObj, L"Player", false);
 
-		////pObj = pObj->Clone();
-		////pObj->SetName(L"PlayerClone");
-		////pObj->Transform()->SetRelativePos(Vec3(-300.f, 0.f, 100.f));
+		//pObj = pObj->Clone();
+		//pObj->SetName(L"PlayerClone");
+		//pObj->Transform()->SetRelativePos(Vec3(-300.f, 0.f, 100.f));
 		//pTempLevel->AddObject(pObj, L"Player", false);
 	}
 	pObj = new CGameObject;
@@ -294,8 +300,11 @@ void CCreateTempLevel::CreateTempLevel()
 
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
 	pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"FSM\\PlayerFSM.fsm"));
 
+	CPlayerMgr::GetInst()->SetPlayer(pObj);
 	pTempLevel->AddObject(pObj, L"Player", false);
+
 
 	// Platform
 	pObj = new CGameObject;

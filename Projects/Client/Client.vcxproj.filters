@@ -132,6 +132,9 @@
     <Filter Include="02. UI\3. InspectorPannel\Component\Movement">
       <UniqueIdentifier>{d0de29db-f8e1-404a-86fb-0f53467fc242}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. UI\3. InspectorPannel\MtrlEditor">
+      <UniqueIdentifier>{15b2cedb-e134-4a08-9322-2380ed2620b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="func_ImGUI.h">
       <Filter>02. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MtrlEditorUI.h">
+      <Filter>02. UI\3. InspectorPannel\MtrlEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -449,6 +455,9 @@
     </ClCompile>
     <ClCompile Include="func_ImGUI.cpp">
       <Filter>02. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MtrlEditorUI.cpp">
+      <Filter>02. UI\3. InspectorPannel\MtrlEditor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

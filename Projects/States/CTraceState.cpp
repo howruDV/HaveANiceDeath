@@ -31,6 +31,8 @@ void CTraceState::finaltick()
 
 void CTraceState::Enter()
 {
+	GetFSM()->GetStateMachine()->GetOwner()->Transform()->SetRelativeScale(Vec3(200, 100, 1));
+	GetOwner()->Transform()->SetRelativeScale(Vec3(200, 100, 1));
 }
 
 void CTraceState::Exit()

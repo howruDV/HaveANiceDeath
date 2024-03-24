@@ -4,6 +4,8 @@
 #include "value.fx"
 #include "func.fx"
 
+
+
 struct VS_IN
 {
     float3 vPos : POSITION; // Sementic
@@ -53,7 +55,18 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
         // Background
         float2 vBackgroundLeftTop = g_vLeftTop + (g_vCutSize / 2.f) - (g_vBackgroundSize / 2.f);
         // vBackgroundLeftTop -= g_vOffset;
-        float2 vUV = vBackgroundLeftTop + (_in.vUV * g_vBackgroundSize); //UV는 한 프레임의 크기를 대상으로 함
+        
+        // Flip
+        float2 vUV = vBackgroundLeftTop; //UV는 한 프레임의 크기를 대상으로 하므로, 프레임의 크기만큼 곱해줘야 함
+        
+        if (g_FlipAnimXY & (1 << 1))
+            vUV.x += (1.f - _in.vUV.x) * g_vBackgroundSize.x;
+        else
+            vUV.x += _in.vUV * g_vBackgroundSize.x;
+        if (g_FlipAnimXY & (1 << 0))
+            vUV.y += (1.f - _in.vUV.y) * g_vBackgroundSize.y;
+        else
+            vUV.y += _in.vUV.y * g_vBackgroundSize.y;
         
         // 가져오려는 이미지를 벗어나면 그리지 않음
         // 즉, 부족한 부분에 대해서만 더 그림

@@ -24,6 +24,7 @@ public:
 
 public:
     UINT GetStateType() { return m_StateType; }
+    CGameObject* GetOwner();
 
 protected:
     void ChangeState(const wstring& _strStateName);

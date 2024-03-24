@@ -17,6 +17,7 @@ void CStateMachine::begin()
 	{
 		m_FSM_Inst = m_FSM_Origin->GetFSMIstance();
 		m_FSM_Inst->SetStateMachine(this);
+		m_FSM_Inst->m_Blackboard_OBJ = &m_Blackboard;
 	}
 }
 
@@ -48,7 +49,7 @@ Ptr<CFSM> CStateMachine::GetFSM()
 
 	if (not m_FSM_Inst.Get())
 	{
-		//return m_FSM_Origin;  // @TODO: Instance 안만들고?
+		//return m_FSM_Origin;
 		m_FSM_Inst = m_FSM_Origin->GetFSMIstance();
 	}
 
@@ -69,4 +70,3 @@ void CStateMachine::LoadFromFile(FILE* _File)
 {
 	LoadAssetRef(m_FSM_Origin, _File);
 }
-

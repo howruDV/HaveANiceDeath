@@ -173,6 +173,8 @@ call CodeGen.exe</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CIdleState.h" />
+    <ClInclude Include="CPlayerIdle.h" />
+    <ClInclude Include="CPlayerRun.h" />
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTraceState.h" />
     <ClInclude Include="framework.h" />
@@ -180,6 +182,8 @@ call CodeGen.exe</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CIdleState.cpp" />
+    <ClCompile Include="CPlayerIdle.cpp" />
+    <ClCompile Include="CPlayerRun.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTraceState.cpp" />
     <ClCompile Include="pch.cpp">

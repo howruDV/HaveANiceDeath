@@ -17,12 +17,12 @@ CMonsterScript_Test::~CMonsterScript_Test()
 
 void CMonsterScript_Test::begin()
 {
+	// FSM에서 쓸 값들 기록
 	if (StateMachine())
 	{
 		StateMachine()->AddBlackboardData(L"DetectRange", BB_DATA::FLOAT, &m_DetectRange);
 		StateMachine()->AddBlackboardData(L"Speed", BB_DATA::FLOAT, &m_Speed);
 
-		// 플레이어를 찾아서 Object 타입으로 블랙보드에 기록한다.
 		CGameObject* pPlayer = CLevelMgr::GetInst()->GetCurrentLevel()->FindObjectByName(L"Player");
 		if (pPlayer)
 			StateMachine()->AddBlackboardData(L"TargetObject", BB_DATA::OBJECT, pPlayer);

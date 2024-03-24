@@ -18,6 +18,11 @@ void* CState::GetBlackboardData(const wstring& _strKey)
 	return pSM->GetBlackboardData(_strKey);
 }
 
+CGameObject* CState::GetOwner()
+{
+	return m_FSM->GetStateMachine()->GetOwner();
+}
+
 void CState::ChangeState(const wstring& _strStateName)
 {
 	assert(m_FSM);

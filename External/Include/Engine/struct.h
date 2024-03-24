@@ -173,9 +173,9 @@ struct FAnimData2D
 	Vec2 vCutSize;
 	Vec2 vBackgroundSize;
 	Vec2 vOffset;
-	Vec2 g_vAtlasSize;
+	Vec2 vAtlasSize;
+	int  FlipAnimXY;	// 0: fase-false, 1: true-false, 2: false-true, 3: true-true
 	int	 UseAnim2D;
-	float vPadding;
 };
 
 struct FGlobalData		// 자주 사용하는 정보들 전달

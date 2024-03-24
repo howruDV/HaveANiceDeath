@@ -20,6 +20,8 @@ CPlayerScript::CPlayerScript()
 	, m_iAnimaMax(3)
 	, m_iAnimaBlue(0)
 	, m_iAnimaGold(0)
+	, m_bLookLeft(false)
+	, m_bLookLeft_Prev(m_bLookLeft)
 {
 }
 
@@ -37,6 +39,8 @@ CPlayerScript::CPlayerScript(CPlayerScript& _Origin)
 	, m_iAnimaMax(3)
 	, m_iAnimaBlue(0)
 	, m_iAnimaGold(0)
+	, m_bLookLeft(_Origin.m_bLookLeft)
+	, m_bLookLeft_Prev(m_bLookLeft)
 {
 }
 
@@ -44,7 +48,7 @@ CPlayerScript::~CPlayerScript()
 {
 }
 
-void CPlayerScript::init()
+void CPlayerScript::begin()
 {
 	// Create Player's Component : Player Script에서는 생성자에서는 owner 모르고, begin은 이미 실행된 이후라 애매;
 	Collider2D()->SetAbsolute(true);
@@ -66,17 +70,17 @@ void CPlayerScript::init()
 
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Idle.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
-	Animator2D()->Create(pAnim, L"IDLE");
+	Animator2D()->Create(pAnim, L"Idle");
 	fclose(pFile);
 
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_IdleToRun.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
-	Animator2D()->Create(pAnim, L"IDLE_ToRun");
+	Animator2D()->Create(pAnim, L"Idle_ToRun");
 	fclose(pFile);
 
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_IdleUturn.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
-	Animator2D()->Create(pAnim, L"IDLE_UTurn");
+	Animator2D()->Create(pAnim, L"Idle_UTurn");
 	fclose(pFile);
 
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Run.anim").c_str(), L"rb");
@@ -89,44 +93,36 @@ void CPlayerScript::init()
 	Animator2D()->Create(pAnim, L"Run_ToIdle");
 	fclose(pFile);
 
-	Animator2D()->Play(L"IDLE");
 	delete pAnim;
-}
 
-void CPlayerScript::begin()
-{
-	init();
+	// StateMachine
+	if (StateMachine())
+	{
+		StateMachine()->AddBlackboardData(L"fSpeed", BB_DATA::FLOAT, &m_fSpeed);
+
+		if (StateMachine()->GetFSM().Get())
+		{
+			StateMachine()->GetFSM()->SetState(L"Idle");
+		}
+	}
 }
 
 void CPlayerScript::tick()
 {
-	Vec3 vPos = Transform()->GetRelativePos();
-	Vec3 vRot = Transform()->GetRelativeRotation();
-
-	if (KEY_PRESSED(KEY::A))
+	if (m_bLookLeft != m_bLookLeft_Prev)
 	{
-		Movement()->AddForce(Vec3(-m_fSpeed, 0, 0));
+		if (GetOwner()->Animator2D())
+		{
+			GetOwner()->Animator2D()->SetFlipX(m_bLookLeft);
+		}
+		else
+		{
+			// @TODO 아 ㅋㅋ 쓸때추가해ㅋㅋ
+			//GetOwner()->GetRenderComponent()->GetDynamicMaterial
+		}
 	}
-	if (KEY_TAP(KEY::A))
-		Animator2D()->Play(L"Run");
-	if (KEY_RELEASED(KEY::A))
-	{
-		Animator2D()->Play(L"IDLE");
-		Movement()->SetVelocity(Vec3());
-	}
-
-	if (KEY_PRESSED(KEY::D))
-		Movement()->AddForce(Vec3(m_fSpeed, 0, 0));
-	if (KEY_TAP(KEY::D))
-		Animator2D()->Play(L"Run");
-	if (KEY_RELEASED(KEY::D))
-	{
-		Animator2D()->Play(L"IDLE");
-		Movement()->SetVelocity(Vec3());
-	}
-
-	Transform()->SetRelativePos(vPos);
-	Transform()->SetRelativeRotation(vRot);
+	
+	m_bLookLeft_Prev = m_bLookLeft;
 }
 
 void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)

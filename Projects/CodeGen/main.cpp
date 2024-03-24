@@ -57,7 +57,11 @@ int main()
 
 		wstring CurFileName = tData.cFileName;
 
-		if (CurFileName.find(L"State") != std::wstring::npos)
+		//if (CurFileName.find(L"State") != std::wstring::npos)
+		//{
+		//	bExeption = true;
+		//}
+		if (CurFileName.find(L"Mgr") != std::wstring::npos)
 		{
 			bExeption = true;
 		}

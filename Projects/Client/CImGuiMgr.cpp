@@ -13,6 +13,7 @@
 #include "UIAnimPannel.h"
 #include "UIAnimDetail.h"
 #include "UIAnimPreview.h"
+#include "MtrlEditorUI.h"
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
 #include <Engine/CGameObject.h>
@@ -108,6 +109,10 @@ void CImGuiMgr::CreateUI()
 	pUI = new UIAnimDetail;
 	AddUI(pUI->GetID(), pUI);
 	pUI = new UIAnimPreview;
+	AddUI(pUI->GetID(), pUI);
+
+	// Material Inspector
+	pUI = new MtrlEditorUI;
 	AddUI(pUI->GetID(), pUI);
 }
 

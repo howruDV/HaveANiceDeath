@@ -22,6 +22,9 @@
     <ClInclude Include="CPlayerScript.h">
       <Filter>Scripts\Unit</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerMgr.h">
+      <Filter>Scripts\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -45,6 +48,9 @@
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>Scripts\Unit</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayerMgr.cpp">
+      <Filter>Scripts\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -64,6 +70,9 @@
     </Filter>
     <Filter Include="Scripts\Unit">
       <UniqueIdentifier>{4df81294-5a06-45c1-8ba4-413d46147310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Manager">
+      <UniqueIdentifier>{185fe919-7162-4950-afec-c5f831d3da43}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

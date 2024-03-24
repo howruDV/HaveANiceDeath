@@ -24,6 +24,7 @@ private:
     CBlackboard*                    m_Blackboard_FSM;   // 기록한 FSM 정보 (실제소유: 컴포넌트)
 
 public:
+    void finaltick();
     virtual int Save(const wstring& _strRelativePath);
     virtual int Load(const wstring& _strFilePath);
 
@@ -41,8 +42,6 @@ public:
 private:
     void ChangeState_proc(CState* _pNextState);
 
-public:
-    void finaltick();
 
 public:
     CLONE_DISABLE(CFSM);
@@ -50,4 +49,5 @@ public:
     ~CFSM();
 
     friend class CTaskMgr;
+    friend class CStateMachine;
 };

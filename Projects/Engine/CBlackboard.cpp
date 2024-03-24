@@ -18,7 +18,7 @@ CBlackboard::~CBlackboard()
 void CBlackboard::AddBlackboardData(const wstring& _strKey, BB_DATA _Type, void* _Data)
 {
 	unordered_map<wstring, FBlackboardData>::iterator iter = m_mapBBData.find(_strKey);
-	assert(iter == m_mapBBData.end());
+	assert(iter == m_mapBBData.end());	// @TODO : assert까지? 걍 값 변경해줘도 될 듯 ㅡ 터지면 변경
 
 	m_mapBBData.insert(make_pair(_strKey, FBlackboardData{ _Type , _Data }));
 }

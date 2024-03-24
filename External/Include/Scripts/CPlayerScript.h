@@ -5,7 +5,10 @@ class CPlayerScript :
     public CScript
 {
 private:
+    // Info
     float m_fSpeed;
+    bool m_bLookLeft;
+    bool m_bLookLeft_Prev;
 
     // hp
     int m_iHPMax;
@@ -32,7 +35,6 @@ private:
     // --------------------------------------------------------------------
 
 public:
-    void init();
     virtual void begin() override;
     virtual void tick() override;
 
@@ -52,15 +54,17 @@ public:
     void SetIngot(int _Ingot) { m_iIngot = _Ingot; }
     void SetSoulary(int _Soulary) { m_iSoulary = _Soulary; }
     void SetPrismium(int _Prismium) { m_iPrismium = _Prismium; }
+    void SetLookLeft(bool _LookLeft) { m_bLookLeft = _LookLeft; }
 
-    int GetHPMax(int _HPMax) { return m_iHPMax; }
-    int GetHPActive(int _HPActive) { return m_iHPActive; }
-    int GetHPCur(int _HPCur) { return m_iHPCur; }
-    int GetiMPMax(int _MPMax) { return m_iMPMax; }
-    int GetiMPCur(int _MPCur) { return m_iMPCur; }
-    int GetIngot(int _Ingot) { return m_iIngot; }
-    int GetSoulary(int _Soulary) { return m_iSoulary; }
-    int GetPrismium(int _Prismium) { return m_iPrismium; }
+    int GetHPMax() { return m_iHPMax; }
+    int GetHPActive() { return m_iHPActive; }
+    int GetHPCur() { return m_iHPCur; }
+    int GetiMPMax() { return m_iMPMax; }
+    int GetiMPCur() { return m_iMPCur; }
+    int GetIngot() { return m_iIngot; }
+    int GetSoulary() { return m_iSoulary; }
+    int GetPrismium() { return m_iPrismium; }
+    bool GetLookLeft() { return m_bLookLeft; }
 
 public:
     CLONE(CPlayerScript);
