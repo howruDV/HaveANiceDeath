@@ -86,6 +86,7 @@ void CAnimator2D::Create(const wstring& _strKey, Ptr<CTexture> _AtlasTex, Vec2 _
 
     pAnim = new CAnim;
     pAnim->Create(this, _AtlasTex, _vLeftTop, _vOffset, _vCutSize, _vBackgroundSize, _FrmCount, _FPS);
+    pAnim->SetName(_strKey);
     m_mapAnim.insert({ _strKey, pAnim });
 }
 
@@ -102,6 +103,7 @@ void CAnimator2D::Create(const wstring& _strKey, Ptr<CTexture> _AltasTex, const 
 
     pAnim = new CAnim;
     pAnim->Create(this, _AltasTex, _vecFrm);
+    pAnim->SetName(_strKey);
     m_mapAnim.insert(make_pair(_strKey, pAnim));
 }
 

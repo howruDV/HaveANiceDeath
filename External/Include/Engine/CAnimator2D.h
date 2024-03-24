@@ -17,7 +17,7 @@ class CAnimator2D :
     public CComponent
 {
 private:
-    unordered_map<wstring, CAnim*>  m_mapAnim;
+    unordered_map<wstring, CAnim*>  m_mapAnim;  // map의 key는 anim의 name과 같음
     list<NextAnimInfo>  m_listNextAnim;
     CAnim*  m_CurAnim;
     bool    m_bFlipX;
@@ -45,8 +45,10 @@ public:
     void ClearNextAnim() { m_listNextAnim.clear(); }
     void PushNextAnim(const wstring& _strAnimName, bool _bRepeat = false);
     
+    const wstring& GetCurAnimName() { if (m_CurAnim) { return m_CurAnim->GetName(); } return nullptr; }
     bool GetFlipX() { return m_bFlipX; }
     bool GetFlipY() { return m_bFlipY; }
+    bool IsPlaying() { if (m_CurAnim) { return !m_CurAnim->IsFinish(); } return false; }
 
 public:
     CLONE(CAnimator2D);

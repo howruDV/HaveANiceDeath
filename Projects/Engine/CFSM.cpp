@@ -129,8 +129,9 @@ CState* CFSM::FindState(const wstring& _StateName)
 
 void CFSM::ChangeState(const wstring& _strState)
 {
-	if (_strState == m_CurState->GetName())
-		return;
+	// @TODO : 현재 State 재입장 할수도 있을듯?
+	//if (_strState == m_CurState->GetName())
+	//	return;
 
 	// 1. next state check
 	CState* pNextState = FindState(_strState);

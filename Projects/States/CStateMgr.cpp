@@ -4,6 +4,7 @@
 #include "CIdleState.h"
 #include "CPlayerIdle.h"
 #include "CPlayerRun.h"
+#include "CPlayerTurn.h"
 #include "CTraceState.h"
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
@@ -11,6 +12,7 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CIdleState");
 	_vec.push_back(L"CPlayerIdle");
 	_vec.push_back(L"CPlayerRun");
+	_vec.push_back(L"CPlayerTurn");
 	_vec.push_back(L"CTraceState");
 }
 
@@ -22,6 +24,8 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 		return new CPlayerIdle;
 	if (L"CPlayerRun" == _strStateName)
 		return new CPlayerRun;
+	if (L"CPlayerTurn" == _strStateName)
+		return new CPlayerTurn;
 	if (L"CTraceState" == _strStateName)
 		return new CTraceState;
 	return nullptr;
@@ -39,6 +43,9 @@ CState* CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERRUN:
 		return new CPlayerRun;
+		break;
+	case (UINT)STATE_TYPE::PLAYERTURN:
+		return new CPlayerTurn;
 		break;
 	case (UINT)STATE_TYPE::TRACESTATE:
 		return new CTraceState;
@@ -61,6 +68,10 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERRUN:
 		return L"CPlayerRun";
+		break;
+
+	case STATE_TYPE::PLAYERTURN:
+		return L"CPlayerTurn";
 		break;
 
 	case STATE_TYPE::TRACESTATE:

@@ -11,6 +11,7 @@
 
 CPlayerRun::CPlayerRun()
 	:CState(PLAYERRUN)
+	, m_PlayerMgr(nullptr)
 {
 }
 
@@ -23,17 +24,17 @@ void CPlayerRun::finaltick()
 	// Run
 	float fSpeed = *((float*)GetBlackboardData(L"fSpeed"));
 
-	if (KEY_PRESSED(KEY::A))
+	if (KEY_PRESSED(KEY::A) && KEY_NONE(KEY::D))
 	{
 		Vec3 vSpeed = Vec3(-fSpeed, 0, 0);
 		GetOwner()->Movement()->AddForce(vSpeed);
-		CPlayerMgr::GetInst()->GetPlayerScript()->SetLookLeft(true);
+		m_PlayerMgr->GetPlayerScript()->SetLookLeft(true);
 	}
-	if (KEY_PRESSED(KEY::D))
+	if (KEY_PRESSED(KEY::D) && KEY_NONE(KEY::A))
 	{
 		Vec3 vSpeed = Vec3(fSpeed, 0, 0);
 		GetOwner()->Movement()->AddForce(vSpeed);
-		CPlayerMgr::GetInst()->GetPlayerScript()->SetLookLeft(false);
+		m_PlayerMgr->GetPlayerScript()->SetLookLeft(false);
 	}
 	
 	// Change State
@@ -48,8 +49,7 @@ void CPlayerRun::finaltick()
 
 void CPlayerRun::Enter()
 {
-	//Vec3 Scale = GetOwner()->Transform()->GetRelativeScale(); Scale.x *= -1;
-	//GetOwner()->Transform()->SetRelativeScale(Scale);
+	m_PlayerMgr = CPlayerMgr::PlayerMgr();
 	GetOwner()->Animator2D()->PushNextAnim(L"Run");
 }
 

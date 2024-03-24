@@ -8,7 +8,7 @@
 
 CPlayerScript::CPlayerScript()
 	: CScript(PLAYERSCRIPT)
-	, m_fSpeed(200.f)
+	, m_fSpeed(400.f)
 	, m_iHPMax(65)
 	, m_iHPActive(m_iHPMax)
 	, m_iHPCur(m_iHPMax)
@@ -102,7 +102,7 @@ void CPlayerScript::begin()
 
 		if (StateMachine()->GetFSM().Get())
 		{
-			StateMachine()->GetFSM()->SetState(L"Idle");
+			StateMachine()->GetFSM()->ChangeState(L"Idle");
 		}
 	}
 }

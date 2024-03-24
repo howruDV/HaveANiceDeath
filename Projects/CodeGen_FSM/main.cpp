@@ -132,7 +132,7 @@ int main()
 		fwprintf_s(pFile, strScriptUpperName.c_str());
 		fwprintf_s(pFile, L",\n");
 	}
-	fwprintf_s(pFile, L"\tEND,\n");
+	fwprintf_s(pFile, L"\tSTATE_END,\n");
 	fwprintf_s(pFile, L"};\n\n");
 
 

@@ -22,6 +22,9 @@
     <Filter Include="States\Player\Run">
       <UniqueIdentifier>{8a5f2b84-8124-4a8e-85de-d14f30251069}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Player\Turn">
+      <UniqueIdentifier>{bed0dddf-1ba3-4f30-be81-b4a6ae3fa978}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -45,6 +48,9 @@
     <ClInclude Include="CPlayerRun.h">
       <Filter>States\Player\Run</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerTurn.h">
+      <Filter>States\Player\Turn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -67,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerRun.cpp">
       <Filter>States\Player\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerTurn.cpp">
+      <Filter>States\Player\Turn</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -29,7 +29,7 @@ void CMonsterScript_Test::begin()
 
 		if (StateMachine()->GetFSM().Get())
 		{
-			StateMachine()->GetFSM()->SetState(L"IdleState");
+			StateMachine()->GetFSM()->ChangeState(L"IdleState");
 		}
 	}
 }

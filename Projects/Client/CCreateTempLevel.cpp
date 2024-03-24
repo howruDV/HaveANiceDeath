@@ -26,6 +26,7 @@
 #include <States/CTraceState.h>
 #include <States/CPlayerIdle.h>
 #include <States/CPlayerRun.h>
+#include <States/CPlayerTurn.h>
 
 void CCreateTempLevel::Init()
 {
@@ -57,6 +58,7 @@ void CCreateTempLevel::Init()
 	pFSM = new CFSM(nullptr, true);
 	pFSM->AddState(L"Idle", new CPlayerIdle);
 	pFSM->AddState(L"Run", new CPlayerRun);
+	pFSM->AddState(L"Turn", new CPlayerTurn);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST
@@ -241,6 +243,12 @@ void CCreateTempLevel::CreateTempLevel()
 
 	m_CurLevel->AddObject(pObj, L"Tile", false);*/
 
+
+	CGameObject* pMgrObj = new CGameObject;
+	pMgrObj->AddComponent(new CTransform);
+	pMgrObj->AddComponent(new CPlayerMgr);
+	pTempLevel->AddObject(pMgrObj, L"Default", false);
+
 	// Create Player
 	{
 		//pObj = new CGameObject;
@@ -302,7 +310,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"FSM\\PlayerFSM.fsm"));
 
-	CPlayerMgr::GetInst()->SetPlayer(pObj);
+	pMgrObj->GetScriptByType<CPlayerMgr>()->SetPlayer(pObj);
 	pTempLevel->AddObject(pObj, L"Player", false);
 
 

@@ -31,7 +31,7 @@ public:
 public:
     void SetStateMachine(CStateMachine* _SM) { if (m_Origin) { m_StateMachine = _SM; } }
     void AddState(const wstring& _StateName, CState* _State);
-    void SetState(const wstring& _strState) { m_CurState = FindState(_strState); }
+    //void SetState(const wstring& _strState) { m_CurState = FindState(_strState); }    // Enter로 진입 못하고 바로 시작하므로 터질 가능성 농후
     void ChangeState(const wstring& _strStateName);
     CState* FindState(const wstring& _StateName);
     CFSM* GetFSMIstance();

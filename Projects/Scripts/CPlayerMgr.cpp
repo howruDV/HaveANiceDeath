@@ -4,10 +4,13 @@
 
 #include <Engine/CGameObject.h>
 
-CPlayerMgr::CPlayerMgr()
-	:  m_pPlayer(nullptr)
-{
+CPlayerMgr* CPlayerMgr::m_This = nullptr;
 
+CPlayerMgr::CPlayerMgr()
+	: CScript(PLAYERMGR)
+	, m_pPlayer(nullptr)
+{
+	m_This = this;
 }
 
 CPlayerMgr::~CPlayerMgr()
@@ -25,15 +28,7 @@ void CPlayerMgr::SetPlayer(CGameObject* _obj)
 	//}
 
 	m_pPlayer = _obj;
-
-	const vector<CScript*> vecScript = m_pPlayer->GetScripts();
-	for (CScript* it : vecScript)
-	{
-		if (dynamic_cast<CPlayerScript*>(it))
-		{
-			m_pPlayerScript = dynamic_cast<CPlayerScript*>(it);
-		}
-	}
+	m_pPlayerScript = m_pPlayer->GetScriptByType<CPlayerScript>();
 
 	if (not m_pPlayerScript)
 	{

@@ -61,10 +61,10 @@ int main()
 		//{
 		//	bExeption = true;
 		//}
-		if (CurFileName.find(L"Mgr") != std::wstring::npos)
-		{
-			bExeption = true;
-		}
+		//if (CurFileName.find(L"Mgr") != std::wstring::npos)
+		//{
+		//	bExeption = true;
+		//}
 
 		if (!bExeption)
 		{
@@ -141,7 +141,7 @@ int main()
 		fwprintf_s(pFile, strScriptUpperName.c_str());
 		fwprintf_s(pFile, L",\n");
 	}
-	fwprintf_s(pFile, L"\tEND,\n");
+	fwprintf_s(pFile, L"\tSCRIPT_END,\n");
 	fwprintf_s(pFile, L"};\n\n");
 
 

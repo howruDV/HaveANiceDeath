@@ -175,6 +175,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CPlayerIdle.h" />
     <ClInclude Include="CPlayerRun.h" />
+    <ClInclude Include="CPlayerTurn.h" />
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTraceState.h" />
     <ClInclude Include="framework.h" />
@@ -184,6 +185,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CPlayerIdle.cpp" />
     <ClCompile Include="CPlayerRun.cpp" />
+    <ClCompile Include="CPlayerTurn.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTraceState.cpp" />
     <ClCompile Include="pch.cpp">
