@@ -20,6 +20,7 @@ private:
 
     unordered_map<wstring, CState*> m_mapState;     // FSM이 가질 수 있는 상태
     CState*                         m_CurState;     // FSM의 현재 상태
+    CState*                         m_PrevState;    // FSM의 이전 상태
     CBlackboard*                    m_Blackboard_OBJ;   // 기록한 FSM 정보 (실제소유: 컴포넌트)
     CBlackboard*                    m_Blackboard_FSM;   // 기록한 FSM 정보 (실제소유: 컴포넌트)
 
@@ -34,10 +35,13 @@ public:
     //void SetState(const wstring& _strState) { m_CurState = FindState(_strState); }    // Enter로 진입 못하고 바로 시작하므로 터질 가능성 농후
     void ChangeState(const wstring& _strStateName);
     CState* FindState(const wstring& _StateName);
+
     CFSM* GetFSMIstance();
     CStateMachine* GetStateMachine() { return m_StateMachine; }
     CBlackboard* GetBlackboard_OBJ() { return m_Blackboard_OBJ; }
     CBlackboard* GetBlackboard_FSM() { return m_Blackboard_FSM; }
+    CState* GetCurState() { return m_CurState; }
+    CState* GetPrevState() { return m_PrevState; }
 
 private:
     void ChangeState_proc(CState* _pNextState);

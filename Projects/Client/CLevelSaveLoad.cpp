@@ -210,7 +210,7 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 			pComponent = new CParticleSystem;
 			break;
 		case COMPONENT_TYPE::MOVEMENT:
-			pComponent = new CParticleSystem;
+			pComponent = new CMovement;
 			break;
 		default:
 			assert(nullptr);

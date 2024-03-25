@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CPlayerScript.h"
+#include "CPlayerMgr.h"
 
 #include <Engine/components.h>
 #include <Engine/CKeyMgr.h>
@@ -8,7 +9,9 @@
 
 CPlayerScript::CPlayerScript()
 	: CScript(PLAYERSCRIPT)
-	, m_fSpeed(400.f)
+	, m_fSpeed(500.f)
+	, m_fSpeedInAir(m_fSpeed)
+	, m_fJumpVelocMax(1300.f)
 	, m_iHPMax(65)
 	, m_iHPActive(m_iHPMax)
 	, m_iHPCur(m_iHPMax)
@@ -28,6 +31,8 @@ CPlayerScript::CPlayerScript()
 CPlayerScript::CPlayerScript(CPlayerScript& _Origin)
 	: CScript(_Origin)
 	, m_fSpeed(_Origin.m_fSpeed)
+	, m_fSpeedInAir(_Origin.m_fSpeedInAir)
+	, m_fJumpVelocMax(_Origin.m_fJumpVelocMax)
 	, m_iHPMax(65)
 	, m_iHPActive(m_iHPMax)
 	, m_iHPCur(m_iHPMax)
@@ -50,6 +55,9 @@ CPlayerScript::~CPlayerScript()
 
 void CPlayerScript::begin()
 {
+	// Mgr 등록
+	CPlayerMgr::PlayerMgr()->SetPlayer(GetOwner());
+
 	// Create Player's Component : Player Script에서는 생성자에서는 owner 모르고, begin은 이미 실행된 이후라 애매;
 	Collider2D()->SetAbsolute(true);
 	Collider2D()->SetOffsetScale(Vec3(70.f, 80.f, 1.f));
@@ -63,6 +71,7 @@ void CPlayerScript::begin()
 	Movement()->SetInitSpeed(m_fSpeed);
 	Movement()->SetMaxSpeed_Ground(m_fSpeed);
 	Movement()->SetMaxSpeed_InAir(5000.f);
+	Movement()->SetGravityForce(Vec3(0.f,-4000.f,0.f));
 
 	// Player Animation
 	FILE* pFile = nullptr;
@@ -83,6 +92,21 @@ void CPlayerScript::begin()
 	Animator2D()->Create(pAnim, L"Idle_UTurn");
 	fclose(pFile);
 
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Jump_Falling.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Jump_Falling");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Jump_Landing.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Jump_Landing");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Jump_Start.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Jump_Start");
+	fclose(pFile);
+
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Run.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
 	Animator2D()->Create(pAnim, L"Run");
@@ -93,12 +117,19 @@ void CPlayerScript::begin()
 	Animator2D()->Create(pAnim, L"Run_ToIdle");
 	fclose(pFile);
 
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_RunUturn.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Run_Uturn");
+	fclose(pFile);
+
 	delete pAnim;
 
 	// StateMachine
 	if (StateMachine())
 	{
 		StateMachine()->AddBlackboardData(L"fSpeed", BB_DATA::FLOAT, &m_fSpeed);
+		StateMachine()->AddBlackboardData(L"fSpeedInAir", BB_DATA::FLOAT, &m_fSpeedInAir);
+		StateMachine()->AddBlackboardData(L"fJumpVelocMax", BB_DATA::FLOAT, &m_fJumpVelocMax);
 
 		if (StateMachine()->GetFSM().Get())
 		{

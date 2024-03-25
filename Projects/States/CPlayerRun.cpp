@@ -38,12 +38,25 @@ void CPlayerRun::finaltick()
 	}
 	
 	// Change State
-	// 다른 방향키가 같이 탭되면, 일시정지(Idle)했다가, 풀리면 눌린 쪽으로 다시 이동
+	if ((KEY_RELEASED(KEY::A) && (KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)))
+		|| (KEY_RELEASED(KEY::D) && (KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A))))
+	{
+		// @TODO : Run Turn 지연확인
+		ChangeState(L"Turn");
+	}
+
 	if ((KEY_PRESSED(KEY::A) && KEY_PRESSED(KEY::D))
-		|| (KEY_RELEASED(KEY::A) || KEY_RELEASED(KEY::D)))
+		|| ((KEY_RELEASED(KEY::A) || KEY_NONE(KEY::A)) && (KEY_RELEASED(KEY::D) || KEY_NONE(KEY::D))))
 	{
 		GetOwner()->Animator2D()->Play(L"Run_ToIdle", false);
 		ChangeState(L"Idle");
+	}
+
+	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
+	{
+		static float JumpDT = 0.f;
+		ChangeState(L"Jump");
+		// @TODO Space 시간 따라 높이 조절
 	}
 }
 

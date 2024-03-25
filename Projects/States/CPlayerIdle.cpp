@@ -4,9 +4,10 @@
 #include <Engine/CKeyMgr.h>
 #include <Engine/CGameObject.h>
 #include <Engine/CAnimator2D.h>
+#include <Engine/CMovement.h>
 
-#include "Scripts/CPlayerMgr.h"
-#include "Scripts/CPlayerScript.h"
+#include <Scripts/CPlayerMgr.h>
+#include <Scripts/CPlayerScript.h>
 
 CPlayerIdle::CPlayerIdle()
 	: CState(PLAYERIDLE)
@@ -20,6 +21,10 @@ CPlayerIdle::~CPlayerIdle()
 
 void CPlayerIdle::finaltick()
 {
+	// change anim
+	if (GetOwner()->Animator2D()->GetCurAnimName() != L"Idle")
+		return;
+
 	// change state
 	if ((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && KEY_NONE(KEY::D))
 	{
@@ -45,6 +50,13 @@ void CPlayerIdle::finaltick()
 			GetOwner()->Animator2D()->Play(L"Idle_ToRun", false);
 			ChangeState(L"Run");
 		}
+	}
+
+	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
+	{
+		static float JumpDT = 0.f;
+		ChangeState(L"Jump");
+		// @TODO Space 시간 따라 높이 조절
 	}
 }
 

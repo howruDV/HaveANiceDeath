@@ -10,6 +10,7 @@ CFSM::CFSM(CFSM* _Origin, bool _bEngine)
 	, m_Blackboard_OBJ(nullptr)
 	, m_StateMachine(nullptr)
 	, m_CurState(nullptr)
+	, m_PrevState(nullptr)
 {
 	// origin인 경우
 	if (not m_Origin)
@@ -63,8 +64,7 @@ int CFSM::Save(const wstring& _strRelativePath)
 		fwrite(&StateType, sizeof(UINT), 1, pFile);
 
 		// State 저장
-		SaveWString(CStateMgr::GetStateName(iter->second), pFile);
-		//iter->second->SaveToFile(pFile);
+		iter->second->SaveToFile(pFile);
 	}
 
 	fclose(pFile);
@@ -97,7 +97,7 @@ int CFSM::Load(const wstring& _strFilePath)
 
 		// 스테이트 생성
 		CState* pState = CStateMgr::GetState(StateType);
-		//pState->LoadFromFile(pFile);
+		pState->LoadFromFile(pFile);
 
 		pState->m_FSM = this;
 		m_mapState.insert(make_pair(StateKey, pState));
@@ -151,6 +151,7 @@ void CFSM::ChangeState_proc(CState* _pNextState)
 	if (m_CurState)
 		m_CurState->Exit();
 
+	m_PrevState = m_CurState;
 	m_CurState = _pNextState;
 	m_CurState->m_FSM = this;
 	m_CurState->Enter();

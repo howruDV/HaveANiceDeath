@@ -7,6 +7,8 @@ class CPlayerScript :
 private:
     // Info
     float m_fSpeed;
+    float m_fSpeedInAir;
+    float m_fJumpVelocMax;
     bool m_bLookLeft;
     bool m_bLookLeft_Prev;
 

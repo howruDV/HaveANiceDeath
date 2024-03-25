@@ -31,7 +31,7 @@ void CPathMgr::init()
 	wcscpy_s(g_szResPath, 255, g_szSolutionPath);
 
 	// -> bin -> Resources
-	wcscat_s(g_szResPath, L"OutputFile\\Content\\");
+	wcscat_s(g_szResPath, L"OutputFile\\Contents\\");
 	
 	// Inc 폴더 경로 
 	GetCurrentDirectory(255, g_szIncPath);
@@ -68,7 +68,7 @@ void CPathMgr::init()
 			break;
 	}
 
-	wcscat_s(g_szProjPath, L"Project\\");
+	wcscat_s(g_szProjPath, L"Projects\\");
 }
 
 wchar_t * CPathMgr::GetResPath()

@@ -1,5 +1,6 @@
 CIdleState
 CPlayerIdle
+CPlayerJump
 CPlayerRun
 CPlayerTurn
 CTraceState

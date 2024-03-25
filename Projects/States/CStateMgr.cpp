@@ -3,6 +3,7 @@
 
 #include "CIdleState.h"
 #include "CPlayerIdle.h"
+#include "CPlayerJump.h"
 #include "CPlayerRun.h"
 #include "CPlayerTurn.h"
 #include "CTraceState.h"
@@ -11,6 +12,7 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CIdleState");
 	_vec.push_back(L"CPlayerIdle");
+	_vec.push_back(L"CPlayerJump");
 	_vec.push_back(L"CPlayerRun");
 	_vec.push_back(L"CPlayerTurn");
 	_vec.push_back(L"CTraceState");
@@ -22,6 +24,8 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 		return new CIdleState;
 	if (L"CPlayerIdle" == _strStateName)
 		return new CPlayerIdle;
+	if (L"CPlayerJump" == _strStateName)
+		return new CPlayerJump;
 	if (L"CPlayerRun" == _strStateName)
 		return new CPlayerRun;
 	if (L"CPlayerTurn" == _strStateName)
@@ -40,6 +44,9 @@ CState* CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERIDLE:
 		return new CPlayerIdle;
+		break;
+	case (UINT)STATE_TYPE::PLAYERJUMP:
+		return new CPlayerJump;
 		break;
 	case (UINT)STATE_TYPE::PLAYERRUN:
 		return new CPlayerRun;
@@ -64,6 +71,10 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERIDLE:
 		return L"CPlayerIdle";
+		break;
+
+	case STATE_TYPE::PLAYERJUMP:
+		return L"CPlayerJump";
 		break;
 
 	case STATE_TYPE::PLAYERRUN:

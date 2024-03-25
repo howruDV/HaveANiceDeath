@@ -25,6 +25,9 @@
     <Filter Include="States\Player\Turn">
       <UniqueIdentifier>{bed0dddf-1ba3-4f30-be81-b4a6ae3fa978}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Player\Jump">
+      <UniqueIdentifier>{f5edc913-60f7-4e83-a3e2-ebb4d5d367ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -51,6 +54,9 @@
     <ClInclude Include="CPlayerTurn.h">
       <Filter>States\Player\Turn</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerJump.h">
+      <Filter>States\Player\Jump</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -76,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerTurn.cpp">
       <Filter>States\Player\Turn</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerJump.cpp">
+      <Filter>States\Player\Jump</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

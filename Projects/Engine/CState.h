@@ -22,6 +22,9 @@ public:
     virtual void Enter() = 0;
     virtual void Exit() = 0;
 
+    virtual void SaveToFile(FILE* pFile) {};
+    virtual void LoadFromFile(FILE* pFile) {};
+
 public:
     UINT GetStateType() { return m_StateType; }
     CGameObject* GetOwner();

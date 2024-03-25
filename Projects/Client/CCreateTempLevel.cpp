@@ -27,6 +27,7 @@
 #include <States/CPlayerIdle.h>
 #include <States/CPlayerRun.h>
 #include <States/CPlayerTurn.h>
+#include <States/CPlayerJump.h>
 
 void CCreateTempLevel::Init()
 {
@@ -59,6 +60,7 @@ void CCreateTempLevel::Init()
 	pFSM->AddState(L"Idle", new CPlayerIdle);
 	pFSM->AddState(L"Run", new CPlayerRun);
 	pFSM->AddState(L"Turn", new CPlayerTurn);
+	pFSM->AddState(L"Jump", new CPlayerJump);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST
@@ -310,7 +312,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"FSM\\PlayerFSM.fsm"));
 
-	pMgrObj->GetScriptByType<CPlayerMgr>()->SetPlayer(pObj);
+	//pMgrObj->GetScriptByType<CPlayerMgr>()->SetPlayer(pObj);
 	pTempLevel->AddObject(pObj, L"Player", false);
 
 
@@ -398,4 +400,8 @@ void CCreateTempLevel::CreateTempLevel()
 	// @TODO 터지면 여기임
 	CLevelMgr::GetInst()->ChangeLevel(pTempLevel, LEVEL_STATE::STOP);
 	CLevelSaveLoad::SaveLevel(pTempLevel, L"level\\temp.lv");
+}
+
+void CCreateTempLevel::CreateTempHaND()
+{
 }
