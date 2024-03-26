@@ -5,6 +5,7 @@
 
 #include <Engine/CTimeMgr.h>
 #include <Engine/CAnim.h>
+#include <Engine/CKeyMgr.h>
 
 UIAnimPreview::UIAnimPreview()
 	: UI("Preview", "##Animation Tool_Preview")
@@ -51,6 +52,9 @@ void UIAnimPreview::tick()
 		m_MainPannel->Deactivate();
 	}
 	m_bPrevActive = IsActivate();
+
+	// move pivot
+
 }
 
 void UIAnimPreview::render_update()
@@ -65,24 +69,42 @@ void UIAnimPreview::render_update()
 	static float previewScaling = 0.5f;
 	ImVec2 atlasSize = ImVec2((float)m_AtlasTex->GetWidth(), (float)m_AtlasTex->GetHeight());
 	ImVec2 Size = ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y) * atlasSize;
+	Vec2 GlobalOffset = m_DetailPannel->GetGlobalOffset();
 	ImGuiIO& io = ImGui::GetIO();
 
-	if (io.MouseWheel != 0.0f && ImGui::IsWindowHovered()) 
+	if (ImGui::IsWindowHovered()) 
 	{
-		float zoomSpeed = 0.05f;
-		float zoomDelta = io.MouseWheel * zoomSpeed;
-		previewScaling += zoomDelta;
-		if (previewScaling < 0) previewScaling = 0;
+		// 확대/축소: 휠
+		if (io.MouseWheel != 0.0f)
+		{
+			float zoomSpeed = 0.05f;
+			float zoomDelta = io.MouseWheel * zoomSpeed;
+			previewScaling += zoomDelta;
+			if (previewScaling < 0) previewScaling = 0;
+		}
+
+		// 피벗이동: 마우스 드래그
+		if (ImGui::IsMouseDown(0) && ImGui::IsMouseDragging(0))
+		{
+			Vec2 DragScale = CKeyMgr::GetInst()->GetMouseDrag();
+			DragScale.y *= -1;
+
+			GlobalOffset -= DragScale;
+			m_DetailPannel->SetGlobalOffset(GlobalOffset);
+		}
 	}
 	Size *= previewScaling;
 
 	// 그리는 좌표: offset 계산 (y축 좌표 반대로)
+	GlobalOffset.x /= atlasSize.x;
+	GlobalOffset.y /= atlasSize.y;
+
 	ImVec2 CenterPos = ImGui::GetWindowContentRegionMax() * 0.5f;
-	ImVec2 ImgPos = CenterPos - (Size * 0.5) - ImVec2(m_CurFrm->vOffsetUV.x, -m_CurFrm->vOffsetUV.y) * atlasSize * previewScaling;
-	ImGui::SetCursorPos(ImgPos);
+	ImVec2 ImgPos = CenterPos - (Size * 0.5) - ImVec2(m_CurFrm->vOffsetUV.x + GlobalOffset.x, -(m_CurFrm->vOffsetUV.y + GlobalOffset.y)) * atlasSize * previewScaling;
 	ImVec2 LeftTopUV = ImVec2(m_CurFrm->vLeftTopUV.x, m_CurFrm->vLeftTopUV.y);
 	ImVec2 RightBottomUV = LeftTopUV + ImVec2(m_CurFrm->vCutSizeUV.x, m_CurFrm->vCutSizeUV.y);
 	
+	ImGui::SetCursorPos(ImgPos);
 	ImGui::Image(m_AtlasTex->GetSRV().Get(), Size, LeftTopUV, RightBottomUV);
 
 	// cross hair

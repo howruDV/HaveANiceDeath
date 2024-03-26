@@ -173,9 +173,6 @@
     <ClInclude Include="UIFSM.h" />
     <ClInclude Include="UIGraphicsShader.h" />
     <ClInclude Include="UILight2D.h" />
-    <ClInclude Include="UIList.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="UIListPannel.h" />
     <ClInclude Include="UIMaterial.h" />
     <ClInclude Include="UIMenuPannel.h" />
@@ -239,9 +236,6 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIInspectorPannel_Init.cpp" />
     <ClCompile Include="UILight2D.cpp" />
-    <ClCompile Include="UIList.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="UIListPannel.cpp" />
     <ClCompile Include="UIMaterial.cpp" />
     <ClCompile Include="UIMenuPannel.cpp" />

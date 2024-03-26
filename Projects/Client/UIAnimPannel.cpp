@@ -125,7 +125,8 @@ void UIAnimPannel::render_update()
 			for (int j = 0; j < m_vecGridSelect[i].size(); ++j)
 				if (m_vecGridSelect[i][j])  selectCount++;
 		}
-		ImGui::Text("[%s] size : %d x %d, select : %d", fileName.c_str(), m_Atlas.Get()->GetWidth(), m_Atlas.Get()->GetHeight(), selectCount);
+		ImGui::Text("[%s]", fileName.c_str());
+		ImGui::Text("size : %d x %d, select : %d", m_Atlas.Get()->GetWidth(), m_Atlas.Get()->GetHeight(), selectCount);
 
 		// draw atlas
 		ImGui::BeginChild("atlas_image");
@@ -268,7 +269,8 @@ void UIAnimPannel::OpenFileWindow()
 			//fclose(pFile);
 
 			// atlas 세팅
-			LoadAtlas(pAnim->m_AtlasTex->GetKey());
+			m_AtlasKey = pAnim->m_AtlasTex->GetKey();
+			LoadAtlas(m_AtlasKey);
 
 			// Animation Frm 기록
 			string fileName = path(m_AtlasKey).filename().stem().generic_string();
@@ -336,8 +338,19 @@ void UIAnimPannel::Compile()
 
 void UIAnimPannel::Save()
 {
-	// create anim
 	CAnim* pAnim = new CAnim;
+
+	// save global offset: 재생용 복사 후, 따로 저장
+	Vec2 GlobalOffset = m_DetailPannel->GetGlobalOffset();
+	Vec2 AtlasSize = m_Atlas->GetSize();
+	Vec2 GlobalOffsetUV = { GlobalOffset.x / AtlasSize.x,	GlobalOffset.y / AtlasSize.y };
+	vector<FAnimFrm>& AnimFrm = m_DetailPannel->GetFrms();
+	vector<FAnimFrm> AnimCopy = AnimFrm;
+
+	for (size_t i = 0; i < AnimFrm.size(); ++i)
+		AnimFrm[i].vOffsetUV += GlobalOffsetUV;
+
+	// create anim
 	pAnim->Create(nullptr, m_Atlas, m_DetailPannel->GetFrms(), true);
 	pAnim->SetName(StrToWstr(m_DetailPannel->GetAnimName()));
 
@@ -348,6 +361,9 @@ void UIAnimPannel::Save()
 
 	// save
 	pAnim->SaveToFile(pFile);
+
+	// restore anim for play
+	AnimFrm = AnimCopy;
 
 	// close save file
 	fclose(pFile);

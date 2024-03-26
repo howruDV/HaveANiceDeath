@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "UIAnimDetail.h"
 #include "UIAnimPannel.h"
+#include "func_ImGUI.h"
 
 #include "Engine/CAnimator2D.h"
 #include "Engine/CAnim.h"
+
 
 UIAnimDetail::UIAnimDetail()
 	: UI("Detail", "##Animation Tool_Detail")
@@ -43,14 +45,14 @@ void UIAnimDetail::render_update()
 	// ---------------------이름------------------------
 	if (ImGui::CollapsingHeader("Naiming", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::Text("Animation Name "); ImGui::SameLine(); ImGui::InputText("##AnimationNaming", m_AnimName, 32);
+		TextBox("Animation Name "); ImGui::SameLine(); ImGui::InputText("##AnimationNaming", m_AnimName, 32);
 	}
 
 	// ---------------------칸수------------------------
 	if (ImGui::CollapsingHeader("Grid", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::Text("Num Cells X    "); ImGui::SameLine(); ImGui::InputText("##AtlasNumCellsX", buf1, 10, ImGuiInputTextFlags_CharsDecimal);
-		ImGui::Text("Num Cells Y    "); ImGui::SameLine(); ImGui::InputText("##AtlasNumCellsY", buf2, 10, ImGuiInputTextFlags_CharsDecimal);
+		TextBox("Num Cells X    "); ImGui::SameLine(); ImGui::InputText("##AtlasNumCellsX", buf1, 10, ImGuiInputTextFlags_CharsDecimal);
+		TextBox("Num Cells Y    "); ImGui::SameLine(); ImGui::InputText("##AtlasNumCellsY", buf2, 10, ImGuiInputTextFlags_CharsDecimal);
 		m_NumCellsX = (string(buf1) == "") ? 0 : stoi(string(buf1));
 		m_NumCellsY = (string(buf2) == "") ? 0 : stoi(string(buf2));
 	}
@@ -58,8 +60,13 @@ void UIAnimDetail::render_update()
 	// ---------------------프레임------------------------
 	if (ImGui::CollapsingHeader("Sprites", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		// Global Offset 입력
+		float fOffset[2] = { m_GlobalOffset.x, m_GlobalOffset.y };
+		TextBox("Global Offset"); ImGui::SameLine(); ImGui::DragFloat2("##Relative Position", fOffset);
+		m_GlobalOffset.x = fOffset[0]; m_GlobalOffset.y = fOffset[1];
+
 		// Frame Run 입력
-		ImGui::Text("FPS            "); ImGui::SameLine(); ImGui::InputText("##AnimationFrame", buf3, 10, ImGuiInputTextFlags_CharsDecimal);
+		TextBox("FPS            "); ImGui::SameLine(); ImGui::InputText("##AnimationFrame", buf3, 10, ImGuiInputTextFlags_CharsDecimal);
 		m_FPS = (string(buf3) == "") ? 32 : stoi(string(buf3));
 		ImGui::Separator();
 
@@ -83,11 +90,11 @@ void UIAnimDetail::render_update()
 			ImGui::BeginChild(ID.c_str(), ImVec2(0, 70));
 
 			ImGui::Text("[ %i ]", i);
-			ImGui::Text("Offset  "); ImGui::SameLine(); ImGui::DragFloat2(ID.c_str(), vOffset, 0.1f);
+			ImGui::Text("Offset  "); ImGui::SameLine(50); ImGui::DragFloat2(ID.c_str(), vOffset, 0.1f);
 
 			// frame input
 			int fFps = int(1.f / m_vecAnimUV[i].fDuration);
-			ImGui::Text("FPS     "); ImGui::SameLine(); ImGui::DragInt(ID.c_str(), &fFps, 0.1f);
+			ImGui::Text("FPS     "); ImGui::SameLine(50); ImGui::DragInt(ID.c_str(), &fFps, 0.1f);
 
 			ImGui::EndChild();
 			ImGui::Separator();
@@ -117,6 +124,7 @@ void UIAnimDetail::Deactivate()
 
 void UIAnimDetail::Clear()
 {
+	m_GlobalOffset = Vec2(0.f, 0.f);
 	m_Atlas = nullptr;
 	m_vecAnimUV.clear();
 	sprintf_s(m_AnimName, "%s", "Untitled");

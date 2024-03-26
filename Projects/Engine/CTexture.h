@@ -35,6 +35,7 @@ public:
 
     UINT GetWidth() { return m_Desc.Width; }
     UINT GetHeight() { return m_Desc.Height; }
+    Vec2 GetSize() { return Vec2(m_Desc.Width, m_Desc.Height); }
     ComPtr<ID3D11Texture2D> GetTex2D() { return m_Tex2D; }
     ComPtr<ID3D11RenderTargetView> GetRTV() { return m_RTV; }
     ComPtr<ID3D11DepthStencilView> GetDSV() { return m_DSV; }

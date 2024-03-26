@@ -120,15 +120,6 @@
     <Filter Include="02. UI\7. Module\UIParam">
       <UniqueIdentifier>{82bbc365-0bfb-46f9-b9e7-108f04063a04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. UI\6. AnimatorPannel">
-      <UniqueIdentifier>{dd5f576c-1038-49f1-806b-5b9f4ae08329}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. UI\6. AnimatorPannel\Detail">
-      <UniqueIdentifier>{17c6c8b9-ce45-49cc-aef2-4d3966dfe8ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. UI\6. AnimatorPannel\Preview">
-      <UniqueIdentifier>{eabe9802-b917-4831-b385-d720f5d0c867}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. UI\3. InspectorPannel\Component\Movement">
       <UniqueIdentifier>{d0de29db-f8e1-404a-86fb-0f53467fc242}</UniqueIdentifier>
     </Filter>
@@ -140,6 +131,15 @@
     </Filter>
     <Filter Include="02. UI\3. InspectorPannel\MatEditor">
       <UniqueIdentifier>{15b2cedb-e134-4a08-9322-2380ed2620b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. UI\4. MenuPannel\Animation Tool">
+      <UniqueIdentifier>{dd5f576c-1038-49f1-806b-5b9f4ae08329}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. UI\4. MenuPannel\Animation Tool\Detail">
+      <UniqueIdentifier>{17c6c8b9-ce45-49cc-aef2-4d3966dfe8ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. UI\4. MenuPannel\Animation Tool\Preview">
+      <UniqueIdentifier>{eabe9802-b917-4831-b385-d720f5d0c867}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -285,13 +285,13 @@
       <Filter>02. UI\3. InspectorPannel\Component\Script</Filter>
     </ClInclude>
     <ClInclude Include="UIAnimPreview.h">
-      <Filter>02. UI\6. AnimatorPannel\Preview</Filter>
+      <Filter>02. UI\4. MenuPannel\Animation Tool\Preview</Filter>
     </ClInclude>
     <ClInclude Include="UIAnimDetail.h">
-      <Filter>02. UI\6. AnimatorPannel\Detail</Filter>
+      <Filter>02. UI\4. MenuPannel\Animation Tool\Detail</Filter>
     </ClInclude>
     <ClInclude Include="UIAnimPannel.h">
-      <Filter>02. UI\6. AnimatorPannel</Filter>
+      <Filter>02. UI\4. MenuPannel\Animation Tool</Filter>
     </ClInclude>
     <ClInclude Include="UIMovement.h">
       <Filter>02. UI\3. InspectorPannel\Component\Movement</Filter>
@@ -304,9 +304,6 @@
     </ClInclude>
     <ClInclude Include="func_ImGUI.h">
       <Filter>00. header</Filter>
-    </ClInclude>
-    <ClInclude Include="UIList.h">
-      <Filter>02. UI\5. ListPannel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -454,13 +451,13 @@
       <Filter>02. UI\3. InspectorPannel\Component\Script</Filter>
     </ClCompile>
     <ClCompile Include="UIAnimPreview.cpp">
-      <Filter>02. UI\6. AnimatorPannel\Preview</Filter>
+      <Filter>02. UI\4. MenuPannel\Animation Tool\Preview</Filter>
     </ClCompile>
     <ClCompile Include="UIAnimDetail.cpp">
-      <Filter>02. UI\6. AnimatorPannel\Detail</Filter>
+      <Filter>02. UI\4. MenuPannel\Animation Tool\Detail</Filter>
     </ClCompile>
     <ClCompile Include="UIAnimPannel.cpp">
-      <Filter>02. UI\6. AnimatorPannel</Filter>
+      <Filter>02. UI\4. MenuPannel\Animation Tool</Filter>
     </ClCompile>
     <ClCompile Include="UIMovement.cpp">
       <Filter>02. UI\3. InspectorPannel\Component\Movement</Filter>
@@ -473,9 +470,6 @@
     </ClCompile>
     <ClCompile Include="func_ImGUI.cpp">
       <Filter>00. header</Filter>
-    </ClCompile>
-    <ClCompile Include="UIList.cpp">
-      <Filter>02. UI\5. ListPannel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
