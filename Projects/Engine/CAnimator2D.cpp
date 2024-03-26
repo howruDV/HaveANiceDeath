@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "CAnimator2D.h"
+#include "CLevelMgr.h"
 #include "CAnim.h"
 #include "CTransform.h"
+#include "CLevel.h"
 
 CAnimator2D::CAnimator2D()
     : CComponent(COMPONENT_TYPE::ANIMATOR2D)
@@ -143,6 +145,27 @@ CAnim* CAnimator2D::FindAnim(const wstring& _strAnimName)
     return nullptr;
 }
 
+int CAnimator2D::DeleteAnim(const wstring& _AnimationKey)
+{
+    CLevel* CurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+    if (LEVEL_STATE::PLAY == CurLevel->GetState())
+    {
+        return E_FAIL;
+    }
+
+    CAnim* SelectedAnim = FindAnim(_AnimationKey);
+    if (nullptr == SelectedAnim)
+    {
+        MessageBox(nullptr, L"애니메이션이 존재하지 않습니다.", L"Animation Delete Failed", MB_OK);
+        return E_FAIL;
+    }
+
+    delete SelectedAnim;
+    m_mapAnim.erase(_AnimationKey);
+
+    return S_OK;
+}
+
 void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
 {
     CAnim* pAnim = FindAnim(_strAnimName);
@@ -186,7 +209,6 @@ void CAnimator2D::SaveToFile(FILE* _File)
 
     // 플레이 중이던 애니메이션의 키를 저장한다.
     wstring PlayAnimName;
-
     if (nullptr != m_CurAnim)
     {
         PlayAnimName = m_CurAnim->GetName();
