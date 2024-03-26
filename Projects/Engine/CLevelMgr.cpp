@@ -3,6 +3,7 @@
 #include "CRenderMgr.h"
 #include "CAssetMgr.h"
 #include "CTaskMgr.h"
+#include "CTimeMgr.h"
 #include "CCollisionMgr.h"
 #include "CDevice.h"
 #include "CLevel.h"
@@ -40,6 +41,9 @@ void CLevelMgr::tick()
 
 	CCollisionMgr::GetInst()->tick();
 	CRenderMgr::GetInst()->tick();
+	CTimeMgr::GetInst()->render();
+
+	CRenderMgr::GetInst()->CopyRenderTargetToImGuiRenderTexture();
 }
 
 // Usage: Level Change 요청 (처리: TaskMgr)

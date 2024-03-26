@@ -89,12 +89,25 @@ void CImGuiMgr::render()
 
 void CImGuiMgr::render_copytex()
 {
+	ImGui::Begin("##GameWindow");
+
 	Vec2 RenderResolution = CDevice::GetInst()->GetRenderResolution();
 	ImVec2 RenderResol = { RenderResolution.x,RenderResolution.y };
 	Ptr<CTexture> pCopyTex = CRenderMgr::GetInst()->GetRTCopyTex();
 
-	ImGui::Begin("##GameWindow");
-	ImGui::Image((void*)pCopyTex->GetSRV().Get(), RenderResol);
+	// 현재 크기
+	ImVec2 contentSize = ImGui::GetContentRegionAvail();
+	Vec2 vResolution = CDevice::GetInst()->GetRenderResolution();
+	ImVec2 Resolution = { vResolution.x,vResolution.y };
+	ImVec2 LeftTopUv;
+	ImVec2 RightBottom;
+
+	LeftTopUv.x = ((vResolution.x - contentSize.x) / 2.f) / Resolution.x;
+	LeftTopUv.y = ((vResolution.y - contentSize.y) / 2.f) / Resolution.y;
+	RightBottom.x = 1.f - LeftTopUv.x;
+	RightBottom.y = 1.f - LeftTopUv.y;
+
+	ImGui::Image(pCopyTex->GetSRV().Get(), ImVec2(Resolution.x * (RightBottom.x - LeftTopUv.x), Resolution.y * (RightBottom.y - LeftTopUv.y)), LeftTopUv, RightBottom);
 	ImGui::End();
 }
 

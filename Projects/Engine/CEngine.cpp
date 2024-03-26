@@ -44,8 +44,8 @@ int CEngine::init(HWND _hWnd, Vec2 _vResolution)
 	// window size, position
 	RECT rect = { 0, 0, (int)m_vResolution.x, (int)m_vResolution.y };
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
-	SetWindowPos(m_hMainWnd, nullptr, 10, 10, rect.right - rect.left, rect.bottom - rect.top, 0);
-	
+	SetWindowPos(m_hMainWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
+
 	// device init
 	if (FAILED(CDevice::GetInst()->init(m_hMainWnd, m_vResolution)))
 	{
@@ -83,7 +83,6 @@ void CEngine::progress()
 	//	CCollisionMgr::GetInst()->tick();
 	//	CRenderMgr::GetInst()->tick();
 	//}
-	CTimeMgr::GetInst()->render();
 
 	// GC
 	CGC::GetInst()->tick();

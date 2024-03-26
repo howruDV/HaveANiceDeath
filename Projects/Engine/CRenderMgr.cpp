@@ -50,8 +50,6 @@ void CRenderMgr::tick()
 	(this->*m_RenderFunc)();
 	render_debug();
 
-	CopyRenderTargetToImGuiRenderTexture();
-
 	// clear used resources
 	Clear();
 

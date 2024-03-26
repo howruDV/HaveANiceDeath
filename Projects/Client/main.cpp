@@ -63,13 +63,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
 
 #ifdef _DEBUG
-    RECT desktopRect = {};
-    const HWND hDesktop = GetDesktopWindow();
-    GetWindowRect(hDesktop, &desktopRect);
-    Vec2 WinSize = Vec2((float)desktopRect.right, (float)desktopRect.bottom);
+    //Vec2 WinSize = Vec2(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN));
+    RECT rect = { 0,0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
+    AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+    SetWindowPos(hWnd, nullptr, 0, 0, rect.right - rect.left, rect.bottom - rect.top - 79, 0);
+
+    GetClientRect(hWnd, &rect); // 클라이언트 영역의 크기를 가져옴
+    Vec2 WinSize = Vec2((float)rect.right, (float)rect.bottom);
 #else
     Vec2 WinSize = Vec2 (1600,900);
 #endif
+
     // CEnigne init
     if (FAILED(CEngine::GetInst()->init(hWnd, WinSize)))
     {

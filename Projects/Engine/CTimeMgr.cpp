@@ -45,7 +45,7 @@ void CTimeMgr::tick()
 	m_szText[50] = {};
 	if (1.f <= m_fTime)
 	{		
-		swprintf_s(m_szText, 50, L"DeltaTime : %f, FPS : %d", m_DeltaTime, m_iCall);
+		swprintf_s(m_szText, 50, L"DeltaTime : %f, FPS : %d", (float)m_EngineDeltaTime, m_iCall);
 		m_iCall = 0;
 		m_fTime = 0.f;
 	}
