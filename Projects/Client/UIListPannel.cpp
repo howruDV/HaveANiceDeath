@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "UIListPannel.h"
+#include "func_ImGUI.h"
 
 UIListPannel::UIListPannel()
 	: UI("", "##List")
@@ -8,6 +9,7 @@ UIListPannel::UIListPannel()
 	, m_pUI(nullptr)
 {
 	Deactivate();
+	//SetModal(true);
 }
 
 UIListPannel::~UIListPannel()
@@ -18,20 +20,30 @@ void UIListPannel::render_update()
 {
 	ImVec2 vWinSize = ImGui::GetContentRegionAvail();
 
+	static char buffer[32];
+	strcpy_s(buffer, m_Filter.c_str());
+	ImGui::Text("Filter"); ImGui::SameLine(80); ImGui::InputText("##ListFilter", buffer, 32);
+	m_Filter = buffer;
+
 	static int item_current_idx = 0;
 	if (ImGui::BeginListBox(GetID().c_str(), vWinSize))
 	{
 		for (int i = 0; i < m_vecStr.size(); ++i)
 		{
+			if (m_vecStr[i].find(m_Filter) == std::string::npos)
+			{
+				continue;
+			}
 			const bool is_selected = (item_current_idx == i);
+
+			// select
+			if (ImGui::Selectable(m_vecStr[i].c_str(), is_selected))
+				item_current_idx = i;
 
 			// render
 			if (is_selected)
 				ImGui::SetItemDefaultFocus();
 
-			// select
-			if (ImGui::Selectable(m_vecStr[i].c_str(), is_selected))
-				item_current_idx = i;
 			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 			{
 				m_strDBClicked = m_vecStr[i];

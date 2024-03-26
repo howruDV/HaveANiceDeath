@@ -2,6 +2,7 @@
 #include "CFSM.h"
 #include "CTaskMgr.h"
 #include "CStateMachine.h"
+
 #include <States/CStateMgr.h>
 
 CFSM::CFSM(CFSM* _Origin, bool _bEngine)
@@ -144,6 +145,20 @@ void CFSM::ChangeState(const wstring& _strState)
 	pTask.Param_1 = (UINT_PTR)m_StateMachine->GetOwner();
 	pTask.Param_2 = (UINT_PTR)pNextState;
 	CTaskMgr::GetInst()->AddTask(pTask);
+}
+
+void CFSM::DeleteState(const wstring& _StateKey)
+{
+	CState* pState = FindState(_StateKey);
+
+	if (pState == nullptr)
+	{
+		MessageBoxA(nullptr, "해당 키를 가진 스테이트가 없습니다.", "Delete State Failed", MB_OK);
+		return;
+	}
+
+	delete pState;
+	m_mapState.erase(_StateKey);
 }
 
 void CFSM::ChangeState_proc(CState* _pNextState)

@@ -5,7 +5,7 @@
 #include <Engine\CTexture.h>
 #include <Engine/CGraphicsShader.h>
 
-class MtrlEditorUI :
+class UIMatEditor :
     public UI
 {
 private:
@@ -44,7 +44,7 @@ private:
     void Reset();
 
 public:
-    MtrlEditorUI();
-    ~MtrlEditorUI();
+    UIMatEditor();
+    ~UIMatEditor();
 };
 

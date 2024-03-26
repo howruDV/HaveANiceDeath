@@ -28,8 +28,8 @@ void UIMovement::render_update()
 	Vec3  vGravityForce = pMovement->GetGravityForce();
 	float fMass = pMovement->GetMass();
 	float fInitSpeed = pMovement->GetInitSpeed();
-	float fMaxSpeed_Ground = pMovement->GetMaxSpeed();
-	float fMaxSpeed_InAir = pMovement->GetMaxSpeed();
+	float fMaxSpeed_Ground = pMovement->GetMaxSpeed_Ground();
+	float fMaxSpeed_InAir = pMovement->GetMaxSpeed_InAir();
 	float fFrictionScale = pMovement->GetFrictionScale();
 	bool  bUseGravity = pMovement->IsUseGravity();
 	bool  bGround = pMovement->IsGround();

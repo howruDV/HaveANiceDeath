@@ -69,7 +69,7 @@ void UIAnimPreview::render_update()
 
 	if (io.MouseWheel != 0.0f && ImGui::IsWindowHovered()) 
 	{
-		float zoomSpeed = 0.5f;
+		float zoomSpeed = 0.05f;
 		float zoomDelta = io.MouseWheel * zoomSpeed;
 		previewScaling += zoomDelta;
 		if (previewScaling < 0) previewScaling = 0;

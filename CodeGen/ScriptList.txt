@@ -1,3 +1,4 @@
+CGameMgr
 CMissileScript_Test
 CMonsterScript_Test
 CPlayerMgr

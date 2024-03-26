@@ -50,7 +50,7 @@ void UICamera::render_update()
 
 	ImGui::SeparatorText("Orthographic Setting");
 	TextBox("Width"); ImGui::SameLine(); ImGui::DragFloat("##Camera Ortho Width", &m_Width);
-	TextBox("Scale"); ImGui::SameLine(); ImGui::DragFloat("##Camera Ortho Width", &m_Scale);
+	TextBox("Scale"); ImGui::SameLine(); ImGui::DragFloat("##Camera Ortho Scale", &m_Scale);
 
 	ImGui::SeparatorText("Perspective Setting");
 	TextBox("FOV"); ImGui::SameLine(); ImGui::DragFloat("##Camera Perspecitve FOV", &m_FOV);

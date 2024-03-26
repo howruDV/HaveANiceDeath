@@ -1,10 +1,13 @@
 #pragma once
 #include "UI.h"
+#include <Engine/CTexture.h>
+#include <Engine/CAnim.h>
 // =======================================
 // UIAnimDetail: Animation per Frame UI
 // =======================================
 
 class UIAnimPannel;
+class UIAnimPreview;
 
 class UIAnimDetail :
     public UI

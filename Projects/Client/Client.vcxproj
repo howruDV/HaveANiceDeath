@@ -173,6 +173,9 @@
     <ClInclude Include="UIFSM.h" />
     <ClInclude Include="UIGraphicsShader.h" />
     <ClInclude Include="UILight2D.h" />
+    <ClInclude Include="UIList.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="UIListPannel.h" />
     <ClInclude Include="UIMaterial.h" />
     <ClInclude Include="UIMenuPannel.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="UIPrefab.h" />
     <ClInclude Include="UIScript.h" />
     <ClInclude Include="UISound.h" />
+    <ClInclude Include="UIStateMachine.h" />
     <ClInclude Include="UITexture.h" />
     <ClInclude Include="UITileMap.h" />
     <ClInclude Include="UITransform.h" />
@@ -235,6 +239,9 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UIInspectorPannel_Init.cpp" />
     <ClCompile Include="UILight2D.cpp" />
+    <ClCompile Include="UIList.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="UIListPannel.cpp" />
     <ClCompile Include="UIMaterial.cpp" />
     <ClCompile Include="UIMenuPannel.cpp" />
@@ -248,6 +255,7 @@
     <ClCompile Include="UIPrefab.cpp" />
     <ClCompile Include="UIScript.cpp" />
     <ClCompile Include="UISound.cpp" />
+    <ClCompile Include="UIStateMachine.cpp" />
     <ClCompile Include="UITexture.cpp" />
     <ClCompile Include="UITileMap.cpp" />
     <ClCompile Include="UITransform.cpp" />

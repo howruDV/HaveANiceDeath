@@ -1,6 +1,10 @@
 #pragma once
 #include <Engine/CScript.h>
 
+// =======================================
+// CPlayerMgr: Player 추적, 기록
+// =======================================
+
 class CGameObject;
 class CPlayerScript;
 

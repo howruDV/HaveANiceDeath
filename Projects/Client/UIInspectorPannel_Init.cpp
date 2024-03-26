@@ -2,11 +2,12 @@
 #include "UIInspectorPannel.h"
 
 #include "UITransform.h"
-#include "UIMeshRender.h"
 #include "UICollider2D.h"
-#include "UILight2D.h"
 #include "UIAnimator2D.h"
+#include "UILight2D.h"
 #include "UICamera.h"
+#include "UIMeshRender.h"
+#include "UIStateMachine.h"
 #include "UITileMap.h"
 #include "UIParticleSystem.h"
 #include "UIPrefab.h"
@@ -51,7 +52,9 @@ void UIInspectorPannel::CreateComponentUI()
 	//SKYBOX,
 	//DECAL,
 	//LANDSCAPE,
-	//SCRIPT,
+	
+	m_arrCompUI[(UINT)COMPONENT_TYPE::STATEMACHINE] = new UIStateMachine;
+	AddChild(m_arrCompUI[(UINT)COMPONENT_TYPE::STATEMACHINE]);
 
 	for (int i = 0; i < (int)COMPONENT_TYPE::END; ++i)
 	{
@@ -61,7 +64,10 @@ void UIInspectorPannel::CreateComponentUI()
 			m_arrCompUI[i]->Deactivate();
 		}
 	}
+
+	//SCRIPT,
 };
+
 
 
 #include "UIMeshData.h"
@@ -107,6 +113,4 @@ void UIInspectorPannel::CreateAssetUI()
 		if (m_arrAssetUI[i])
 			m_arrAssetUI[i]->Deactivate();
 	}
-}
-;
-
+};

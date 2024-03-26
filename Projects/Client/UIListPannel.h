@@ -10,6 +10,7 @@ class UIListPannel :
     public UI
 {
 private:
+    string          m_Filter;
     vector<string>  m_vecStr;
     string          m_strDBClicked;
     CALLBACK_1      m_CallbackFunc;

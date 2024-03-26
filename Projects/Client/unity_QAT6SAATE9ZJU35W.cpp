@@ -50,27 +50,3 @@
 
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIAnimPannel.cpp"
 
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIAnimDetail.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIAnimPreview.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIAsset.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UICamera.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UICollider2D.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIComponent.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIComputeShader.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIContentPannel.cpp"
-

@@ -48,7 +48,8 @@ public:
     Vec3 GetGravityForce() { return m_vGravityForce; }
     float GetMass() { return m_fMass; }
     float GetInitSpeed() { return m_fInitSpeed; }
-    float GetMaxSpeed() { return m_fMaxSpeed_Ground; }
+    float GetMaxSpeed_Ground() { return m_fMaxSpeed_Ground; }
+    float GetMaxSpeed_InAir() { return m_fMaxSpeed_InAir; }
     float GetFrictionScale() { return m_fFrictionScale; }
     bool IsUseGravity() { return m_bUseGravity; }
     bool IsGround() { return m_bGround; }

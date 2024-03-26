@@ -23,7 +23,10 @@
       <Filter>Scripts\Unit</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerMgr.h">
-      <Filter>Scripts\Manager</Filter>
+      <Filter>Scripts\Manager\PlayerMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameMgr.h">
+      <Filter>Scripts\Manager\GameMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +52,10 @@
       <Filter>Scripts\Unit</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerMgr.cpp">
-      <Filter>Scripts\Manager</Filter>
+      <Filter>Scripts\Manager\PlayerMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameMgr.cpp">
+      <Filter>Scripts\Manager\GameMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +79,12 @@
     </Filter>
     <Filter Include="Scripts\Manager">
       <UniqueIdentifier>{185fe919-7162-4950-afec-c5f831d3da43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Manager\PlayerMgr">
+      <UniqueIdentifier>{84a441f0-289c-4f18-8f0d-575f4497fc46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Manager\GameMgr">
+      <UniqueIdentifier>{c235a9f8-27d7-4685-91fc-666ce864f0c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

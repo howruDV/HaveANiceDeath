@@ -112,7 +112,7 @@ void CImGuiMgr::CreateUI()
 	AddUI(pUI->GetID(), pUI);
 
 	// Material Inspector
-	pUI = new MtrlEditorUI;
+	pUI = new UIMatEditor;
 	AddUI(pUI->GetID(), pUI);
 }
 

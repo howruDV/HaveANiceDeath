@@ -5,8 +5,8 @@
 
 #include "UIParam.h"
 
-MtrlEditorUI::MtrlEditorUI()
-	: UI("MtrlInspector", "##MtrlInspector")
+UIMatEditor::UIMatEditor()
+	: UI("Mat Inspector", "##MatInspector")
 	, m_TargetMtrl(nullptr)
 	, m_MtrlPath("New Material")
 	, m_INT_Desc{ "INT_0_DESC","INT_1_DESC","INT_2_DESC","INT_3_DESC" }
@@ -19,12 +19,12 @@ MtrlEditorUI::MtrlEditorUI()
 {
 }
 
-MtrlEditorUI::~MtrlEditorUI()
+UIMatEditor::~UIMatEditor()
 {
 }
 
 
-void MtrlEditorUI::render_update()
+void UIMatEditor::render_update()
 {
 	// 버튼
 	if (ImGui::Button("Save", ImVec2(80.f, 30.f)))
@@ -423,7 +423,7 @@ void MtrlEditorUI::render_update()
 	}
 }
 
-void MtrlEditorUI::Save()
+void UIMatEditor::Save()
 {
 	// Target Mtrl이 없다면 return
 	if (nullptr == m_TargetMtrl)
@@ -476,7 +476,7 @@ void MtrlEditorUI::Save()
 	Reset();
 }
 
-void MtrlEditorUI::Load()
+void UIMatEditor::Load()
 {
 	Reset();
 
@@ -681,7 +681,7 @@ void MtrlEditorUI::Load()
 	}
 }
 
-void MtrlEditorUI::Create()
+void UIMatEditor::Create()
 {
 	Reset();
 
@@ -689,7 +689,7 @@ void MtrlEditorUI::Create()
 	m_TargetMtrl = pMtrl;
 }
 
-void MtrlEditorUI::Reset()
+void UIMatEditor::Reset()
 {
 	m_TargetMtrl = nullptr;
 	m_MtrlPath = "New Material";

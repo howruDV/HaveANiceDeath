@@ -99,4 +99,10 @@ void UIMaterial::render_update()
 
 void UIMaterial::SelectTexture(DWORD_PTR _dwData)
 {
+    string strTex = (char*)_dwData;
+    wstring strTexName = StrToWstr(strTex);
+
+    Ptr<CTexture> pTex = CAssetMgr::GetInst()->FindAsset<CTexture>(strTexName);
+    Ptr<CMaterial> pMtrl = (CMaterial*)GetAsset().Get();
+    pMtrl->SetTexParam(m_SelectTexParam, pTex);
 }

@@ -47,6 +47,9 @@ public:
     virtual void SaveToFile(FILE* _File) {}
     virtual void LoadFromFile(FILE* _File) {}
 
+    // Hit & Attack
+    void AddDamage(float iDamage);
+
 public:
     void SetHPMax(int _HPMax) { m_iHPMax = _HPMax; }
     void SetHPActive(int _HPActive) { m_iHPActive = _HPActive; }

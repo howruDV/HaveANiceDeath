@@ -1,32 +1,5 @@
 #include "pch.h"
 
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIFSM.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIGraphicsShader.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIInspectorPannel.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\main.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UI.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIInspectorPannel_Init.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UILight2D.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIListPannel.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIMaterial.cpp"
-
-
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIMenuPannel.cpp"
 
 
@@ -58,6 +31,9 @@
 
 
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UISound.cpp"
+
+
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIStateMachine.cpp"
 
 
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UITexture.cpp"

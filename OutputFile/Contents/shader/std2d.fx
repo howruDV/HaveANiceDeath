@@ -63,6 +63,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
             vUV.x += (1.f - _in.vUV.x) * g_vBackgroundSize.x;
         else
             vUV.x += _in.vUV * g_vBackgroundSize.x;
+        
         if (g_FlipAnimXY & (1 << 0))
             vUV.y += (1.f - _in.vUV.y) * g_vBackgroundSize.y;
         else
