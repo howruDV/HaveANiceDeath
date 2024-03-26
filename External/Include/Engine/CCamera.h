@@ -71,13 +71,16 @@ public:
     void LayerCheckAll(){ m_LayerCheck = 0xffffffff; }
 
     PROJ_TYPE GetProjType() { return m_ProjType; }
+    int GetPriority() { return m_CameraPriority; }
     float GetScale() { return m_Scale; }
     float GetFar() { return m_Far; }
     float GetFOV() { return m_FOV; }
     float GetWidth() { return m_Width; }
     float GetAspectRadio() { return m_AspectRatio; }
     Matrix& GetViewMat() { return m_matView; }
-    Matrix& GetProjMat() { return m_matProj; }
+    Matrix& GetProjMat() { return m_matProj; } 
+    bool IsLayerCheck(UINT _LayerIdx) { return m_LayerCheck & (1 << _LayerIdx); }
+    bool IsLayerCheck(const wstring& _strLayerName);
 
 public:
     CLONE(CCamera);

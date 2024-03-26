@@ -55,6 +55,7 @@ void CImGuiMgr::tick()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+	//ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 	ImGui::ShowDemoWindow();
 	UIParam::ResetID();
 

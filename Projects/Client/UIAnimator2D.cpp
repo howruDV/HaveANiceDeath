@@ -35,9 +35,9 @@ void UIAnimator2D::render_update()
 	TextBox("Animations");
 	ImGui::SameLine();
 
-	ImGui::BeginChild("##AnimationListChild", ImVec2(0, 125));
+	ImGui::BeginGroup();
 	{
-		if (ImGui::BeginListBox("##AnimationList", ImVec2(-FLT_MIN, 5 * ImGui::GetTextLineHeightWithSpacing())))
+		if (ImGui::BeginListBox("##AnimationList", ImVec2(ImGui::CalcItemWidth(), 5 * ImGui::GetTextLineHeightWithSpacing())))
 		{
 			for (int i = 0; i < items.size(); i++)
 			{
@@ -56,6 +56,9 @@ void UIAnimator2D::render_update()
 
 		// Btn
 		ImVec2 buttonSize{ 155.f, 25.f };
+		float posX = (ImGui::GetCursorPos().x + ImGui::CalcItemWidth()) -  buttonSize.x * 2 - ImGui::GetStyle().ItemSpacing.x;
+		ImGui::SetCursorPosX(posX);
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(10, 0)); // 버튼 간 간격 조정
 
 		if (ImGui::Button("Add##AddAnimation", buttonSize))
 		{
@@ -70,7 +73,8 @@ void UIAnimator2D::render_update()
 			DeleteAnimation(SelectedAnimKey);
 		}
 
-		ImGui::EndChild();
+		ImGui::PopStyleVar();
+		ImGui::EndGroup();
 	}
 }
 

@@ -193,3 +193,19 @@ void CCamera::LoadFromFile(FILE* _File)
 	fread(&m_LayerCheck, sizeof(UINT), 1, _File);
 	fread(&m_CameraPriority, sizeof(int), 1, _File);
 }
+
+bool CCamera::IsLayerCheck(const wstring& _strLayerName)
+{
+	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+	CLayer* pLayer = pCurLevel->GetLayer(_strLayerName);
+
+	if (nullptr == pLayer)
+	{
+		MessageBoxA(nullptr, "레이어가 없습니다.", "IsLayerCheck Failed!", MB_OK);
+		return false;
+	}
+
+	int idx = pLayer->GetLayerIdx();
+
+	return IsLayerCheck(idx);
+}
