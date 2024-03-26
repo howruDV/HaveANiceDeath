@@ -50,6 +50,8 @@ void CRenderMgr::tick()
 	(this->*m_RenderFunc)();
 	render_debug();
 
+	CopyRenderTargetToImGuiRenderTexture();
+
 	// clear used resources
 	Clear();
 
@@ -166,6 +168,12 @@ void CRenderMgr::CopyRenderTargetToPostProcessTarget()
 {
 	Ptr<CTexture> pRTTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex");
 	CONTEXT->CopyResource(m_PostProcessTex->GetTex2D().Get(), pRTTex->GetTex2D().Get());
+}
+
+void CRenderMgr::CopyRenderTargetToImGuiRenderTexture()
+{
+	Ptr<CTexture> pRTTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex");
+	CONTEXT->CopyResource(m_RTCopyTex->GetTex2D().Get(), pRTTex->GetTex2D().Get());
 }
 
 void CRenderMgr::RegisterCamera(CCamera* _Cam, int _idx)

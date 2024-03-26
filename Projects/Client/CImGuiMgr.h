@@ -1,5 +1,6 @@
 #pragma once
 #include <Engine/singleton.h>
+#include <Engine/CTexture.h>
 // =======================================
 // CImGUIMgr: ImGUI process 积己 棺 包府
 // =======================================
@@ -18,12 +19,14 @@ class CImGuiMgr :
     SINGLE(CImGuiMgr)
 
 private:
+    Ptr<CTexture>               m_RTCopyTex;
     unordered_map<string, UI*>  m_mapUI;
     HANDLE                      m_hNotify;
 
 private:
     void tick();
     void render();
+    void render_copytex();
     void CreateUI();
     void observe_content();
 

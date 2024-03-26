@@ -27,6 +27,7 @@ private:
     bool                    m_DebugPosition;
 
     Ptr<CTexture>           m_PostProcessTex;
+    Ptr<CTexture>           m_RTCopyTex;
     vector<Ptr<CTexture>>   m_vecNoiseTex;
 
     // render function: 게임/에디터 별로 render를 다르게 돌려야 하기 때문
@@ -38,6 +39,7 @@ public:
     void tick();
 
     void CopyRenderTargetToPostProcessTarget();
+    void CopyRenderTargetToImGuiRenderTexture();
 
 public:
     void RegisterCamera(CCamera* _Cam, int _idx);
@@ -51,6 +53,7 @@ public:
         else m_RenderFunc = &CRenderMgr::render_play;
     }
 
+    Ptr<CTexture> GetRTCopyTex() { return m_RTCopyTex; }
     Ptr<CTexture> GetPostProcessTex() { return m_PostProcessTex; }
     bool IsDebugPosition() { return m_DebugPosition; }
 

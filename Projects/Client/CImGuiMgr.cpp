@@ -14,7 +14,11 @@
 #include "UIAnimDetail.h"
 #include "UIAnimPreview.h"
 #include "MtrlEditorUI.h"
-#include <Engine/CLevelMgr.h>
+
+#include <Engine/CDevice.h>
+#include <Engine/CRenderMgr.h>
+#include <Engine/CAssetMgr.h>
+#include <Engine/CAssetMgr.h>
 #include <Engine/CLevel.h>
 #include <Engine/CGameObject.h>
 #include <Engine/CPathMgr.h>
@@ -55,7 +59,7 @@ void CImGuiMgr::tick()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	//ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 	ImGui::ShowDemoWindow();
 	UIParam::ResetID();
 
@@ -65,6 +69,9 @@ void CImGuiMgr::tick()
 
 void CImGuiMgr::render()
 {
+	render_copytex();
+
+	// UI
 	for (const auto& pair : m_mapUI)
 		pair.second->render();
 
@@ -78,6 +85,17 @@ void CImGuiMgr::render()
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
 	}
+}
+
+void CImGuiMgr::render_copytex()
+{
+	Vec2 RenderResolution = CDevice::GetInst()->GetRenderResolution();
+	ImVec2 RenderResol = { RenderResolution.x,RenderResolution.y };
+	Ptr<CTexture> pCopyTex = CRenderMgr::GetInst()->GetRTCopyTex();
+
+	ImGui::Begin("##GameWindow");
+	ImGui::Image((void*)pCopyTex->GetSRV().Get(), RenderResol);
+	ImGui::End();
 }
 
 void CImGuiMgr::CreateUI()
@@ -187,10 +205,6 @@ void CImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11
 	m_hNotify = FindFirstChangeNotification(strContentPath.c_str(), true
 		, FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_DIR_NAME
 		| FILE_ACTION_ADDED | FILE_ACTION_REMOVED);
-
-	//CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
-	//CGameObject* pObject = pCurLevel->FindObjectByName(L"Player");
-	//((UIInspectorPannel*)FindUI("##Inspector"))->SetTargetObject(pObject);
 }
 
 void CImGuiMgr::progress()

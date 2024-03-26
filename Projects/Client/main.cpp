@@ -62,8 +62,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
     MSG msg;
 
+#ifdef _DEBUG
+    RECT desktopRect = {};
+    const HWND hDesktop = GetDesktopWindow();
+    GetWindowRect(hDesktop, &desktopRect);
+    Vec2 WinSize = Vec2((float)desktopRect.right, (float)desktopRect.bottom);
+#else
+    Vec2 WinSize = Vec2 (1600,900);
+#endif
     // CEnigne init
-    if (FAILED(CEngine::GetInst()->init(hWnd, Vec2(1600, 900))))
+    if (FAILED(CEngine::GetInst()->init(hWnd, WinSize)))
     {
         MessageBox(nullptr, L"Failed to initialize CEngine", L"Faile to initialize", MB_OK);
         return 0;

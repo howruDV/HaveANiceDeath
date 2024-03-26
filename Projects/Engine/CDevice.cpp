@@ -166,6 +166,7 @@ int CDevice::CreateTargetView()
     // Get Render Target Texture & View
     ComPtr<ID3D11Texture2D> tex2D;
     m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)tex2D.GetAddressOf());
+
     //m_Device->CreateRenderTargetView(m_RTTex.Get(), nullptr, m_RTView.GetAddressOf());
     m_RTTex = CAssetMgr::GetInst()->CreateTexture(L"RenderTargetTex", tex2D);
 
