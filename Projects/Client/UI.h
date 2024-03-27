@@ -13,6 +13,7 @@ private:
 	const string	m_strID;	// key (중복불가능)
 	bool			m_bActive;
 	bool			m_bModal;
+	bool			m_bScroll;
 
 	UI*				m_Parent;
 	vector<UI*>		m_vecChild;
@@ -29,6 +30,7 @@ public:
 	virtual void Activate() { m_bActive = true; }
 	virtual void Deactivate() { m_bActive = false; }
 	void SetModal(bool _bModal) { m_bModal = _bModal; }
+	void SetScroll(bool _bScroll) { m_bScroll = _bScroll; }
 	const string& GetName() { return m_strName; }
 	const string& GetID() { return m_strID; }
 	UI* GetParentUI() { return m_Parent; }

@@ -171,6 +171,7 @@
     <ClInclude Include="UICollider2D.h" />
     <ClInclude Include="UIComputeShader.h" />
     <ClInclude Include="UIFSM.h" />
+    <ClInclude Include="UIGamePlayPannel.h" />
     <ClInclude Include="UIGraphicsShader.h" />
     <ClInclude Include="UILight2D.h" />
     <ClInclude Include="UIListPannel.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="UIComputeShader.cpp" />
     <ClCompile Include="UIContentPannel.cpp" />
     <ClCompile Include="UIFSM.cpp" />
+    <ClCompile Include="UIGamePlayPannel.cpp" />
     <ClCompile Include="UIGraphicsShader.cpp" />
     <ClCompile Include="UIInspectorPannel.cpp" />
     <ClCompile Include="main.cpp" />

@@ -141,6 +141,9 @@
     <Filter Include="02. UI\4. MenuPannel\Animation Tool\Preview">
       <UniqueIdentifier>{eabe9802-b917-4831-b385-d720f5d0c867}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. UI\6. GamePlayPannel">
+      <UniqueIdentifier>{7b569d2c-f8d7-4475-99fe-64fe10af19a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="func_ImGUI.h">
       <Filter>00. header</Filter>
+    </ClInclude>
+    <ClInclude Include="UIGamePlayPannel.h">
+      <Filter>02. UI\6. GamePlayPannel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -470,6 +476,9 @@
     </ClCompile>
     <ClCompile Include="func_ImGUI.cpp">
       <Filter>00. header</Filter>
+    </ClCompile>
+    <ClCompile Include="UIGamePlayPannel.cpp">
+      <Filter>02. UI\6. GamePlayPannel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

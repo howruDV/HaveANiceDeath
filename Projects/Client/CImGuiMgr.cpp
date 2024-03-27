@@ -13,6 +13,7 @@
 #include "UIAnimPannel.h"
 #include "UIAnimDetail.h"
 #include "UIAnimPreview.h"
+#include "UIGamePlayPannel.h"
 #include "MtrlEditorUI.h"
 
 #include <Engine/CDevice.h>
@@ -147,6 +148,10 @@ void CImGuiMgr::CreateUI()
 
 	// Menu
 	pUI = new UIMenuPannel;
+	AddUI(pUI->GetID(), pUI);
+
+	// GamePlay
+	pUI = new UIGamePlayPannel;
 	AddUI(pUI->GetID(), pUI);
 
 	// List

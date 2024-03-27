@@ -27,6 +27,9 @@
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIFSM.cpp"
 
 
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIGamePlayPannel.cpp"
+
+
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIGraphicsShader.cpp"
 
 
@@ -46,7 +49,4 @@
 
 
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIListPannel.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Client\UIMaterial.cpp"
 

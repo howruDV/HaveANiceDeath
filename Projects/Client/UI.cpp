@@ -7,6 +7,7 @@ UI::UI(const string& _strName, const string& _strID)
 	, m_bActive(true)
 	, m_Parent(nullptr)
 	, m_bModal(false)
+	, m_bScroll(false)
 {
 }
 
@@ -25,13 +26,16 @@ void UI::render()
 	if (!m_bActive)
 		return;
 
+	ImGuiWindowFlags flag = 0;
+	if (m_bScroll) flag |= ImGuiWindowFlags_NoScrollbar;
+
 	// case: parent UI
 	if (!m_Parent)
 	{
 		// case: window
 		if (!m_bModal)
 		{
-			ImGui::Begin(string(m_strName + m_strID).c_str(), &m_bActive);
+			ImGui::Begin(string(m_strName + m_strID).c_str(), &m_bActive, flag);
 
 			// render
 			render_update();
