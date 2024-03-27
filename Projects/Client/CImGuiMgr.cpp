@@ -18,10 +18,12 @@
 #include <Engine/CDevice.h>
 #include <Engine/CRenderMgr.h>
 #include <Engine/CAssetMgr.h>
-#include <Engine/CAssetMgr.h>
-#include <Engine/CLevel.h>
-#include <Engine/CGameObject.h>
+#include <Engine/CTaskMgr.h>
+#include <Engine/CLevelMgr.h>
 #include <Engine/CPathMgr.h>
+#include <Engine/CGameObject.h>
+#include <Engine/CLevel.h>
+#include <Engine/CLayer.h>
 
 CImGuiMgr::CImGuiMgr()
 	: m_hNotify(nullptr)
@@ -60,6 +62,10 @@ void CImGuiMgr::tick()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+	if (CTaskMgr::GetInst()->GetChangeLevel())
+	{
+		LoadLayerName();
+	}
 	ImGui::ShowDemoWindow();
 	UIParam::ResetID();
 
@@ -329,3 +335,32 @@ void CImGuiMgr::observe_content()
 		pContentUI->ReloadContent();
 	}
 }
+
+void CImGuiMgr::LoadLayerName()
+{
+	m_LayerName.clear();
+
+	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+
+	for (int i = 0; i < LAYER_MAX; ++i)
+	{
+		wstring layerName = pLevel->GetLayer(i)->GetName();
+		string strLayerName = string(layerName.begin(), layerName.end());
+		if (strLayerName == "")
+		{
+			strLayerName = std::to_string(i);
+		}
+
+		m_LayerName.push_back("[" + std::to_string(i) + "]" + " " + strLayerName);
+	}
+}
+
+//int LayerIdx = -1;
+//
+//size_t start_pos = m_CurLayer.find("[") + 1;
+//size_t end_pos = m_CurLayer.find("]");
+//if (start_pos != std::string::npos && end_pos != std::string::npos)
+//{
+//	std::string num_str = m_CurLayer.substr(start_pos, end_pos - start_pos);
+//	LayerIdx = std::stoi(num_str);
+//}

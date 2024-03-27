@@ -55,6 +55,7 @@ private:
     bool			m_bCreateObject;
     bool			m_bDeleteObject;
     bool			m_bAssetChange;
+    bool            m_bChangeLevel;
     int				m_DeleteFrameCount;
 
 public:
@@ -64,6 +65,7 @@ public:
     void AddTask(const FTask& _Task) { m_vecTask.push_back(_Task); }
     bool GetObjectEvent() { return m_bCreateObject || m_bDeleteObject; }
     bool GetAssetEvent() { return m_bAssetChange; }
+    bool GetChangeLevel() { return m_bChangeLevel; }
 
 private:
     void Clear();

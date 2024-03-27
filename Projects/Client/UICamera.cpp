@@ -28,17 +28,17 @@ void UICamera::render_update()
 	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
 
 	// Get layer name
-	for (int i = 0; i < LAYER_MAX; ++i)
-	{
-		wstring layerName = pLevel->GetLayer(i)->GetName();
-		string strLayerName = string(layerName.begin(), layerName.end());
-		if (strLayerName == "")
-		{
-			strLayerName = std::to_string(i);
-		}
+	//for (int i = 0; i < LAYER_MAX; ++i)
+	//{
+	//	wstring layerName = pLevel->GetLayer(i)->GetName();
+	//	string strLayerName = string(layerName.begin(), layerName.end());
+	//	if (strLayerName == "")
+	//	{
+	//		strLayerName = std::to_string(i);
+	//	}
 
-		m_vecLayerName.push_back("[" + std::to_string(i) + "]" + " " + strLayerName);
-	}
+	//	m_vecLayerName.push_back("[" + std::to_string(i) + "]" + " " + strLayerName);
+	//}
 
 	// Priority
 	TextBox("Camera Priority"); ImGui::SameLine();
@@ -113,16 +113,18 @@ void UICamera::render_update()
 	// Layer Check
 	vector<string> items;
 	vector<string> NoneCheckLayer;
+	const vector<string>& LayerName = CImGuiMgr::GetInst()->GetLayerName();
 
 	for (int i = 0; i < LAYER_MAX; ++i)
 	{
+
 		if (pCamera->IsLayerCheck(i))
 		{
-			items.push_back(m_vecLayerName[i]);
+			items.push_back(LayerName[i]);
 		}
 		else
 		{
-			NoneCheckLayer.push_back(m_vecLayerName[i]);
+			NoneCheckLayer.push_back(LayerName[i]);
 		}
 	}
 
@@ -186,8 +188,6 @@ void UICamera::render_update()
 		ImGui::PopStyleVar();
 		ImGui::EndGroup();
 	}
-
-	m_vecLayerName.clear();
 }
 
 void UICamera::CheckLayer(DWORD_PTR _ptr)

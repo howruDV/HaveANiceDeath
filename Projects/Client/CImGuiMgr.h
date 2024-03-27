@@ -20,6 +20,7 @@ class CImGuiMgr :
     SINGLE(CImGuiMgr)
 
 private:
+    vector<string>              m_LayerName;
     Ptr<CTexture>               m_RTCopyTex;
     Ptr<CPrefab>                m_Prefab;
     unordered_map<string, UI*>  m_mapUI;
@@ -31,12 +32,16 @@ private:
     void render_copytex();
     void CreateUI();
     void observe_content();
+    void LoadLayerName();
 
 public:
     void DragPrefab(DWORD_PTR _pref);
     void init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11DeviceContext> _Context);
     void begin();
     void progress();
+
+public:
+    const vector<string>& GetLayerName() { return m_LayerName; }
 
 public:
     UI* FindUI(const string& _strKey);

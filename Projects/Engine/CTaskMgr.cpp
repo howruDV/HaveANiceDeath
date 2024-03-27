@@ -105,6 +105,7 @@ void CTaskMgr::tick()
 			CRenderMgr::GetInst()->ClearCamera();
 			CLevelMgr::GetInst()->ChangeLevel_proc(pNextLevel, State);
 			m_bCreateObject = true;
+			m_bChangeLevel = true;
 		}
 		break;
 
@@ -146,6 +147,7 @@ void CTaskMgr::tick()
 
 void CTaskMgr::Clear()
 {
+	m_bChangeLevel = false;
 	m_bCreateObject = false;
 
 	// ¾ïÁö
