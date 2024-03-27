@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "UIInspectorPannel.h"
+#include "func_ImGUI.h"
+#include "CImGuiMgr.h"
 #include "UITransform.h"
 #include "UIMeshRender.h"
 #include "UIAsset.h"
 #include "UIScript.h"
-#include "func_ImGUI.h"
 
 #include <Engine/CTransform.h>
 
@@ -35,27 +36,7 @@ void UIInspectorPannel::render_update()
 	ImGui::Text(strName.c_str());
 
 	TextBox("Layer"); ImGui::SameLine();
-	//ImGui::BeginGroup();
-	//{
-	//	static int item_current_idx = m_TargetObject->GetLayerIdx();
-	//	if (ImGui::BeginListBox("##CheckLayerList", ImVec2(ImGui::CalcItemWidth(), 5 * ImGui::GetTextLineHeightWithSpacing())))
-	//	{
-	//		for (int i = 0; i < items.size(); i++)
-	//		{
-	//			const bool is_selected = (item_current_idx == i);
-
-	//			if (ImGui::Selectable(items[i].c_str(), is_selected))
-	//				item_current_idx = i;
-
-	//			// 리스트 중 해당 항목이 클릭되면 하이라이트 걸어줌
-	//			if (is_selected)
-	//				ImGui::SetItemDefaultFocus();
-
-	//		}
-	//		ImGui::EndListBox();
-	//	}
-	//}
-	
+	DrawLayerUI();
 	ImGui::Separator();
 }
 
@@ -109,6 +90,36 @@ void UIInspectorPannel::SetTargetAsset(Ptr<CAsset> _Asset)
 	{
 		m_arrAssetUI[(UINT)m_TargetAsset->GetType()]->Activate();
 		m_arrAssetUI[(UINT)m_TargetAsset->GetType()]->SetAsset(_Asset);
+	}
+}
+
+void UIInspectorPannel::DrawLayerUI()
+{
+	ImGui::BeginGroup();
+	{
+		const vector<string>& LayerName = CImGuiMgr::GetInst()->GetLayerName();
+		int item_current_idx = m_TargetObject->GetLayerIdx();
+		int item_prev_idx = item_current_idx;
+		if (ImGui::BeginCombo("##CheckLayerList", LayerName[item_current_idx].c_str()))
+		{
+			for (int i = 0; i < LayerName.size(); i++)
+			{
+				const bool is_selected = (item_current_idx == i);
+
+				if (ImGui::Selectable(LayerName[i].c_str(), is_selected))
+					item_current_idx = i;
+
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+		}
+
+		if (item_prev_idx != item_current_idx)
+			m_TargetObject->ChangeLayer(item_current_idx);
+		item_prev_idx = item_current_idx;
+
+		ImGui::EndGroup();
 	}
 }
 

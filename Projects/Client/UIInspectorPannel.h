@@ -29,6 +29,7 @@ public:
 private:
     void CreateComponentUI();
     void CreateAssetUI();
+    void DrawLayerUI();
     void ResizeScriptVec(UINT _Size);
 
 public:

@@ -30,6 +30,7 @@ private:
     void tick();
     void render();
     void render_copytex();
+
     void CreateUI();
     void observe_content();
     void LoadLayerName();

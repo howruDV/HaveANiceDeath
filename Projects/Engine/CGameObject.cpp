@@ -168,6 +168,22 @@ int CGameObject::DisconnectWithLayer()
 	return LayerIdx;
 }
 
+int CGameObject::ChangeLayer(int _Idx)
+{
+	DisconnectWithLayer();
+	CLevelMgr::GetInst()->GetCurrentLevel()->AddObject(this, _Idx, false);
+
+	return 0;
+}
+
+int CGameObject::ChangeLayer(const wstring& _Layer)
+{
+	DisconnectWithLayer();
+	CLevelMgr::GetInst()->GetCurrentLevel()->AddObject(this, _Layer, false);
+
+	return 0;
+}
+
 void CGameObject::Destroy()
 {
 	GamePlayStatic::DestroyGameObject(this);

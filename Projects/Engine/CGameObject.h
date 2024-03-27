@@ -30,6 +30,8 @@ public:
 
     int DisconnectWithParent();
     int DisconnectWithLayer();
+    int ChangeLayer(int _Idx);
+    int ChangeLayer(const wstring& _Layer);
     void Destroy();
 
 public:
