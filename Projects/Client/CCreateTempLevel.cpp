@@ -32,23 +32,19 @@
 void CCreateTempLevel::Init()
 {
 	//Missile Prefab 积己
-	//CGameObject* pObj = nullptr;
-
-	//pObj = new CGameObject;
-	//pObj->SetName(L"Missile");
-	//pObj->AddComponent(new CTransform);
-	//pObj->AddComponent(new CMeshRender);
+	CGameObject* pObj = nullptr;
+	pObj = new CGameObject;
+	pObj->SetName(L"Missile");
+	pObj->AddComponent(new CTransform);
+	pObj->AddComponent(new CMeshRender);
 	//pObj->AddComponent(new CMissileScript);
+	pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
+	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
 
-	//pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
-
-	//pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	//pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
-
-	//Ptr<CPrefab> pMissilePrefab = new CPrefab(pObj, false);
-	//CAssetMgr::GetInst()->AddAsset<CPrefab>(L"MissilePrefab", pMissilePrefab.Get());
-
-	//pMissilePrefab->Save(L"prefab\\missile.pref");
+	Ptr<CPrefab> pMissilePrefab = new CPrefab(pObj, false);
+	CAssetMgr::GetInst()->AddAsset<CPrefab>(L"MissilePrefab", pMissilePrefab.Get());
+	pMissilePrefab->Save(L"prefab\\missile.pref");
 
 	// 烙矫 FSM (AI Asset) 按眉 积己
 	Ptr<CFSM>	pFSM = new CFSM(nullptr, true);

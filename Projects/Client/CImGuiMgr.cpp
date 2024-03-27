@@ -108,6 +108,18 @@ void CImGuiMgr::render_copytex()
 	RightBottom.y = 1.f - LeftTopUv.y;
 
 	ImGui::Image(pCopyTex->GetSRV().Get(), ImVec2(Resolution.x * (RightBottom.x - LeftTopUv.x), Resolution.y * (RightBottom.y - LeftTopUv.y)), LeftTopUv, RightBottom);
+
+	// case: drop
+	if (ImGui::IsMouseReleased(0) && ImGui::BeginDragDropTarget())
+	{
+		if (m_Prefab.Get())
+		{
+			GamePlayStatic::SpawnGameObject(m_Prefab->Instantiate(), 0);
+		}
+
+		ImGui::EndDragDropTarget();
+	}
+
 	ImGui::End();
 }
 
@@ -146,6 +158,16 @@ void CImGuiMgr::CreateUI()
 	// Material Inspector
 	pUI = new UIMatEditor;
 	AddUI(pUI->GetID(), pUI);
+}
+
+void CImGuiMgr::DragPrefab(DWORD_PTR _pref)
+{
+	Ptr<CAsset> pAsset = (CAsset*)_pref;
+
+	if (pAsset.Get() && pAsset->GetType() == ASSET_TYPE::PREFAB)
+	{
+		m_Prefab = (CPrefab*)pAsset.Get();
+	}
 }
 
 void CImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11DeviceContext> _Context)

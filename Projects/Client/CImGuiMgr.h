@@ -1,6 +1,7 @@
 #pragma once
 #include <Engine/singleton.h>
 #include <Engine/CTexture.h>
+#include <Engine/CPrefab.h>
 // =======================================
 // CImGUIMgr: ImGUI process 积己 棺 包府
 // =======================================
@@ -20,6 +21,7 @@ class CImGuiMgr :
 
 private:
     Ptr<CTexture>               m_RTCopyTex;
+    Ptr<CPrefab>                m_Prefab;
     unordered_map<string, UI*>  m_mapUI;
     HANDLE                      m_hNotify;
 
@@ -31,6 +33,7 @@ private:
     void observe_content();
 
 public:
+    void DragPrefab(DWORD_PTR _pref);
     void init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11DeviceContext> _Context);
     void begin();
     void progress();

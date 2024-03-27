@@ -1,5 +1,6 @@
 #pragma once
 #include "UI.h"
+#include <Engine/CPrefab.h>
 // =======================================
 // UIContentPannel: 현재 메모리에 load된 asset
 // =======================================

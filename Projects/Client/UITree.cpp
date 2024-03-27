@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "UITree.h"
+#include "CImGuiMgr.h"
 #include <Engine/CKeyMgr.h>
+#include <Engine/CPrefab.h>
 
 // ---------------------------------------------------
 // TreeNode
@@ -44,6 +46,12 @@ void TreeNode::render_update()
 
 			// 소속 Tree에 Drag 발생한 Node임을 알림
 			m_Owner->SetDragNode(this);
+
+			// case: prefab drag
+			if (m_ParentNode->GetName() == "PREFAB")
+				CImGuiMgr::GetInst()->DragPrefab(m_Data);
+			else
+				CImGuiMgr::GetInst()->DragPrefab(DWORD_PTR(0));
 		}
 		// case: drop
 		else if (ImGui::BeginDragDropTarget())
