@@ -157,6 +157,8 @@ void UIOutlinerPannel::DragDropObject(DWORD_PTR _Dest, DWORD_PTR _Source)
 	if (pDestNode) pDestObj = (CGameObject*)pDestNode->GetData();
 	if (pSourceNode) pSourceObj = (CGameObject*)pSourceNode->GetData();
 
+	if (!pSourceNode) return;
+
 	// exception: 부모 오브젝트가 자식오브젝트의 자식으로 들어가려는 경우
 	if (pDestObj && pDestObj->IsAncestor(pSourceObj))
 		return;
@@ -164,7 +166,6 @@ void UIOutlinerPannel::DragDropObject(DWORD_PTR _Dest, DWORD_PTR _Source)
 	// case: 최상위 gameObject로 만듦
 	if (!pDestNode)
 	{
-		CGameObject* pSourceObj = (CGameObject*)pSourceNode->GetData();
 		int LayerIdx = pSourceObj->DisconnectWithParent();
 		if (LayerIdx == -1)
 			return;
