@@ -89,7 +89,7 @@ void CImGuiMgr::render()
 
 void CImGuiMgr::render_copytex()
 {
-	ImGui::Begin("##GameWindow");
+	ImGui::Begin("Viewport##GameWindow");
 
 	Vec2 RenderResolution = CDevice::GetInst()->GetRenderResolution();
 	ImVec2 RenderResol = { RenderResolution.x,RenderResolution.y };
@@ -175,16 +175,67 @@ void CImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11
 
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 	ImGuiStyle& style = ImGui::GetStyle();
+	style.FrameRounding = 2;
+	style.WindowPadding = ImVec2(10, 10);
+	style.FramePadding = ImVec2(5, 3);
+	style.ItemSpacing = ImVec2(7, 5);
+	style.ItemInnerSpacing = ImVec2(7, 5);
+	style.ScrollbarSize = 15;
+	style.GrabMinSize = 13;
 	style.WindowRounding = 5.3f;
-	style.FrameRounding = 2.3f;
-	style.ScrollbarRounding = 0;
-	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.15f, 0.15f, 0.15f, 1.00f);
-	style.Colors[ImGuiCol_TitleBg] = ImVec4(0.06f, 0.06f, 0.06f, 1.f);
-	style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.06f, 0.06f, 0.06f, 1.f);
-	style.Colors[ImGuiCol_Header] = ImVec4(0.25f, 0.25f, 0.25f, 1.f);
-	style.Colors[ImGuiCol_FrameBg] = ImVec4(0.05f, 0.05f, 0.05f, 1.00f);
-	style.Colors[ImGuiCol_Button] = ImVec4(0.05f, 0.05f, 0.05f, 1.00f);
-	style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
+	style.FrameRounding = 2;
+	style.ScrollbarRounding = 12;
+	style.GrabRounding = 1;
+	style.TabRounding = 3;
+	style.WindowTitleAlign = ImVec2(0.5f, 0.5f);
+	style.WindowMenuButtonPosition = 0;
+	style.SelectableTextAlign = ImVec2(0.05f, 0.f);
+	style.SeparatorTextAlign = ImVec2(0.5f, 0.7f);
+	style.SeparatorTextPadding = ImVec2(20, 5);
+	style.DockingSeparatorSize = 7;
+	style.Colors[ImGuiCol_Text] = ImColor(255, 255, 255, 255);
+	style.Colors[ImGuiCol_TextDisabled] = ImColor(100, 100, 100, 255);
+	style.Colors[ImGuiCol_WindowBg] = ImColor(38, 38, 38, 255);
+	style.Colors[ImGuiCol_ChildBg] = ImColor(38, 38, 38, 0);
+	style.Colors[ImGuiCol_PopupBg] = ImColor(24, 24, 24, 230);
+	style.Colors[ImGuiCol_Border] = ImColor(24, 24, 24, 128);
+	style.Colors[ImGuiCol_FrameBg] = ImColor(20, 20, 20, 255);
+	style.Colors[ImGuiCol_FrameBgHovered] = ImColor(10, 10, 10, 255);
+	style.Colors[ImGuiCol_FrameBgActive] = ImColor(50, 50, 50, 255);
+	style.Colors[ImGuiCol_TitleBg] = ImColor(24, 24, 24, 255);
+	style.Colors[ImGuiCol_TitleBgActive] = ImColor(24, 24, 24, 255);
+	style.Colors[ImGuiCol_MenuBarBg] = ImColor(24, 24, 24, 255);
+	style.Colors[ImGuiCol_ScrollbarBg] = ImColor(24, 24, 24, 0);
+	style.Colors[ImGuiCol_ScrollbarGrab] = ImColor(140, 140, 140, 130);
+	style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImColor(140, 140, 140, 160);
+	style.Colors[ImGuiCol_ScrollbarGrabActive] = ImColor(140, 140, 140, 255);
+	style.Colors[ImGuiCol_CheckMark] = ImVec4(0.90f, 0.90f, 0.90f, 0.83f);
+	style.Colors[ImGuiCol_SliderGrab] = ImColor(90, 90, 90, 255);
+	style.Colors[ImGuiCol_SliderGrabActive] = ImColor(179, 179, 179, 214);
+	style.Colors[ImGuiCol_Button] = ImColor(20, 20, 20, 255);
+	style.Colors[ImGuiCol_ButtonHovered] = ImColor(64, 64, 64, 255);
+	style.Colors[ImGuiCol_ButtonActive] = ImColor(102, 102, 102, 255);
+	style.Colors[ImGuiCol_Header] = ImColor(60, 60, 60, 255);
+	style.Colors[ImGuiCol_HeaderHovered] = ImColor(102, 102, 102, 255);
+	style.Colors[ImGuiCol_HeaderActive] = ImColor(102, 102, 102, 255);
+	style.Colors[ImGuiCol_Separator] = ImColor(110, 110, 110, 110);
+	style.Colors[ImGuiCol_SeparatorHovered] = ImColor(110, 110, 110, 110);
+	style.Colors[ImGuiCol_SeparatorActive] = ImColor(110, 110, 110, 255);
+	style.Colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.85f);
+	style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
+	style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(1.00f, 1.00f, 1.00f, 0.90f);
+	style.Colors[ImGuiCol_Tab] = ImColor(60, 60, 60, 255);
+	style.Colors[ImGuiCol_TabHovered] = ImColor(102, 102, 102, 255);
+	style.Colors[ImGuiCol_TabActive] = ImColor(102, 102, 102, 255);
+	style.Colors[ImGuiCol_TabUnfocused] = ImColor(60, 60, 60, 255);
+	style.Colors[ImGuiCol_TabUnfocusedActive] = ImColor(102, 102, 102, 255);
+	style.Colors[ImGuiCol_DockingPreview] = ImColor(230, 170, 0, 100);
+	style.Colors[ImGuiCol_PlotLinesHovered] = ImColor(230, 170, 0, 255);
+	style.Colors[ImGuiCol_PlotHistogram] = ImColor(230, 170, 0, 255);
+	style.Colors[ImGuiCol_PlotHistogramHovered] = ImColor(230, 170, 0, 255);
+	style.Colors[ImGuiCol_TextSelectedBg] = ImColor(230, 170, 0, 89);
+	style.Colors[ImGuiCol_DragDropTarget] = ImColor(230, 170, 0, 230);
+	style.Colors[ImGuiCol_NavHighlight] = ImColor(230, 170, 0, 255);
 
 	// Setup Platform/Renderer backends
 	ImGui_ImplWin32_Init(_hMainWnd);

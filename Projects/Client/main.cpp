@@ -3,6 +3,7 @@
 #include "Client.h"
 #include <crtdbg.h> // memory lick check
 
+#include <dwmapi.h>
 #include <Engine\global.h>
 #include <Engine\CEngine.h>
 #include <Engine/CDevice.h>
@@ -63,16 +64,37 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
 
 #ifdef _DEBUG
-    //Vec2 WinSize = Vec2(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN));
     RECT rect = { 0,0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
     AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
     SetWindowPos(hWnd, nullptr, 0, 0, rect.right - rect.left, rect.bottom - rect.top - 79, 0);
-
-    GetClientRect(hWnd, &rect); // 클라이언트 영역의 크기를 가져옴
+    GetClientRect(hWnd, &rect);
     Vec2 WinSize = Vec2((float)rect.right, (float)rect.bottom);
 #else
     Vec2 WinSize = Vec2 (1600,900);
+
+    // 현재 윈도우 스타일 가져오기
+    LONG_PTR style = GetWindowLongPtr(hWnd, GWL_STYLE);
+
+    // 윈도우를 전체 화면으로 변경하기 위해 스타일을 WS_POPUP으로 변경
+    style &= ~WS_OVERLAPPEDWINDOW;
+    style |= WS_POPUP;
+
+    // 윈도우 스타일 설정
+    SetWindowLongPtr(hWnd, GWL_STYLE, style);
+
+    // 전체 화면으로 윈도우 크기 및 위치 설정
+    SetWindowPos(hWnd, HWND_TOP, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 #endif
+
+    // window size, position
+    rect = { 0, 0, (int)WinSize.x, (int)WinSize.y };
+    AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+    SetWindowPos(hWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
+
+    // window style
+    COLORREF DARK_COLOR = 0x00151515;
+    BOOL SET_BORDER_COLOR = SUCCEEDED(DwmSetWindowAttribute(hWnd, DWMWINDOWATTRIBUTE::DWMWA_BORDER_COLOR,&DARK_COLOR, sizeof(DARK_COLOR)));
+    BOOL SET_CAPTION_COLOR = SUCCEEDED(DwmSetWindowAttribute(hWnd, DWMWINDOWATTRIBUTE::DWMWA_CAPTION_COLOR,&DARK_COLOR, sizeof(DARK_COLOR)));
 
     // CEnigne init
     if (FAILED(CEngine::GetInst()->init(hWnd, WinSize)))
