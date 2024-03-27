@@ -22,8 +22,8 @@ void CLevelSaveLoad::SaveLevel(CLevel* _Level, const wstring& _strLevelPath)
 	}
 
 	// save all using materials
-	const unordered_map<wstring, Ptr<CAsset>>& mapAsset = CAssetMgr::GetInst()->GetAssetsByType(ASSET_TYPE::MATERIAL);
-	for (const pair<wstring, Ptr<CAsset>>& pair : mapAsset)
+	const unordered_map<wstring, Ptr<CAsset>>& mapMat = CAssetMgr::GetInst()->GetAssetsByType(ASSET_TYPE::MATERIAL);
+	for (const pair<wstring, Ptr<CAsset>>& pair : mapMat)
 	{
 		// case: 엔진 에셋인 경우, 엔진 에셋은 파일로부터 로딩된 에셋이 아니라 프로그램 실행 도중 만들어진 임시 에셋
 		if (pair.second->IsEngineAsset())
@@ -31,6 +31,16 @@ void CLevelSaveLoad::SaveLevel(CLevel* _Level, const wstring& _strLevelPath)
 
 		Ptr<CMaterial> saveMat = dynamic_cast<CMaterial*>(pair.second.Get());
 		saveMat->Save(pair.second->GetKey());
+	}
+
+	const unordered_map<wstring, Ptr<CAsset>>& mapFSM = CAssetMgr::GetInst()->GetAssetsByType(ASSET_TYPE::FSM);
+	for (const pair<wstring, Ptr<CAsset>>& pair : mapFSM)
+	{
+		if (pair.second->IsEngineAsset())
+			continue;
+
+		Ptr<CFSM> saveFSM = dynamic_cast<CFSM*>(pair.second.Get());
+		saveFSM->Save(pair.second->GetKey());
 	}
 
 	// open save file

@@ -46,13 +46,13 @@ void CCreateTempLevel::Init()
 	//CAssetMgr::GetInst()->AddAsset<CPrefab>(L"MissilePrefab", pMissilePrefab.Get());
 	//pMissilePrefab->Save(L"prefab\\missile.pref");
 
-	// 烙矫 FSM (AI Asset) 按眉 积己
-	Ptr<CFSM>	pFSM = new CFSM(nullptr, true);
+	//烙矫 FSM (AI Asset) 按眉 积己
+	Ptr<CFSM>	pFSM = new CFSM(nullptr, false);
 	pFSM->AddState(L"IdleState", new CIdleState);
 	pFSM->AddState(L"TraceState", new CTraceState);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"NormalMonsterFSM", pFSM.Get());
 
-	pFSM = new CFSM(nullptr, true);
+	pFSM = new CFSM(nullptr, false);
 	pFSM->AddState(L"Idle", new CPlayerIdle);
 	pFSM->AddState(L"Run", new CPlayerRun);
 	pFSM->AddState(L"Turn", new CPlayerTurn);

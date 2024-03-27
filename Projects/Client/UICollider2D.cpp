@@ -26,15 +26,15 @@ void UICollider2D::render_update()
 	static int item_currentType = (int)GetTargetObject()->Collider2D()->GetColliderType();
 	bool bAbsolute = GetTargetObject()->Collider2D()->IsAbsolute();
 
-	ImGui::SeparatorText("Transform");
+	//ImGui::SeparatorText("Transform");
 	TextBox("Offset");			ImGui::SameLine(); ImGui::DragFloat3("##Collider Offset Position", vPos);
 	TextBox("Scale");			ImGui::SameLine(); ImGui::DragFloat3("##Collider Offset Scale", vScale);
 	TextBox("Scale Absolute");	ImGui::SameLine(); ImGui::Checkbox("##Collider Offset Absolute", &bAbsolute);
 
-	ImGui::SeparatorText("Collider");
+	//ImGui::SeparatorText("Collider");
 	const char* items[] = { "Rectangle", "Circle" };
 	static ImGuiComboFlags flags = 0;
-	TextBox("Type");			ImGui::SameLine();
+	TextBox("Collider Type");	ImGui::SameLine();
 	if (ImGui::BeginCombo(" ", items[item_currentType], flags))
 	{
 		for (int n = 0; n < IM_ARRAYSIZE(items); n++)
@@ -49,7 +49,7 @@ void UICollider2D::render_update()
 		}
 		ImGui::EndCombo();
 	}
-	TextBox("Collision");		ImGui::SameLine(); ImGui::Text(std::to_string(iCollisionCount).c_str());
+	TextBox("Collision Count"); ImGui::SameLine(); ImGui::Text(std::to_string(iCollisionCount).c_str());
 
 	// set collider member vars
 	GetTargetObject()->Collider2D()->SetOffsetPos(vPos);
