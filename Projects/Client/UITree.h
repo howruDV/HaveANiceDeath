@@ -4,6 +4,8 @@
 // =======================================
 // TreeNode: UITree를 구성하는 Node 하나 관리
 // =======================================
+class UITree;
+
 class TreeNode
 {
 private:

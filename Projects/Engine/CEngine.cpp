@@ -73,11 +73,10 @@ void CEngine::progress()
 
 	// Level Update
 	CLevelMgr::GetInst()->tick();
-	//if (CLevelMgr::GetInst()->GetCurrentLevel())
-	//{ 
-	//	CCollisionMgr::GetInst()->tick();
-	//	CRenderMgr::GetInst()->tick();
-	//}
+	
+	CRenderMgr::GetInst()->tick();
+	CTimeMgr::GetInst()->render();
+	CRenderMgr::GetInst()->CopyRenderTargetToImGuiRenderTexture();
 
 	// GC
 	CGC::GetInst()->tick();

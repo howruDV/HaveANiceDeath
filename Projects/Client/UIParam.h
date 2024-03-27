@@ -1,10 +1,13 @@
 #pragma once
 #include <Engine/CTexture.h>
+#include "CImGuiMgr.h"
 // =======================================
 // UIParam: Mat로 전달할 Paramter UI
 // =======================================
 // - TEX_PARAM, SCALAR_PARAM
 // - PARAM 전달용으로 Shader에 깡통 Mat를 만들어 전달하기도 했음
+
+class UI;
 
 class UIParam
 {

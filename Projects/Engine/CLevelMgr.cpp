@@ -40,10 +40,9 @@ void CLevelMgr::tick()
 	m_CurLevel->finaltick();
 
 	CCollisionMgr::GetInst()->tick();
-	CRenderMgr::GetInst()->tick();
-	CTimeMgr::GetInst()->render();
-
-	CRenderMgr::GetInst()->CopyRenderTargetToImGuiRenderTexture();
+	//CRenderMgr::GetInst()->tick();
+	//CTimeMgr::GetInst()->render();
+	//CRenderMgr::GetInst()->CopyRenderTargetToImGuiRenderTexture();
 }
 
 // Usage: Level Change 요청 (처리: TaskMgr)

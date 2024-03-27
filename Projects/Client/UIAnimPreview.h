@@ -1,6 +1,8 @@
 #pragma once
 #include "UI.h"
 #include <Engine/CGameObject.h>
+#include <Engine/CTexture.h>
+#include <Engine/CAnim.h>
 // =======================================
 // UIAnimPreview: 제작 중인 Animation 미리 재생
 // =======================================

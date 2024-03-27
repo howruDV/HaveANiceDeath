@@ -68,7 +68,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
     SetWindowPos(hWnd, nullptr, 0, 0, rect.right - rect.left, rect.bottom - rect.top - 79, 0);
     GetClientRect(hWnd, &rect);
+
+    // window size, position
     Vec2 WinSize = Vec2((float)rect.right, (float)rect.bottom);
+    rect = { 0, 0, (int)WinSize.x, (int)WinSize.y };
+    AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+    SetWindowPos(hWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
 #else
     Vec2 WinSize = Vec2 (1600,900);
     LONG_PTR style = GetWindowLongPtr(hWnd, GWL_STYLE);
@@ -77,11 +82,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     SetWindowLongPtr(hWnd, GWL_STYLE, style);
     SetWindowPos(hWnd, HWND_TOP, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 #endif
-
-    // window size, position
-    rect = { 0, 0, (int)WinSize.x, (int)WinSize.y };
-    AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
-    SetWindowPos(hWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
 
     // window style
     COLORREF DARK_COLOR = 0x00151515;
