@@ -58,8 +58,10 @@ private:
 
     TreeNode*       m_Selected;
     UI*             m_SelectInst;       // Delegate 호출시킬 객체
-    DELEGATE_1      m_SelectFunc;
+    DELEGATE_1      m_SelectFunc;       // 좌클릭
+    DELEGATE_0      m_RightClickFunc;   // 우클릭
     bool            m_bSelectEvent;
+    bool            m_bRightClickEvent;
 
     TreeNode*       m_DragNode;
     TreeNode*       m_DropNode;
@@ -75,6 +77,7 @@ public:
     // getter & setter
 public:
     void AddSelectDelegate(UI* _Inst, DELEGATE_1 _pFunc) { m_SelectInst = _Inst; m_SelectFunc = _pFunc; }
+    void AddRightClickDelegate(UI* _Inst, DELEGATE_0 _pFunc) { m_SelectInst = _Inst; m_RightClickFunc = _pFunc; }
     void AddDragDropDelegate(UI* _Inst, DELEGATE_2 _pFunc) { m_DragDropInst = _Inst; m_DragDropFunc = _pFunc; }
     void UseDragDrop(bool _Use) { m_bDragDrop = _Use; }
     void SetRootVisibility(bool _bRootVisiblity) { m_bRootVisiblity = _bRootVisiblity; }
@@ -90,6 +93,7 @@ public:
 
 private:
     void SetSelectedNode(TreeNode* _SelectNode);
+    void SetRightClickedNode(TreeNode* _SelectNode);
     void SetDragNode(TreeNode* _DragNode);
     void SetDropNode(TreeNode* _DropNode);
 

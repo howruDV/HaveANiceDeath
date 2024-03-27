@@ -188,7 +188,7 @@ void CImGuiMgr::init(HWND _hMainWnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11
 	style.GrabRounding = 1;
 	style.TabRounding = 3;
 	style.WindowTitleAlign = ImVec2(0.5f, 0.5f);
-	style.WindowMenuButtonPosition = 0;
+	style.WindowMenuButtonPosition = ImGuiDir_None;
 	style.SelectableTextAlign = ImVec2(0.05f, 0.f);
 	style.SeparatorTextAlign = ImVec2(0.5f, 0.7f);
 	style.SeparatorTextPadding = ImVec2(20, 5);

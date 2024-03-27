@@ -2,12 +2,15 @@
 #include "UIOutlinerPannel.h"
 #include "UITree.h"
 #include "UIInspectorPannel.h"
+
 #include <Engine/CLevelMgr.h>
+#include <Engine/CAssetMgr.h>
+#include <Engine/CKeyMgr.h>
+#include <Engine/CTaskMgr.h>
 #include <Engine/CLevel.h>
 #include <Engine/CLayer.h>
 #include <Engine/CGameObject.h>
-#include <Engine/CKeyMgr.h>
-#include <Engine/CTaskMgr.h>
+#include <Engine/CPrefab.h>
 
 UIOutlinerPannel::UIOutlinerPannel()
 	: UI("Outliner", "##Outliner")
@@ -16,6 +19,7 @@ UIOutlinerPannel::UIOutlinerPannel()
 	m_Tree->SetRootVisibility(false);
 	m_Tree->UseDragDrop(true);
 	m_Tree->AddSelectDelegate(this, (DELEGATE_1)&UIOutlinerPannel::SelectObject);
+	m_Tree->AddRightClickDelegate(this, (DELEGATE_0)&UIOutlinerPannel::OpenRightClickMenu);
 	m_Tree->AddDragDropDelegate(this, (DELEGATE_2)&UIOutlinerPannel::DragDropObject);
 
 	AddChild(m_Tree);
@@ -32,14 +36,13 @@ void UIOutlinerPannel::render_update()
 	if (CTaskMgr::GetInst()->GetObjectEvent())
 		ReloadCurrentLevel();
 
+
 	if (KEY_TAP(KEY::DEL))
+		DeleteObject();
+	
+	if (m_bRightClick)
 	{
-		TreeNode* pNode = m_Tree->GetSelectedNode();
-		if (pNode)
-		{
-			CGameObject* pSelectObj = (CGameObject*)pNode->GetData();
-			GamePlayStatic::DestroyGameObject(pSelectObj);
-		}
+		DrawRightClickMenu();
 	}
 }
 
@@ -62,6 +65,57 @@ void UIOutlinerPannel::ReloadCurrentLevel()
 		for (size_t i = 0; i < vecParent.size(); ++i)
 			AddObjectToTree(pRootNode, vecParent[i]);
 	}
+}
+
+void UIOutlinerPannel::DrawRightClickMenu()
+{
+	bool bHovered = false;
+
+	//if (ImGui::BeginPopupContextItem("##OutlinerRightClickPopup"))
+	if (ImGui::BeginPopupContextItem("##OutlinerRightClickPopup"))
+	{
+		if (ImGui::Selectable("Delete"))
+		{
+			DeleteObject();
+			m_bRightClick = false;
+		}
+		if (ImGui::IsItemHovered()) bHovered |= true;
+
+		if (ImGui::Selectable("Create Prefab"))
+		{
+			TreeNode* pNode = m_Tree->GetSelectedNode();
+
+			if (pNode)
+			{
+				// create prefab
+				CGameObject* pSelectObj = (CGameObject*)pNode->GetData();
+				Ptr<CPrefab> pPrefab = new CPrefab(pSelectObj->Clone(), false);
+				wstring strPath = L"prefab\\" + pSelectObj->GetName() + L".pref";
+				CAssetMgr::GetInst()->AddAsset(strPath, pPrefab.Get());
+
+				// save prefab
+				pPrefab->Save(strPath);
+			}
+
+			m_bRightClick = false;
+		}
+		if (ImGui::IsItemHovered()) bHovered |= true;
+
+		//if (ImGui::Selectable("Create Prefab")) {} //value = 0.0f;
+
+		if (ImGui::Selectable("Close"))
+		{
+			ImGui::CloseCurrentPopup();
+			m_bRightClick = false;
+		}
+
+		if (KEY_TAP(KEY::LBTN) && not bHovered)
+			m_bRightClick = false;
+
+		ImGui::EndPopup();
+	}
+
+	ImGui::OpenPopup("##OutlinerRightClickPopup", ImGuiPopupFlags_MouseButtonRight);
 }
 
 // Usage: 선택한 node를 Inspector의 target으로 바꿈
@@ -108,6 +162,17 @@ void UIOutlinerPannel::DragDropObject(DWORD_PTR _Dest, DWORD_PTR _Source)
 	}
 
 	ReloadCurrentLevel();
+}
+
+void UIOutlinerPannel::DeleteObject()
+{
+	TreeNode* pNode = m_Tree->GetSelectedNode();
+
+	if (pNode)
+	{
+		CGameObject* pSelectObj = (CGameObject*)pNode->GetData();
+		GamePlayStatic::DestroyGameObject(pSelectObj);
+	}
 }
 
 void UIOutlinerPannel::AddObjectToTree(TreeNode* _Node, CGameObject* _Object)

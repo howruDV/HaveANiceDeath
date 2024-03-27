@@ -57,6 +57,8 @@ void TreeNode::render_update()
 		// case: click
 		else if (KEY_RELEASED(KEY::LBTN) && ImGui::IsItemHovered(ImGuiHoveredFlags_None))
 			m_Owner->SetSelectedNode(this);
+		else if (KEY_RELEASED(KEY::RBTN) && ImGui::IsItemHovered(ImGuiHoveredFlags_None))
+			m_Owner->SetRightClickedNode(this);
 
 		// render
 		for (size_t i = 0; i < m_vecChildNode.size(); ++i)
@@ -117,14 +119,24 @@ void UITree::render_update()
 			m_Root->m_vecChildNode[i]->render_update();
 	}
 
+	// ---------------
 	// Delegate 호출
+	// ---------------
+	// case: left click
 	if (m_bSelectEvent)
 	{
 		if (m_SelectInst && m_SelectFunc)
 			(m_SelectInst->*m_SelectFunc)((DWORD_PTR)m_Selected);
 	}
 
-	// Drop: target이 tree node가 아닌 경우(허공)
+	// case: right click
+	if (m_bRightClickEvent)
+	{
+		if (m_SelectInst && m_RightClickFunc)
+			(m_SelectInst->*m_RightClickFunc)();
+	}
+
+	// case: Drop - target이 tree node가 아닌 경우(허공)
 	if (KEY_RELEASED(KEY::LBTN) && m_DragNode && !m_DropNode)
 	{
 		if (m_DragDropInst && m_DragDropFunc)
@@ -143,6 +155,7 @@ void UITree::render_update()
 
 	m_bSelectEvent = false;
 	m_bDragDropEvent = false;
+	m_bRightClickEvent = false;
 }
 
 TreeNode* UITree::CreateNode(TreeNode* _Parent, string _strName, DWORD_PTR _data)
@@ -176,6 +189,12 @@ void UITree::SetSelectedNode(TreeNode* _SelectNode)
 		m_Selected->m_bSelected = true;
 
 	m_bSelectEvent = true;
+}
+
+void UITree::SetRightClickedNode(TreeNode* _SelectNode)
+{
+	SetSelectedNode(_SelectNode);
+	m_bRightClickEvent = true;
 }
 
 void UITree::SetDragNode(TreeNode* _DragNode)

@@ -71,18 +71,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Vec2 WinSize = Vec2((float)rect.right, (float)rect.bottom);
 #else
     Vec2 WinSize = Vec2 (1600,900);
-
-    // 현재 윈도우 스타일 가져오기
     LONG_PTR style = GetWindowLongPtr(hWnd, GWL_STYLE);
-
-    // 윈도우를 전체 화면으로 변경하기 위해 스타일을 WS_POPUP으로 변경
     style &= ~WS_OVERLAPPEDWINDOW;
     style |= WS_POPUP;
-
-    // 윈도우 스타일 설정
     SetWindowLongPtr(hWnd, GWL_STYLE, style);
-
-    // 전체 화면으로 윈도우 크기 및 위치 설정
     SetWindowPos(hWnd, HWND_TOP, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 #endif
 
