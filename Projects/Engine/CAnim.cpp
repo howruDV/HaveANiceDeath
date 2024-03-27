@@ -15,12 +15,13 @@ CAnim::CAnim()
 }
 
 CAnim::CAnim(const CAnim& _OriginAnim)
-	: m_Animator(nullptr)
+	: CEntity(_OriginAnim)
+	, m_Animator(nullptr)
 	, m_vecFrm(_OriginAnim.m_vecFrm)
-	, m_CurFrmIdx(_OriginAnim.m_CurFrmIdx)
-	, m_bFinish(_OriginAnim.m_bFinish)
+	, m_CurFrmIdx(0)
+	, m_bFinish(false)
 	, m_AtlasTex(_OriginAnim.m_AtlasTex)
-	, m_AccTime(_OriginAnim.m_AccTime)
+	, m_AccTime(0)
 {
 }
 

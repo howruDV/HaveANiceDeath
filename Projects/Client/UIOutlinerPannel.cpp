@@ -2,6 +2,7 @@
 #include "UIOutlinerPannel.h"
 #include "UITree.h"
 #include "UIInspectorPannel.h"
+#include "UIContentPannel.h"
 
 #include <Engine/CLevelMgr.h>
 #include <Engine/CAssetMgr.h>
@@ -105,7 +106,11 @@ void UIOutlinerPannel::DrawRightClickMenu()
 				CGameObject* pSelectObj = (CGameObject*)pNode->GetData();
 				Ptr<CPrefab> pPrefab = new CPrefab(pSelectObj->Clone(), false);
 				wstring strPath = L"prefab\\" + pSelectObj->GetName() + L".pref";
+				pPrefab->SetName(strPath);
+
 				CAssetMgr::GetInst()->AddAsset(strPath, pPrefab.Get());
+				UIContentPannel* pContent = (UIContentPannel*)CImGuiMgr::GetInst()->FindUI("##Content");
+				pContent->ReloadContent();
 
 				// save prefab
 				pPrefab->Save(strPath);

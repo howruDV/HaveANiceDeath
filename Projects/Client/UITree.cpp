@@ -88,9 +88,20 @@ void TreeNode::render_update()
 			// 소속 Tree에 Drag 발생한 Node임을 알림
 			m_Owner->SetDragNode(this);
 		}
+		// case: drop
+		else if (ImGui::BeginDragDropTarget())
+		{
+			const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(m_Owner->GetID().c_str());
+			if (payload)
+				m_Owner->SetDropNode(this);
+
+			ImGui::EndDragDropTarget();
+		}
 		// case: click
 		else if (KEY_RELEASED(KEY::LBTN) && ImGui::IsItemHovered(ImGuiHoveredFlags_None))
 			m_Owner->SetSelectedNode(this);
+		else if (KEY_RELEASED(KEY::RBTN) && ImGui::IsItemHovered(ImGuiHoveredFlags_None))
+			m_Owner->SetRightClickedNode(this);
 	}
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Ptr.h"
 class CGameObject;
 class CAsset;
 

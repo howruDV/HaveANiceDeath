@@ -72,7 +72,8 @@ void CAssetMgr::AddAsset(const wstring& _strKey, CAsset* _Asset)
 void CAssetMgr::DeleteAsset(ASSET_TYPE _Type, const wstring& _strKey)
 {
 	unordered_map<wstring, Ptr<CAsset>>::iterator iter = m_hashAsset[(UINT)_Type].find(_strKey);
-	assert(!(iter == m_hashAsset[(UINT)_Type].end()));
+	if (iter != m_hashAsset[(UINT)_Type].end())
+		return;
 
 	m_hashAsset[(UINT)_Type].erase(iter);
 }

@@ -176,7 +176,8 @@ inline void CAssetMgr::DeleteAsset(const wstring& _strKey)
 {
     ASSET_TYPE AssetType = GetAssetType<T>();
     unordered_map<wstring, Ptr<CAsset>>::iterator iter = m_hashAsset[(UINT)AssetType].find(_strKey);
-    assert(!(iter == m_hashAsset[(UINT)AssetType].end()));
+    if (iter != m_hashAsset[(UINT)AssetType].end())
+        return;
 
     m_hashAsset[(UINT)AssetType].erase(iter);
 }

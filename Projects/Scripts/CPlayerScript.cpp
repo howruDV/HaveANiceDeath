@@ -83,8 +83,9 @@ void CPlayerScript::begin()
 	fclose(pFile);
 
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_IdleToRun.anim").c_str(), L"rb");
-	pAnim->LoadFromFile(pFile);
-	Animator2D()->Create(pAnim, L"Idle_ToRun");
+	//pAnim->LoadFromFile(pFile);
+	//Animator2D()->Create(pAnim, L"Idle_ToRun");
+	Animator2D()->Create(pFile);
 	fclose(pFile);
 
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_IdleUturn.anim").c_str(), L"rb");

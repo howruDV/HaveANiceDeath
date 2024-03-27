@@ -18,6 +18,7 @@ CAnimator2D::CAnimator2D(const CAnimator2D& _OriginAnimator)
     , m_CurAnim(nullptr)
     , m_bRepeat(_OriginAnimator.m_bRepeat)
     , m_bFlipX(_OriginAnimator.m_bFlipX)
+    , m_bFlipY(_OriginAnimator.m_bFlipY)
 {
     unordered_map<wstring, CAnim*>::const_iterator iter = _OriginAnimator.m_mapAnim.begin();
     for (; iter != _OriginAnimator.m_mapAnim.end(); ++iter)
