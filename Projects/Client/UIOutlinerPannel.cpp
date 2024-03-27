@@ -71,9 +71,23 @@ void UIOutlinerPannel::DrawRightClickMenu()
 {
 	bool bHovered = false;
 
-	//if (ImGui::BeginPopupContextItem("##OutlinerRightClickPopup"))
 	if (ImGui::BeginPopupContextItem("##OutlinerRightClickPopup"))
 	{
+		if (ImGui::Selectable("Copy"))
+		{
+			TreeNode* pNode = m_Tree->GetSelectedNode();
+
+			if (pNode)
+			{
+				CGameObject* pOrg = (CGameObject*)pNode->GetData();
+				CGameObject* pCopy = pOrg->Clone();
+				pCopy->SetName(pOrg->GetName() + L"_copy");
+
+				GamePlayStatic::SpawnGameObject(pCopy, pOrg->GetLayerIdx());
+			}
+		}
+		if (ImGui::IsItemHovered()) bHovered |= true;
+
 		if (ImGui::Selectable("Delete"))
 		{
 			DeleteObject();
@@ -100,8 +114,6 @@ void UIOutlinerPannel::DrawRightClickMenu()
 			m_bRightClick = false;
 		}
 		if (ImGui::IsItemHovered()) bHovered |= true;
-
-		//if (ImGui::Selectable("Create Prefab")) {} //value = 0.0f;
 
 		if (ImGui::Selectable("Close"))
 		{
