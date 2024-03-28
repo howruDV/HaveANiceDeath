@@ -7,6 +7,7 @@
 #include <Engine/CAssetMgr.h>
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
+#include <Engine/CTimeMgr.h>
 
 UIGamePlayPannel::UIGamePlayPannel()
 	: UI("GamePlay", "##GamePlayButtons")
@@ -47,7 +48,7 @@ void UIGamePlayPannel::render_update()
         StopEnable = true;
    
     float windowWidth = ImGui::GetWindowSize().x;
-    ImGui::SetCursorPosX(windowWidth * 0.5f - m_BtnSize.x * 3 - (m_ShowLayerWidth + 80));
+    ImGui::SetCursorPosX(windowWidth * 0.5f - m_BtnSize.x * 3 - (m_ShowLayerWidth + 45));
 
     // layer
     ObjectController* pCtrler = m_Inspector->GetObjController();
@@ -96,4 +97,12 @@ void UIGamePlayPannel::render_update()
     }
     else
         ImGui::ImageButton(m_StopIcon->GetSRV().Get(), m_BtnSize);
+
+    // FPS
+    ImGui::SameLine();
+    ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(230, 170, 0, 255));
+    UINT strFPS = CTimeMgr::GetInst()->GetFPS();
+
+    ImGui::Text("FPS: %d", strFPS);
+    ImGui::PopStyleColor();
 }

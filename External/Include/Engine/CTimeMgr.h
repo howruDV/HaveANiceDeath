@@ -13,6 +13,7 @@ private:
     double			m_EngineDeltaTime;  // 프레임당 DT
 
     UINT            m_iCall;
+    UINT            m_FPS;
     float           m_fTime;
     wchar_t			m_szText[256];
     bool			m_bPause;
@@ -23,6 +24,7 @@ public:
     void render();
 
 public:
+    UINT GetFPS() { return m_FPS; }
     float GetDeltaTime() { return (float)m_DeltaTime; }
     float GetEngineDeltaTime() { return (float)m_EngineDeltaTime; }
     double GetEngineDeltaTime_d() { return m_EngineDeltaTime; }

@@ -75,7 +75,7 @@ void CEngine::progress()
 	CLevelMgr::GetInst()->tick();
 	
 	CRenderMgr::GetInst()->tick();
-	CTimeMgr::GetInst()->render();
+	//CTimeMgr::GetInst()->render();
 	CRenderMgr::GetInst()->CopyRenderTargetToImGuiRenderTexture();
 
 	// GC
