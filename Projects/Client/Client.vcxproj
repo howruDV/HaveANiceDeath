@@ -135,6 +135,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;_RELEASE_GAME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -162,6 +164,7 @@
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="MtrlEditorUI.h" />
+    <ClInclude Include="ObjectController.h" />
     <ClInclude Include="UIAnimator2D.h" />
     <ClInclude Include="UIAnimPannel.h" />
     <ClInclude Include="UIAnimDetail.h" />
@@ -216,6 +219,7 @@
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="MtrlEditorUI.cpp" />
+    <ClCompile Include="ObjectController.cpp" />
     <ClCompile Include="UIAnimator2D.cpp" />
     <ClCompile Include="UIAnimPannel.cpp" />
     <ClCompile Include="UIAnimDetail.cpp" />
@@ -227,7 +231,9 @@
     <ClCompile Include="UIComputeShader.cpp" />
     <ClCompile Include="UIContentPannel.cpp" />
     <ClCompile Include="UIFSM.cpp" />
-    <ClCompile Include="UIGamePlayPannel.cpp" />
+    <ClCompile Include="UIGamePlayPannel.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="UIGraphicsShader.cpp" />
     <ClCompile Include="UIInspectorPannel.cpp" />
     <ClCompile Include="main.cpp" />

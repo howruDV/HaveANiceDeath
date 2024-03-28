@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "UIGamePlayPannel.h"
 #include "UIInspectorPannel.h"
+#include "ObjectController.h"
 #include "CLevelSaveLoad.h"
 
 #include <Engine/CAssetMgr.h>
@@ -9,7 +10,9 @@
 
 UIGamePlayPannel::UIGamePlayPannel()
 	: UI("GamePlay", "##GamePlayButtons")
-    , BtnSize(ImVec2(20, 20))
+    , m_BtnSize(ImVec2(20, 20))
+    , m_ShowLayerWidth(300)
+    , m_Inspector(nullptr)
 {
     SetScroll(true);
 }
@@ -20,6 +23,7 @@ UIGamePlayPannel::~UIGamePlayPannel()
 
 void UIGamePlayPannel::begin()
 {
+    m_Inspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
 	m_PlayIcon[0] = CAssetMgr::GetInst()->Load<CTexture>(L"texture//engine//iconPlay_white.png");
 	m_PlayIcon[1] = CAssetMgr::GetInst()->Load<CTexture>(L"texture//engine//iconPlay_color.png");
 	m_PauseIcon[0] = CAssetMgr::GetInst()->Load<CTexture>(L"texture//engine//iconPause_white.png");
@@ -43,12 +47,20 @@ void UIGamePlayPannel::render_update()
         StopEnable = true;
    
     float windowWidth = ImGui::GetWindowSize().x;
-    ImGui::SetCursorPosX(windowWidth * 0.5f - BtnSize.x * 3);
+    ImGui::SetCursorPosX(windowWidth * 0.5f - m_BtnSize.x * 3 - (m_ShowLayerWidth + 80));
+
+    // layer
+    ObjectController* pCtrler = m_Inspector->GetObjController();
+    ImGui::PushItemWidth(m_ShowLayerWidth);
+    if (pCtrler)
+        pCtrler->render();
+    ImGui::PopItemWidth();
 
     // play
+    ImGui::SameLine();
     if (PlayEnable)
     {
-        if (ImGui::ImageButton(m_PlayIcon[0]->GetSRV().Get(), BtnSize))
+        if (ImGui::ImageButton(m_PlayIcon[0]->GetSRV().Get(), m_BtnSize))
         {
             if (LEVEL_STATE::STOP == pCurLevel->GetState())
                 CLevelSaveLoad::SaveLevel(pCurLevel, L"level//temp.lv");
@@ -57,32 +69,31 @@ void UIGamePlayPannel::render_update()
         }
     }
     else
-        ImGui::ImageButton(m_PlayIcon[0]->GetSRV().Get(), BtnSize);
+        ImGui::ImageButton(m_PlayIcon[0]->GetSRV().Get(), m_BtnSize);
 
     // pause
     ImGui::SameLine();
     if (PauseEnable)
     {
-        if (ImGui::ImageButton(m_PauseIcon[0]->GetSRV().Get(), BtnSize))
+        if (ImGui::ImageButton(m_PauseIcon[0]->GetSRV().Get(), m_BtnSize))
             CLevelMgr::GetInst()->ChangeLevelState(LEVEL_STATE::PAUSE);
     }
     else
-        ImGui::ImageButton(m_PauseIcon[0]->GetSRV().Get(), BtnSize);
+        ImGui::ImageButton(m_PauseIcon[0]->GetSRV().Get(), m_BtnSize);
 
     // stop
     ImGui::SameLine();
     if (StopEnable)
     {
-        if (ImGui::ImageButton(m_StopIcon->GetSRV().Get(), BtnSize))
+        if (ImGui::ImageButton(m_StopIcon->GetSRV().Get(), m_BtnSize))
         {
             CLevel* pLoadedLevel = CLevelSaveLoad::LoadLevel(L"level//temp.lv");
             CLevelMgr::GetInst()->ChangeLevel(pLoadedLevel, LEVEL_STATE::STOP);
 
             // Inspector 의 타겟정보를 nullptr 로 되돌리기
-            UIInspectorPannel* pInspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
-            pInspector->SetTargetObject(nullptr);
+            m_Inspector->SetTargetObject(nullptr);
         }
     }
     else
-        ImGui::ImageButton(m_StopIcon->GetSRV().Get(), BtnSize);
+        ImGui::ImageButton(m_StopIcon->GetSRV().Get(), m_BtnSize);
 }

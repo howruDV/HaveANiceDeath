@@ -2,10 +2,13 @@
 #include "UIInspectorPannel.h"
 #include "func_ImGUI.h"
 #include "CImGuiMgr.h"
+#include "ObjectController.h"
 #include "UITransform.h"
 #include "UIMeshRender.h"
 #include "UIAsset.h"
 #include "UIScript.h"
+#include "UIOutlinerPannel.h"
+#include "ObjectController.h"
 
 #include <Engine/CTransform.h>
 
@@ -21,10 +24,13 @@ UIInspectorPannel::UIInspectorPannel()
 
 UIInspectorPannel::~UIInspectorPannel()
 {
+	if (m_ObjController)
+		delete m_ObjController;
 }
 
 void UIInspectorPannel::tick()
 {
+	m_ObjController->tick();
 }
 
 void UIInspectorPannel::render_update()
@@ -32,9 +38,22 @@ void UIInspectorPannel::render_update()
 	if (!m_TargetObject)
 		return;
 	
-	string strName = "[ GameObject: " + string(m_TargetObject->GetName().begin(), m_TargetObject->GetName().end()) + " ]";
-	ImGui::Text(strName.c_str());
+	// name
+	char str[100]{};
+	strcpy_s(str, WstrToStr(GetTargetObject()->GetName()).c_str());
 
+	TextBox("Name"); ImGui::SameLine();
+	if (ImGui::InputText("##InspectorObjName", str, 100, ImGuiInputTextFlags_EnterReturnsTrue))
+	{
+		GetTargetObject()->SetName(StrToWstr(string(str)));
+		UIOutlinerPannel* outliner = (UIOutlinerPannel*)CImGuiMgr::GetInst()->FindUI("##Outliner");
+		outliner->ReloadCurrentLevel();
+	}
+
+	//string strName = "[ " + string(m_TargetObject->GetName().begin(), m_TargetObject->GetName().end()) + " ]";
+	//ImGui::SeparatorText(strName.c_str());
+
+	// layer
 	TextBox("Layer"); ImGui::SameLine();
 	DrawLayerUI();
 	ImGui::Separator();

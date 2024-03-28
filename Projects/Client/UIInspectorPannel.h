@@ -11,11 +11,13 @@
 class UIComponent;
 class UIAsset;
 class UIScript;
+class ObjectController;
 
 class UIInspectorPannel :
     public UI
 {
 private:
+    ObjectController*   m_ObjController;
     CGameObject*        m_TargetObject;
     Ptr<CAsset>         m_TargetAsset;
     UIComponent*        m_arrCompUI[(UINT)COMPONENT_TYPE::END];
@@ -36,6 +38,7 @@ public:
     void SetTargetObject(CGameObject* _Object);
     void SetTargetAsset(Ptr<CAsset> _Asset);
     CGameObject* GetTargetObject() { return m_TargetObject; }
+    ObjectController* GetObjController() { return m_ObjController; }
 
 public:
     UIInspectorPannel();

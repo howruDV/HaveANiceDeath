@@ -20,6 +20,13 @@ CRenderMgr::CRenderMgr()
 	, m_RenderFunc(nullptr)
 {
 	m_RenderFunc = &CRenderMgr::render_play;
+
+#ifdef _DEBUG
+	m_isEditorMode = true;
+#else
+	m_isEditorMode = false;
+#endif
+
 }
 
 CRenderMgr::~CRenderMgr()
@@ -155,6 +162,20 @@ void CRenderMgr::UpdatePipeline()
 	vecLight2DInfo.clear();
 
 	// SB update: 3D Light
+}
+
+void CRenderMgr::ActiveEditorMode(bool _bActive)
+{
+	if (_bActive)
+	{
+		m_RenderFunc = &CRenderMgr::render_editor;
+		m_isEditorMode = true;
+	}
+	else
+	{
+		m_RenderFunc = &CRenderMgr::render_play;
+		m_isEditorMode = false;
+	}
 }
 
 void CRenderMgr::Clear()

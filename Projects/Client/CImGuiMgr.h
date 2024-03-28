@@ -20,10 +20,12 @@ class CImGuiMgr :
     SINGLE(CImGuiMgr)
 
 private:
+    unordered_map<string, UI*>  m_mapUI;
     vector<string>              m_LayerName;
     Ptr<CTexture>               m_RTCopyTex;
     Ptr<CPrefab>                m_Prefab;
-    unordered_map<string, UI*>  m_mapUI;
+    ImVec2                      m_ViewportStart;
+    ImVec2                      m_ViewportSize;
     HANDLE                      m_hNotify;
 
 private:
@@ -43,6 +45,9 @@ public:
 
 public:
     const vector<string>& GetLayerName() { return m_LayerName; }
+    ImVec2 GetViewportStart() { return m_ViewportStart; }
+    ImVec2 GetViewportSize() { return m_ViewportSize; }
+    Vec2 GetMouseWorldPos(ImVec2 _MousePos);
 
 public:
     UI* FindUI(const string& _strKey);

@@ -69,16 +69,18 @@ public:
     void LayerCheck(UINT _LayerIdx, bool _bCheck);
     void LayerCheck(const wstring& _strLayerName, bool _bCheck);
     void LayerCheckAll(){ m_LayerCheck = 0xffffffff; }
+    void LayerUncheckAll() { m_LayerCheck = 0x00000000; }
 
     PROJ_TYPE GetProjType() { return m_ProjType; }
-    int GetPriority() { return m_CameraPriority; }
+    Matrix& GetViewMat() { return m_matView; }
+    Matrix& GetProjMat() { return m_matProj; } 
+    Vec2 GetWorldPosInWindow(Vec2 _Diff);
     float GetScale() { return m_Scale; }
     float GetFar() { return m_Far; }
     float GetFOV() { return m_FOV; }
     float GetWidth() { return m_Width; }
     float GetAspectRadio() { return m_AspectRatio; }
-    Matrix& GetViewMat() { return m_matView; }
-    Matrix& GetProjMat() { return m_matProj; } 
+    int GetPriority() { return m_CameraPriority; }
     bool IsLayerCheck(UINT _LayerIdx) { return m_LayerCheck & (1 << _LayerIdx); }
     bool IsLayerCheck(const wstring& _strLayerName);
 

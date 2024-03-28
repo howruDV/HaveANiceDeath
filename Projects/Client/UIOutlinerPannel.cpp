@@ -3,6 +3,7 @@
 #include "UITree.h"
 #include "UIInspectorPannel.h"
 #include "UIContentPannel.h"
+#include "ObjectController.h"
 
 #include <Engine/CLevelMgr.h>
 #include <Engine/CAssetMgr.h>
@@ -86,6 +87,8 @@ void UIOutlinerPannel::DrawRightClickMenu()
 
 				GamePlayStatic::SpawnGameObject(pCopy, pOrg->GetLayerIdx());
 			}
+
+			m_bRightClick = false;
 		}
 		if (ImGui::IsItemHovered()) bHovered |= true;
 
@@ -144,6 +147,10 @@ void UIOutlinerPannel::SelectObject(DWORD_PTR _Node)
 		return;
 
 	UIInspectorPannel* pInspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
+	
+	if (pInspector->GetTargetObject() == pObject)
+		pInspector->GetObjController()->FocusObject(pObject);
+
 	pInspector->SetTargetObject(pObject);
 }
 

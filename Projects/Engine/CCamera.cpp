@@ -170,6 +170,19 @@ void CCamera::LayerCheck(const wstring& _strLayerName, bool _bCheck)
 	LayerCheck(idx, _bCheck);
 }
 
+// Usage: 인자로 들어오는 값은 카메라 기준 Diff 벡터
+Vec2 CCamera::GetWorldPosInWindow(Vec2 _Diff)
+{
+	Vec3 Center = Transform()->GetWorldPos();
+
+	Vec2 vResol = CDevice::GetInst()->GetRenderResolution();
+	Vec2 vWinSize = Vec2(vResol.x * m_Scale, (vResol.x / m_AspectRatio) * m_Scale);
+
+	Vec2 MouseWorldPos = Vec2(Center.x + _Diff.x * m_Scale, Center.y + _Diff.y * m_Scale);
+
+	return MouseWorldPos;
+}
+
 void CCamera::SaveToFile(FILE* _File)
 {
 	fwrite(&m_ProjType, sizeof(PROJ_TYPE), 1, _File);

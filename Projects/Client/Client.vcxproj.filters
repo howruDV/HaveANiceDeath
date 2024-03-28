@@ -144,6 +144,9 @@
     <Filter Include="02. UI\6. GamePlayPannel">
       <UniqueIdentifier>{7b569d2c-f8d7-4475-99fe-64fe10af19a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Manager\05. ObjectController">
+      <UniqueIdentifier>{19f0750e-48f1-4ec5-abde-a4340927f530}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="UIGamePlayPannel.h">
       <Filter>02. UI\6. GamePlayPannel</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectController.h">
+      <Filter>01. Manager\05. ObjectController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -479,6 +485,9 @@
     </ClCompile>
     <ClCompile Include="UIGamePlayPannel.cpp">
       <Filter>02. UI\6. GamePlayPannel</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectController.cpp">
+      <Filter>01. Manager\05. ObjectController</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

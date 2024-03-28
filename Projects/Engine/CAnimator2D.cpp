@@ -169,6 +169,8 @@ int CAnimator2D::DeleteAnim(const wstring& _AnimationKey)
 
 void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
 {
+    if (m_CurAnim)
+        m_CurAnim->Reset();
     CAnim* pAnim = FindAnim(_strAnimName);
     if (!pAnim)
         return;

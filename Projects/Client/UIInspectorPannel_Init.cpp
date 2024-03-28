@@ -12,6 +12,7 @@
 #include "UIParticleSystem.h"
 #include "UIPrefab.h"
 #include "UIMovement.h"
+#include "ObjectController.h"
 
 void UIInspectorPannel::CreateComponentUI()
 {
@@ -64,6 +65,8 @@ void UIInspectorPannel::CreateComponentUI()
 			m_arrCompUI[i]->Deactivate();
 		}
 	}
+
+	m_ObjController = new ObjectController;
 
 	//SCRIPT,
 };

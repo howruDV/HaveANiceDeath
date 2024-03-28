@@ -25,6 +25,7 @@ private:
     list<FDebugShapeInfo>   m_DbgShapeInfo;
     CGameObject*            m_pDbgObj;
     bool                    m_DebugPosition;
+    bool                    m_isEditorMode;
 
     Ptr<CTexture>           m_PostProcessTex;
     Ptr<CTexture>           m_RTCopyTex;
@@ -48,14 +49,14 @@ public:
     void RegisterLight2D(CLight2D* _Light) { m_vecLight2D.push_back(_Light); }
     void AddDebugShapeInfo(const FDebugShapeInfo& _info) { m_DbgShapeInfo.push_back(_info); }
     void SetDebugPosition(bool _OnOff) { m_DebugPosition = _OnOff; }
-    void ActiveEditorMode(bool _bActive) {
-        if (_bActive)  m_RenderFunc = &CRenderMgr::render_editor;
-        else m_RenderFunc = &CRenderMgr::render_play;
-    }
+    void ActiveEditorMode(bool _bActive);
 
     Ptr<CTexture> GetRTCopyTex() { return m_RTCopyTex; }
     Ptr<CTexture> GetPostProcessTex() { return m_PostProcessTex; }
+    const vector<CCamera*>& GetCameras() { return m_vecCam; }
+    CCamera* GetEditorCamera() { return m_EditorCam; }
     bool IsDebugPosition() { return m_DebugPosition; }
+    bool IsEditorMode() { return m_isEditorMode; }
 
 private:
     void render_debug();

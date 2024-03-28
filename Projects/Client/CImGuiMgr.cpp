@@ -4,6 +4,7 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 
+#include "ObjectController.h"
 #include "UIInspectorPannel.h"
 #include "UIContentPannel.h"
 #include "UIOutlinerPannel.h"
@@ -25,6 +26,7 @@
 #include <Engine/CGameObject.h>
 #include <Engine/CLevel.h>
 #include <Engine/CLayer.h>
+#include <Engine/CTransform.h>
 
 CImGuiMgr::CImGuiMgr()
 	: m_hNotify(nullptr)
@@ -114,6 +116,14 @@ void CImGuiMgr::render_copytex()
 	RightBottom.x = 1.f - LeftTopUv.x;
 	RightBottom.y = 1.f - LeftTopUv.y;
 
+	// Image 위치 기록
+	ImVec2 windowPos = ImGui::GetCursorScreenPos();
+	ImVec2 windowSize = ImVec2(Resolution.x * (RightBottom.x - LeftTopUv.x), Resolution.y * (RightBottom.y - LeftTopUv.y));
+	UIInspectorPannel* pInspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
+	m_ViewportStart = windowPos;
+	m_ViewportSize = windowSize;
+
+	// draw image
 	ImGui::Image(pCopyTex->GetSRV().Get(), ImVec2(Resolution.x * (RightBottom.x - LeftTopUv.x), Resolution.y * (RightBottom.y - LeftTopUv.y)), LeftTopUv, RightBottom);
 
 	// case: drop
@@ -121,7 +131,11 @@ void CImGuiMgr::render_copytex()
 	{
 		if (m_Prefab.Get())
 		{
-			GamePlayStatic::SpawnGameObject(m_Prefab->Instantiate(), 0);
+			CGameObject* pObj = m_Prefab->Instantiate();
+			ImVec2 mousePosition = ImGui::GetMousePos();
+			Vec2 MouseWorldPos = GetMouseWorldPos(mousePosition);
+			pObj->Transform()->SetRelativePos(Vec3(MouseWorldPos.x, MouseWorldPos.y, pObj->Transform()->GetRelativePos().z));
+			GamePlayStatic::SpawnGameObject(pObj, 0);
 		}
 
 		ImGui::EndDragDropTarget();
