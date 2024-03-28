@@ -31,8 +31,8 @@ private:
     string                      m_TEX_PATH[6];
 
     // UI º¸Á¤ °ª
-    int                         m_DescSize;
-    int                         m_InputSize;
+    float                       m_DescSize;
+    float                       m_InputSize;
 
 public:
     virtual void render_update() override;

@@ -76,6 +76,7 @@ enum class COMPONENT_TYPE
 
 	SCRIPT,
 };
+extern const char* COMPONENT_TYPE_STRING[(UINT)COMPONENT_TYPE::END];
 
 // Constant Buffer Type
 enum class CB_TYPE

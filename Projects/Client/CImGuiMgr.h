@@ -35,7 +35,6 @@ private:
 
     void CreateUI();
     void observe_content();
-    void LoadLayerName();
 
 public:
     void DragPrefab(DWORD_PTR _pref);
@@ -44,6 +43,7 @@ public:
     void progress();
 
 public:
+    void LoadLayerName();
     const vector<string>& GetLayerName() { return m_LayerName; }
     ImVec2 GetViewportStart() { return m_ViewportStart; }
     ImVec2 GetViewportSize() { return m_ViewportSize; }

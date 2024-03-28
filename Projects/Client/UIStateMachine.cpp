@@ -29,7 +29,7 @@ void UIStateMachine::StateSelect(DWORD_PTR _ptr)
 	CState* pState = CStateMgr::GetState(strStateName);
 	wstring AddKey = StrToWstr(m_AddStateKey);
 
-	Ptr<CFSM> pFSM = GetTargetObject()->StateMachine()->GetFSM();
+	Ptr<CFSM> pFSM = GetTargetObject()->StateMachine()->GetFSMOrigin();
 
 	if (pFSM->FindState(AddKey) == nullptr)
 	{
@@ -51,7 +51,7 @@ void UIStateMachine::render_update()
 
 	CGameObject* pTarget = GetTargetObject();
 	CStateMachine* pStateMachine = pTarget->StateMachine();
-	Ptr<CFSM> pFSM = pStateMachine->GetFSM();
+	Ptr<CFSM> pFSM = pStateMachine->GetFSMOrigin();
 	string FSMName = "";
 
 	if (nullptr != pFSM)

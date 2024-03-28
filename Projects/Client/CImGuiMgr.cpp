@@ -16,6 +16,7 @@
 #include "UIAnimPreview.h"
 #include "UIGamePlayPannel.h"
 #include "MtrlEditorUI.h"
+#include "LayerEditor.h"
 
 #include <Engine/CDevice.h>
 #include <Engine/CRenderMgr.h>
@@ -182,6 +183,10 @@ void CImGuiMgr::CreateUI()
 
 	// Material Inspector
 	pUI = new UIMatEditor;
+	AddUI(pUI->GetID(), pUI);
+
+	// Layer Editor
+	pUI = new LayerEditor;
 	AddUI(pUI->GetID(), pUI);
 }
 

@@ -147,6 +147,9 @@
     <Filter Include="01. Manager\05. ObjectController">
       <UniqueIdentifier>{19f0750e-48f1-4ec5-abde-a4340927f530}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. UI\4. MenuPannel\Layer Editor">
+      <UniqueIdentifier>{c1446ac8-3fe7-4825-9688-ca79f1354b79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -316,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="ObjectController.h">
       <Filter>01. Manager\05. ObjectController</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerEditor.h">
+      <Filter>02. UI\4. MenuPannel\Layer Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -488,6 +494,9 @@
     </ClCompile>
     <ClCompile Include="ObjectController.cpp">
       <Filter>01. Manager\05. ObjectController</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerEditor.cpp">
+      <Filter>02. UI\4. MenuPannel\Layer Editor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

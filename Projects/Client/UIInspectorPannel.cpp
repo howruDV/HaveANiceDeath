@@ -50,9 +50,6 @@ void UIInspectorPannel::render_update()
 		outliner->ReloadCurrentLevel();
 	}
 
-	//string strName = "[ " + string(m_TargetObject->GetName().begin(), m_TargetObject->GetName().end()) + " ]";
-	//ImGui::SeparatorText(strName.c_str());
-
 	// layer
 	TextBox("Layer"); ImGui::SameLine();
 	DrawLayerUI();

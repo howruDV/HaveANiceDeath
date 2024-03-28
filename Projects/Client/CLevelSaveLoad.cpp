@@ -148,7 +148,8 @@ CLevel* CLevelSaveLoad::LoadLevel(const wstring& _strLevelPath)
 	}
 
 	// close read file
-	fclose(pFile);
+	if (pFile != nullptr)
+		fclose(pFile);
 
 	return pLevel;
 }

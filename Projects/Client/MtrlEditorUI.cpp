@@ -7,6 +7,10 @@
 
 UIMatEditor::UIMatEditor()
 	: UI("Mat Inspector", "##MatInspector")
+	, m_IntArr{}
+	, m_FloatArr{}
+	, m_V2Arr{}
+	, m_V4Arr{}
 	, m_TargetMtrl(nullptr)
 	, m_MtrlPath("New Material")
 	, m_INT_Desc{ "INT_0_DESC","INT_1_DESC","INT_2_DESC","INT_3_DESC" }
@@ -170,8 +174,8 @@ void UIMatEditor::render_update()
 			ImGui::Text("TEX_0 Desc"); ImGui::SameLine(100); ImGui::InputText("##TEX_0_Desc", (char*)m_TEX_Desc[0].data(), 32);
 
 			// 해상도 정보 출력
-			float Width = pTex->GetWidth();
-			float Height = pTex->GetHeight();
+			float Width = (float)pTex->GetWidth();
+			float Height = (float)pTex->GetHeight();
 
 			ImGui::Text("Width"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_0_Width", &Width, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
 			ImGui::Text("Height"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_0_Height", &Height, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
@@ -218,8 +222,8 @@ void UIMatEditor::render_update()
 			ImGui::Text("TEX_1 Desc"); ImGui::SameLine(100); ImGui::InputText("##TEX_1_Desc", (char*)m_TEX_Desc[1].data(), 32);
 
 			// 해상도 정보 출력
-			float Width = pTex->GetWidth();
-			float Height = pTex->GetHeight();
+			float Width = (float)pTex->GetWidth();
+			float Height = (float)pTex->GetHeight();
 
 			ImGui::Text("Width"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_1_Width", &Width, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
 			ImGui::Text("Height"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_1_Height", &Height, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
@@ -266,8 +270,8 @@ void UIMatEditor::render_update()
 			ImGui::Text("TEX_2 Desc"); ImGui::SameLine(100); ImGui::InputText("##TEX_2_Desc", (char*)m_TEX_Desc[2].data(), 32);
 
 			// 해상도 정보 출력
-			float Width = pTex->GetWidth();
-			float Height = pTex->GetHeight();
+			float Width = (float)pTex->GetWidth();
+			float Height = (float)pTex->GetHeight();
 
 			ImGui::Text("Width"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_2_Width", &Width, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
 			ImGui::Text("Height"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_2_Height", &Height, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
@@ -313,8 +317,8 @@ void UIMatEditor::render_update()
 			ImGui::Text("TEX_3 Desc"); ImGui::SameLine(100); ImGui::InputText("##TEX_3_Desc", (char*)m_TEX_Desc[3].data(), 32);
 
 			// 해상도 정보 출력
-			float Width = pTex->GetWidth();
-			float Height = pTex->GetHeight();
+			float Width = (float)pTex->GetWidth();
+			float Height = (float)pTex->GetHeight();
 
 			ImGui::Text("Width"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_3_Width", &Width, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
 			ImGui::Text("Height"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_3_Height", &Height, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
@@ -360,8 +364,8 @@ void UIMatEditor::render_update()
 			ImGui::Text("TEX_4 Desc"); ImGui::SameLine(100); ImGui::InputText("##TEX_4_Desc", (char*)m_TEX_Desc[4].data(), 32);
 
 			// 해상도 정보 출력
-			float Width = pTex->GetWidth();
-			float Height = pTex->GetHeight();
+			float Width = (float)pTex->GetWidth();
+			float Height = (float)pTex->GetHeight();
 
 			ImGui::Text("Width"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_4_Width", &Width, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
 			ImGui::Text("Height"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_4_Height", &Height, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
@@ -407,8 +411,8 @@ void UIMatEditor::render_update()
 			ImGui::Text("TEX_5 Desc"); ImGui::SameLine(100); ImGui::InputText("##TEX_5_Desc", (char*)m_TEX_Desc[5].data(), 32);
 
 			// 해상도 정보 출력
-			float Width = pTex->GetWidth();
-			float Height = pTex->GetHeight();
+			float Width = (float)pTex->GetWidth();
+			float Height = (float)pTex->GetHeight();
 
 			ImGui::Text("Width"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_5_Width", &Width, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);
 			ImGui::Text("Height"); ImGui::SameLine(100); ImGui::InputFloat("##TEX_5_Height", &Height, 0.f, 0.f, "%.3f", ImGuiInputTextFlags_ReadOnly);

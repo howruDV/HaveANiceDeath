@@ -33,6 +33,7 @@ public:
     int ChangeLayer(int _Idx);
     int ChangeLayer(const wstring& _Layer);
     void Destroy();
+    void DeleteComponent(COMPONENT_TYPE _Type);
 
 public:
     void AddComponent(CComponent* _Component);

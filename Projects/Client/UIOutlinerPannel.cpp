@@ -75,6 +75,16 @@ void UIOutlinerPannel::DrawRightClickMenu()
 
 	if (ImGui::BeginPopupContextItem("##OutlinerRightClickPopup"))
 	{
+		if (ImGui::BeginMenu("Components"))
+		{
+			if (ImGui::MenuItem("Click me"))
+			{
+
+			}
+
+			ImGui::EndMenu();
+		}
+
 		if (ImGui::Selectable("Copy"))
 		{
 			TreeNode* pNode = m_Tree->GetSelectedNode();

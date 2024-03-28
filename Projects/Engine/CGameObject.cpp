@@ -119,11 +119,6 @@ void CGameObject::render()
 {
 	if (m_RenderCom)
 		m_RenderCom->render();
-
-	/*
-	for (size_t i = 0; i < m_vecChild.size(); ++i)
-		m_vecChild[i]->render();
-	*/
 }
 
 // Usage: disconnet childObj with Parent and return prev layer idx
@@ -189,6 +184,27 @@ void CGameObject::Destroy()
 	GamePlayStatic::DestroyGameObject(this);
 }
 
+void CGameObject::DeleteComponent(COMPONENT_TYPE _Type)
+{
+	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+
+	if (LEVEL_STATE::PLAY == pLevel->GetState() || LEVEL_STATE::PAUSE == pLevel->GetState())
+	{
+		return;
+	}
+
+	if (m_arrCom[(UINT)_Type])
+	{
+		delete m_arrCom[(UINT)_Type];
+		m_arrCom[(UINT)_Type] = nullptr;
+
+		if (COMPONENT_TYPE::MESHRENDER == _Type || COMPONENT_TYPE::TILEMAP == _Type || COMPONENT_TYPE::PARTICLESYSTEM == _Type)
+		{
+			m_RenderCom = nullptr;
+		}
+	}
+}
+
 void CGameObject::AddComponent(CComponent* _Component)
 {
 	COMPONENT_TYPE type = _Component->GetType();
@@ -203,24 +219,28 @@ void CGameObject::AddComponent(CComponent* _Component)
 	else
 	{
 		// already exist
-		//assert(!m_arrCom[(UINT)type]);
 		if (m_arrCom[(UINT)type])
 		{
 			MessageBox(nullptr, L"Already exist component", L"Failed to Add Component", MB_OK);
 			return;
 		}
 
-		m_arrCom[(UINT)type] = _Component;
-		_Component->m_Owner = this;
-
 		// render component
 		CRenderComponent* tmp = dynamic_cast<CRenderComponent*>(_Component);
 		if (tmp)
 		{
 			// already exist
-			assert(m_RenderCom == nullptr);
+			if (m_RenderCom)
+			{
+				MessageBox(nullptr, L"Render component is already exist!", L"Failed to Add Component", MB_OK);
+				return;
+			}
+
 			m_RenderCom = tmp;
 		}
+
+		m_arrCom[(UINT)type] = _Component;
+		_Component->m_Owner = this;
 	}
 }
 

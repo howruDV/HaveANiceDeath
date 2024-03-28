@@ -86,7 +86,7 @@ void UICamera::render_update()
 		// FOV
 		TextBox("FOV"); ImGui::SameLine();
 		float FOV = pCamera->GetFOV();
-		ImGui::DragFloat("##CameraFOV", &FOV, 0.1, 0.1f, 3.14f);
+		ImGui::DragFloat("##CameraFOV", &FOV, 0.1f, 0.1f, 3.14f);
 		pCamera->SetFOV(FOV);
 	}
 	else

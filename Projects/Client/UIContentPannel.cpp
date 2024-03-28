@@ -207,5 +207,8 @@ ASSET_TYPE UIContentPannel::GetAssetTypeByExt(const path& _relativePath)
 	if (_relativePath.extension() == L".mesh")
 		return ASSET_TYPE::MESH;
 
+	if (_relativePath.extension() == L".fsm")
+		return ASSET_TYPE::FSM;
+
 	return ASSET_TYPE::END;
 }
