@@ -103,6 +103,6 @@ void UIGamePlayPannel::render_update()
     ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(230, 170, 0, 255));
     UINT strFPS = CTimeMgr::GetInst()->GetFPS();
 
-    ImGui::Text("FPS: %d", strFPS);
+    ImGui::Text("  FPS: %d", strFPS);
     ImGui::PopStyleColor();
 }

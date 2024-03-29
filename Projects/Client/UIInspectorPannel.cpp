@@ -28,6 +28,11 @@ UIInspectorPannel::~UIInspectorPannel()
 		delete m_ObjController;
 }
 
+void UIInspectorPannel::begin()
+{
+	m_ObjController->begin();
+}
+
 void UIInspectorPannel::tick()
 {
 	m_ObjController->tick();

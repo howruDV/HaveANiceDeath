@@ -169,8 +169,6 @@ int CAnimator2D::DeleteAnim(const wstring& _AnimationKey)
 
 void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
 {
-    if (m_CurAnim)
-        m_CurAnim->Reset();
     CAnim* pAnim = FindAnim(_strAnimName);
     if (!pAnim)
         return;
@@ -183,6 +181,10 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
     {
         Transform()->SetRelativeScale(newBgSize);
     }
+
+    // claer before animation
+    if (m_CurAnim && (m_CurAnim->GetName() != _strAnimName))
+        m_CurAnim->Reset();
 
     m_bRepeat = _bRepeat;
     m_CurAnim = pAnim;

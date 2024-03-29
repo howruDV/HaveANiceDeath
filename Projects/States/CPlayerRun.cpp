@@ -21,6 +21,10 @@ CPlayerRun::~CPlayerRun()
 
 void CPlayerRun::finaltick()
 {
+	// change anim
+	if (GetOwner()->Animator2D()->GetCurAnimName() != L"Run")
+		return;
+
 	// Run
 	float fSpeed = *((float*)GetBlackboardData(L"fSpeed"));
 
@@ -63,7 +67,7 @@ void CPlayerRun::finaltick()
 void CPlayerRun::Enter()
 {
 	m_PlayerMgr = CPlayerMgr::PlayerMgr();
-	GetOwner()->Animator2D()->PushNextAnim(L"Run");
+	GetOwner()->Animator2D()->PushNextAnim(L"Run", true);
 }
 
 void CPlayerRun::Exit()

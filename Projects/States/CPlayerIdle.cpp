@@ -63,7 +63,7 @@ void CPlayerIdle::finaltick()
 void CPlayerIdle::Enter()
 {
 	m_PlayerMgr = CPlayerMgr::PlayerMgr();
-	GetOwner()->Animator2D()->PushNextAnim(L"Idle");
+	GetOwner()->Animator2D()->PushNextAnim(L"Idle", true);
 }
 
 void CPlayerIdle::Exit()

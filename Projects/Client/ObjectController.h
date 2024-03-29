@@ -2,17 +2,18 @@
 #include "UI.h"
 
 class CGameObject;
+class UIInspectorPannel;
 
 class ObjectController 
 {
 private:
+	UIInspectorPannel*				m_Inspector;
 	vector<string>					m_vecLayerName;
 	vector<CGameObject*>			m_vecObject;
 	string							m_CurLayer;
 
-	CGameObject*					m_ClickedObject;
-
 public:
+	void begin();
 	void tick();
 	void render();
 
@@ -23,11 +24,7 @@ private:
 	CGameObject* FindObject(Vec2 _MouseWorldPos);
 
 public:
-	void SetTargetObject(CGameObject* _Object) { m_ClickedObject = _Object; }
-
-public:
     ObjectController();
     ~ObjectController();
-
 };
 

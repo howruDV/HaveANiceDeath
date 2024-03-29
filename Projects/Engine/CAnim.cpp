@@ -34,12 +34,17 @@ CAnim::~CAnim()
 void CAnim::finaltick()
 {
 	m_AccTime += DT;
+
+	if (m_bFinish)
+		return;
+
 	if (m_AccTime > m_vecFrm[m_CurFrmIdx].fDuration)
 	{
 		++m_CurFrmIdx;
+
 		if (m_CurFrmIdx >= m_vecFrm.size())
 		{
-			m_CurFrmIdx = 0;
+			m_CurFrmIdx = m_vecFrm.size() - 1;
 			m_bFinish = true;
 		}
 		m_AccTime = 0.f;

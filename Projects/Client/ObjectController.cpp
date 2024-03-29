@@ -18,7 +18,6 @@
 
 ObjectController::ObjectController()
 	: m_CurLayer("[All]")
-	, m_ClickedObject(nullptr)
 {
 }
 
@@ -37,6 +36,11 @@ void ObjectController::FocusObject(CGameObject* _Object)
 	Vec3 EditCamPos = pEditCam->Transform()->GetRelativePos();
 	
 	pEditCam->Transform()->SetRelativePos(Vec3(ObjectPos.x, ObjectPos.y, EditCamPos.z));
+}
+
+void ObjectController::begin()
+{
+	m_Inspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
 }
 
 void ObjectController::tick()
@@ -62,6 +66,7 @@ void ObjectController::tick()
 	ImVec2 mousePosition = ImGui::GetMousePos();
 	ImVec2 ViewportStart = CImGuiMgr::GetInst()->GetViewportStart();
 	ImVec2 ViewportSize = CImGuiMgr::GetInst()->GetViewportSize();
+	CGameObject* pTargetObject = m_Inspector->GetTargetObject();
 
 	// 마우스가 영역 안에 있다면
 	if (mousePosition.x >= ViewportStart.x && mousePosition.y >= ViewportStart.y
@@ -80,18 +85,15 @@ void ObjectController::tick()
 		if (KEY_TAP(KEY::LBTN) && KEY_PRESSED(KEY::LCTRL))
 		{
 			CGameObject* pObject = FindObject(MouseWorldPos);
-
-			UIInspectorPannel* pInspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
-			pInspector->SetTargetObject(pObject);
-			m_ClickedObject = pObject;
-
+			m_Inspector->SetTargetObject(pObject);
+			pTargetObject = pObject;
 		}
 
-		if (nullptr != m_ClickedObject)
+		if (pTargetObject)
 		{
 			// 현재 타겟된 오브젝트 정보 가져오기
-			Vec3 TargetPos = m_ClickedObject->Transform()->GetWorldPos();
-			Vec3 TargetScale = m_ClickedObject->Transform()->GetWorldScale();
+			Vec3 TargetPos = pTargetObject->Transform()->GetWorldPos();
+			Vec3 TargetScale = pTargetObject->Transform()->GetWorldScale();
 
 			// 마우스가 오브젝트 범위 안에 있다면
 			if (MouseWorldPos.x >= TargetPos.x - TargetScale.x / 2.f && MouseWorldPos.x <= TargetPos.x + TargetScale.x / 2.f
@@ -110,45 +112,45 @@ void ObjectController::tick()
 						TargetPos.x += Drag.x * CamScale;
 						TargetPos.y -= Drag.y * CamScale;
 
-						m_ClickedObject->Transform()->SetRelativePos(TargetPos);
+						pTargetObject->Transform()->SetRelativePos(TargetPos);
 					}
 				}
 			}
 		}
 
 		// 키보드 이동
-		if (nullptr != m_ClickedObject)
+		if (nullptr != pTargetObject)
 		{
 			// 현재 타겟된 오브젝트 정보 가져오기
-			Vec3 TargetPos = m_ClickedObject->Transform()->GetWorldPos();
-			Vec3 TargetScale = m_ClickedObject->Transform()->GetWorldScale();
+			Vec3 TargetPos = pTargetObject->Transform()->GetWorldPos();
+			Vec3 TargetScale = pTargetObject->Transform()->GetWorldScale();
 
 			if (KEY_PRESSED(KEY::LEFT))
 			{
 				TargetPos.x += -100.f * DT_ENGINE;
 
-				m_ClickedObject->Transform()->SetRelativePos(TargetPos);
+				pTargetObject->Transform()->SetRelativePos(TargetPos);
 			}
 
 			if (KEY_PRESSED(KEY::RIGHT))
 			{
 				TargetPos.x += 100.f * DT_ENGINE;
 
-				m_ClickedObject->Transform()->SetRelativePos(TargetPos);
+				pTargetObject->Transform()->SetRelativePos(TargetPos);
 			}
 
 			if (KEY_PRESSED(KEY::UP))
 			{
 				TargetPos.y += 100.f * DT_ENGINE;
 
-				m_ClickedObject->Transform()->SetRelativePos(TargetPos);
+				pTargetObject->Transform()->SetRelativePos(TargetPos);
 			}
 
 			if (KEY_PRESSED(KEY::DOWN))
 			{
 				TargetPos.y += -100.f * DT_ENGINE;
 
-				m_ClickedObject->Transform()->SetRelativePos(TargetPos);
+				pTargetObject->Transform()->SetRelativePos(TargetPos);
 			}
 		}
 
@@ -217,9 +219,15 @@ void ObjectController::tick()
 
 void ObjectController::render()
 {
-	if (!CRenderMgr::GetInst()->IsEditorMode())
+	CCamera* EditorCam = nullptr;
+
+	if (CRenderMgr::GetInst()->IsEditorMode())
 	{
-		return;
+		EditorCam = CRenderMgr::GetInst()->GetEditorCamera();
+	}
+	else
+	{
+		EditorCam = CRenderMgr::GetInst()->GetCameras()[0];
 	}
 
 	ImGui::Text("Show "); ImGui::SameLine();
@@ -245,8 +253,6 @@ void ObjectController::render()
 
 		ImGui::EndCombo();
 	}
-
-	CCamera* EditorCam = CRenderMgr::GetInst()->GetEditorCamera();
 
 	if (m_CurLayer == "[All]")
 	{

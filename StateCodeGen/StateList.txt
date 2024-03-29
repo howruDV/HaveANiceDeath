@@ -1,4 +1,5 @@
 CIdleState
+CIdleToRun
 CPlayerIdle
 CPlayerJump
 CPlayerRun

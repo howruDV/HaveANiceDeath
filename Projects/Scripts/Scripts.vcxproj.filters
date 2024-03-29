@@ -19,14 +19,17 @@
     <ClInclude Include="CPlayerScript_Test.h">
       <Filter>Scripts\Dummy</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerScript.h">
-      <Filter>Scripts\Unit</Filter>
-    </ClInclude>
     <ClInclude Include="CPlayerMgr.h">
       <Filter>Scripts\Manager\PlayerMgr</Filter>
     </ClInclude>
     <ClInclude Include="CGameMgr.h">
       <Filter>Scripts\Manager\GameMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>Scripts\Unit\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CUnitScript.h">
+      <Filter>Scripts\Unit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -48,14 +51,17 @@
     <ClCompile Include="CPlayerScript_Test.cpp">
       <Filter>Scripts\Dummy</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>Scripts\Unit</Filter>
-    </ClCompile>
     <ClCompile Include="CPlayerMgr.cpp">
       <Filter>Scripts\Manager\PlayerMgr</Filter>
     </ClCompile>
     <ClCompile Include="CGameMgr.cpp">
       <Filter>Scripts\Manager\GameMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>Scripts\Unit\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CUnitScript.cpp">
+      <Filter>Scripts\Unit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +88,9 @@
     </Filter>
     <Filter Include="Scripts\Manager\GameMgr">
       <UniqueIdentifier>{c235a9f8-27d7-4685-91fc-666ce864f0c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit\Player">
+      <UniqueIdentifier>{1cf859de-d203-4603-b5a9-56d36a4a181d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
