@@ -1,11 +1,6 @@
 #include "pch.h"
 #include "CPlayerJumpStart.h"
 
-#include <Engine/CKeyMgr.h>
-#include <Engine/CGameObject.h>
-#include <Engine/CAnimator2D.h>
-#include <Engine/CMovement.h>
-
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
 
@@ -40,7 +35,7 @@ void CPlayerJumpStart::finaltick()
 	if (GetOwner()->Animator2D()->IsPlaying())
 		return;
 
-	if (KEY_TAP(KEY::LSHIFT))
+	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
 		return;
@@ -52,7 +47,6 @@ void CPlayerJumpStart::finaltick()
 
 void CPlayerJumpStart::Enter()
 {
-	m_PlayerMgr = CPlayerMgr::PlayerMgr();
 	CMovement* pMovement = GetOwner()->Movement();
 	float fJumpVeloc = *((float*)GetBlackboardData(L"fJumpVelocMax"));
 	float fSpeed = *((float*)GetBlackboardData(L"fSpeed"));

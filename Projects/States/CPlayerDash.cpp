@@ -59,5 +59,5 @@ void CPlayerDash::Enter()
 void CPlayerDash::Exit()
 {
 	GetOwner()->Movement()->SetVelocity(Vec3());
+	m_PlayerMgr->GetPlayerScript()->StartDashCoolTime();
 }
-

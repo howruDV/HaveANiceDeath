@@ -46,6 +46,12 @@
     <Filter Include="States\Player\Dash">
       <UniqueIdentifier>{18cebd33-e9ea-4b8d-821e-d83ac58c43b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Player\Concentrate_Start">
+      <UniqueIdentifier>{6f73aa3a-9269-4c10-9e18-7a340183f7ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Concentrate">
+      <UniqueIdentifier>{fcd36940-ffca-4011-bfd3-84be546ee83f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -92,6 +98,9 @@
     </ClInclude>
     <ClInclude Include="CPlayerDash.h">
       <Filter>States\Player\Dash</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

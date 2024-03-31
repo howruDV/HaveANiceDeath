@@ -42,7 +42,7 @@ void CPlayerIdle::finaltick()
 		// @TODO Space 시간 따라 높이 조절
 	}
 
-	if (KEY_TAP(KEY::LSHIFT))
+	if (KEY_TAP(KEY::LSHIFT) && m_PlayerMgr->GetPlayerScript()->CanDash())
 	{
 		ChangeState(L"Dash");
 	}

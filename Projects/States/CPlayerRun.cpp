@@ -9,7 +9,6 @@
 
 CPlayerRun::CPlayerRun()
 	:CState(PLAYERRUN)
-	, m_PlayerMgr(nullptr)
 {
 }
 
@@ -34,7 +33,7 @@ void CPlayerRun::finaltick()
 	}
 
 	// change state
-	if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
+	if (PLAYERSCRIPT->WillDirChange())
 		ChangeState(L"Run_UTurn");
 
 	if ((KEY_PRESSED(KEY::A) && KEY_PRESSED(KEY::D))
@@ -50,7 +49,7 @@ void CPlayerRun::finaltick()
 		ChangeState(L"Jump_Start");
 	}
 
-	if (KEY_TAP(KEY::LSHIFT))
+	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
 	}
@@ -59,7 +58,6 @@ void CPlayerRun::finaltick()
 void CPlayerRun::Enter()
 {
 	// play anim
-	m_PlayerMgr = CPlayerMgr::PlayerMgr();
 	if (GetFSM()->GetPrevState()->GetStateType() == PLAYERJUMPLANDING)
 	{
 		GetOwner()->Animator2D()->Play(L"Jump_Landing", false);

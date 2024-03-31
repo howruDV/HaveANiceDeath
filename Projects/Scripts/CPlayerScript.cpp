@@ -20,6 +20,9 @@ CPlayerScript::CPlayerScript()
 	, m_iAnimaMax(3)
 	, m_iAnimaBlue(0)
 	, m_iAnimaGold(0)
+	, m_bDashCoolTime(1.f)
+	, m_bDashAccTime(0.f)
+	, m_bDashCan(true)
 {
 	m_fSpeed = 500.f;
 	m_fSpeedInAir = m_fSpeed;
@@ -148,6 +151,18 @@ void CPlayerScript::tick()
 	if ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && (KEY_NONE(KEY::A) || KEY_RELEASED(KEY::A)))
 		SetDir(UNIT_DIRX::RIGHT);
 
+	// check coolTime
+	if (!m_bDashCan)
+	{
+		m_bDashAccTime += DT;
+
+		if (m_bDashAccTime >= m_bDashCoolTime)
+		{
+			m_bDashCan = true;
+			m_bDashAccTime = 0.f;
+		}
+	}
+
 	CUnitScript::tick();
 }
 
@@ -161,4 +176,14 @@ void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, C
 {
 	if (_OtherObj->GetLayerIdx() == 6)
 		Movement()->SetGround(false);
+}
+
+void CPlayerScript::StartDashCoolTime(bool _bDashCan)
+{
+	if (!_bDashCan)
+	{ 
+		m_bDashAccTime = 0.f;
+	}
+	
+	m_bDashCan = _bDashCan;
 }

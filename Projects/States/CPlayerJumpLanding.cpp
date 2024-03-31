@@ -51,7 +51,7 @@ void CPlayerJumpLanding::Enter()
 		ChangeState(L"Run");
 	}
 
-	if (KEY_TAP(KEY::LSHIFT))
+	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
 	}

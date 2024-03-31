@@ -1,10 +1,6 @@
 #include "pch.h"
 #include "CPlayerJumpFalling.h"
 
-#include <Engine/CKeyMgr.h>
-#include <Engine/CGameObject.h>
-#include <Engine/CAnimator2D.h>
-#include <Engine/CMovement.h>
 #include <Engine/CTransform.h>
 
 #include <Scripts/CPlayerMgr.h>
@@ -43,7 +39,7 @@ void CPlayerJumpFalling::finaltick()
 		ChangeState(L"Jump_Landing");
 	}
 
-	if (KEY_TAP(KEY::LSHIFT))
+	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
 	}
@@ -51,7 +47,6 @@ void CPlayerJumpFalling::finaltick()
 
 void CPlayerJumpFalling::Enter()
 {
-	m_PlayerMgr = CPlayerMgr::PlayerMgr();
 	GetOwner()->Animator2D()->Play(L"Jump_Falling", false);
 }
 

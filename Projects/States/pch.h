@@ -20,4 +20,6 @@
 
 #include "CStateMgr.h"
 
+#include "define.h"
+
 #endif //PCH_H

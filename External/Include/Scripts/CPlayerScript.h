@@ -17,6 +17,11 @@ private:
     int m_iMPMax;
     int m_iMPCur;
 
+    // cooltime
+    float m_bDashCoolTime;
+    float m_bDashAccTime;
+    bool m_bDashCan;
+
     // @TODO : 인벤토리 관리자 따로 만들어야할듯?----------------------------------
     // money
     int m_iIngot;
@@ -42,6 +47,8 @@ public:
     virtual void SaveToFile(FILE* _File) {}
     virtual void LoadFromFile(FILE* _File) {}
 
+    void StartDashCoolTime(bool _bDashCan = false);
+
 public:
     void SetHPActive(int _HPActive) { m_iHPActive = _HPActive; }
     void SetiMPMax(int _MPMax) { m_iMPMax = _MPMax; }
@@ -56,6 +63,7 @@ public:
     int GetIngot() { return m_iIngot; }
     int GetSoulary() { return m_iSoulary; }
     int GetPrismium() { return m_iPrismium; }
+    bool CanDash() { return m_bDashCan; }
 
 public:
     CLONE(CPlayerScript);

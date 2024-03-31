@@ -1,1 +1,2 @@
 CStateMgr.h
+define.h

@@ -1,10 +1,6 @@
 #include "pch.h"
 #include "CPlayerRunToIdle.h"
 
-#include <Engine/CKeyMgr.h>
-#include <Engine/CGameObject.h>
-#include <Engine/CAnimator2D.h>
-
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
 
@@ -27,7 +23,7 @@ void CPlayerRunToIdle::finaltick()
 		if (((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && KEY_NONE(KEY::D))
 		|| ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && KEY_NONE(KEY::A)))
 		{
-			if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
+			if (PLAYERSCRIPT->WillDirChange())
 				ChangeState(L"Run_UTurn");
 		}
 
@@ -35,7 +31,7 @@ void CPlayerRunToIdle::finaltick()
 	}
 
 	// change state
-	if (KEY_TAP(KEY::LSHIFT))
+	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
 		return;
@@ -46,9 +42,6 @@ void CPlayerRunToIdle::finaltick()
 
 void CPlayerRunToIdle::Enter()
 {
-	// setting
-	m_PlayerMgr = CPlayerMgr::PlayerMgr();
-
 	// anim
 	GetOwner()->Animator2D()->Play(L"Run_ToIdle", false);
 }

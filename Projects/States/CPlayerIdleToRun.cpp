@@ -6,6 +6,9 @@
 #include <Engine/CGameObject.h>
 #include <Engine/CAnimator2D.h>
 
+#include <Scripts/CPlayerMgr.h>
+#include <Scripts/CPlayerScript.h>
+
 CPlayerIdleToRun::CPlayerIdleToRun()
 	: CState(PLAYERIDLETORUN)
 {
@@ -40,7 +43,7 @@ void CPlayerIdleToRun::finaltick()
 	if (GetOwner()->Animator2D()->IsPlaying())
 		return;
 
-	if (KEY_TAP(KEY::LSHIFT))
+	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
 		return;
