@@ -380,16 +380,15 @@ void UIAnimPannel::LoadAtlas(const wstring& _RelativePath)
 
 	m_vAtlasRenderSize = ImVec2((float)m_Atlas.Get()->GetWidth(), (float)m_Atlas.Get()->GetHeight());
 	float resizeScale = 1;
-	float maxScale = ImGui::GetWindowHeight();
-	if (m_Atlas.Get()->GetHeight() > maxScale)
+	if ((m_vAtlasRenderSize.x <= m_vAtlasRenderSize.y) && (m_Atlas.Get()->GetHeight() > ImGui::GetContentRegionAvail().y))
 	{
-		resizeScale = maxScale / m_vAtlasRenderSize.y;
+		resizeScale = ImGui::GetContentRegionAvail().y / m_vAtlasRenderSize.y;
 		m_vAtlasRenderSize.y *= resizeScale;
 		m_vAtlasRenderSize.x *= resizeScale;
 	}
-	if (m_Atlas.Get()->GetWidth() > maxScale)
+	else if ((m_vAtlasRenderSize.x > m_vAtlasRenderSize.y) && (m_Atlas.Get()->GetWidth() > ImGui::GetContentRegionAvail().x))
 	{
-		resizeScale = maxScale / m_vAtlasRenderSize.x;
+		resizeScale = ImGui::GetContentRegionAvail().x / m_vAtlasRenderSize.x;
 		m_vAtlasRenderSize.y *= resizeScale;
 		m_vAtlasRenderSize.x *= resizeScale;
 	}

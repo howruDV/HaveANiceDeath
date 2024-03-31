@@ -59,7 +59,8 @@ void UIStateMachine::render_update()
 		FSMName = WstrToStr(pFSM->GetKey()).c_str();
 	}
 
-	TextBox("FSM Key"); ImGui::SameLine();	ImGui::InputText("##FSMName", (char*)FSMName.c_str(), FSMName.length(), ImGuiInputTextFlags_ReadOnly);
+	// FSM name
+	TextBox("FSM"); ImGui::SameLine();	ImGui::InputText("##FSMName", (char*)FSMName.c_str(), FSMName.length(), ImGuiInputTextFlags_ReadOnly);
 	
 	// Drop üũ
 	if (ImGui::BeginDragDropTarget())
@@ -78,6 +79,14 @@ void UIStateMachine::render_update()
 		ImGui::EndDragDropTarget();
 	}
 
+	// current state
+	string strCurState = "";
+	Ptr<CFSM> pDynamicFSM = pStateMachine->GetFSM();
+	if (pDynamicFSM.Get() && pDynamicFSM->GetCurState())
+		strCurState = WstrToStr(pDynamicFSM->GetCurState()->GetName());
+	TextBox("Current State"); ImGui::SameLine(); ImGui::InputText("##CurrentState", (char*)strCurState.c_str(), strCurState.length(), ImGuiInputTextFlags_ReadOnly);
+
+	// state name
 	TextBox("State Name"); ImGui::SameLine(); ImGui::InputText("##StateName", (char*)m_StateName.c_str(), m_StateName.length(), ImGuiInputTextFlags_ReadOnly);
 
 	vector<string> items;

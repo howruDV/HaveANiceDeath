@@ -9,7 +9,8 @@ CAnimator2D::CAnimator2D()
     : CComponent(COMPONENT_TYPE::ANIMATOR2D)
     , m_CurAnim(nullptr)
     , m_bRepeat(false)
-    , m_bFlipX(false)
+    , m_bFlipX(UNIT_DIRX::RIGHT)
+    , m_bFlipY(UNIT_DIRY::UP)
 {
 }
 
@@ -51,6 +52,8 @@ void CAnimator2D::finaltick()
             m_CurAnim = m_listNextAnim.front().pAnim;
             m_bRepeat = m_listNextAnim.front().bRepeat;
             m_listNextAnim.pop_front();
+
+            m_CurAnim->Reset();
         }
     }
 
@@ -60,9 +63,14 @@ void CAnimator2D::finaltick()
             m_CurAnim->Reset();
         else if (!m_bRepeat && !m_listNextAnim.empty())
         {
+            // reset before anim
+            m_CurAnim->Reset();
+
             m_CurAnim = m_listNextAnim.front().pAnim;
             m_bRepeat = m_listNextAnim.front().bRepeat;
             m_listNextAnim.pop_front();
+
+            m_CurAnim->Reset();
         }
     }
 
@@ -197,6 +205,7 @@ void CAnimator2D::PushNextAnim(const wstring& _strAnimName, bool _bRepeat)
     if (!pAnim)
         return;
 
+    pAnim->Reset();
     NextAnimInfo next = { pAnim, _bRepeat };
     m_listNextAnim.push_back(next);
 }

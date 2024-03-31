@@ -174,9 +174,14 @@ call CodeGen.exe</Command>
   <ItemGroup>
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CPlayerIdle.h" />
-    <ClInclude Include="CPlayerJump.h" />
+    <ClInclude Include="CPlayerIdleToRun.h" />
+    <ClInclude Include="CPlayerJumpFalling.h" />
+    <ClInclude Include="CPlayerJumpLanding.h" />
+    <ClInclude Include="CPlayerJumpStart.h" />
     <ClInclude Include="CPlayerRun.h" />
-    <ClInclude Include="CPlayerTurn.h" />
+    <ClInclude Include="CPlayerRunToIdle.h" />
+    <ClInclude Include="CPlayerIdleUTurn.h" />
+    <ClInclude Include="CPlayerRunUTurn.h" />
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTraceState.h" />
     <ClInclude Include="framework.h" />
@@ -185,9 +190,14 @@ call CodeGen.exe</Command>
   <ItemGroup>
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CPlayerIdle.cpp" />
-    <ClCompile Include="CPlayerJump.cpp" />
+    <ClCompile Include="CPlayerIdleToRun.cpp" />
+    <ClCompile Include="CPlayerJumpFalling.cpp" />
+    <ClCompile Include="CPlayerJumpLanding.cpp" />
+    <ClCompile Include="CPlayerJumpStart.cpp" />
     <ClCompile Include="CPlayerRun.cpp" />
-    <ClCompile Include="CPlayerTurn.cpp" />
+    <ClCompile Include="CPlayerRunToIdle.cpp" />
+    <ClCompile Include="CPlayerIdleUTurn.cpp" />
+    <ClCompile Include="CPlayerRunUTurn.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTraceState.cpp" />
     <ClCompile Include="pch.cpp">

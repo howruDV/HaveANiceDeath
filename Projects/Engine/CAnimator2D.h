@@ -18,11 +18,11 @@ class CAnimator2D :
 {
 private:
     unordered_map<wstring, CAnim*>  m_mapAnim;  // map의 key는 anim의 name과 같음
-    list<NextAnimInfo>  m_listNextAnim;
-    CAnim*  m_CurAnim;
-    bool    m_bFlipX;
-    bool    m_bFlipY;
-    bool    m_bRepeat;
+    list<NextAnimInfo>              m_listNextAnim;
+    CAnim*                          m_CurAnim;
+    UNIT_DIRX                       m_bFlipX;
+    UNIT_DIRY                       m_bFlipY;
+    bool                            m_bRepeat;
 
 public:
     virtual void finaltick() override;
@@ -41,15 +41,15 @@ public:
     int DeleteAnim(const wstring& _AnimationKey);
 
 public:
-    void SetFlipX(bool _bool) { m_bFlipX = _bool; }
-    void SetFlipY(bool _bool) { m_bFlipY = _bool; }
+    void SetFlipX(UNIT_DIRX _bool) { m_bFlipX = _bool; }
+    void SetFlipY(UNIT_DIRY _bool) { m_bFlipY = _bool; }
     void ClearNextAnim() { m_listNextAnim.clear(); }
     void PushNextAnim(const wstring& _strAnimName, bool _bRepeat = false);
 
     const unordered_map<wstring, CAnim*>& GetAnimations() { return m_mapAnim; }
-    const wstring& GetCurAnimName() { if (m_CurAnim) { return m_CurAnim->GetName(); } return nullptr; }
-    bool GetFlipX() { return m_bFlipX; }
-    bool GetFlipY() { return m_bFlipY; }
+    const wstring& GetCurAnimName() { if (m_CurAnim) { return m_CurAnim->GetName(); } return L""; }
+    UNIT_DIRX GetFlipX() { return m_bFlipX; }
+    UNIT_DIRY GetFlipY() { return m_bFlipY; }
     bool IsPlaying() { if (m_CurAnim) { return !m_CurAnim->IsFinish(); } return false; }
 
 public:

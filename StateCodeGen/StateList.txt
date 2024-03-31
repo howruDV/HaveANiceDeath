@@ -1,7 +1,11 @@
 CIdleState
-CIdleToRun
 CPlayerIdle
-CPlayerJump
+CPlayerIdleToRun
+CPlayerIdleUTurn
+CPlayerJumpFalling
+CPlayerJumpLanding
+CPlayerJumpStart
 CPlayerRun
-CPlayerTurn
+CPlayerRunToIdle
+CPlayerRunUTurn
 CTraceState

@@ -6,47 +6,25 @@
 #include <Engine/CKeyMgr.h>
 #include <Engine/CTimeMgr.h>
 #include <Engine/CMovement.h>
+#include <Engine/CAnimator2D.h>
 
 CPlayerScript::CPlayerScript()
-	: CScript(PLAYERSCRIPT)
-	, m_fSpeed(500.f)
-	, m_fSpeedInAir(m_fSpeed)
+	: CUnitScript(PLAYERSCRIPT)
 	, m_fJumpVelocMax(1300.f)
-	, m_iHPMax(65)
-	, m_iHPActive(m_iHPMax)
-	, m_iHPCur(m_iHPMax)
 	, m_iMPMax(50)
-	, m_iMPCur(m_iMPCur)
+	, m_iMPCur(m_iMPMax)
 	, m_iIngot(0)
 	, m_iSoulary(0)
 	, m_iPrismium(0)
 	, m_iAnimaMax(3)
 	, m_iAnimaBlue(0)
 	, m_iAnimaGold(0)
-	, m_bLookLeft(false)
-	, m_bLookLeft_Prev(m_bLookLeft)
 {
-}
-
-CPlayerScript::CPlayerScript(CPlayerScript& _Origin)
-	: CScript(_Origin)
-	, m_fSpeed(_Origin.m_fSpeed)
-	, m_fSpeedInAir(_Origin.m_fSpeedInAir)
-	, m_fJumpVelocMax(_Origin.m_fJumpVelocMax)
-	, m_iHPMax(65)
-	, m_iHPActive(m_iHPMax)
-	, m_iHPCur(m_iHPMax)
-	, m_iMPMax(50)
-	, m_iMPCur(m_iMPCur)
-	, m_iIngot(0)
-	, m_iSoulary(0)
-	, m_iPrismium(0)
-	, m_iAnimaMax(3)
-	, m_iAnimaBlue(0)
-	, m_iAnimaGold(0)
-	, m_bLookLeft(_Origin.m_bLookLeft)
-	, m_bLookLeft_Prev(m_bLookLeft)
-{
+	m_fSpeed = 500.f;
+	m_fSpeedInAir = m_fSpeed;
+	m_iHPMax = 65;
+	m_iHPActive = m_iHPMax;
+	m_iHPCur = m_iHPMax;
 }
 
 CPlayerScript::~CPlayerScript()
@@ -120,7 +98,7 @@ void CPlayerScript::begin()
 
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_RunUturn.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
-	Animator2D()->Create(pAnim, L"Run_Uturn");
+	Animator2D()->Create(pAnim, L"Run_UTurn");
 	fclose(pFile);
 
 	delete pAnim;
@@ -141,20 +119,14 @@ void CPlayerScript::begin()
 
 void CPlayerScript::tick()
 {
-	if (m_bLookLeft != m_bLookLeft_Prev)
-	{
-		if (GetOwner()->Animator2D())
-		{
-			GetOwner()->Animator2D()->SetFlipX(m_bLookLeft);
-		}
-		else
-		{
-			// @TODO 아 ㅋㅋ 쓸때추가해ㅋㅋ
-			//GetOwner()->GetRenderComponent()->GetDynamicMaterial
-		}
-	}
-	
-	m_bLookLeft_Prev = m_bLookLeft;
+	// set direction
+	if ((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && (KEY_NONE(KEY::D) || KEY_RELEASED(KEY::D)))
+		SetDir(UNIT_DIRX::LEFT);
+
+	if ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && (KEY_NONE(KEY::A) || KEY_RELEASED(KEY::A)))
+		SetDir(UNIT_DIRX::RIGHT);
+
+	CUnitScript::tick();
 }
 
 void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)

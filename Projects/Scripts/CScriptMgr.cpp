@@ -7,7 +7,6 @@
 #include "CPlayerMgr.h"
 #include "CPlayerScript.h"
 #include "CPlayerScript_Test.h"
-#include "CUnitScript.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
@@ -17,7 +16,6 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerMgr");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CPlayerScript_Test");
-	_vec.push_back(L"CUnitScript");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
@@ -34,8 +32,6 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlayerScript;
 	if (L"CPlayerScript_Test" == _strScriptName)
 		return new CPlayerScript_Test;
-	if (L"CUnitScript" == _strScriptName)
-		return new CUnitScript;
 	return nullptr;
 }
 
@@ -60,9 +56,6 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT_TEST:
 		return new CPlayerScript_Test;
-		break;
-	case (UINT)SCRIPT_TYPE::UNITSCRIPT:
-		return new CUnitScript;
 		break;
 	}
 	return nullptr;
@@ -94,10 +87,6 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::PLAYERSCRIPT_TEST:
 		return L"CPlayerScript_Test";
-		break;
-
-	case SCRIPT_TYPE::UNITSCRIPT:
-		return L"CUnitScript";
 		break;
 
 	}

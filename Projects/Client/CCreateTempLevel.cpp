@@ -25,9 +25,14 @@
 #include <States/CIdleState.h>
 #include <States/CTraceState.h>
 #include <States/CPlayerIdle.h>
+#include <States/CPlayerIdleToRun.h>
 #include <States/CPlayerRun.h>
-#include <States/CPlayerTurn.h>
-#include <States/CPlayerJump.h>
+#include <States/CPlayerRunToIdle.h>
+#include <States/CPlayerRunUTurn.h>
+#include <States/CPlayerIdleUTurn.h>
+#include <States/CPlayerJumpStart.h>
+#include <States/CPlayerJumpFalling.h>
+#include <States/CPlayerJumpLanding.h>
 
 void CCreateTempLevel::Init()
 {
@@ -54,9 +59,14 @@ void CCreateTempLevel::Init()
 
 	pFSM = new CFSM(nullptr, false);
 	pFSM->AddState(L"Idle", new CPlayerIdle);
+	pFSM->AddState(L"Idle_ToRun", new CPlayerIdleToRun);
+	pFSM->AddState(L"Idle_UTurn", new CPlayerIdleUTurn);
 	pFSM->AddState(L"Run", new CPlayerRun);
-	pFSM->AddState(L"Turn", new CPlayerTurn);
-	pFSM->AddState(L"Jump", new CPlayerJump);
+	pFSM->AddState(L"Run_ToIdle", new CPlayerRunToIdle);
+	pFSM->AddState(L"Run_UTurn", new CPlayerRunUTurn);
+	pFSM->AddState(L"Jump_Start", new CPlayerJumpStart);
+	pFSM->AddState(L"Jump_Falling", new CPlayerJumpFalling);
+	pFSM->AddState(L"Jump_Landing", new CPlayerJumpLanding);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST

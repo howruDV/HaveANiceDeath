@@ -22,11 +22,29 @@
     <Filter Include="States\Player\Run">
       <UniqueIdentifier>{8a5f2b84-8124-4a8e-85de-d14f30251069}</UniqueIdentifier>
     </Filter>
-    <Filter Include="States\Player\Turn">
+    <Filter Include="States\Player\Idle_ToRun">
+      <UniqueIdentifier>{a7b58336-d5a0-4836-a5ba-bb4d3aca6f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Run_ToIdle">
+      <UniqueIdentifier>{6bc01316-2895-406e-b014-b79a23265ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Jump_Start">
+      <UniqueIdentifier>{a39512bc-858d-4366-bfb2-166d794042e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Jump_Falling">
+      <UniqueIdentifier>{1c4cc1e9-435c-4eef-a1e5-41e862b464b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Jump_Landing">
+      <UniqueIdentifier>{6530dbe5-87ae-48f7-8644-4c12052e4a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Run_UTurn">
+      <UniqueIdentifier>{2bf8af8c-9ddc-4279-83a1-57d0cc570489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Idle_UTurn">
       <UniqueIdentifier>{bed0dddf-1ba3-4f30-be81-b4a6ae3fa978}</UniqueIdentifier>
     </Filter>
-    <Filter Include="States\Player\Jump">
-      <UniqueIdentifier>{f5edc913-60f7-4e83-a3e2-ebb4d5d367ed}</UniqueIdentifier>
+    <Filter Include="States\Player\Dash">
+      <UniqueIdentifier>{18cebd33-e9ea-4b8d-821e-d83ac58c43b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,11 +69,26 @@
     <ClInclude Include="CPlayerRun.h">
       <Filter>States\Player\Run</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerTurn.h">
-      <Filter>States\Player\Turn</Filter>
+    <ClInclude Include="CPlayerIdleUTurn.h">
+      <Filter>States\Player\Idle_UTurn</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerJump.h">
-      <Filter>States\Player\Jump</Filter>
+    <ClInclude Include="CPlayerIdleToRun.h">
+      <Filter>States\Player\Idle_ToRun</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerRunToIdle.h">
+      <Filter>States\Player\Run_ToIdle</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerJumpStart.h">
+      <Filter>States\Player\Jump_Start</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerJumpFalling.h">
+      <Filter>States\Player\Jump_Falling</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerJumpLanding.h">
+      <Filter>States\Player\Jump_Landing</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerRunUTurn.h">
+      <Filter>States\Player\Run_UTurn</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,11 +113,26 @@
     <ClCompile Include="CPlayerRun.cpp">
       <Filter>States\Player\Run</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerTurn.cpp">
-      <Filter>States\Player\Turn</Filter>
+    <ClCompile Include="CPlayerIdleUTurn.cpp">
+      <Filter>States\Player\Idle_UTurn</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerJump.cpp">
-      <Filter>States\Player\Jump</Filter>
+    <ClCompile Include="CPlayerIdleToRun.cpp">
+      <Filter>States\Player\Idle_ToRun</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerRunToIdle.cpp">
+      <Filter>States\Player\Run_ToIdle</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerJumpStart.cpp">
+      <Filter>States\Player\Jump_Start</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerJumpFalling.cpp">
+      <Filter>States\Player\Jump_Falling</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerJumpLanding.cpp">
+      <Filter>States\Player\Jump_Landing</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerRunUTurn.cpp">
+      <Filter>States\Player\Run_UTurn</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

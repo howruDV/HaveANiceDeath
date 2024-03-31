@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "UIMaterial.h"
 #include "UIParam.h"
-#include "Engine/CAssetMgr.h"
+#include "func_ImGUI.h"
+
+#include <Engine/CAssetMgr.h>
 #include <Engine/CMaterial.h>
 #include <Engine/CGraphicsShader.h>
 #include <Engine/CTexture.h>
@@ -31,18 +33,18 @@ void UIMaterial::render_update()
     if (pShader.Get())
         strShaderName = string(pShader->GetKey().begin(), pShader->GetKey().end());
 
-    ImGui::Text("Material");
+    TextBox("Material");
     ImGui::SameLine();
     ImGui::InputText("##TexName", (char*)strPath.c_str(), strPath.length(), ImGuiInputTextFlags_ReadOnly);
 
-    ImGui::Text("Shader  ");
+    TextBox("Shader  ");
     ImGui::SameLine();
     ImGui::InputText("##ShaderName", (char*)strShaderName.c_str(), strShaderName.length(), ImGuiInputTextFlags_ReadOnly);
 
     // Shader Parameter
     
     ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
-    ImGui::Text("Material Parameter");
+    TextBox("Material Parameter");
     ImGui::Spacing(); ImGui::Spacing();
     
     if (!pShader.Get())

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "CPlayerJump.h"
+#include "CPlayerJumpStart.h"
 
 #include <Engine/CKeyMgr.h>
 #include <Engine/CGameObject.h>
@@ -9,54 +9,42 @@
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
 
-CPlayerJump::CPlayerJump()
-	: CState(PLAYERJUMP)
-	, m_PlayerMgr(nullptr)
+CPlayerJumpStart::CPlayerJumpStart()
+	: CState(PLAYERJUMPSTART)
 {
 }
 
-CPlayerJump::~CPlayerJump()
+CPlayerJumpStart::~CPlayerJumpStart()
 {
 }
 
-void CPlayerJump::finaltick()
+void CPlayerJumpStart::finaltick()
 {
-	// change anim
-	if (GetOwner()->Animator2D()->GetCurAnimName() != L"Jump_Falling")
-		return;
-
 	CMovement* pMovement = GetOwner()->Movement();
-	Vec3 vVeloc = pMovement->GetVelocity();
 	float fSpeedInAir = *((float*)GetBlackboardData(L"fSpeedInAir"));
 
-	// falling
+	// jump
 	if ((KEY_TAP(KEY::A)) && KEY_NONE(KEY::D))
 	{
-		if (not m_PlayerMgr->GetPlayerScript()->GetLookLeft())
-			m_PlayerMgr->GetPlayerScript()->SetLookLeft(true);
-
 		Vec3 vNewVeloc = pMovement->GetVelocity() + Vec3(-fSpeedInAir, 0.f, 0.f);
 		pMovement->SetVelocity(vNewVeloc);
 	}
 
 	if ((KEY_TAP(KEY::D)) && KEY_NONE(KEY::A))
 	{
-		if (m_PlayerMgr->GetPlayerScript()->GetLookLeft())
-			m_PlayerMgr->GetPlayerScript()->SetLookLeft(false);
-
 		Vec3 vNewVeloc = pMovement->GetVelocity() + Vec3(fSpeedInAir, 0.f, 0.f);
 		pMovement->SetVelocity(vNewVeloc);
 	}
 
+	// playing anim
+	if (GetOwner()->Animator2D()->IsPlaying())
+		return;
+
 	// change state
-	if (GetOwner()->Movement()->IsGround())
-	{
-		ChangeState(L"Idle");
-		GetOwner()->Animator2D()->Play(L"Jump_Landing", false);
-	}
+	ChangeState(L"Jump_Falling");
 }
 
-void CPlayerJump::Enter()
+void CPlayerJumpStart::Enter()
 {
 	m_PlayerMgr = CPlayerMgr::PlayerMgr();
 	CMovement* pMovement = GetOwner()->Movement();
@@ -70,15 +58,13 @@ void CPlayerJump::Enter()
 		vJumpVeloc.x = -fSpeed;
 	if ((KEY_PRESSED(KEY::D)) && KEY_NONE(KEY::A))
 		vJumpVeloc.x = fSpeed;
-	
+
 	pMovement->SetVelocity(vJumpVeloc);
 
+	// play jump
 	GetOwner()->Animator2D()->Play(L"Jump_Start", false);
-	GetOwner()->Animator2D()->Play(L"Jump_Falling", false);
 }
 
-void CPlayerJump::Exit()
+void CPlayerJumpStart::Exit()
 {
-	GetOwner()->Animator2D()->ClearNextAnim();
-	GetOwner()->Movement()->SetVelocity(Vec3());
 }

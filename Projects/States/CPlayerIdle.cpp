@@ -21,52 +21,38 @@ CPlayerIdle::~CPlayerIdle()
 
 void CPlayerIdle::finaltick()
 {
-	// change anim
-	if (GetOwner()->Animator2D()->GetCurAnimName() != L"Idle")
-		return;
-
 	// change state
-	if ((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && KEY_NONE(KEY::D))
+	if (((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && KEY_NONE(KEY::D))
+	|| ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && KEY_NONE(KEY::A)))
 	{
-		if (not m_PlayerMgr->GetPlayerScript()->GetLookLeft())
+		if (m_PlayerMgr->GetPlayerScript()->IsDirChange())
 		{
-			ChangeState(L"Turn");
+			ChangeState(L"Idle_UTurn");
 		}
 		else
 		{
-			GetOwner()->Animator2D()->Play(L"Idle_ToRun", false);
-			ChangeState(L"Run");
-		}
-	}
-
-	if ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && KEY_NONE(KEY::A))
-	{
-		if (m_PlayerMgr->GetPlayerScript()->GetLookLeft())
-		{
-			ChangeState(L"Turn");
-		}
-		else
-		{
-			GetOwner()->Animator2D()->Play(L"Idle_ToRun", false);
-			ChangeState(L"Run");
+			ChangeState(L"Idle_ToRun");
 		}
 	}
 
 	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
 	{
 		static float JumpDT = 0.f;
-		ChangeState(L"Jump");
+		ChangeState(L"Jump_Start");
 		// @TODO Space 시간 따라 높이 조절
 	}
 }
 
 void CPlayerIdle::Enter()
 {
+	// setting
+	GetOwner()->Movement()->SetVelocity(Vec3());
 	m_PlayerMgr = CPlayerMgr::PlayerMgr();
-	GetOwner()->Animator2D()->PushNextAnim(L"Idle", true);
+
+	// anim
+	GetOwner()->Animator2D()->Play(L"Idle", true);
 }
 
 void CPlayerIdle::Exit()
 {
-	GetOwner()->Animator2D()->ClearNextAnim();
 }

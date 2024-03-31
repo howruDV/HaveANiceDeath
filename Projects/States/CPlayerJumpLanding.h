@@ -3,7 +3,7 @@
 
 class CPlayerMgr;
 
-class CIdleToRun :
+class CPlayerJumpLanding :
     public CState
 {
 private:
@@ -15,7 +15,6 @@ public:
     virtual void Exit() override;
 
 public:
-    CIdleToRun();
-    ~CIdleToRun();
+    CPlayerJumpLanding();
+    ~CPlayerJumpLanding();
 };
-

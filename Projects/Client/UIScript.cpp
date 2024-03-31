@@ -38,15 +38,19 @@ void UIScript::render_update()
 		switch (vecParam[i].Type)
 		{
 		case SCRIPT_PARAM::INT:
+			UIParam::Param_INT((int*)vecParam[i].pData, vecParam[i].Desc);
 			break;
 		case SCRIPT_PARAM::FLOAT:
 			UIParam::Param_FLOAT((float*)vecParam[i].pData, vecParam[i].Desc);
 			break;
 		case SCRIPT_PARAM::VEC2:
+			UIParam::Param_VEC2((Vec2*)vecParam[i].pData, vecParam[i].Desc);
 			break;
 		case SCRIPT_PARAM::VEC3:
+			UIParam::Param_VEC3((Vec3*)vecParam[i].pData, vecParam[i].Desc);
 			break;
 		case SCRIPT_PARAM::VEC4:
+			UIParam::Param_VEC4((Vec4*)vecParam[i].pData, vecParam[i].Desc);
 			break;
 		case SCRIPT_PARAM::OBJECT:
 			break;

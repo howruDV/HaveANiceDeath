@@ -244,3 +244,14 @@ enum class LEVEL_STATE
 	STOP,
 	NONE,
 };
+
+enum class UNIT_DIRX
+{
+	LEFT,
+	RIGHT,
+};
+enum class UNIT_DIRY
+{
+	UP,
+	DOWN,
+};

@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "CPlayerRun.h"
+#include "CPlayerJumpLanding.h"
+
 #include <Engine/CKeyMgr.h>
 #include <Engine/CGameObject.h>
 #include <Engine/CAnimator2D.h>
@@ -21,53 +23,47 @@ CPlayerRun::~CPlayerRun()
 
 void CPlayerRun::finaltick()
 {
-	// change anim
-	if (GetOwner()->Animator2D()->GetCurAnimName() != L"Run")
-		return;
-
 	// Run
-	float fSpeed = *((float*)GetBlackboardData(L"fSpeed"));
+  	float fSpeed = *((float*)GetBlackboardData(L"fSpeed"));
 
 	if (KEY_PRESSED(KEY::A) && KEY_NONE(KEY::D))
 	{
 		Vec3 vSpeed = Vec3(-fSpeed, 0, 0);
 		GetOwner()->Movement()->AddForce(vSpeed);
-		m_PlayerMgr->GetPlayerScript()->SetLookLeft(true);
 	}
 	if (KEY_PRESSED(KEY::D) && KEY_NONE(KEY::A))
 	{
 		Vec3 vSpeed = Vec3(fSpeed, 0, 0);
 		GetOwner()->Movement()->AddForce(vSpeed);
-		m_PlayerMgr->GetPlayerScript()->SetLookLeft(false);
-	}
-	
-	// Change State
-	if ((KEY_RELEASED(KEY::A) && (KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)))
-		|| (KEY_RELEASED(KEY::D) && (KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A))))
-	{
-		// @TODO : Run Turn 지연확인
-		ChangeState(L"Turn");
 	}
 
+	// change state
 	if ((KEY_PRESSED(KEY::A) && KEY_PRESSED(KEY::D))
 		|| ((KEY_RELEASED(KEY::A) || KEY_NONE(KEY::A)) && (KEY_RELEASED(KEY::D) || KEY_NONE(KEY::D))))
 	{
-		GetOwner()->Animator2D()->Play(L"Run_ToIdle", false);
-		ChangeState(L"Idle");
+		ChangeState(L"Run_ToIdle");
 	}
 
-	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
+	if (KEY_TAP(KEY::SPACE))
 	{
-		static float JumpDT = 0.f;
-		ChangeState(L"Jump");
 		// @TODO Space 시간 따라 높이 조절
+		static float JumpDT = 0.f;
+		ChangeState(L"Jump_Start");
 	}
 }
 
 void CPlayerRun::Enter()
 {
+	// play anim
 	m_PlayerMgr = CPlayerMgr::PlayerMgr();
-	GetOwner()->Animator2D()->PushNextAnim(L"Run", true);
+	if (GetFSM()->GetPrevState()->GetStateType() == PLAYERJUMPLANDING)
+	{
+		GetOwner()->Animator2D()->Play(L"Jump_Landing", false);
+		GetOwner()->Animator2D()->PushNextAnim(L"Idle_ToRun", false);
+		GetOwner()->Animator2D()->PushNextAnim(L"Run", true);
+	}
+	else
+		GetOwner()->Animator2D()->Play(L"Run", true);
 }
 
 void CPlayerRun::Exit()

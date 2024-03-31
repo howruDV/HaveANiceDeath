@@ -19,9 +19,9 @@ void CGameMgr::tick()
 {
 	if (CPlayerMgr::PlayerMgr()->GetPlayerScript())
 	{
-		if (CPlayerMgr::PlayerMgr()->GetPlayerScript()->GetHPCur() <= 0)
+		if (CPlayerMgr::PlayerMgr()->GetPlayerScript()->IsDead())
 		{
-
+			// @TODO Game End
 		}
 	}
 }

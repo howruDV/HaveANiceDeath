@@ -3,7 +3,7 @@
 
 class CPlayerMgr;
 
-class CPlayerJump :
+class CPlayerRunUTurn :
     public CState
 {
 private:
@@ -15,6 +15,6 @@ public:
     virtual void Exit() override;
 
 public:
-    CPlayerJump();
-    ~CPlayerJump();
+    CPlayerRunUTurn();
+    ~CPlayerRunUTurn();
 };

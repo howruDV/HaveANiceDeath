@@ -54,6 +54,21 @@ bool UIParam::Param_VEC2(Vec2* _Data, const string& _Desc)
 	return false;
 }
 
+bool UIParam::Param_VEC3(Vec3* _Data, const string& _Desc)
+{
+	TextBox(_Desc.c_str());
+	ImGui::SameLine();
+
+	char szID[256] = {};
+	sprintf_s(szID, "##Vec3%d", g_ID++);
+	if (ImGui::InputFloat3(szID, *_Data))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 bool UIParam::Param_VEC4(Vec4* _Data, const string& _Desc)
 {
 	TextBox(_Desc.c_str());

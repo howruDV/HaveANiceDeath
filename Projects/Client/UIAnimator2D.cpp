@@ -21,7 +21,7 @@ void UIAnimator2D::render_update()
 
 	UIComponent::render_update();
 
-	// 애니메이션 목록
+	string CurAnim = WstrToStr(GetTargetObject()->Animator2D()->GetCurAnimName());
 	const unordered_map<wstring, CAnim*> CurAnimList = GetTargetObject()->Animator2D()->GetAnimations();
 	vector<string> items;
 	static int item_current_idx = 0;
@@ -32,7 +32,12 @@ void UIAnimator2D::render_update()
 		items.push_back(WstrToStr(iter.first).c_str());
 	}
 
-	TextBox("Animations");
+	// 현재 애니메이션
+	TextBox("Current Animation"); ImGui::SameLine();
+	ImGui::InputText("##CurrentAnimation", (char*)CurAnim.c_str(), CurAnim.length(), ImGuiInputTextFlags_ReadOnly);
+
+	// 애니메이션 목록
+	TextBox("Animation List");
 	ImGui::SameLine();
 
 	ImGui::BeginGroup();

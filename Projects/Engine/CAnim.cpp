@@ -57,8 +57,8 @@ void CAnim::UpdatePipeline()
 	static CConstBuffer* pCB = CDevice::GetInst()->GetConstBuffer(CB_TYPE::ANIM2D_DATA);
 	FAnimData2D data = {};
 	data.UseAnim2D = true;
-	data.FlipAnimXY = (data.FlipAnimXY & ~(1 << 1)) | ((m_Animator->GetFlipX()) ? (1 << 1) : 0);
-	data.FlipAnimXY = (data.FlipAnimXY & ~(1 << 0)) | ((m_Animator->GetFlipY()) ? (1 << 0) : 0);
+	data.FlipAnimXY = (data.FlipAnimXY & ~(1 << 1)) | ((m_Animator->GetFlipX() == UNIT_DIRX::LEFT) ? (1 << 1) : 0);
+	data.FlipAnimXY = (data.FlipAnimXY & ~(1 << 0)) | ((m_Animator->GetFlipY() == UNIT_DIRY::DOWN) ? (1 << 0) : 0);
 	data.vLeftTop = m_vecFrm[m_CurFrmIdx].vLeftTopUV;
 	data.vOffset = m_vecFrm[m_CurFrmIdx].vOffsetUV;
 	data.vCutSize = m_vecFrm[m_CurFrmIdx].vCutSizeUV;
