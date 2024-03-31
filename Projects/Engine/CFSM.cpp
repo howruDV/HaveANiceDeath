@@ -60,9 +60,11 @@ int CFSM::Save(const wstring& _strRelativePath)
 		// State Key 저장
 		SaveWString(iter->first, pFile);
 
-		// State Type 저장
-		UINT StateType = iter->second->GetStateType();
-		fwrite(&StateType, sizeof(UINT), 1, pFile);
+		// State Type 저장: enum 밀리면 ㄴ답
+		//UINT StateType = iter->second->GetStateType();
+		//fwrite(&StateType, sizeof(UINT), 1, pFile);
+		wstring StateName = CStateMgr::GetStateName(iter->second);
+		SaveWString(StateName, pFile);
 
 		// State 저장
 		iter->second->SaveToFile(pFile);
@@ -93,11 +95,13 @@ int CFSM::Load(const wstring& _strFilePath)
 		LoadWString(StateKey, pFile);
 
 		// 스테이트 타입 로드
-		UINT StateType;
-		fread(&StateType, sizeof(UINT), 1, pFile);
+		//UINT StateType;
+		//fread(&StateType, sizeof(UINT), 1, pFile);
+		wstring StateName;
+		LoadWString(StateName, pFile);
 
 		// 스테이트 생성
-		CState* pState = CStateMgr::GetState(StateType);
+		CState* pState = CStateMgr::GetState(StateName);
 		pState->LoadFromFile(pFile);
 
 		pState->m_FSM = this;

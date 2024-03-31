@@ -364,8 +364,8 @@ void CCreateTempLevel::CreateTempLevel()
 
 	wchar_t szPath[255] = {};
 	wstring FilePath = CPathMgr::GetContentPath();
-	swprintf_s(szPath, L"FSM\\TestFSM.fsm");
-	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->Load<CFSM>(szPath));
+	//swprintf_s(szPath, L"FSM\\TestFSM.fsm");
+	//pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->Load<CFSM>(szPath));
 
 	pTempLevel->AddObject(pObj, L"Monster", false);
 

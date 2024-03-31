@@ -42,8 +42,8 @@ void CPlayerScript::begin()
 
 	// Create Player's Component : Player Script에서는 생성자에서는 owner 모르고, begin은 이미 실행된 이후라 애매;
 	Collider2D()->SetAbsolute(true);
-	Collider2D()->SetOffsetScale(Vec3(70.f, 80.f, 1.f));
-	Collider2D()->SetOffsetPos(Vec3(0.f, 0.f, 0.f));
+	Collider2D()->SetOffsetScale(Vec3(50.f, 110.f, 1.f));
+	Collider2D()->SetOffsetPos(Vec3(0.f, -10.f, 0.f));
 
 	MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
