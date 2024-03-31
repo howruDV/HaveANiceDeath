@@ -173,6 +173,9 @@ call CodeGen.exe</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CIdleState.h" />
+    <ClInclude Include="CPlayerConcentrate.h" />
+    <ClInclude Include="CPlayerConcentrate_Start.h" />
+    <ClInclude Include="CPlayerPowerUp.h" />
     <ClInclude Include="CPlayerDash.h" />
     <ClInclude Include="CPlayerIdle.h" />
     <ClInclude Include="CPlayerIdleToRun.h" />
@@ -190,6 +193,9 @@ call CodeGen.exe</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CIdleState.cpp" />
+    <ClCompile Include="CPlayerConcentrate.cpp" />
+    <ClCompile Include="CPlayerConcentrate_Start.cpp" />
+    <ClCompile Include="CPlayerPowerUp.cpp" />
     <ClCompile Include="CPlayerDash.cpp" />
     <ClCompile Include="CPlayerIdle.cpp" />
     <ClCompile Include="CPlayerIdleToRun.cpp" />

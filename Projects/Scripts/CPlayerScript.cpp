@@ -120,9 +120,9 @@ void CPlayerScript::begin()
 	Animator2D()->Create(pAnim, L"Concentrate_Start");
 	fclose(pFile);
 	
-	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Crush.anim").c_str(), L"rb");
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_PowerUp1.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
-	Animator2D()->Create(pAnim, L"Crush");
+	Animator2D()->Create(pAnim, L"PowerUp");
 	fclose(pFile);
 
 	delete pAnim;

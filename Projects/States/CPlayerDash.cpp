@@ -27,7 +27,7 @@ void CPlayerDash::finaltick()
 	}
 
 	// change state
-	if (GetFSM()->GetPrevState()->GetStateType() == STATE_TYPE::PLAYERJUMPSTART || GetFSM()->GetPrevState()->GetStateType() == STATE_TYPE::PLAYERJUMPFALLING)
+	if (!GetOwner()->Movement()->IsGround())
 	{
 		ChangeState(L"Jump_Falling");
 		return;

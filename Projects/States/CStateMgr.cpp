@@ -2,6 +2,8 @@
 #include "CStateMgr.h"
 
 #include "CIdleState.h"
+#include "CPlayerConcentrate.h"
+#include "CPlayerConcentrate_Start.h"
 #include "CPlayerDash.h"
 #include "CPlayerIdle.h"
 #include "CPlayerIdleToRun.h"
@@ -9,6 +11,7 @@
 #include "CPlayerJumpFalling.h"
 #include "CPlayerJumpLanding.h"
 #include "CPlayerJumpStart.h"
+#include "CPlayerPowerUp.h"
 #include "CPlayerRun.h"
 #include "CPlayerRunToIdle.h"
 #include "CPlayerRunUTurn.h"
@@ -17,6 +20,8 @@
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CIdleState");
+	_vec.push_back(L"CPlayerConcentrate");
+	_vec.push_back(L"CPlayerConcentrate_Start");
 	_vec.push_back(L"CPlayerDash");
 	_vec.push_back(L"CPlayerIdle");
 	_vec.push_back(L"CPlayerIdleToRun");
@@ -24,6 +29,7 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerJumpFalling");
 	_vec.push_back(L"CPlayerJumpLanding");
 	_vec.push_back(L"CPlayerJumpStart");
+	_vec.push_back(L"CPlayerPowerUp");
 	_vec.push_back(L"CPlayerRun");
 	_vec.push_back(L"CPlayerRunToIdle");
 	_vec.push_back(L"CPlayerRunUTurn");
@@ -34,6 +40,10 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 {
 	if (L"CIdleState" == _strStateName)
 		return new CIdleState;
+	if (L"CPlayerConcentrate" == _strStateName)
+		return new CPlayerConcentrate;
+	if (L"CPlayerConcentrate_Start" == _strStateName)
+		return new CPlayerConcentrate_Start;
 	if (L"CPlayerDash" == _strStateName)
 		return new CPlayerDash;
 	if (L"CPlayerIdle" == _strStateName)
@@ -48,6 +58,8 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 		return new CPlayerJumpLanding;
 	if (L"CPlayerJumpStart" == _strStateName)
 		return new CPlayerJumpStart;
+	if (L"CPlayerPowerUp" == _strStateName)
+		return new CPlayerPowerUp;
 	if (L"CPlayerRun" == _strStateName)
 		return new CPlayerRun;
 	if (L"CPlayerRunToIdle" == _strStateName)
@@ -65,6 +77,12 @@ CState* CStateMgr::GetState(UINT _iStateType)
 	{
 	case (UINT)STATE_TYPE::IDLESTATE:
 		return new CIdleState;
+		break;
+	case (UINT)STATE_TYPE::PLAYERCONCENTRATE:
+		return new CPlayerConcentrate;
+		break;
+	case (UINT)STATE_TYPE::PLAYERCONCENTRATE_START:
+		return new CPlayerConcentrate_Start;
 		break;
 	case (UINT)STATE_TYPE::PLAYERDASH:
 		return new CPlayerDash;
@@ -86,6 +104,9 @@ CState* CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERJUMPSTART:
 		return new CPlayerJumpStart;
+		break;
+	case (UINT)STATE_TYPE::PLAYERPOWERUP:
+		return new CPlayerPowerUp;
 		break;
 	case (UINT)STATE_TYPE::PLAYERRUN:
 		return new CPlayerRun;
@@ -109,6 +130,14 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 	{
 	case STATE_TYPE::IDLESTATE:
 		return L"CIdleState";
+		break;
+
+	case STATE_TYPE::PLAYERCONCENTRATE:
+		return L"CPlayerConcentrate";
+		break;
+
+	case STATE_TYPE::PLAYERCONCENTRATE_START:
+		return L"CPlayerConcentrate_Start";
 		break;
 
 	case STATE_TYPE::PLAYERDASH:
@@ -137,6 +166,10 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERJUMPSTART:
 		return L"CPlayerJumpStart";
+		break;
+
+	case STATE_TYPE::PLAYERPOWERUP:
+		return L"CPlayerPowerUp";
 		break;
 
 	case STATE_TYPE::PLAYERRUN:

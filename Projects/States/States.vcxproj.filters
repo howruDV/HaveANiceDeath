@@ -52,6 +52,9 @@
     <Filter Include="States\Player\Concentrate">
       <UniqueIdentifier>{fcd36940-ffca-4011-bfd3-84be546ee83f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Player\PowerUp">
+      <UniqueIdentifier>{931ae09a-cc7c-44bf-aee2-29cd1e8e410d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -102,6 +105,15 @@
     <ClInclude Include="define.h">
       <Filter>States</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerConcentrate.h">
+      <Filter>States\Player\Concentrate</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerConcentrate_Start.h">
+      <Filter>States\Player\Concentrate_Start</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerPowerUp.h">
+      <Filter>States\Player\PowerUp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -148,6 +160,15 @@
     </ClCompile>
     <ClCompile Include="CPlayerDash.cpp">
       <Filter>States\Player\Dash</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerConcentrate.cpp">
+      <Filter>States\Player\Concentrate</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerConcentrate_Start.cpp">
+      <Filter>States\Player\Concentrate_Start</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerPowerUp.cpp">
+      <Filter>States\Player\PowerUp</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -30,9 +30,26 @@ VS_OUT VS_Std2D(VS_IN _in)
     
     // Offset 가져오기
     float2 vOffset = { g_vOffset.x * g_vAtlasSize.x, g_vOffset.y * g_vAtlasSize.y };
-    output.vPosition -= float4(vOffset.x, vOffset.y, 0.f, 0.f);
+    
+    // Flip 적용
+    output.vUV = _in.vUV;
+    if (g_UseAnim2D)
+    {
+        if (g_FlipAnimXY & (1 << 1))
+        {
+            output.vUV.x = (1.f - output.vUV.x);
+            vOffset.x *= -1;
+        }
+        
+        if (g_FlipAnimXY & (1 << 0))
+        {
+            output.vUV.y = (1.f - output.vUV.y);
+            vOffset.y *= -1;
+        }
+    }
     
     // World 저장
+    output.vPosition -= float4(vOffset.x, vOffset.y, 0.f, 0.f);
     output.vWorldPos = output.vPosition.xyz;
     
     // View, Proj 행렬 
@@ -40,7 +57,7 @@ VS_OUT VS_Std2D(VS_IN _in)
     output.vPosition = mul(output.vPosition, g_matProj);
     
     output.vColor = _in.vColor;
-    output.vUV = _in.vUV;
+    //output.vUV = _in.vUV;
     
     return output;
 }
@@ -57,17 +74,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
         // vBackgroundLeftTop -= g_vOffset;
         
         // Flip
-        float2 vUV = vBackgroundLeftTop; //UV는 한 프레임의 크기를 대상으로 하므로, 프레임의 크기만큼 곱해줘야 함
-        
-        if (g_FlipAnimXY & (1 << 1))
-            vUV.x += (1.f - _in.vUV.x) * g_vBackgroundSize.x;
-        else
-            vUV.x += _in.vUV.x * g_vBackgroundSize.x;
-        
-        if (g_FlipAnimXY & (1 << 0))
-            vUV.y += (1.f - _in.vUV.y) * g_vBackgroundSize.y;
-        else
-            vUV.y += _in.vUV.y * g_vBackgroundSize.y;
+        float2 vUV = vBackgroundLeftTop + _in.vUV * g_vBackgroundSize; //UV는 한 프레임의 크기를 대상으로 하므로, 프레임의 크기만큼 곱해줘야 함
         
         // 가져오려는 이미지를 벗어나면 그리지 않음
         // 즉, 부족한 부분에 대해서만 더 그림

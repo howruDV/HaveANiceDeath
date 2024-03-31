@@ -1,4 +1,6 @@
 CIdleState
+CPlayerConcentrate
+CPlayerConcentrate_Start
 CPlayerDash
 CPlayerIdle
 CPlayerIdleToRun
@@ -6,6 +8,7 @@ CPlayerIdleUTurn
 CPlayerJumpFalling
 CPlayerJumpLanding
 CPlayerJumpStart
+CPlayerPowerUp
 CPlayerRun
 CPlayerRunToIdle
 CPlayerRunUTurn
