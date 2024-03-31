@@ -27,7 +27,7 @@ void CPlayerRunToIdle::finaltick()
 		if (((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && KEY_NONE(KEY::D))
 		|| ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && KEY_NONE(KEY::A)))
 		{
-			if (m_PlayerMgr->GetPlayerScript()->IsDirChange())
+			if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
 				ChangeState(L"Run_UTurn");
 		}
 
@@ -35,6 +35,12 @@ void CPlayerRunToIdle::finaltick()
 	}
 
 	// change state
+	if (KEY_TAP(KEY::LSHIFT))
+	{
+		ChangeState(L"Dash");
+		return;
+	}
+
 	ChangeState(L"Idle");
 }
 

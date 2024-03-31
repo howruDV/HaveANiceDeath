@@ -90,6 +90,9 @@
     <ClInclude Include="CPlayerRunUTurn.h">
       <Filter>States\Player\Run_UTurn</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerDash.h">
+      <Filter>States\Player\Dash</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerRunUTurn.cpp">
       <Filter>States\Player\Run_UTurn</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerDash.cpp">
+      <Filter>States\Player\Dash</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

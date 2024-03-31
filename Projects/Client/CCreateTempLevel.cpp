@@ -33,6 +33,7 @@
 #include <States/CPlayerJumpStart.h>
 #include <States/CPlayerJumpFalling.h>
 #include <States/CPlayerJumpLanding.h>
+#include <States/CPlayerDash.h>
 
 void CCreateTempLevel::Init()
 {
@@ -67,6 +68,7 @@ void CCreateTempLevel::Init()
 	pFSM->AddState(L"Jump_Start", new CPlayerJumpStart);
 	pFSM->AddState(L"Jump_Falling", new CPlayerJumpFalling);
 	pFSM->AddState(L"Jump_Landing", new CPlayerJumpLanding);
+	pFSM->AddState(L"Dash", new CPlayerDash);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST

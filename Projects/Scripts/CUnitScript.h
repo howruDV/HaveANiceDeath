@@ -9,8 +9,10 @@ protected:
     float       m_fSpeed;
     UNIT_DIRX   m_Dir;
     UNIT_DIRX   m_Dir_Prev;
+    UNIT_DIRX   m_Dir_Next;
     bool        m_bDirLock;
-    bool        m_bDirChange;
+    bool        m_bDirChange_Next;
+    bool        m_bDirChange_Cur;
 
     // hp
     int         m_iHPMax;
@@ -29,18 +31,18 @@ public:
 
 public:
     void SetSpeed(float _fSpeed) { m_fSpeed = m_fSpeed; }
-    void SetDir(UNIT_DIRX _dir) { if(!m_bDirLock) m_Dir = _dir; }
+    void SetDir(UNIT_DIRX _dir) { if(!m_bDirLock) m_Dir_Next = _dir; }
     void SetHPMax(int _iHP) { m_iHPMax = _iHP; }
     void SetHPCur(int _iHP) { m_iHPCur = _iHP; }
     void SetDirLock(bool _bLock) { m_bDirLock = _bLock; }
 
     float GetSpeed() { return m_fSpeed; }
     UNIT_DIRX GetDir() { return m_Dir_Prev; }
-    UNIT_DIRX GetDirPrev() { return m_Dir_Prev; }
     int GetHPMax() { return m_iHPMax; }
     int GetHPCur() { return m_iHPCur; }
     bool IsDead() { return m_iHPCur <= 0; }
-    bool IsDirChange() { return m_bDirChange; }
+    bool WillDirChange() { return m_bDirChange_Next; }
+    bool IsDirChange() { return m_bDirChange_Cur; }
     bool IsDirLock() { return m_bDirLock; }
 
 public:

@@ -7,6 +7,7 @@ class CPlayerScript :
 private:
     // Info
     float m_fSpeedInAir;
+    float m_fSpeedDash;
     float m_fJumpVelocMax;
 
     // hp

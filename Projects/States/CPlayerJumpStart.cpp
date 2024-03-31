@@ -40,6 +40,12 @@ void CPlayerJumpStart::finaltick()
 	if (GetOwner()->Animator2D()->IsPlaying())
 		return;
 
+	if (KEY_TAP(KEY::LSHIFT))
+	{
+		ChangeState(L"Dash");
+		return;
+	}
+
 	// change state
 	ChangeState(L"Jump_Falling");
 }

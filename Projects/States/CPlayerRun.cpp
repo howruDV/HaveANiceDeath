@@ -2,10 +2,6 @@
 #include "CPlayerRun.h"
 #include "CPlayerJumpLanding.h"
 
-#include <Engine/CKeyMgr.h>
-#include <Engine/CGameObject.h>
-#include <Engine/CAnimator2D.h>
-#include <Engine/CMovement.h>
 #include <Engine/CTransform.h>
 
 #include <Scripts/CPlayerMgr.h>
@@ -29,15 +25,18 @@ void CPlayerRun::finaltick()
 	if (KEY_PRESSED(KEY::A) && KEY_NONE(KEY::D))
 	{
 		Vec3 vSpeed = Vec3(-fSpeed, 0, 0);
-		GetOwner()->Movement()->AddForce(vSpeed);
+		GetOwner()->Movement()->SetVelocity(vSpeed);
 	}
 	if (KEY_PRESSED(KEY::D) && KEY_NONE(KEY::A))
 	{
 		Vec3 vSpeed = Vec3(fSpeed, 0, 0);
-		GetOwner()->Movement()->AddForce(vSpeed);
+		GetOwner()->Movement()->SetVelocity(vSpeed);
 	}
 
 	// change state
+	if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
+		ChangeState(L"Run_UTurn");
+
 	if ((KEY_PRESSED(KEY::A) && KEY_PRESSED(KEY::D))
 		|| ((KEY_RELEASED(KEY::A) || KEY_NONE(KEY::A)) && (KEY_RELEASED(KEY::D) || KEY_NONE(KEY::D))))
 	{
@@ -49,6 +48,11 @@ void CPlayerRun::finaltick()
 		// @TODO Space 시간 따라 높이 조절
 		static float JumpDT = 0.f;
 		ChangeState(L"Jump_Start");
+	}
+
+	if (KEY_TAP(KEY::LSHIFT))
+	{
+		ChangeState(L"Dash");
 	}
 }
 

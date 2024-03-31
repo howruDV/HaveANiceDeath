@@ -1,11 +1,6 @@
 #include "pch.h"
 #include "CPlayerIdle.h"
 
-#include <Engine/CKeyMgr.h>
-#include <Engine/CGameObject.h>
-#include <Engine/CAnimator2D.h>
-#include <Engine/CMovement.h>
-
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
 
@@ -25,7 +20,7 @@ void CPlayerIdle::finaltick()
 	if (((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && KEY_NONE(KEY::D))
 	|| ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && KEY_NONE(KEY::A)))
 	{
-		if (m_PlayerMgr->GetPlayerScript()->IsDirChange())
+		if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
 		{
 			ChangeState(L"Idle_UTurn");
 		}
@@ -35,11 +30,21 @@ void CPlayerIdle::finaltick()
 		}
 	}
 
+	if (((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && KEY_RELEASED(KEY::D))
+		|| ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && KEY_RELEASED(KEY::A)))
+		if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
+			ChangeState(L"Idle_UTurn");
+
 	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
 	{
 		static float JumpDT = 0.f;
 		ChangeState(L"Jump_Start");
 		// @TODO Space 시간 따라 높이 조절
+	}
+
+	if (KEY_TAP(KEY::LSHIFT))
+	{
+		ChangeState(L"Dash");
 	}
 }
 

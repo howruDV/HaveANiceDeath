@@ -60,7 +60,7 @@ float4 PS_Distortion(VS_OUT _in) : SV_Target
         vUV.x += g_time * 0.1f;
 		
 		// Nosie Texture에서 값 Sampling해와 UV값 노이즈에 사용
-        float2 vNosie = g_tex_0.Sample(g_sam_0, vUV);
+        float2 vNosie = g_tex_0.Sample(g_sam_0, vUV).xy;
         vNosie = (vNosie.xy - 0.5f) * 0.1f;	// UV 노이즈 범위를 -0.n~0.n으로 옮김
         vScreenUV += vNosie;
     }

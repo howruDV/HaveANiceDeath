@@ -29,12 +29,12 @@ void CPlayerRunUTurn::finaltick()
 	if (KEY_PRESSED(KEY::A) && KEY_NONE(KEY::D))
 	{
 		Vec3 vSpeed = Vec3(-fSpeed, 0, 0);
-		GetOwner()->Movement()->AddForce(vSpeed);
+		GetOwner()->Movement()->SetVelocity(vSpeed);
 	}
 	if (KEY_PRESSED(KEY::D) && KEY_NONE(KEY::A))
 	{
 		Vec3 vSpeed = Vec3(fSpeed, 0, 0);
-		GetOwner()->Movement()->AddForce(vSpeed);
+		GetOwner()->Movement()->SetVelocity(vSpeed);
 	}
 	if ((KEY_PRESSED(KEY::A) && KEY_PRESSED(KEY::D))
 		|| ((KEY_RELEASED(KEY::A) || KEY_NONE(KEY::A)) && (KEY_RELEASED(KEY::D) || KEY_NONE(KEY::D))))
@@ -49,7 +49,7 @@ void CPlayerRunUTurn::finaltick()
 	// change state
 	if (KEY_TAP(KEY::A) && KEY_NONE(KEY::D))
 	{
-		if (m_PlayerMgr->GetPlayerScript()->IsDirChange())
+		if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
 		{
 			ChangeState(L"Run_UTurn");
 		}
@@ -61,7 +61,7 @@ void CPlayerRunUTurn::finaltick()
 
 	if (KEY_TAP(KEY::D) && KEY_NONE(KEY::A))
 	{
-		if (m_PlayerMgr->GetPlayerScript()->IsDirChange())
+		if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
 		{
 			ChangeState(L"Run_UTurn");
 		}
@@ -107,8 +107,8 @@ void CPlayerRunUTurn::Exit()
 {
 	m_PlayerMgr->GetPlayerScript()->SetDirLock(false);
 
-	if (m_PlayerMgr->GetPlayerScript()->GetDir() == UNIT_DIRX::LEFT)
-		m_PlayerMgr->GetPlayerScript()->SetDir(UNIT_DIRX::LEFT);
-	else
-		m_PlayerMgr->GetPlayerScript()->SetDir(UNIT_DIRX::RIGHT);
+	//if (m_PlayerMgr->GetPlayerScript()->GetDir() == UNIT_DIRX::LEFT)
+	//	m_PlayerMgr->GetPlayerScript()->SetDir(UNIT_DIRX::LEFT);
+	//else
+	//	m_PlayerMgr->GetPlayerScript()->SetDir(UNIT_DIRX::RIGHT);
 }

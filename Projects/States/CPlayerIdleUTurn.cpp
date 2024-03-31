@@ -1,12 +1,5 @@
 #include "pch.h"
 #include "CPlayerIdleUTurn.h"
-#include "CPlayerRun.h"
-#include "CPlayerRunToIdle.h"
-
-#include <Engine/CKeyMgr.h>
-#include <Engine/CGameObject.h>
-#include <Engine/CAnimator2D.h>
-#include <Engine/CMovement.h>
 
 #include "Scripts/CPlayerMgr.h"
 #include "Scripts/CPlayerScript.h"
@@ -30,12 +23,12 @@ void CPlayerIdleUTurn::finaltick()
 	if (KEY_PRESSED(KEY::A) && KEY_NONE(KEY::D))
 	{
 		Vec3 vSpeed = Vec3(-fSpeed, 0, 0);
-		GetOwner()->Movement()->AddForce(vSpeed);
+		GetOwner()->Movement()->SetVelocity(vSpeed);
 	}
 	if (KEY_PRESSED(KEY::D) && KEY_NONE(KEY::A))
 	{
 		Vec3 vSpeed = Vec3(fSpeed, 0, 0);
-		GetOwner()->Movement()->AddForce(vSpeed);
+		GetOwner()->Movement()->SetVelocity(vSpeed);
 	}
 	if ((KEY_PRESSED(KEY::A) && KEY_PRESSED(KEY::D))
 		|| ((KEY_RELEASED(KEY::A) || KEY_NONE(KEY::A)) && (KEY_RELEASED(KEY::D) || KEY_NONE(KEY::D))))
@@ -50,7 +43,7 @@ void CPlayerIdleUTurn::finaltick()
 	// change state
 	if ((KEY_TAP(KEY::A) && KEY_NONE(KEY::D)) || (KEY_TAP(KEY::D) && KEY_NONE(KEY::A)))
 	{
-		if (m_PlayerMgr->GetPlayerScript()->IsDirChange())
+		if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
 		{
 			ChangeState(L"Idle_UTurn");
 		}
@@ -79,10 +72,10 @@ void CPlayerIdleUTurn::Enter()
 	// set dir
 	m_PlayerMgr->GetPlayerScript()->SetDirLock(true);
 
-	if (m_PlayerMgr->GetPlayerScript()->GetDir() == UNIT_DIRX::LEFT)
-		GetOwner()->Animator2D()->SetFlipX(UNIT_DIRX::RIGHT);
-	else
-		GetOwner()->Animator2D()->SetFlipX(UNIT_DIRX::LEFT);
+	//if (m_PlayerMgr->GetPlayerScript()->GetDir() == UNIT_DIRX::LEFT)
+	//	GetOwner()->Animator2D()->SetFlipX(UNIT_DIRX::RIGHT);
+	//else
+	//	GetOwner()->Animator2D()->SetFlipX(UNIT_DIRX::LEFT);
 
 	// setting
 	GetOwner()->Movement()->SetVelocity(Vec3());
@@ -95,8 +88,8 @@ void CPlayerIdleUTurn::Exit()
 {
 	m_PlayerMgr->GetPlayerScript()->SetDirLock(false);
 
-	if (m_PlayerMgr->GetPlayerScript()->GetDir() == UNIT_DIRX::LEFT)
-		GetOwner()->Animator2D()->SetFlipX(UNIT_DIRX::LEFT);
-	else
-		GetOwner()->Animator2D()->SetFlipX(UNIT_DIRX::RIGHT);
+	//if (m_PlayerMgr->GetPlayerScript()->GetDir() == UNIT_DIRX::LEFT)
+	//	GetOwner()->Animator2D()->SetFlipX(UNIT_DIRX::LEFT);
+	//else
+	//	GetOwner()->Animator2D()->SetFlipX(UNIT_DIRX::RIGHT);
 }

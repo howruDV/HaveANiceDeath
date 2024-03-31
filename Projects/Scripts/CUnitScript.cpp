@@ -11,7 +11,8 @@ CUnitScript::CUnitScript(UINT m_iScriptType)
 	, m_iHPMax(100)
 	, m_iHPCur(m_iHPMax)
 	, m_bDirLock(false)
-	, m_bDirChange(false)
+	, m_bDirChange_Next(false)
+	, m_bDirChange_Cur(false)
 {
 }
 
@@ -21,12 +22,18 @@ CUnitScript::~CUnitScript()
 
 void CUnitScript::tick()
 {
+	m_bDirChange_Next = false;
+	m_bDirChange_Cur = false;
+
 	// case: direction unlocked
 	if (!m_bDirLock)
 	{
-		if (m_Dir_Prev != m_Dir)
+		if (m_Dir_Prev != m_Dir || m_Dir != m_Dir_Next)
 		{
-			m_bDirChange = true;
+			if (m_Dir != m_Dir_Next)
+				m_bDirChange_Next = true;
+			if (m_Dir != m_Dir_Prev)
+				m_bDirChange_Cur = true;
 
 			if (GetOwner()->Animator2D())
 			{
@@ -38,13 +45,8 @@ void CUnitScript::tick()
 				//GetOwner()->GetRenderComponent()->GetDynamicMaterial
 			}
 		}
-		else
-			m_bDirChange = false;
 
 		m_Dir_Prev = m_Dir;
+		m_Dir = m_Dir_Next;
 	}
-
-	// case: direction locked
-	else
-		m_bDirChange = false;
 }

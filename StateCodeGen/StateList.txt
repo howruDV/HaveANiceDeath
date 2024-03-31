@@ -1,4 +1,5 @@
 CIdleState
+CPlayerDash
 CPlayerIdle
 CPlayerIdleToRun
 CPlayerIdleUTurn

@@ -50,6 +50,11 @@ void CPlayerJumpLanding::Enter()
 	{
 		ChangeState(L"Run");
 	}
+
+	if (KEY_TAP(KEY::LSHIFT))
+	{
+		ChangeState(L"Dash");
+	}
 }
 
 void CPlayerJumpLanding::Exit()

@@ -11,6 +11,7 @@
 CPlayerScript::CPlayerScript()
 	: CUnitScript(PLAYERSCRIPT)
 	, m_fJumpVelocMax(1300.f)
+	, m_fSpeedDash(1800.f)
 	, m_iMPMax(50)
 	, m_iMPCur(m_iMPMax)
 	, m_iIngot(0)
@@ -47,7 +48,7 @@ void CPlayerScript::begin()
 
 	Movement()->UseGravity(true);
 	Movement()->SetInitSpeed(m_fSpeed);
-	Movement()->SetMaxSpeed_Ground(m_fSpeed);
+	Movement()->SetMaxSpeed_Ground(m_fSpeedDash);
 	Movement()->SetMaxSpeed_InAir(5000.f);
 	Movement()->SetGravityForce(Vec3(0.f,-4000.f,0.f));
 
@@ -101,6 +102,26 @@ void CPlayerScript::begin()
 	Animator2D()->Create(pAnim, L"Run_UTurn");
 	fclose(pFile);
 
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Dash.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Dash");
+	fclose(pFile);
+	
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Concentrate.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Concentrate");
+	fclose(pFile);
+	
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Concentrate_Start.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Concentrate_Start");
+	fclose(pFile);
+	
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Crush.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Crush");
+	fclose(pFile);
+
 	delete pAnim;
 
 	// StateMachine
@@ -108,6 +129,7 @@ void CPlayerScript::begin()
 	{
 		StateMachine()->AddBlackboardData(L"fSpeed", BB_DATA::FLOAT, &m_fSpeed);
 		StateMachine()->AddBlackboardData(L"fSpeedInAir", BB_DATA::FLOAT, &m_fSpeedInAir);
+		StateMachine()->AddBlackboardData(L"fSpeedDash", BB_DATA::FLOAT, &m_fSpeedDash);
 		StateMachine()->AddBlackboardData(L"fJumpVelocMax", BB_DATA::FLOAT, &m_fJumpVelocMax);
 
 		if (StateMachine()->GetFSM().Get())

@@ -28,19 +28,24 @@ void CPlayerJumpFalling::finaltick()
 	if ((KEY_TAP(KEY::A)) && KEY_NONE(KEY::D))
 	{
 		Vec3 vNewVeloc = pMovement->GetVelocity() + Vec3(-fSpeedInAir, 0.f, 0.f);
-		pMovement->SetVelocity(vNewVeloc);
+		pMovement->AddForce(vNewVeloc);
 	}
 
 	if ((KEY_TAP(KEY::D)) && KEY_NONE(KEY::A))
 	{
 		Vec3 vNewVeloc = pMovement->GetVelocity() + Vec3(fSpeedInAir, 0.f, 0.f);
-		pMovement->SetVelocity(vNewVeloc);
+		pMovement->AddForce(vNewVeloc);
 	}
 
 	// change state
 	if (GetOwner()->Movement()->IsGround())
 	{
 		ChangeState(L"Jump_Landing");
+	}
+
+	if (KEY_TAP(KEY::LSHIFT))
+	{
+		ChangeState(L"Dash");
 	}
 }
 

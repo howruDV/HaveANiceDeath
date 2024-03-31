@@ -1,6 +1,11 @@
 #pragma once
 #include "CEntity.h"
 
+#include "CKeyMgr.h"
+#include "CGameObject.h"
+#include "CMovement.h"
+#include "CAnimator2D.h"
+
 // =======================================
 // CState: State가 상속하는 parent class, 하나의 상태
 // =======================================

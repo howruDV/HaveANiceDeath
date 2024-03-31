@@ -13,7 +13,7 @@ struct FAnimFrm
     Vec2    vCutSizeUV;
     Vec2    vOffsetUV;
     Vec2    vBackgroundSize;
-    float   fDuration;
+    float   fDuration = 0.f;
 };
 
 class CAnim :
