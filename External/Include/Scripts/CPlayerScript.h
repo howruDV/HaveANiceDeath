@@ -10,6 +10,9 @@ private:
     float m_fSpeedDash;
     float m_fJumpVelocMax;
 
+    CGameObject* m_AirColPlatform;
+    bool m_bAirCol;
+
     // hp
     int m_iHPActive;
 
@@ -57,6 +60,7 @@ public:
     void SetSoulary(int _Soulary) { m_iSoulary = _Soulary; }
     void SetPrismium(int _Prismium) { m_iPrismium = _Prismium; }
 
+    CGameObject* GetAirColPlatform() { return m_AirColPlatform; }
     int GetHPActive() { return m_iHPActive; }
     int GetiMPMax() { return m_iMPMax; }
     int GetiMPCur() { return m_iMPCur; }
@@ -64,6 +68,7 @@ public:
     int GetSoulary() { return m_iSoulary; }
     int GetPrismium() { return m_iPrismium; }
     bool CanDash() { return m_bDashCan; }
+    bool IsAirCol() { return m_bAirCol; }
 
 public:
     CLONE(CPlayerScript);

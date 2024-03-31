@@ -10,12 +10,19 @@ CPlayerMgr::CPlayerMgr()
 	: CScript(PLAYERMGR)
 	, m_pPlayer(nullptr)
 {
-	m_This = this;
+	if (!m_This)
+		m_This = this;
 }
 
 CPlayerMgr::~CPlayerMgr()
 {
 
+}
+
+void CPlayerMgr::tick()
+{
+	if (!m_This)
+		m_This = this;
 }
 
 void CPlayerMgr::SetPlayer(CGameObject* _obj)

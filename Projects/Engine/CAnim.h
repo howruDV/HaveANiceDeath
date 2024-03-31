@@ -38,6 +38,7 @@ public:
     void Create(CAnimator2D* _Animator, Ptr<CTexture> _AtlasTex, Vec2 _vLeftTop, Vec2 _vOffset, Vec2 _vCutSize, Vec2 _vBackground, int _FrmCount, float _FPS);
     void Create(CAnimator2D* _Animator, Ptr<CTexture> _Atlas, const vector<FAnimFrm> _vecFrm, bool aleardyUV = false);
     int GetCurFrmIdx() { return m_CurFrmIdx; }
+    FAnimFrm GetCurFrm() { return m_vecFrm[m_CurFrmIdx]; }
 
 public:
     bool IsFinish() { return m_bFinish; }

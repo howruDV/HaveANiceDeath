@@ -6,6 +6,8 @@ class CPlayerPowerUp :
 {
 private:
     Vec3 m_LandPos;
+    Vec3 m_MoveTop;
+    Vec3 m_TargetPos;
 
 public:
     virtual void finaltick() override;

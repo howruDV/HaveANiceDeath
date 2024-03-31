@@ -128,3 +128,14 @@ void CCollider2D::Deactivate()
 	task.Param_1 = (DWORD_PTR)this;
 	CTaskMgr::GetInst()->AddTask(task);
 }
+
+Vec3 CCollider2D::GetFinalScale()
+{
+	if (m_bAbsolute)
+		return m_vOffsetScale;
+
+	if (GetOwner()->GetParent())
+		return GetOwner()->GetParent()->Transform()->GetWorldScale() * m_vOffsetScale;
+
+	return Transform()->GetWorldScale() * m_vOffsetScale;
+}

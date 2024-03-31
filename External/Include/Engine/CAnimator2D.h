@@ -51,7 +51,7 @@ public:
     UNIT_DIRX GetFlipX() { return m_bFlipX; }
     UNIT_DIRY GetFlipY() { return m_bFlipY; }
     int GetCurAnimFrmIdx() { return m_CurAnim->GetCurFrmIdx(); }
-    const CAnim* const GetCurAnim() { return m_CurAnim; }
+    FAnimFrm GetCurAnimFrm() { return m_CurAnim->GetCurFrm(); }
     bool IsPlaying() { if (m_CurAnim) { return !m_CurAnim->IsFinish(); } return false; }
 
 public:

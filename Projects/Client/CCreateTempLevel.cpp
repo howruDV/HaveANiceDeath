@@ -79,19 +79,15 @@ void CCreateTempLevel::Init()
 
 	// -----------------------------------------------FSM CODEGEN TEST
 	//CFSM* pFSM = new CFSM(nullptr, true);
-
 	//pFSM->AddState(L"IdleState", new CIdleState);
 	////pFSM->AddState(L"TraceState", new CTraceState);
 
 	//wchar_t szPath[255] = {};
 	//wstring FilePath = CPathMgr::GetContentPath();
-
 	//swprintf_s(szPath, L"FSM//TestFSM.fsm");
-
 	//pFSM->SetName(szPath);
 	//pFSM->Save(szPath);
-
-	//CAssetMgr::GetInst()->AddAsset<CFSM>(szPath, pFSM);
+	//CAssetMgr::GetInst()->AddAsset<CFSM>(szPath, pFSM.Get());
 }
 
 void CCreateTempLevel::CreateTempLevel()
@@ -118,6 +114,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pTempLevel->GetLayer(4)->SetName(L"Monster");
 	pTempLevel->GetLayer(5)->SetName(L"Light");
 	pTempLevel->GetLayer(6)->SetName(L"Platform");
+	pTempLevel->GetLayer(7)->SetName(L"Platform2");
 	pTempLevel->GetLayer(31)->SetName(L"UI");
 
 	// Computer Shader Test
@@ -138,6 +135,7 @@ void CCreateTempLevel::CreateTempLevel()
 	CCollisionMgr::GetInst()->LayerCheck(3, 4);
 	CCollisionMgr::GetInst()->LayerCheck(4, 4);
 	CCollisionMgr::GetInst()->LayerCheck(3, 6);
+	CCollisionMgr::GetInst()->LayerCheck(3, 7);
 
 	// Create Main Camera
 	CGameObject* pCamObj = new CGameObject;
@@ -261,6 +259,7 @@ void CCreateTempLevel::CreateTempLevel()
 
 
 	CGameObject* pMgrObj = new CGameObject;
+	pMgrObj->SetName(L"Manager");
 	pMgrObj->AddComponent(new CTransform);
 	pMgrObj->AddComponent(new CPlayerMgr);
 	pTempLevel->AddObject(pMgrObj, L"Default", false);
@@ -335,6 +334,15 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->SetName(L"Platform");
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CCollider2D);
+	pObj->Transform()->SetRelativePos(Vec3(0.f, -160.f, 100.f));
+	pObj->Transform()->SetRelativeScale(Vec3(500.f, 100.f, 1.f));
+	pTempLevel->AddObject(pObj, L"Platform2", false);
+
+	// Platform
+	pObj = new CGameObject;
+	pObj->SetName(L"Platform");
+	pObj->AddComponent(new CTransform);
+	pObj->AddComponent(new CCollider2D);
 	pObj->Transform()->SetRelativePos(Vec3(0.f, -500.f, 100.f));
 	pObj->Transform()->SetRelativeScale(Vec3(1500.f, 200.f, 1.f));
 	pTempLevel->AddObject(pObj, L"Platform", false);
@@ -362,8 +370,8 @@ void CCreateTempLevel::CreateTempLevel()
 
 	//pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"NormalMonsterFSM"));
 
-	wchar_t szPath[255] = {};
-	wstring FilePath = CPathMgr::GetContentPath();
+	//wchar_t szPath[255] = {};
+	//wstring FilePath = CPathMgr::GetContentPath();
 	//swprintf_s(szPath, L"FSM\\TestFSM.fsm");
 	//pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->Load<CFSM>(szPath));
 

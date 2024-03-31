@@ -23,6 +23,8 @@ CPlayerScript::CPlayerScript()
 	, m_bDashCoolTime(1.f)
 	, m_bDashAccTime(0.f)
 	, m_bDashCan(true)
+	, m_AirColPlatform(nullptr)
+	, m_bAirCol(false)
 {
 	m_fSpeed = 500.f;
 	m_fSpeedInAir = m_fSpeed;
@@ -169,13 +171,32 @@ void CPlayerScript::tick()
 void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	if (_OtherObj->GetLayerIdx() == 6)
+	{
 		Movement()->SetGround(true);
+	}
+
+	if (_OtherObj->GetLayerIdx() == 7)
+	{
+		m_AirColPlatform = _OtherObj;
+		m_bAirCol = true;
+	}
 }
 
 void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	if (_OtherObj->GetLayerIdx() == 6)
+	{
 		Movement()->SetGround(false);
+	}
+
+	if (_OtherObj->GetLayerIdx() == 7)
+	{
+		if (m_bAirCol)
+		{
+			m_AirColPlatform = nullptr;
+			m_bAirCol = false;
+		}
+	}
 }
 
 void CPlayerScript::StartDashCoolTime(bool _bDashCan)

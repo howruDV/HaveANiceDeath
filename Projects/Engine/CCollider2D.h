@@ -51,6 +51,7 @@ public:
     Vec3 GetOffsetPos() { return m_vOffsetPos; }
     Vec3 GetOffsetScale() { return m_vOffsetScale; }
     Vec3 GetFinalPos() { return m_FinalPos; }
+    Vec3 GetFinalScale();
     float GetRotationZ() { return m_vOffestRotation.z; }
     int GetCollisionCount() { return m_CollisionCount; };
     bool IsActive() { return m_Active; }
