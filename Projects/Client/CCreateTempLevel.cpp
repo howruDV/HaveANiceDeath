@@ -41,6 +41,7 @@
 #include <States/CScytheDissComboB.h>
 #include <States/CScytheDissComboC.h>
 #include <States/CScytheDissComboD.h>
+#include <States/CScytheDissAerial.h>
 
 void CCreateTempLevel::Init()
 {
@@ -83,6 +84,7 @@ void CCreateTempLevel::Init()
 	pFSM->AddState(L"ScytheDiss_ComboB", new CScytheDissComboB);
 	pFSM->AddState(L"ScytheDiss_ComboC", new CScytheDissComboC);
 	pFSM->AddState(L"ScytheDiss_ComboD", new CScytheDissComboD);
+	pFSM->AddState(L"ScytheDiss_Aerial", new CScytheDissAerial);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST

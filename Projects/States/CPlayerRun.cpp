@@ -6,6 +6,7 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CScytheScript.h>
 
 CPlayerRun::CPlayerRun()
 	:CState(PLAYERRUN)
@@ -40,6 +41,25 @@ void CPlayerRun::finaltick()
 		|| ((KEY_RELEASED(KEY::A) || KEY_NONE(KEY::A)) && (KEY_RELEASED(KEY::D) || KEY_NONE(KEY::D))))
 	{
 		ChangeState(L"Run_ToIdle");
+	}
+
+	if (KEY_TAP(KEY::LBTN))
+	{
+		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+
+		if (nextCombo == 0)
+			ChangeState(strCurScytheName + L"_ComboA");
+		else if (nextCombo == 1)
+			ChangeState(strCurScytheName + L"_ComboB");
+		else if (nextCombo == 2)
+			ChangeState(strCurScytheName + L"_ComboC");
+		else if (nextCombo == 3)
+			ChangeState(strCurScytheName + L"_ComboD");
+	}
+	else if (KEY_PRESSED(KEY::LBTN))
+	{
+		ChangeState(L"Concentrate_Start");
 	}
 
 	if (KEY_TAP(KEY::SPACE))

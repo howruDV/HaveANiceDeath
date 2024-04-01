@@ -30,6 +30,7 @@ CPlayerScript::CPlayerScript()
 	, m_fComboCoolTime(0.3f)
 	, m_fComboAccTime(0.f)
 	, m_NextComboIdx(0)
+	, m_bAerialCan(true)
 {
 	m_fSpeed = 500.f;
 	m_fSpeedInAir = m_fSpeed;
@@ -155,6 +156,27 @@ void CPlayerScript::begin()
 	Animator2D()->Create(pAnim, L"ScytheDiss_ComboD");
 	fclose(pFile);
 
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2aerial01.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"ScytheDiss_Aerial");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2_Up.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"ScytheDiss_Up");
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2_Crush.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"ScytheDiss_Crush");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2_Special01.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"ScytheDiss_Special");
+	fclose(pFile);
+
+	fclose(pFile);
+
 	delete pAnim;
 
 	// StateMachine
@@ -213,6 +235,7 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 	if (_OtherObj->GetLayerIdx() == 6)
 	{
 		Movement()->SetGround(true);
+		m_bAerialCan = true;
 	}
 
 	if (_OtherObj->GetLayerIdx() == 7)

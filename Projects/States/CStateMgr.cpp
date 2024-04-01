@@ -15,6 +15,7 @@
 #include "CPlayerRun.h"
 #include "CPlayerRunToIdle.h"
 #include "CPlayerRunUTurn.h"
+#include "CScytheDissAerial.h"
 #include "CScytheDissComboA.h"
 #include "CScytheDissComboB.h"
 #include "CScytheDissComboC.h"
@@ -37,6 +38,7 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerRun");
 	_vec.push_back(L"CPlayerRunToIdle");
 	_vec.push_back(L"CPlayerRunUTurn");
+	_vec.push_back(L"CScytheDissAerial");
 	_vec.push_back(L"CScytheDissComboA");
 	_vec.push_back(L"CScytheDissComboB");
 	_vec.push_back(L"CScytheDissComboC");
@@ -74,6 +76,8 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 		return new CPlayerRunToIdle;
 	if (L"CPlayerRunUTurn" == _strStateName)
 		return new CPlayerRunUTurn;
+	if (L"CScytheDissAerial" == _strStateName)
+		return new CScytheDissAerial;
 	if (L"CScytheDissComboA" == _strStateName)
 		return new CScytheDissComboA;
 	if (L"CScytheDissComboB" == _strStateName)
@@ -132,6 +136,9 @@ CState* CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERRUNUTURN:
 		return new CPlayerRunUTurn;
+		break;
+	case (UINT)STATE_TYPE::SCYTHEDISSAERIAL:
+		return new CScytheDissAerial;
 		break;
 	case (UINT)STATE_TYPE::SCYTHEDISSCOMBOA:
 		return new CScytheDissComboA;
@@ -210,6 +217,10 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERRUNUTURN:
 		return L"CPlayerRunUTurn";
+		break;
+
+	case STATE_TYPE::SCYTHEDISSAERIAL:
+		return L"CScytheDissAerial";
 		break;
 
 	case STATE_TYPE::SCYTHEDISSCOMBOA:

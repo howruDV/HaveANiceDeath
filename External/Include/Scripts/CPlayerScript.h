@@ -32,6 +32,8 @@ private:
     int m_NextComboIdx;
     bool m_bComboCan;
 
+    bool m_bAerialCan;
+
     // @TODO : 인벤토리 관리자 따로 만들어야할듯?----------------------------------
     // money
     int m_iIngot;
@@ -71,6 +73,7 @@ public:
     void SetSoulary(int _Soulary) { m_iSoulary = _Soulary; }
     void SetPrismium(int _Prismium) { m_iPrismium = _Prismium; }
     void DeactiveCombo() { m_bComboCan = false; m_fComboAccTime = 0; m_NextComboIdx = 0; }
+    void DeactiveAerialAttack() { m_bAerialCan = false; }
 
     CGameObject* GetAirColPlatform() { return m_AirColPlatform; }
     CScytheScript* GetScythe() { return m_CurScythe; }
@@ -82,6 +85,7 @@ public:
     int GetPrismium() { return m_iPrismium; }
     int GetNextComboIdx() { return m_NextComboIdx; }
     bool CanDash() { return m_bDashCan; }
+    bool CanAerialAttack() { return m_bAerialCan; }
     bool IsAirCol() { return m_bAirCol; }
 
 public:

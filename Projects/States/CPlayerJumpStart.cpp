@@ -3,6 +3,7 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CScytheScript.h>
 
 CPlayerJumpStart::CPlayerJumpStart()
 	: CState(PLAYERJUMPSTART)
@@ -29,6 +30,15 @@ void CPlayerJumpStart::finaltick()
 	{
 		Vec3 vNewVeloc = pMovement->GetVelocity() + Vec3(fSpeedInAir, 0.f, 0.f);
 		pMovement->SetVelocity(vNewVeloc);
+	}
+
+	if (KEY_TAP(KEY::LBTN))
+	{
+		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+
+		if (PLAYERSCRIPT->CanAerialAttack())
+			ChangeState(strCurScytheName + L"_Aerial");
 	}
 
 	// playing anim

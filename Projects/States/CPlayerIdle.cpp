@@ -35,13 +35,6 @@ void CPlayerIdle::finaltick()
 		if (PLAYERSCRIPT->WillDirChange())
 			ChangeState(L"Idle_UTurn");
 
-	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
-	{
-		static float JumpDT = 0.f;
-		ChangeState(L"Jump_Start");
-	}
-
-
 	if (KEY_TAP(KEY::LBTN))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
@@ -59,6 +52,11 @@ void CPlayerIdle::finaltick()
 	else if (KEY_PRESSED(KEY::LBTN))
 	{
 		ChangeState(L"Concentrate_Start");
+	}
+
+	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
+	{
+		ChangeState(L"Jump_Start");
 	}
 
 	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())

@@ -186,6 +186,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CPlayerRunToIdle.h" />
     <ClInclude Include="CPlayerIdleUTurn.h" />
     <ClInclude Include="CPlayerRunUTurn.h" />
+    <ClInclude Include="CScytheDissAerial.h" />
     <ClInclude Include="CScytheDissComboA.h" />
     <ClInclude Include="CScytheDissComboB.h" />
     <ClInclude Include="CScytheDissComboC.h" />
@@ -193,6 +194,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTraceState.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="func.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +212,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CPlayerRunToIdle.cpp" />
     <ClCompile Include="CPlayerIdleUTurn.cpp" />
     <ClCompile Include="CPlayerRunUTurn.cpp" />
+    <ClCompile Include="CScytheDissAerial.cpp" />
     <ClCompile Include="CScytheDissComboA.cpp" />
     <ClCompile Include="CScytheDissComboB.cpp" />
     <ClCompile Include="CScytheDissComboC.cpp" />
@@ -219,6 +222,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="define.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClCompile Include="func.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -12,6 +12,7 @@ CPlayerPowerUp
 CPlayerRun
 CPlayerRunToIdle
 CPlayerRunUTurn
+CScytheDissAerial
 CScytheDissComboA
 CScytheDissComboB
 CScytheDissComboC

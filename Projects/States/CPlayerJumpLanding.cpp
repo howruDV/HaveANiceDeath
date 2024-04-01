@@ -1,14 +1,11 @@
 #include "pch.h"
 #include "CPlayerJumpLanding.h"
 
-#include <Engine/CKeyMgr.h>
-#include <Engine/CGameObject.h>
-#include <Engine/CAnimator2D.h>
-#include <Engine/CMovement.h>
 #include <Engine/CTransform.h>
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CScytheScript.h>
 
 CPlayerJumpLanding::CPlayerJumpLanding()
 	: CState(PLAYERJUMPLANDING)
@@ -21,6 +18,28 @@ CPlayerJumpLanding::~CPlayerJumpLanding()
 
 void CPlayerJumpLanding::finaltick()
 {
+	if (KEY_TAP(KEY::LBTN))
+	{
+		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+
+		if (nextCombo == 0)
+			ChangeState(strCurScytheName + L"_ComboA");
+		else if (nextCombo == 1)
+			ChangeState(strCurScytheName + L"_ComboB");
+		else if (nextCombo == 2)
+			ChangeState(strCurScytheName + L"_ComboC");
+		else if (nextCombo == 3)
+			ChangeState(strCurScytheName + L"_ComboD");
+
+		return;
+	}
+	else if (KEY_PRESSED(KEY::LBTN))
+	{
+		ChangeState(L"Concentrate_Start");
+		return;
+	}
+
 	// playing anim
 	if (GetOwner()->Animator2D()->IsPlaying())
 		return;

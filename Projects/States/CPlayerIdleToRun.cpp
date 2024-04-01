@@ -1,13 +1,9 @@
 #include "pch.h"
 #include "CPlayerIdleToRun.h"
 
-#include <Engine/CKeyMgr.h>
-#include <Engine/CMovement.h>
-#include <Engine/CGameObject.h>
-#include <Engine/CAnimator2D.h>
-
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CScytheScript.h>
 
 CPlayerIdleToRun::CPlayerIdleToRun()
 	: CState(PLAYERIDLETORUN)
@@ -39,17 +35,45 @@ void CPlayerIdleToRun::finaltick()
 		GetOwner()->Movement()->SetVelocity(Vec3());
 	}
 
-	// playing anim
-	if (GetOwner()->Animator2D()->IsPlaying())
-		return;
-
+	// change state
 	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
 		return;
 	}
 
-	// change state
+	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
+	{
+		ChangeState(L"Jump_Start");
+		return;
+	}
+
+	if (KEY_TAP(KEY::LBTN))
+	{
+		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+
+		if (nextCombo == 0)
+			ChangeState(strCurScytheName + L"_ComboA");
+		else if (nextCombo == 1)
+			ChangeState(strCurScytheName + L"_ComboB");
+		else if (nextCombo == 2)
+			ChangeState(strCurScytheName + L"_ComboC");
+		else if (nextCombo == 3)
+			ChangeState(strCurScytheName + L"_ComboD");
+
+		return;
+	}
+	else if (KEY_PRESSED(KEY::LBTN))
+	{
+		ChangeState(L"Concentrate_Start");
+		return;
+	}
+
+	// playing anim
+	if (GetOwner()->Animator2D()->IsPlaying())
+		return;
+
 	ChangeState(L"Run");
 }
 
@@ -60,4 +84,5 @@ void CPlayerIdleToRun::Enter()
 
 void CPlayerIdleToRun::Exit()
 {
+	GetOwner()->Movement()->SetVelocity(Vec3());
 }

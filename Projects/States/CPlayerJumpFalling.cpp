@@ -5,6 +5,7 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CScytheScript.h>
 
 CPlayerJumpFalling::CPlayerJumpFalling()
 	: CState(PLAYERJUMPFALLING)
@@ -37,6 +38,15 @@ void CPlayerJumpFalling::finaltick()
 	if (GetOwner()->Movement()->IsGround())
 	{
 		ChangeState(L"Jump_Landing");
+	}
+
+	if (KEY_TAP(KEY::LBTN))
+	{
+		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+
+		if (PLAYERSCRIPT->CanAerialAttack())
+			ChangeState(strCurScytheName + L"_Aerial");
 	}
 
 	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())

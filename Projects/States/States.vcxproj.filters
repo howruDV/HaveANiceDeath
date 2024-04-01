@@ -76,6 +76,18 @@
     <Filter Include="States\Weapon\Scythe\Diss\ComboD">
       <UniqueIdentifier>{e51a0fc3-2211-4acc-80f0-aad85f222b4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss\Up">
+      <UniqueIdentifier>{be8ebaee-8df2-452b-afbd-6720fd55ca42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss\Crush">
+      <UniqueIdentifier>{79863d6e-efea-4081-9030-a5fa6de30a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss\Aerial">
+      <UniqueIdentifier>{a58332ec-ab9c-49db-86d8-d9dfced5a5bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss\Special">
+      <UniqueIdentifier>{94f4bb60-d27a-4a04-80dd-f2878dde0a81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -123,9 +135,6 @@
     <ClInclude Include="CPlayerDash.h">
       <Filter>States\Player\Dash</Filter>
     </ClInclude>
-    <ClInclude Include="define.h">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="CPlayerConcentrate.h">
       <Filter>States\Player\Concentrate</Filter>
     </ClInclude>
@@ -147,6 +156,11 @@
     <ClInclude Include="CScytheDissComboD.h">
       <Filter>States\Weapon\Scythe\Diss\ComboD</Filter>
     </ClInclude>
+    <ClInclude Include="CScytheDissAerial.h">
+      <Filter>States\Weapon\Scythe\Diss\Aerial</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h" />
+    <ClInclude Include="define.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -215,5 +229,9 @@
     <ClCompile Include="CScytheDissComboD.cpp">
       <Filter>States\Weapon\Scythe\Diss\ComboD</Filter>
     </ClCompile>
+    <ClCompile Include="CScytheDissAerial.cpp">
+      <Filter>States\Weapon\Scythe\Diss\Aerial</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp" />
   </ItemGroup>
 </Project>
