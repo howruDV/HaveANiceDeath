@@ -53,6 +53,18 @@ void CPlayerJumpFalling::finaltick()
 	{
 		ChangeState(L"Dash");
 	}
+
+	if ((KEY_PRESSED(KEY::S) || KEY_TAP(KEY::S)) && KEY_TAP(KEY::LBTN))
+	{
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		ChangeState(strCurScytheName + L"_Crush");
+	}
+
+	if ((KEY_PRESSED(KEY::W) || KEY_TAP(KEY::W)) && KEY_TAP(KEY::LBTN))
+	{
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		ChangeState(strCurScytheName + L"_Up");
+	}
 }
 
 void CPlayerJumpFalling::Enter()

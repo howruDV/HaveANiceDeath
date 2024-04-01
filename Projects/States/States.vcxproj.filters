@@ -88,6 +88,9 @@
     <Filter Include="States\Weapon\Scythe\Diss\Special">
       <UniqueIdentifier>{94f4bb60-d27a-4a04-80dd-f2878dde0a81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss\Rest">
+      <UniqueIdentifier>{db9a9a8c-94a6-4941-afb9-1f0273cda45b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -161,6 +164,15 @@
     </ClInclude>
     <ClInclude Include="func.h" />
     <ClInclude Include="define.h" />
+    <ClInclude Include="CScytheDissSpecial.h">
+      <Filter>States\Weapon\Scythe\Diss\Special</Filter>
+    </ClInclude>
+    <ClInclude Include="CScytheDissUp.h">
+      <Filter>States\Weapon\Scythe\Diss\Up</Filter>
+    </ClInclude>
+    <ClInclude Include="CScytheDissCrush.h">
+      <Filter>States\Weapon\Scythe\Diss\Crush</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -233,5 +245,14 @@
       <Filter>States\Weapon\Scythe\Diss\Aerial</Filter>
     </ClCompile>
     <ClCompile Include="func.cpp" />
+    <ClCompile Include="CScytheDissSpecial.cpp">
+      <Filter>States\Weapon\Scythe\Diss\Special</Filter>
+    </ClCompile>
+    <ClCompile Include="CScytheDissUp.cpp">
+      <Filter>States\Weapon\Scythe\Diss\Up</Filter>
+    </ClCompile>
+    <ClCompile Include="CScytheDissCrush.cpp">
+      <Filter>States\Weapon\Scythe\Diss\Crush</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

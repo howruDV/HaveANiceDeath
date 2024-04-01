@@ -35,7 +35,7 @@ void CPlayerIdle::finaltick()
 		if (PLAYERSCRIPT->WillDirChange())
 			ChangeState(L"Idle_UTurn");
 
-	if (KEY_TAP(KEY::LBTN))
+	if (KEY_TAP(KEY::LBTN) && (KEY_NONE(KEY::S) || KEY_RELEASED(KEY::S)))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
 		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
@@ -54,6 +54,12 @@ void CPlayerIdle::finaltick()
 		ChangeState(L"Concentrate_Start");
 	}
 
+	if (KEY_TAP(KEY::LBTN) && (KEY_PRESSED(KEY::S) || KEY_TAP(KEY::S)))
+	{
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		ChangeState(strCurScytheName + L"_Special");
+	}
+
 	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
 	{
 		ChangeState(L"Jump_Start");
@@ -62,6 +68,12 @@ void CPlayerIdle::finaltick()
 	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
+	}
+
+	if ((KEY_PRESSED(KEY::W) || KEY_TAP(KEY::W)) && KEY_TAP(KEY::LBTN))
+	{
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		ChangeState(strCurScytheName +L"_Up");
 	}
 }
 

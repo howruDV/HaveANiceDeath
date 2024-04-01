@@ -20,6 +20,9 @@
 #include "CScytheDissComboB.h"
 #include "CScytheDissComboC.h"
 #include "CScytheDissComboD.h"
+#include "CScytheDissCrush.h"
+#include "CScytheDissSpecial.h"
+#include "CScytheDissUp.h"
 #include "CTraceState.h"
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
@@ -43,6 +46,9 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CScytheDissComboB");
 	_vec.push_back(L"CScytheDissComboC");
 	_vec.push_back(L"CScytheDissComboD");
+	_vec.push_back(L"CScytheDissCrush");
+	_vec.push_back(L"CScytheDissSpecial");
+	_vec.push_back(L"CScytheDissUp");
 	_vec.push_back(L"CTraceState");
 }
 
@@ -86,6 +92,12 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 		return new CScytheDissComboC;
 	if (L"CScytheDissComboD" == _strStateName)
 		return new CScytheDissComboD;
+	if (L"CScytheDissCrush" == _strStateName)
+		return new CScytheDissCrush;
+	if (L"CScytheDissSpecial" == _strStateName)
+		return new CScytheDissSpecial;
+	if (L"CScytheDissUp" == _strStateName)
+		return new CScytheDissUp;
 	if (L"CTraceState" == _strStateName)
 		return new CTraceState;
 	return nullptr;
@@ -151,6 +163,15 @@ CState* CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::SCYTHEDISSCOMBOD:
 		return new CScytheDissComboD;
+		break;
+	case (UINT)STATE_TYPE::SCYTHEDISSCRUSH:
+		return new CScytheDissCrush;
+		break;
+	case (UINT)STATE_TYPE::SCYTHEDISSSPECIAL:
+		return new CScytheDissSpecial;
+		break;
+	case (UINT)STATE_TYPE::SCYTHEDISSUP:
+		return new CScytheDissUp;
 		break;
 	case (UINT)STATE_TYPE::TRACESTATE:
 		return new CTraceState;
@@ -237,6 +258,18 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::SCYTHEDISSCOMBOD:
 		return L"CScytheDissComboD";
+		break;
+
+	case STATE_TYPE::SCYTHEDISSCRUSH:
+		return L"CScytheDissCrush";
+		break;
+
+	case STATE_TYPE::SCYTHEDISSSPECIAL:
+		return L"CScytheDissSpecial";
+		break;
+
+	case STATE_TYPE::SCYTHEDISSUP:
+		return L"CScytheDissUp";
 		break;
 
 	case STATE_TYPE::TRACESTATE:

@@ -42,6 +42,9 @@
 #include <States/CScytheDissComboC.h>
 #include <States/CScytheDissComboD.h>
 #include <States/CScytheDissAerial.h>
+#include <States/CScytheDissSpecial.h>
+#include <States/CScytheDissUp.h>
+#include <States/CScytheDissCrush.h>
 
 void CCreateTempLevel::Init()
 {
@@ -85,6 +88,9 @@ void CCreateTempLevel::Init()
 	pFSM->AddState(L"ScytheDiss_ComboC", new CScytheDissComboC);
 	pFSM->AddState(L"ScytheDiss_ComboD", new CScytheDissComboD);
 	pFSM->AddState(L"ScytheDiss_Aerial", new CScytheDissAerial);
+	pFSM->AddState(L"ScytheDiss_Special", new CScytheDissSpecial);
+	pFSM->AddState(L"ScytheDiss_Up", new CScytheDissUp);
+	pFSM->AddState(L"ScytheDiss_Crush", new CScytheDissCrush);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST
@@ -125,6 +131,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pTempLevel->GetLayer(5)->SetName(L"Light");
 	pTempLevel->GetLayer(6)->SetName(L"Platform");
 	pTempLevel->GetLayer(7)->SetName(L"Platform2");
+	pTempLevel->GetLayer(8)->SetName(L"Wall");
 	pTempLevel->GetLayer(31)->SetName(L"UI");
 
 	// Computer Shader Test
@@ -146,6 +153,7 @@ void CCreateTempLevel::CreateTempLevel()
 	CCollisionMgr::GetInst()->LayerCheck(4, 4);
 	CCollisionMgr::GetInst()->LayerCheck(3, 6);
 	CCollisionMgr::GetInst()->LayerCheck(3, 7);
+	CCollisionMgr::GetInst()->LayerCheck(3, 8);
 
 	// Create Main Camera
 	CGameObject* pCamObj = new CGameObject;

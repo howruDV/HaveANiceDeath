@@ -17,4 +17,7 @@ CScytheDissComboA
 CScytheDissComboB
 CScytheDissComboC
 CScytheDissComboD
+CScytheDissCrush
+CScytheDissSpecial
+CScytheDissUp
 CTraceState

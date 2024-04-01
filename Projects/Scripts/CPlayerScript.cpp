@@ -8,6 +8,7 @@
 #include <Engine/CTimeMgr.h>
 #include <Engine/CMovement.h>
 #include <Engine/CAnimator2D.h>
+#include <Engine/CTransform.h>
 
 CPlayerScript::CPlayerScript()
 	: CUnitScript(PLAYERSCRIPT)
@@ -26,6 +27,8 @@ CPlayerScript::CPlayerScript()
 	, m_bDashCan(true)
 	, m_AirColPlatform(nullptr)
 	, m_bAirCol(false)
+	, m_ColWall(nullptr)
+	, m_bWallCol(false)
 	, m_CurScythe(nullptr)
 	, m_fComboCoolTime(0.3f)
 	, m_fComboAccTime(0.f)
@@ -175,8 +178,6 @@ void CPlayerScript::begin()
 	Animator2D()->Create(pAnim, L"ScytheDiss_Special");
 	fclose(pFile);
 
-	fclose(pFile);
-
 	delete pAnim;
 
 	// StateMachine
@@ -232,16 +233,30 @@ void CPlayerScript::tick()
 
 void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
+	// Platform
 	if (_OtherObj->GetLayerIdx() == 6)
 	{
 		Movement()->SetGround(true);
 		m_bAerialCan = true;
+
+		// @TODO 오류나면 여기
+ 		Vec3 vPos = _Collider->GetFinalPos();
+		vPos.y = _OtherCollider->GetFinalPos().y + _OtherCollider->GetFinalScale().y / 2.f + _Collider->GetFinalScale().y / 2.f - _Collider->GetOffsetPos().y;
+		Transform()->SetRelativePos(vPos);
 	}
 
+	// Aerial Platform
 	if (_OtherObj->GetLayerIdx() == 7)
 	{
 		m_AirColPlatform = _OtherObj;
 		m_bAirCol = true;
+	}
+	
+	// Wall
+	if (_OtherObj->GetLayerIdx() == 8)
+	{
+		m_ColWall = _OtherObj;
+		m_bWallCol = true;
 	}
 }
 
@@ -259,6 +274,13 @@ void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, C
 			m_AirColPlatform = nullptr;
 			m_bAirCol = false;
 		}
+	}
+
+	// Wall
+	if (_OtherObj->GetLayerIdx() == 8)
+	{
+		m_ColWall = nullptr;
+		m_bWallCol = false;
 	}
 }
 

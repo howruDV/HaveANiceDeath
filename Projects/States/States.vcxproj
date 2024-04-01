@@ -191,6 +191,9 @@ call CodeGen.exe</Command>
     <ClInclude Include="CScytheDissComboB.h" />
     <ClInclude Include="CScytheDissComboC.h" />
     <ClInclude Include="CScytheDissComboD.h" />
+    <ClInclude Include="CScytheDissCrush.h" />
+    <ClInclude Include="CScytheDissUp.h" />
+    <ClInclude Include="CScytheDissSpecial.h" />
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTraceState.h" />
     <ClInclude Include="framework.h" />
@@ -217,6 +220,9 @@ call CodeGen.exe</Command>
     <ClCompile Include="CScytheDissComboB.cpp" />
     <ClCompile Include="CScytheDissComboC.cpp" />
     <ClCompile Include="CScytheDissComboD.cpp" />
+    <ClCompile Include="CScytheDissCrush.cpp" />
+    <ClCompile Include="CScytheDissUp.cpp" />
+    <ClCompile Include="CScytheDissSpecial.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTraceState.cpp" />
     <ClInclude Include="define.h">

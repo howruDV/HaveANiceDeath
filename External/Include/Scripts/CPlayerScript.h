@@ -14,6 +14,8 @@ private:
 
     CGameObject* m_AirColPlatform;
     bool m_bAirCol;
+    CGameObject* m_ColWall;
+    bool m_bWallCol;
 
     // hp
     int m_iHPActive;
@@ -76,6 +78,7 @@ public:
     void DeactiveAerialAttack() { m_bAerialCan = false; }
 
     CGameObject* GetAirColPlatform() { return m_AirColPlatform; }
+    CGameObject* GetColWall() { return m_ColWall; }
     CScytheScript* GetScythe() { return m_CurScythe; }
     int GetHPActive() { return m_iHPActive; }
     int GetiMPMax() { return m_iMPMax; }
@@ -87,6 +90,7 @@ public:
     bool CanDash() { return m_bDashCan; }
     bool CanAerialAttack() { return m_bAerialCan; }
     bool IsAirCol() { return m_bAirCol; }
+    bool IsWallCol() { return m_bWallCol; }
 
 public:
     CLONE(CPlayerScript);

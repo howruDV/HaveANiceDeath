@@ -41,15 +41,30 @@ void CPlayerJumpStart::finaltick()
 			ChangeState(strCurScytheName + L"_Aerial");
 	}
 
-	// playing anim
-	if (GetOwner()->Animator2D()->IsPlaying())
-		return;
-
 	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
 		return;
 	}
+
+	if ((KEY_PRESSED(KEY::S) || KEY_TAP(KEY::S)) && KEY_TAP(KEY::LBTN))
+	{
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		ChangeState(strCurScytheName + L"_Crush");
+		return;
+	}
+
+	if ((KEY_PRESSED(KEY::W) || KEY_TAP(KEY::W)) && KEY_TAP(KEY::LBTN))
+	{
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		ChangeState(strCurScytheName + L"_Up");
+		return;
+	}
+
+	// playing anim
+	if (GetOwner()->Animator2D()->IsPlaying())
+		return;
+
 
 	// change state
 	ChangeState(L"Jump_Falling");
