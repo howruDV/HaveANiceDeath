@@ -12,4 +12,8 @@ CPlayerPowerUp
 CPlayerRun
 CPlayerRunToIdle
 CPlayerRunUTurn
+CScytheDissComboA
+CScytheDissComboB
+CScytheDissComboC
+CScytheDissComboD
 CTraceState

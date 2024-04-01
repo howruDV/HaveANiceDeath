@@ -55,6 +55,27 @@
     <Filter Include="States\Player\PowerUp">
       <UniqueIdentifier>{931ae09a-cc7c-44bf-aee2-29cd1e8e410d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Weapon">
+      <UniqueIdentifier>{13ad4982-ccb7-4000-890e-405504e34a7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Weapon\Scythe">
+      <UniqueIdentifier>{291154aa-16cc-4392-b70a-930946e1b2e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss">
+      <UniqueIdentifier>{7bd22610-9531-4ca9-b4d7-48fb12690114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss\ComboA">
+      <UniqueIdentifier>{f2171530-2da0-4014-8765-8127ca9b6e8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss\ComboB">
+      <UniqueIdentifier>{65b77560-830e-45d7-8759-c0a6ae0cc81c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss\ComboC">
+      <UniqueIdentifier>{0fbe89bf-9427-4b6e-9bcc-00a0de95a32c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Weapon\Scythe\Diss\ComboD">
+      <UniqueIdentifier>{e51a0fc3-2211-4acc-80f0-aad85f222b4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -114,6 +135,18 @@
     <ClInclude Include="CPlayerPowerUp.h">
       <Filter>States\Player\PowerUp</Filter>
     </ClInclude>
+    <ClInclude Include="CScytheDissComboA.h">
+      <Filter>States\Weapon\Scythe\Diss\ComboA</Filter>
+    </ClInclude>
+    <ClInclude Include="CScytheDissComboB.h">
+      <Filter>States\Weapon\Scythe\Diss\ComboB</Filter>
+    </ClInclude>
+    <ClInclude Include="CScytheDissComboC.h">
+      <Filter>States\Weapon\Scythe\Diss\ComboC</Filter>
+    </ClInclude>
+    <ClInclude Include="CScytheDissComboD.h">
+      <Filter>States\Weapon\Scythe\Diss\ComboD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -169,6 +202,18 @@
     </ClCompile>
     <ClCompile Include="CPlayerPowerUp.cpp">
       <Filter>States\Player\PowerUp</Filter>
+    </ClCompile>
+    <ClCompile Include="CScytheDissComboA.cpp">
+      <Filter>States\Weapon\Scythe\Diss\ComboA</Filter>
+    </ClCompile>
+    <ClCompile Include="CScytheDissComboB.cpp">
+      <Filter>States\Weapon\Scythe\Diss\ComboB</Filter>
+    </ClCompile>
+    <ClCompile Include="CScytheDissComboC.cpp">
+      <Filter>States\Weapon\Scythe\Diss\ComboC</Filter>
+    </ClCompile>
+    <ClCompile Include="CScytheDissComboD.cpp">
+      <Filter>States\Weapon\Scythe\Diss\ComboD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

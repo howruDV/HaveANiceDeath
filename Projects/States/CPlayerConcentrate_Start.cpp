@@ -41,4 +41,5 @@ void CPlayerConcentrate_Start::Enter()
 
 void CPlayerConcentrate_Start::Exit()
 {
+	PLAYERSCRIPT->DeactiveCombo();
 }

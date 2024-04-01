@@ -1,6 +1,8 @@
 #pragma once
 #include "CUnitScript.h"
 
+class CScytheScript;
+
 class CPlayerScript :
     public CUnitScript
 {
@@ -21,9 +23,14 @@ private:
     int m_iMPCur;
 
     // cooltime
-    float m_bDashCoolTime;
-    float m_bDashAccTime;
+    float m_fDashCoolTime;
+    float m_fDashAccTime;
     bool m_bDashCan;
+
+    float m_fComboCoolTime;
+    float m_fComboAccTime;
+    int m_NextComboIdx;
+    bool m_bComboCan;
 
     // @TODO : 인벤토리 관리자 따로 만들어야할듯?----------------------------------
     // money
@@ -37,7 +44,10 @@ private:
     int m_iAnimaGold;
 
     // 무기, 보조무기, 저주
+    // @TODO : 여기서 생성하는것보단 WeaponMgr 만들어서 쭉 파두고 선택하는게 좋을듯?
     // --------------------------------------------------------------------
+    CScytheScript* m_CurScythe;
+
 
 public:
     virtual void begin() override;
@@ -51,6 +61,7 @@ public:
     virtual void LoadFromFile(FILE* _File) {}
 
     void StartDashCoolTime(bool _bDashCan = false);
+    void StartCombo(int _ComboIdx);
 
 public:
     void SetHPActive(int _HPActive) { m_iHPActive = _HPActive; }
@@ -59,14 +70,17 @@ public:
     void SetIngot(int _Ingot) { m_iIngot = _Ingot; }
     void SetSoulary(int _Soulary) { m_iSoulary = _Soulary; }
     void SetPrismium(int _Prismium) { m_iPrismium = _Prismium; }
+    void DeactiveCombo() { m_bComboCan = false; m_fComboAccTime = 0; m_NextComboIdx = 0; }
 
     CGameObject* GetAirColPlatform() { return m_AirColPlatform; }
+    CScytheScript* GetScythe() { return m_CurScythe; }
     int GetHPActive() { return m_iHPActive; }
     int GetiMPMax() { return m_iMPMax; }
     int GetiMPCur() { return m_iMPCur; }
     int GetIngot() { return m_iIngot; }
     int GetSoulary() { return m_iSoulary; }
     int GetPrismium() { return m_iPrismium; }
+    int GetNextComboIdx() { return m_NextComboIdx; }
     bool CanDash() { return m_bDashCan; }
     bool IsAirCol() { return m_bAirCol; }
 

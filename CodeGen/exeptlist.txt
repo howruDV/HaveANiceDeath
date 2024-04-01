@@ -1,2 +1,3 @@
 CScriptMgr.h
 CUnitScript.h
+CScytheScript.h

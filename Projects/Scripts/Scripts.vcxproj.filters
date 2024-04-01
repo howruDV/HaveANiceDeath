@@ -31,6 +31,12 @@
     <ClInclude Include="CUnitScript.h">
       <Filter>Scripts\Unit</Filter>
     </ClInclude>
+    <ClInclude Include="CScytheDissScript.h">
+      <Filter>Scripts\Weapon\Scythe\Diss</Filter>
+    </ClInclude>
+    <ClInclude Include="CScytheScript.h">
+      <Filter>Scripts\Weapon\Scythe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -63,6 +69,12 @@
     <ClCompile Include="CUnitScript.cpp">
       <Filter>Scripts\Unit</Filter>
     </ClCompile>
+    <ClCompile Include="CScytheDissScript.cpp">
+      <Filter>Scripts\Weapon\Scythe\Diss</Filter>
+    </ClCompile>
+    <ClCompile Include="CScytheScript.cpp">
+      <Filter>Scripts\Weapon\Scythe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -91,6 +103,15 @@
     </Filter>
     <Filter Include="Scripts\Unit\Player">
       <UniqueIdentifier>{1cf859de-d203-4603-b5a9-56d36a4a181d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Weapon">
+      <UniqueIdentifier>{f21016fe-7a73-4175-962b-020d3d2609c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Weapon\Scythe">
+      <UniqueIdentifier>{5c443178-8664-4697-8ed5-7c2f597feb4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Weapon\Scythe\Diss">
+      <UniqueIdentifier>{1cd4face-8926-472f-bfa1-e10039d7f393}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -37,6 +37,10 @@
 #include <States/CPlayerConcentrate.h>
 #include <States/CPlayerConcentrate_Start.h>
 #include <States/CPlayerPowerUp.h>
+#include <States/CScytheDissComboA.h>
+#include <States/CScytheDissComboB.h>
+#include <States/CScytheDissComboC.h>
+#include <States/CScytheDissComboD.h>
 
 void CCreateTempLevel::Init()
 {
@@ -75,6 +79,10 @@ void CCreateTempLevel::Init()
 	pFSM->AddState(L"Concentrate", new CPlayerConcentrate);
 	pFSM->AddState(L"Concentrate_Start", new CPlayerConcentrate_Start);
 	pFSM->AddState(L"PowerUp", new CPlayerPowerUp);
+	pFSM->AddState(L"ScytheDiss_ComboA", new CScytheDissComboA);
+	pFSM->AddState(L"ScytheDiss_ComboB", new CScytheDissComboB);
+	pFSM->AddState(L"ScytheDiss_ComboC", new CScytheDissComboC);
+	pFSM->AddState(L"ScytheDiss_ComboD", new CScytheDissComboD);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST

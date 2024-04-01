@@ -167,6 +167,8 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayerScript_Test.h" />
     <ClInclude Include="CScriptMgr.h" />
+    <ClInclude Include="CScytheDissScript.h" />
+    <ClInclude Include="CScytheScript.h" />
     <ClInclude Include="CUnitScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -179,6 +181,8 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayerScript_Test.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />
+    <ClCompile Include="CScytheDissScript.cpp" />
+    <ClCompile Include="CScytheScript.cpp" />
     <ClCompile Include="CUnitScript.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -3,10 +3,10 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CScytheScript.h>
 
 CPlayerIdle::CPlayerIdle()
 	: CState(PLAYERIDLE)
-	, m_PlayerMgr(nullptr)
 {
 }
 
@@ -20,7 +20,7 @@ void CPlayerIdle::finaltick()
 	if (((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && KEY_NONE(KEY::D))
 	|| ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && KEY_NONE(KEY::A)))
 	{
-		if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
+		if (PLAYERSCRIPT->WillDirChange())
 		{
 			ChangeState(L"Idle_UTurn");
 		}
@@ -32,20 +32,36 @@ void CPlayerIdle::finaltick()
 
 	if (((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && KEY_RELEASED(KEY::D))
 		|| ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && KEY_RELEASED(KEY::A)))
-		if (m_PlayerMgr->GetPlayerScript()->WillDirChange())
+		if (PLAYERSCRIPT->WillDirChange())
 			ChangeState(L"Idle_UTurn");
 
 	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
 	{
 		static float JumpDT = 0.f;
 		ChangeState(L"Jump_Start");
-		// @TODO Space 시간 따라 높이 조절
 	}
 
-	if (KEY_PRESSED(KEY::LBTN))
-		ChangeState(L"Concentrate_Start");
 
-	if (KEY_TAP(KEY::LSHIFT) && m_PlayerMgr->GetPlayerScript()->CanDash())
+	if (KEY_TAP(KEY::LBTN))
+	{
+		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+
+		if (nextCombo == 0)
+			ChangeState(strCurScytheName + L"_ComboA");
+		else if (nextCombo == 1)
+			ChangeState(strCurScytheName + L"_ComboB");
+		else if (nextCombo == 2)
+			ChangeState(strCurScytheName + L"_ComboC");
+		else if (nextCombo == 3)
+			ChangeState(strCurScytheName + L"_ComboD");
+	}
+	else if (KEY_PRESSED(KEY::LBTN))
+	{
+		ChangeState(L"Concentrate_Start");
+	}
+
+	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
 	{
 		ChangeState(L"Dash");
 	}
@@ -55,7 +71,6 @@ void CPlayerIdle::Enter()
 {
 	// setting
 	GetOwner()->Movement()->SetVelocity(Vec3());
-	m_PlayerMgr = CPlayerMgr::PlayerMgr();
 
 	// anim
 	GetOwner()->Animator2D()->Play(L"Idle", true);

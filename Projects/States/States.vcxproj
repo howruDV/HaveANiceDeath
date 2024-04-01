@@ -186,6 +186,10 @@ call CodeGen.exe</Command>
     <ClInclude Include="CPlayerRunToIdle.h" />
     <ClInclude Include="CPlayerIdleUTurn.h" />
     <ClInclude Include="CPlayerRunUTurn.h" />
+    <ClInclude Include="CScytheDissComboA.h" />
+    <ClInclude Include="CScytheDissComboB.h" />
+    <ClInclude Include="CScytheDissComboC.h" />
+    <ClInclude Include="CScytheDissComboD.h" />
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTraceState.h" />
     <ClInclude Include="framework.h" />
@@ -206,6 +210,10 @@ call CodeGen.exe</Command>
     <ClCompile Include="CPlayerRunToIdle.cpp" />
     <ClCompile Include="CPlayerIdleUTurn.cpp" />
     <ClCompile Include="CPlayerRunUTurn.cpp" />
+    <ClCompile Include="CScytheDissComboA.cpp" />
+    <ClCompile Include="CScytheDissComboB.cpp" />
+    <ClCompile Include="CScytheDissComboC.cpp" />
+    <ClCompile Include="CScytheDissComboD.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTraceState.cpp" />
     <ClInclude Include="define.h">

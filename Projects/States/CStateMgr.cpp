@@ -15,6 +15,10 @@
 #include "CPlayerRun.h"
 #include "CPlayerRunToIdle.h"
 #include "CPlayerRunUTurn.h"
+#include "CScytheDissComboA.h"
+#include "CScytheDissComboB.h"
+#include "CScytheDissComboC.h"
+#include "CScytheDissComboD.h"
 #include "CTraceState.h"
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
@@ -33,6 +37,10 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerRun");
 	_vec.push_back(L"CPlayerRunToIdle");
 	_vec.push_back(L"CPlayerRunUTurn");
+	_vec.push_back(L"CScytheDissComboA");
+	_vec.push_back(L"CScytheDissComboB");
+	_vec.push_back(L"CScytheDissComboC");
+	_vec.push_back(L"CScytheDissComboD");
 	_vec.push_back(L"CTraceState");
 }
 
@@ -66,6 +74,14 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 		return new CPlayerRunToIdle;
 	if (L"CPlayerRunUTurn" == _strStateName)
 		return new CPlayerRunUTurn;
+	if (L"CScytheDissComboA" == _strStateName)
+		return new CScytheDissComboA;
+	if (L"CScytheDissComboB" == _strStateName)
+		return new CScytheDissComboB;
+	if (L"CScytheDissComboC" == _strStateName)
+		return new CScytheDissComboC;
+	if (L"CScytheDissComboD" == _strStateName)
+		return new CScytheDissComboD;
 	if (L"CTraceState" == _strStateName)
 		return new CTraceState;
 	return nullptr;
@@ -116,6 +132,18 @@ CState* CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERRUNUTURN:
 		return new CPlayerRunUTurn;
+		break;
+	case (UINT)STATE_TYPE::SCYTHEDISSCOMBOA:
+		return new CScytheDissComboA;
+		break;
+	case (UINT)STATE_TYPE::SCYTHEDISSCOMBOB:
+		return new CScytheDissComboB;
+		break;
+	case (UINT)STATE_TYPE::SCYTHEDISSCOMBOC:
+		return new CScytheDissComboC;
+		break;
+	case (UINT)STATE_TYPE::SCYTHEDISSCOMBOD:
+		return new CScytheDissComboD;
 		break;
 	case (UINT)STATE_TYPE::TRACESTATE:
 		return new CTraceState;
@@ -182,6 +210,22 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERRUNUTURN:
 		return L"CPlayerRunUTurn";
+		break;
+
+	case STATE_TYPE::SCYTHEDISSCOMBOA:
+		return L"CScytheDissComboA";
+		break;
+
+	case STATE_TYPE::SCYTHEDISSCOMBOB:
+		return L"CScytheDissComboB";
+		break;
+
+	case STATE_TYPE::SCYTHEDISSCOMBOC:
+		return L"CScytheDissComboC";
+		break;
+
+	case STATE_TYPE::SCYTHEDISSCOMBOD:
+		return L"CScytheDissComboD";
 		break;
 
 	case STATE_TYPE::TRACESTATE:

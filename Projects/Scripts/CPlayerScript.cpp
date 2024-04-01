@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CPlayerScript.h"
 #include "CPlayerMgr.h"
+#include "CScytheDissScript.h"
 
 #include <Engine/components.h>
 #include <Engine/CKeyMgr.h>
@@ -20,21 +21,28 @@ CPlayerScript::CPlayerScript()
 	, m_iAnimaMax(3)
 	, m_iAnimaBlue(0)
 	, m_iAnimaGold(0)
-	, m_bDashCoolTime(1.f)
-	, m_bDashAccTime(0.f)
+	, m_fDashCoolTime(1.f)
+	, m_fDashAccTime(0.f)
 	, m_bDashCan(true)
 	, m_AirColPlatform(nullptr)
 	, m_bAirCol(false)
+	, m_CurScythe(nullptr)
+	, m_fComboCoolTime(0.3f)
+	, m_fComboAccTime(0.f)
+	, m_NextComboIdx(0)
 {
 	m_fSpeed = 500.f;
 	m_fSpeedInAir = m_fSpeed;
 	m_iHPMax = 65;
 	m_iHPActive = m_iHPMax;
 	m_iHPCur = m_iHPMax;
+	m_CurScythe = new CScytheDissScript();
 }
 
 CPlayerScript::~CPlayerScript()
 {
+	if (m_CurScythe)
+		delete m_CurScythe;
 }
 
 void CPlayerScript::begin()
@@ -126,6 +134,26 @@ void CPlayerScript::begin()
 	pAnim->LoadFromFile(pFile);
 	Animator2D()->Create(pAnim, L"PowerUp");
 	fclose(pFile);
+	
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2a.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"ScytheDiss_ComboA");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2b.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"ScytheDiss_ComboB");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2c.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"ScytheDiss_ComboC");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2d.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"ScytheDiss_ComboD");
+	fclose(pFile);
 
 	delete pAnim;
 
@@ -156,12 +184,24 @@ void CPlayerScript::tick()
 	// check coolTime
 	if (!m_bDashCan)
 	{
-		m_bDashAccTime += DT;
+		m_fDashAccTime += DT;
 
-		if (m_bDashAccTime >= m_bDashCoolTime)
+		if (m_fDashAccTime > m_fDashCoolTime)
 		{
 			m_bDashCan = true;
-			m_bDashAccTime = 0.f;
+			m_fDashAccTime = 0.f;
+		}
+	}
+
+	if (m_bComboCan)
+	{
+		m_fComboAccTime += DT;
+
+		if (m_fComboAccTime > m_fComboCoolTime)
+		{
+			m_bComboCan = false;
+			m_fComboAccTime = 0.f;
+			m_NextComboIdx = 0;
 		}
 	}
 
@@ -203,8 +243,15 @@ void CPlayerScript::StartDashCoolTime(bool _bDashCan)
 {
 	if (!_bDashCan)
 	{ 
-		m_bDashAccTime = 0.f;
+		m_fDashAccTime = 0.f;
 	}
 	
 	m_bDashCan = _bDashCan;
+}
+
+void CPlayerScript::StartCombo(int _ComboIdx)
+{
+	m_fComboAccTime = 0.f;
+	m_NextComboIdx = _ComboIdx + 1;
+	m_bComboCan = true;
 }
