@@ -182,6 +182,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="CPlayerJumpFalling.h" />
     <ClInclude Include="CPlayerJumpLanding.h" />
     <ClInclude Include="CPlayerJumpStart.h" />
+    <ClInclude Include="CScytheDissRest.h" />
     <ClInclude Include="CPlayerRun.h" />
     <ClInclude Include="CPlayerRunToIdle.h" />
     <ClInclude Include="CPlayerIdleUTurn.h" />
@@ -211,6 +212,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="CPlayerJumpFalling.cpp" />
     <ClCompile Include="CPlayerJumpLanding.cpp" />
     <ClCompile Include="CPlayerJumpStart.cpp" />
+    <ClCompile Include="CScytheDissRest.cpp" />
     <ClCompile Include="CPlayerRun.cpp" />
     <ClCompile Include="CPlayerRunToIdle.cpp" />
     <ClCompile Include="CPlayerIdleUTurn.cpp" />

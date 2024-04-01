@@ -173,6 +173,9 @@
     <ClInclude Include="CScytheDissCrush.h">
       <Filter>States\Weapon\Scythe\Diss\Crush</Filter>
     </ClInclude>
+    <ClInclude Include="CScytheDissRest.h">
+      <Filter>States\Weapon\Scythe\Diss\Rest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -253,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="CScytheDissCrush.cpp">
       <Filter>States\Weapon\Scythe\Diss\Crush</Filter>
+    </ClCompile>
+    <ClCompile Include="CScytheDissRest.cpp">
+      <Filter>States\Weapon\Scythe\Diss\Rest</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

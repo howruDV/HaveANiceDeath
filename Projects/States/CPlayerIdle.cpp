@@ -75,6 +75,12 @@ void CPlayerIdle::finaltick()
 		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
 		ChangeState(strCurScytheName +L"_Up");
 	}
+
+	if ((KEY_PRESSED(KEY::Q) || KEY_TAP(KEY::Q)) && KEY_TAP(KEY::LBTN))
+	{
+		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		ChangeState(strCurScytheName +L"_Rest");
+	}
 }
 
 void CPlayerIdle::Enter()

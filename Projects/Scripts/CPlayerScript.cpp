@@ -138,7 +138,7 @@ void CPlayerScript::begin()
 	pAnim->LoadFromFile(pFile);
 	Animator2D()->Create(pAnim, L"PowerUp");
 	fclose(pFile);
-	
+
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2a.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
 	Animator2D()->Create(pAnim, L"ScytheDiss_ComboA");
@@ -176,6 +176,11 @@ void CPlayerScript::begin()
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2_Special01.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
 	Animator2D()->Create(pAnim, L"ScytheDiss_Special");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Attack_B_Rest.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"ScytheDiss_Rest");
 	fclose(pFile);
 
 	delete pAnim;

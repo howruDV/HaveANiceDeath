@@ -21,6 +21,7 @@
 #include "CScytheDissComboC.h"
 #include "CScytheDissComboD.h"
 #include "CScytheDissCrush.h"
+#include "CScytheDissRest.h"
 #include "CScytheDissSpecial.h"
 #include "CScytheDissUp.h"
 #include "CTraceState.h"
@@ -47,6 +48,7 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CScytheDissComboC");
 	_vec.push_back(L"CScytheDissComboD");
 	_vec.push_back(L"CScytheDissCrush");
+	_vec.push_back(L"CScytheDissRest");
 	_vec.push_back(L"CScytheDissSpecial");
 	_vec.push_back(L"CScytheDissUp");
 	_vec.push_back(L"CTraceState");
@@ -94,6 +96,8 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 		return new CScytheDissComboD;
 	if (L"CScytheDissCrush" == _strStateName)
 		return new CScytheDissCrush;
+	if (L"CScytheDissRest" == _strStateName)
+		return new CScytheDissRest;
 	if (L"CScytheDissSpecial" == _strStateName)
 		return new CScytheDissSpecial;
 	if (L"CScytheDissUp" == _strStateName)
@@ -166,6 +170,9 @@ CState* CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::SCYTHEDISSCRUSH:
 		return new CScytheDissCrush;
+		break;
+	case (UINT)STATE_TYPE::SCYTHEDISSREST:
+		return new CScytheDissRest;
 		break;
 	case (UINT)STATE_TYPE::SCYTHEDISSSPECIAL:
 		return new CScytheDissSpecial;
@@ -262,6 +269,10 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::SCYTHEDISSCRUSH:
 		return L"CScytheDissCrush";
+		break;
+
+	case STATE_TYPE::SCYTHEDISSREST:
+		return L"CScytheDissRest";
 		break;
 
 	case STATE_TYPE::SCYTHEDISSSPECIAL:

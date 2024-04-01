@@ -45,6 +45,7 @@
 #include <States/CScytheDissSpecial.h>
 #include <States/CScytheDissUp.h>
 #include <States/CScytheDissCrush.h>
+#include <States/CScytheDissRest.h>
 
 void CCreateTempLevel::Init()
 {
@@ -91,6 +92,7 @@ void CCreateTempLevel::Init()
 	pFSM->AddState(L"ScytheDiss_Special", new CScytheDissSpecial);
 	pFSM->AddState(L"ScytheDiss_Up", new CScytheDissUp);
 	pFSM->AddState(L"ScytheDiss_Crush", new CScytheDissCrush);
+	pFSM->AddState(L"ScytheDiss_Rest", new CScytheDissRest);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST

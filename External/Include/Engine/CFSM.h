@@ -15,12 +15,12 @@ class CFSM :
     public CAsset
 {
 private:
-    CFSM*                           m_Origin;       // 원본 FSM
-    CStateMachine*                  m_StateMachine;  // FSM을 사용하는 StateMachine
+    CFSM*                           m_Origin;           // 원본 FSM
+    CStateMachine*                  m_StateMachine;     // FSM을 사용하는 StateMachine
 
-    unordered_map<wstring, CState*> m_mapState;     // FSM이 가질 수 있는 상태
-    CState*                         m_CurState;     // FSM의 현재 상태
-    CState*                         m_PrevState;    // FSM의 이전 상태
+    unordered_map<wstring, CState*> m_mapState;         // FSM이 가질 수 있는 상태
+    CState*                         m_CurState;         // FSM의 현재 상태
+    CState*                         m_PrevState;        // FSM의 이전 상태
     CBlackboard*                    m_Blackboard_OBJ;   // 기록한 FSM 정보 (실제소유: 컴포넌트)
     CBlackboard*                    m_Blackboard_FSM;   // 기록한 FSM 정보 (실제소유: 컴포넌트)
 
