@@ -85,12 +85,20 @@ void CRenderMgr::render_editor()
 
 void CRenderMgr::render_debug()
 {
-	if (m_vecCam.empty())
+	if (m_vecCam.empty() && !m_EditorCam)
 		return;
 
 	// TODO : 일단 0번 카메라로 지정한 듯? 나중에 고쳐야 함
-	g_Transform.matView = m_vecCam[0]->GetViewMat();
-	g_Transform.matProj = m_vecCam[0]->GetProjMat();
+	if (m_isEditorMode)
+	{
+		g_Transform.matView = m_EditorCam->GetViewMat();
+		g_Transform.matProj = m_EditorCam->GetProjMat();
+	}
+	else
+	{
+		g_Transform.matView = m_vecCam[0]->GetViewMat();
+		g_Transform.matProj = m_vecCam[0]->GetProjMat();
+	}
 
 	list<FDebugShapeInfo>::iterator iter = m_DbgShapeInfo.begin();
 	while (iter!=m_DbgShapeInfo.end())
@@ -128,7 +136,7 @@ void CRenderMgr::render_debug()
 		m_pDbgObj->MeshRender()->GetMaterial()->GetShader()->SetTopology(PrevTopology);
 
 		// time check
-		(*iter).fLifeTime += DT;
+		(*iter).fLifeTime += DT_ENGINE;
 		if ((*iter).fLifeTime >= (*iter).fDuration)
 			iter = m_DbgShapeInfo.erase(iter);
 		else

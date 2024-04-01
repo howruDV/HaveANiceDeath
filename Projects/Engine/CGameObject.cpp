@@ -7,6 +7,8 @@
 #include "CLevelMgr.h"
 #include "CLayer.h"
 #include "CGC.h"
+#include "CRenderMgr.h"
+#include "CTransform.h"
 
 CGameObject::CGameObject()
 	: m_arrCom{}
@@ -112,6 +114,13 @@ void CGameObject::finaltick()
 		else
 			iter++;
 	}
+
+	// Register Debug Draw
+	if (GetLayerIdx() == 31 || m_arrCom[(UINT)COMPONENT_TYPE::CAMERA])
+		return;
+
+	if (CRenderMgr::GetInst()->IsDebugPosition())
+		GamePlayStatic::DrawDebugCross(Transform()->GetWorldPos(), 20.f, Vec3(0.1f, 1.f, 0.f), true);
 }
 
 void CGameObject::render()
