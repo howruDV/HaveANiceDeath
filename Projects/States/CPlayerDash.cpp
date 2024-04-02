@@ -50,6 +50,7 @@ void CPlayerDash::Enter()
 	vSpeed.x = *((float*)GetBlackboardData(L"fSpeedDash"));
 	if (m_PlayerMgr->GetPlayerScript()->GetDir() == UNIT_DIRX::LEFT)
 		vSpeed.x *= -1;
+	GetOwner()->Movement()->UseMaxSpeed(false);
 	GetOwner()->Movement()->SetVelocity(vSpeed);
 
 	// anim
@@ -58,6 +59,7 @@ void CPlayerDash::Enter()
 
 void CPlayerDash::Exit()
 {
+	GetOwner()->Movement()->UseMaxSpeed(true);
 	GetOwner()->Movement()->SetVelocity(Vec3());
 	m_PlayerMgr->GetPlayerScript()->StartDashCoolTime();
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <Engine/CScript.h>
 
+class CGameObject;
+
 class CUnitScript :
     public CScript
 {
@@ -14,6 +16,9 @@ protected:
     bool        m_bDirChange_Next;
     bool        m_bDirChange_Cur;
 
+    // Collision
+    vector<CGameObject*> m_CollisionGround;
+
     // hp
     int         m_iHPMax;
     int         m_iHPCur;
@@ -21,6 +26,10 @@ protected:
 public:
     virtual void begin() override {};
     virtual void tick() override;
+
+    //virtual void BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) override {}
+    //virtual void Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) override {}
+    virtual void EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) override;
 
     virtual void SaveToFile(FILE* _File) {}
     virtual void LoadFromFile(FILE* _File) {}
@@ -35,15 +44,19 @@ public:
     void SetHPMax(int _iHP) { m_iHPMax = _iHP; }
     void SetHPCur(int _iHP) { m_iHPCur = _iHP; }
     void SetDirLock(bool _bLock) { m_bDirLock = _bLock; }
+    void PushGround(CGameObject* _Ground) { m_CollisionGround.push_back(_Ground); }
+    void DeleteGround(CGameObject* _Ground);
 
     float GetSpeed() { return m_fSpeed; }
     UNIT_DIRX GetDir() { return m_Dir_Prev; }
     int GetHPMax() { return m_iHPMax; }
     int GetHPCur() { return m_iHPCur; }
+    int GetGroundCount() { return (int)m_CollisionGround.size(); }
     bool IsDead() { return m_iHPCur <= 0; }
     bool WillDirChange() { return m_bDirChange_Next; }
     bool IsDirChange() { return m_bDirChange_Cur; }
     bool IsDirLock() { return m_bDirLock; }
+    bool IsGround(CGameObject* _Platform);
 
 public:
     CLONE(CUnitScript);

@@ -65,7 +65,8 @@ void CPlayerScript::begin()
 
 	Movement()->UseGravity(true);
 	Movement()->SetInitSpeed(m_fSpeed);
-	Movement()->SetMaxSpeed_Ground(m_fSpeedDash);
+	Movement()->SetInitSpeed_InAir(300.f);
+	Movement()->SetMaxSpeed_Ground(m_fSpeed);
 	Movement()->SetMaxSpeed_InAir(5000.f);
 	Movement()->SetGravityForce(Vec3(0.f,-4000.f,0.f));
 
@@ -245,7 +246,7 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 		//m_bAerialCan = true;
 
 		// @TODO 오류나면 여기
- 	//	Vec3 vPos = _Collider->GetFinalPos();
+ 		//Vec3 vPos = _Collider->GetFinalPos();
 		//vPos.y = _OtherCollider->GetFinalPos().y + _OtherCollider->GetFinalScale().y / 2.f + _Collider->GetFinalScale().y / 2.f - _Collider->GetOffsetPos().y;
 		//Transform()->SetRelativePos(vPos);
 	}
@@ -267,6 +268,9 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 
 void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
+	CUnitScript::EndOverlap(_Collider, _OtherObj, _OtherCollider);
+
+	// Wall
 	if (_OtherObj->GetLayerIdx() == 6)
 	{
 		//Movement()->SetGround(false);

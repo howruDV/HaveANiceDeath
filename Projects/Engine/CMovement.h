@@ -17,11 +17,13 @@ private:
     Vec3        m_vGravityForce;     // 중력 방향, 배율
     float       m_fMass;             // 질량
     float       m_fInitSpeed;        // 최소(초기화) 속력
+    float       m_fInitSpeed_InAir;  // 최소(초기화) 속력
     float       m_fMaxSpeed_Ground;  // 대지 최대 속력
     float       m_fMaxSpeed_InAir;   // 공중 최대 속력
     float       m_fFrictionScale;    // 마찰 크기
     bool        m_bUseGravity;       // 중력 사용
     bool        m_bGround;           // 땅 위
+    bool        m_bUseMaxSpeed;
 
 public:
     virtual void begin() override;
@@ -36,11 +38,13 @@ public:
     void SetGravityForce(Vec3 _vGravityForce) { m_vGravityForce = _vGravityForce; }
     void SetMass(float _Mass) { m_fMass = _Mass; }
     void SetInitSpeed(float _Speed) { m_fInitSpeed = _Speed; }
+    void SetInitSpeed_InAir(float _Speed) { m_fInitSpeed_InAir = _Speed; }
     void SetMaxSpeed_Ground(float _Speed) { m_fMaxSpeed_Ground = _Speed; }
     void SetMaxSpeed_InAir(float _Speed) { m_fMaxSpeed_InAir = _Speed; }
     void SetFrictionScale(float _F) { m_fFrictionScale = _F; }
     void SetGround(bool _Ground) { if (_Ground) { m_vVelocity.y = 0.f; } m_bGround = _Ground; }
     void UseGravity(bool _Use) { m_bUseGravity = _Use; }
+    void UseMaxSpeed(bool _Use) { m_bUseMaxSpeed = _Use; }
     Vec3 MakeMoveToForce(){ return m_vAccel * m_fMass;}
 
     Vec3 GetForce() { return m_vForce; }

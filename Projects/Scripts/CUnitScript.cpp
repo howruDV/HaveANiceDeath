@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CUnitScript.h"
 
+#include <Engine/CGameObject.h>
 #include <Engine/CAnimator2D.h>
 
 CUnitScript::CUnitScript(UINT m_iScriptType)
@@ -49,4 +50,25 @@ void CUnitScript::tick()
 		m_Dir_Prev = m_Dir;
 		m_Dir = m_Dir_Next;
 	}
+}
+
+void CUnitScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
+{
+	if (m_CollisionGround.empty())
+		Movement()->SetGround(false);
+}
+
+void CUnitScript::DeleteGround(CGameObject* _Ground)
+{
+	vector<CGameObject*>::iterator iter = find(m_CollisionGround.begin(), m_CollisionGround.end(), _Ground);
+	m_CollisionGround.erase(iter);
+}
+
+bool CUnitScript::IsGround(CGameObject* _Platform)
+{
+	vector<CGameObject*>::iterator iter = find(m_CollisionGround.begin(), m_CollisionGround.end(), _Platform);
+
+	if (iter != m_CollisionGround.end())
+		return true;
+	return false;
 }

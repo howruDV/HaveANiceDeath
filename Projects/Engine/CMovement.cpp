@@ -11,11 +11,13 @@ CMovement::CMovement()
 	, m_vGravityForce(Vec3(0.f, -981.f, 0.f))
 	, m_fMass(1.f)
 	, m_fInitSpeed(0.f)
+	, m_fInitSpeed_InAir(0.f)
 	, m_fMaxSpeed_Ground(100.f)
 	, m_fMaxSpeed_InAir(1000.f)
 	, m_fFrictionScale(0.f)
 	, m_bUseGravity(true)
 	, m_bGround(false)
+	, m_bUseMaxSpeed(true)
 {
 }
 
@@ -28,6 +30,7 @@ CMovement::CMovement(const CMovement& _Origin)
 	, m_fMaxSpeed_InAir(_Origin.m_fMaxSpeed_InAir)
 	, m_bUseGravity(_Origin.m_bUseGravity)
 	, m_bGround(false)
+	, m_bUseMaxSpeed(_Origin.m_bUseMaxSpeed)
 {
 }
 
@@ -59,11 +62,21 @@ void CMovement::finaltick()
 	// 1. 속도 계산
 	// ------------------------------
 	// case: 힘을 주기 시작하는 경우 초기상태 지정
-	if (m_vVelocity.Length() < 0.1f && m_vAccel != Vec3())
+	//if ( !(m_bUseGravity && !m_bGround) && m_vVelocity.Length() < 0.1f && m_vAccel != Vec3())
+	if ( m_vVelocity.Length() < 0.1f && m_vAccel != Vec3())
 	{
-		Vec3 vAccelDir = m_vAccel;
-		vAccelDir.Normalize();
-		m_vVelocity = vAccelDir * m_fInitSpeed;
+		if (m_bUseGravity && !m_bGround)
+		{
+			Vec3 vAccelDir = m_vAccel;
+			vAccelDir.Normalize();
+			m_vVelocity = vAccelDir * m_fInitSpeed_InAir;
+		}
+		else
+		{
+			Vec3 vAccelDir = m_vAccel;
+			vAccelDir.Normalize();
+			m_vVelocity = vAccelDir * m_fInitSpeed;
+		}
 	}
 	else
 	{
@@ -71,13 +84,16 @@ void CMovement::finaltick()
 	}
 
 	// 최대 속도 제한
-	if (m_bGround && fabs(m_vVelocity.Length() > m_fMaxSpeed_Ground))
+	if (m_bUseMaxSpeed)
 	{
-		m_vVelocity = m_vVelocity.Normalize() * m_fMaxSpeed_Ground;
-	}
-	else if (not m_bGround && fabs(m_vVelocity.Length() > m_fMaxSpeed_InAir))
-	{
-		m_vVelocity = m_vVelocity.Normalize() * m_fMaxSpeed_InAir;
+		if (m_bGround && fabs(m_vVelocity.Length() > m_fMaxSpeed_Ground))
+		{
+			m_vVelocity = m_vVelocity.Normalize() * m_fMaxSpeed_Ground;
+		}
+		else if (not m_bGround && fabs(m_vVelocity.Length() > m_fMaxSpeed_InAir))
+		{
+			m_vVelocity = m_vVelocity.Normalize() * m_fMaxSpeed_InAir;
+		}
 	}
 
 	// ------------------------------

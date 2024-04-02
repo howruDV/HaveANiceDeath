@@ -25,12 +25,12 @@ void CPlayerRunUTurn::finaltick()
 	if (KEY_PRESSED(KEY::A) && KEY_NONE(KEY::D))
 	{
 		Vec3 vSpeed = Vec3(-fSpeed, 0, 0);
-		GetOwner()->Movement()->SetVelocity(vSpeed);
+		GetOwner()->Movement()->AddForce(vSpeed);
 	}
 	if (KEY_PRESSED(KEY::D) && KEY_NONE(KEY::A))
 	{
 		Vec3 vSpeed = Vec3(fSpeed, 0, 0);
-		GetOwner()->Movement()->SetVelocity(vSpeed);
+		GetOwner()->Movement()->AddForce(vSpeed);
 	}
 	if ((KEY_PRESSED(KEY::A) && KEY_PRESSED(KEY::D))
 		|| ((KEY_RELEASED(KEY::A) || KEY_NONE(KEY::A)) && (KEY_RELEASED(KEY::D) || KEY_NONE(KEY::D))))

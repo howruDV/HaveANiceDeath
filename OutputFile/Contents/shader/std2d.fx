@@ -101,15 +101,15 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
         }
     }
     
+    // 3. cut masked
+    if (vColor.a == 0.f)
+        discard;
+    
     // 2. lighting
     tLightColor LightColor = (tLightColor) 0.f;
     for (int i = 0; i < g_Light2DCount; ++i)
         CalLight2D(_in.vWorldPos, i, LightColor);
     vColor.rgb *= LightColor.vColor.rgb + LightColor.vAmbient.rgb;
-    
-    // 3. cut masked
-    if (vColor.a == 0.f)
-        discard;
     
     // ex. effect - paper burn
     //float x = g_NoiseTex.Sample(g_sam_0, _in.vUV).x;
