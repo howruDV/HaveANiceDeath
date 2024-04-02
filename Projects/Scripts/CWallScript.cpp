@@ -4,6 +4,7 @@
 
 #include <Engine/CCollider2D.h>
 #include <Engine/CTransform.h>
+#include <Engine/CMovement.h>
 
 CWallScript::CWallScript()
 	: CScript(WALLSCRIPT)
@@ -37,16 +38,16 @@ CWallScript::~CWallScript()
 
 void CWallScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	if (!_OtherObj->GetScriptByType<CUnitScript>() || !_OtherObj->Collider2D())
+	if (!_OtherObj->GetScriptByType<CUnitScript>() || !_OtherObj->Movement())
 		return;
 
+	CUnitScript* pUnit = _OtherObj->GetScriptByType<CUnitScript>();
 	Vec3 vOtherRetPos = _OtherObj->Transform()->GetRelativePos();
 	const Vec3 vMoveDir = _OtherObj->Transform()->GetRelativePos() - _OtherObj->Transform()->GetRelativePos_Prev();
 	const Vec3 vThisColPos = _Collider->GetFinalPos();
 	const Vec3 vOtherColPos = _OtherCollider->GetFinalPos();
 	const Vec3 vThisColScale = _Collider->GetFinalScale();
 	const Vec3 vOtherColScale = _OtherCollider->GetFinalScale();
-
 	const Vec3 vThisColLeftBot = Vec3(vThisColPos) - Vec3(vThisColScale / 2.f);
 	const Vec3 vThisColRightTop = Vec3(vThisColPos) + Vec3(vThisColScale / 2.f);
 
@@ -59,25 +60,23 @@ void CWallScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, C
 			float fPrevOtherB = vOtherColPos.y - vOtherColScale.y / 2.f - vMoveDir.y;
 
 			// Push Up
-			//if (vMoveDir.y < 0.f && vOtherColPos.y + m_fGroundAdjust > vThisColPos.y)
 			if (vMoveDir.y < 0.f && fPrevOtherB + m_fGroundAdjust >= vThisColRightTop.y)
 			{
 				float ThisColTop = vThisColPos.y + vThisColScale.y / 2.f;
 				vOtherRetPos.y = ThisColTop + vOtherColScale.y / 2.f - _OtherCollider->GetOffsetPos().y;
 
-				if (_OtherObj->Movement())
-				{
-					_OtherObj->Movement()->SetGround(true);
-					_OtherObj->GetScriptByType<CUnitScript>()->PushGround(GetOwner());
-				}
+				_OtherObj->Movement()->SetGround(true);
+				pUnit->PushGround(GetOwner());
+				pUnit->BeginPushUp(GetOwner());
 			}
 
 			// Push Down
-			//else if (vMoveDir.y > 0.f && vOtherColPos.y < vThisColPos.y)
 			else if(vMoveDir.y > 0.f && fPrevOtherT - m_fGroundAdjust <= vThisColLeftBot.y)
 			{
 				float ThisColBottom = vThisColPos.y - vThisColScale.y / 2.f;
 				vOtherRetPos.y = ThisColBottom - vOtherColScale.y / 2.f - _OtherCollider->GetOffsetPos().y;
+
+				pUnit->BeginPushDown(GetOwner());
 			}
 		}
 	}
@@ -95,6 +94,7 @@ void CWallScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, C
 			{
 				float ThisColLeft = vThisColPos.x - vThisColScale.x / 2.f;
 				vOtherRetPos.x = ThisColLeft - vOtherColScale.x / 2.f - _OtherCollider->GetOffsetPos().x;
+				pUnit->BeginPushLeft(GetOwner());
 			}
 
 			// Push Right
@@ -102,12 +102,12 @@ void CWallScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, C
 			{
 				float ThisColRight = vThisColPos.x + vThisColScale.x / 2.f;
 				vOtherRetPos.x = ThisColRight + vOtherColScale.x / 2.f - _OtherCollider->GetOffsetPos().x;
+				pUnit->BeginPushRight(GetOwner());
 			}
 		}
 	}
 
 	// Adjust Beside Two Colliders
-	//|| vThisColPos.y + vThisColScale.y + m_fGroundAdjust > vOtherColPos.y + vOtherColScale.y / 2.f)
 	if (m_bUpdownCollision && (vThisColRightTop.y > vOtherColPos.y - vOtherColScale.y / 2.f)
 		&& (vThisColRightTop.y - m_fGroundAdjust <= vOtherColPos.y - vOtherColScale.y / 2.f))
 	{
@@ -115,6 +115,10 @@ void CWallScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, C
 
 		if (vOtherRetPos.y < fNewY)
 			vOtherRetPos.y = fNewY + 1.f;
+
+		// @TODO 안맞으면 여기임
+		//pUnit->PushGround(GetOwner());
+		//pUnit->BeginPushUp(GetOwner());
 	}
 
 	_OtherObj->Transform()->SetRelativePos(vOtherRetPos);
@@ -131,8 +135,6 @@ void CWallScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColli
 	const Vec3 vOtherColPos = _OtherCollider->GetFinalPos();
 	const Vec3 vThisColScale = _Collider->GetFinalScale();
 	const Vec3 vOtherColScale = _OtherCollider->GetFinalScale();
-
-
 	const Vec3 vThisColLeftBot = Vec3(vThisColPos) - Vec3(vThisColScale / 2.f);
 	const Vec3 vThisColRightTop = Vec3(vThisColPos) + Vec3(vThisColScale / 2.f);
 

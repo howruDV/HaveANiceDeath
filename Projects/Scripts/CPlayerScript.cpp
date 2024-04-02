@@ -242,27 +242,13 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 	// Platform
 	if (_OtherObj->GetLayerIdx() == 6)
 	{
-		//Movement()->SetGround(true);
-		//m_bAerialCan = true;
-
-		// @TODO 오류나면 여기
- 		//Vec3 vPos = _Collider->GetFinalPos();
-		//vPos.y = _OtherCollider->GetFinalPos().y + _OtherCollider->GetFinalScale().y / 2.f + _Collider->GetFinalScale().y / 2.f - _Collider->GetOffsetPos().y;
-		//Transform()->SetRelativePos(vPos);
-	}
-
-	// Aerial Platform
-	if (_OtherObj->GetLayerIdx() == 7)
-	{
-		m_AirColPlatform = _OtherObj;
-		m_bAirCol = true;
-	}
-	
-	// Wall
-	if (_OtherObj->GetLayerIdx() == 8)
-	{
-		m_ColWall = _OtherObj;
-		m_bWallCol = true;
+		// case: aireal collision
+		wstring strState = StateMachine()->GetFSM()->GetCurState()->GetName();
+		if ( strState == L"PowerUp" || strState == L"ScytheDiss_Up")
+		{
+			m_AirColPlatform = _OtherObj;
+			m_bAirCol = true;
+		}
 	}
 }
 
@@ -270,27 +256,32 @@ void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, C
 {
 	CUnitScript::EndOverlap(_Collider, _OtherObj, _OtherCollider);
 
-	// Wall
-	if (_OtherObj->GetLayerIdx() == 6)
+	if (_OtherObj == m_AirColPlatform)
 	{
-		//Movement()->SetGround(false);
+		m_AirColPlatform = nullptr;
+		m_bAirCol = false;
 	}
+}
 
-	if (_OtherObj->GetLayerIdx() == 7)
-	{
-		if (m_bAirCol)
-		{
-			m_AirColPlatform = nullptr;
-			m_bAirCol = false;
-		}
-	}
+void CPlayerScript::BeginPushUp(CGameObject* _OtherObj)
+{
+	m_bAerialCan = true;
+}
 
-	// Wall
-	if (_OtherObj->GetLayerIdx() == 8)
-	{
-		m_ColWall = nullptr;
-		m_bWallCol = false;
-	}
+void CPlayerScript::BeginPushDown(CGameObject* _OtherObj)
+{
+	//m_AirColPlatform = _OtherObj;
+	//m_bAirCol = true;
+}
+
+void CPlayerScript::EndPushUp(CGameObject* _OtherObj)
+{
+}
+
+void CPlayerScript::EndPushDown(CGameObject* _OtherObj)
+{
+	/*m_AirColPlatform = nullptr;
+	m_bAirCol = false;*/
 }
 
 void CPlayerScript::StartDashCoolTime(bool _bDashCan)

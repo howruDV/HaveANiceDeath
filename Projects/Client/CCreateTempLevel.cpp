@@ -133,8 +133,6 @@ void CCreateTempLevel::CreateTempLevel()
 	pTempLevel->GetLayer(4)->SetName(L"Monster");
 	pTempLevel->GetLayer(5)->SetName(L"Light");
 	pTempLevel->GetLayer(6)->SetName(L"Platform");
-	pTempLevel->GetLayer(7)->SetName(L"Platform2");
-	pTempLevel->GetLayer(8)->SetName(L"Wall");
 	pTempLevel->GetLayer(31)->SetName(L"UI");
 
 	// Computer Shader Test
@@ -359,7 +357,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->Transform()->SetRelativePos(Vec3(0.f, -160.f, 100.f));
 	pObj->Transform()->SetRelativeScale(Vec3(500.f, 100.f, 1.f));
 	pObj->GetScriptByType<CWallScript>()->SetSideCollision(true);
-	pTempLevel->AddObject(pObj, L"Platform2", false);
+	pTempLevel->AddObject(pObj, L"Platform", false);
 
 	// Platform
 	pObj = new CGameObject;

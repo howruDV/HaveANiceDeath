@@ -34,9 +34,9 @@ void CScytheDissUp::finaltick()
 		// »ó½Â
 		else
 		{
-			if (PLAYERSCRIPT->IsWallCol())
+			if (PLAYERSCRIPT->IsAirCol())
 			{
-				CGameObject* CollisionWall = PLAYERSCRIPT->GetColWall();
+				CGameObject* CollisionWall = PLAYERSCRIPT->GetAirColPlatform();
 				m_TargetPos.y = CollisionWall->Collider2D()->GetFinalPos().y - CollisionWall->Collider2D()->GetFinalScale().y;
 				GetOwner()->Transform()->SetRelativePos(m_TargetPos);
 				return;

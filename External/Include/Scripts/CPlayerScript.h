@@ -60,6 +60,10 @@ public:
     virtual void BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) override;
     virtual void Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) override {}
     virtual void EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider) override;
+    virtual void BeginPushUp(CGameObject* _OtherObj) override;
+    virtual void BeginPushDown(CGameObject* _OtherObj) override;
+    virtual void EndPushUp(CGameObject* _OtherObj) override;
+    virtual void EndPushDown(CGameObject* _OtherObj) override;
 
     virtual void SaveToFile(FILE* _File) {}
     virtual void LoadFromFile(FILE* _File) {}
