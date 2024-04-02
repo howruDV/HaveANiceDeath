@@ -37,6 +37,12 @@
     <ClInclude Include="CScytheScript.h">
       <Filter>Scripts\Weapon\Scythe</Filter>
     </ClInclude>
+    <ClInclude Include="CCornerTriggerScript.h">
+      <Filter>Scripts\Platform\CornerTrigger</Filter>
+    </ClInclude>
+    <ClInclude Include="CWallScript.h">
+      <Filter>Scripts\Platform\Wall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -75,6 +81,12 @@
     <ClCompile Include="CScytheScript.cpp">
       <Filter>Scripts\Weapon\Scythe</Filter>
     </ClCompile>
+    <ClCompile Include="CCornerTriggerScript.cpp">
+      <Filter>Scripts\Platform\CornerTrigger</Filter>
+    </ClCompile>
+    <ClCompile Include="CWallScript.cpp">
+      <Filter>Scripts\Platform\Wall</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -112,6 +124,15 @@
     </Filter>
     <Filter Include="Scripts\Weapon\Scythe\Diss">
       <UniqueIdentifier>{1cd4face-8926-472f-bfa1-e10039d7f393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Platform">
+      <UniqueIdentifier>{d46e05a9-6414-4df5-89a5-87891d19d720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Platform\Wall">
+      <UniqueIdentifier>{a61668dc-6eb2-4d51-89a9-622314d2740b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Platform\CornerTrigger">
+      <UniqueIdentifier>{bba47db1-2fb4-4b4c-8d5f-2b6e55d10296}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

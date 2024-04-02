@@ -105,6 +105,7 @@ void CMovement::finaltick()
 	// ------------------------------
 	Vec3 vObjPos = GetOwner()->Transform()->GetRelativePos();
 	vObjPos += m_vVelocity * DT;
+	GetOwner()->Transform()->SetRelativePos_Prev(GetOwner()->Transform()->GetRelativePos());
 	GetOwner()->Transform()->SetRelativePos(vObjPos);
 
 	// ------------------------------

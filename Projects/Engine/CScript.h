@@ -42,5 +42,6 @@ public:
 
 public:
     CScript(UINT m_iScriptType);
+    CScript(const CScript& _Origin);
     ~CScript();
 };

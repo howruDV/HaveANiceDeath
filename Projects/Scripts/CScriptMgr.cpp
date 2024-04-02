@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CScriptMgr.h"
 
+#include "CCornerTriggerScript.h"
 #include "CGameMgr.h"
 #include "CMissileScript_Test.h"
 #include "CMonsterScript_Test.h"
@@ -8,9 +9,11 @@
 #include "CPlayerScript.h"
 #include "CPlayerScript_Test.h"
 #include "CScytheDissScript.h"
+#include "CWallScript.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
+	_vec.push_back(L"CCornerTriggerScript");
 	_vec.push_back(L"CGameMgr");
 	_vec.push_back(L"CMissileScript_Test");
 	_vec.push_back(L"CMonsterScript_Test");
@@ -18,10 +21,13 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CPlayerScript_Test");
 	_vec.push_back(L"CScytheDissScript");
+	_vec.push_back(L"CWallScript");
 }
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 {
+	if (L"CCornerTriggerScript" == _strScriptName)
+		return new CCornerTriggerScript;
 	if (L"CGameMgr" == _strScriptName)
 		return new CGameMgr;
 	if (L"CMissileScript_Test" == _strScriptName)
@@ -36,6 +42,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlayerScript_Test;
 	if (L"CScytheDissScript" == _strScriptName)
 		return new CScytheDissScript;
+	if (L"CWallScript" == _strScriptName)
+		return new CWallScript;
 	return nullptr;
 }
 
@@ -43,6 +51,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 {
 	switch (_iScriptType)
 	{
+	case (UINT)SCRIPT_TYPE::CORNERTRIGGERSCRIPT:
+		return new CCornerTriggerScript;
+		break;
 	case (UINT)SCRIPT_TYPE::GAMEMGR:
 		return new CGameMgr;
 		break;
@@ -64,6 +75,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::SCYTHEDISSSCRIPT:
 		return new CScytheDissScript;
 		break;
+	case (UINT)SCRIPT_TYPE::WALLSCRIPT:
+		return new CWallScript;
+		break;
 	}
 	return nullptr;
 }
@@ -72,6 +86,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 {
 	switch ((SCRIPT_TYPE)_pScript->GetScriptType())
 	{
+	case SCRIPT_TYPE::CORNERTRIGGERSCRIPT:
+		return L"CCornerTriggerScript";
+		break;
+
 	case SCRIPT_TYPE::GAMEMGR:
 		return L"CGameMgr";
 		break;
@@ -98,6 +116,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::SCYTHEDISSSCRIPT:
 		return L"CScytheDissScript";
+		break;
+
+	case SCRIPT_TYPE::WALLSCRIPT:
+		return L"CWallScript";
 		break;
 
 	}

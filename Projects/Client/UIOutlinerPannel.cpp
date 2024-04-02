@@ -121,12 +121,12 @@ void UIOutlinerPannel::DrawRightClickMenu()
 				wstring strPath = L"prefab\\" + pSelectObj->GetName() + L".pref";
 				pPrefab->SetName(strPath);
 
+				// save prefab
 				CAssetMgr::GetInst()->AddAsset(strPath, pPrefab.Get());
+				pPrefab->Save(strPath);
+
 				UIContentPannel* pContent = (UIContentPannel*)CImGuiMgr::GetInst()->FindUI("##Content");
 				pContent->ReloadContent();
-
-				// save prefab
-				pPrefab->Save(strPath);
 			}
 
 			m_bRightClick = false;

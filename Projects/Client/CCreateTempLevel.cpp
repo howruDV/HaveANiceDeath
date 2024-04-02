@@ -21,6 +21,7 @@
 #include <Scripts/CMissileScript_Test.h>
 #include <Scripts/CMonsterScript_Test.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CWallScript.h>
 
 #include <States/CIdleState.h>
 #include <States/CTraceState.h>
@@ -351,11 +352,13 @@ void CCreateTempLevel::CreateTempLevel()
 
 	// Platform
 	pObj = new CGameObject;
-	pObj->SetName(L"Platform");
+	pObj->SetName(L"Platform2");
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CCollider2D);
+	pObj->AddComponent(new CWallScript);
 	pObj->Transform()->SetRelativePos(Vec3(0.f, -160.f, 100.f));
 	pObj->Transform()->SetRelativeScale(Vec3(500.f, 100.f, 1.f));
+	pObj->GetScriptByType<CWallScript>()->SetSideCollision(true);
 	pTempLevel->AddObject(pObj, L"Platform2", false);
 
 	// Platform
@@ -363,6 +366,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->SetName(L"Platform");
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CCollider2D);
+	pObj->AddComponent(new CWallScript);
 	pObj->Transform()->SetRelativePos(Vec3(0.f, -500.f, 100.f));
 	pObj->Transform()->SetRelativeScale(Vec3(1500.f, 200.f, 1.f));
 	pTempLevel->AddObject(pObj, L"Platform", false);
@@ -374,7 +378,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->AddComponent(new CTransform);
 	pObj->AddComponent(new CMeshRender);
 	pObj->AddComponent(new CCollider2D);
-	pObj->AddComponent(new CStateMachine);
+	//pObj->AddComponent(new CStateMachine);
 	//pObj->AddComponent(new CMonsterScript_Test);
 
 	pObj->Transform()->SetRelativePos(Vec3(200.f, 0.f, 100.f));

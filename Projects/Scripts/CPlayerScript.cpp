@@ -241,13 +241,13 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 	// Platform
 	if (_OtherObj->GetLayerIdx() == 6)
 	{
-		Movement()->SetGround(true);
-		m_bAerialCan = true;
+		//Movement()->SetGround(true);
+		//m_bAerialCan = true;
 
 		// @TODO 오류나면 여기
- 		Vec3 vPos = _Collider->GetFinalPos();
-		vPos.y = _OtherCollider->GetFinalPos().y + _OtherCollider->GetFinalScale().y / 2.f + _Collider->GetFinalScale().y / 2.f - _Collider->GetOffsetPos().y;
-		Transform()->SetRelativePos(vPos);
+ 	//	Vec3 vPos = _Collider->GetFinalPos();
+		//vPos.y = _OtherCollider->GetFinalPos().y + _OtherCollider->GetFinalScale().y / 2.f + _Collider->GetFinalScale().y / 2.f - _Collider->GetOffsetPos().y;
+		//Transform()->SetRelativePos(vPos);
 	}
 
 	// Aerial Platform
@@ -269,7 +269,7 @@ void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, C
 {
 	if (_OtherObj->GetLayerIdx() == 6)
 	{
-		Movement()->SetGround(false);
+		//Movement()->SetGround(false);
 	}
 
 	if (_OtherObj->GetLayerIdx() == 7)

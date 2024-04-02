@@ -160,6 +160,7 @@ call ScriptsCopy.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCornerTriggerScript.h" />
     <ClInclude Include="CGameMgr.h" />
     <ClInclude Include="CMissileScript_Test.h" />
     <ClInclude Include="CMonsterScript_Test.h" />
@@ -170,10 +171,12 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CScytheDissScript.h" />
     <ClInclude Include="CScytheScript.h" />
     <ClInclude Include="CUnitScript.h" />
+    <ClInclude Include="CWallScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCornerTriggerScript.cpp" />
     <ClCompile Include="CGameMgr.cpp" />
     <ClCompile Include="CMissileScript_Test.cpp" />
     <ClCompile Include="CMonsterScript_Test.cpp" />
@@ -184,6 +187,7 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CScytheDissScript.cpp" />
     <ClCompile Include="CScytheScript.cpp" />
     <ClCompile Include="CUnitScript.cpp" />
+    <ClCompile Include="CWallScript.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -41,7 +41,6 @@ void CTransform::finaltick()
 	m_matWorld._43 = m_vRelativePos.z;
 	*/
 	Matrix matTranslation = XMMatrixTranslation(m_vRelativePos.x, m_vRelativePos.y, m_vRelativePos.z);
-
 	m_matWorld = matScale * matRotX * matRotY * matRotZ * matTranslation;
 
 	// --------------------------
@@ -89,6 +88,7 @@ void CTransform::finaltick()
 			m_arrWorldDir[i].Normalize();	// m_matWorld에 크기정보 있을 수 있으므로 정규화
 		}
 	}
+
 }
 
 void CTransform::UpdatePipeline()

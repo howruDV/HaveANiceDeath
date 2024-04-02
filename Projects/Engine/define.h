@@ -186,6 +186,7 @@ enum class TEX_PARAM
 
 enum class SCRIPT_PARAM
 {
+	BOOL,
 	INT,
 	FLOAT,
 	VEC2,

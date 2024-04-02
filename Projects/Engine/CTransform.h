@@ -10,6 +10,7 @@ class CTransform :
     public CComponent
 {
 private:
+    Vec3    m_vRelativePos_Prev;
     Vec3    m_vRelativePos;
     Vec3    m_vRelativeScale;
     Vec3    m_vRelativeRotation;    // Hierachy structure, 부모의 위치 따라야 함
@@ -27,10 +28,13 @@ public:
 
 public:    
     void SetRelativePos(Vec3 _Pos) { m_vRelativePos = _Pos; }
+    void SetRelativePos_Prev(Vec3 _Pos) { m_vRelativePos_Prev = _Pos; }
     void SetRelativeScale(Vec3 _Scale) { m_vRelativeScale = _Scale; }
     void SetRelativeRotation(Vec3 _Rotation) { m_vRelativeRotation = _Rotation; }
     void SetAbsolute(bool _bAbsolute) { m_bAbsolute = _bAbsolute; }
     void SetWorldMat(const Matrix& _mat) { m_matWorld = _mat; }
+
+    Vec3 GetRelativePos_Prev() { return m_vRelativePos_Prev; }
     Vec3 GetRelativePos() { return m_vRelativePos; }
     Vec3 GetRelativeScale() { return m_vRelativeScale; }
     Vec3 GetRelativeRotation() { return m_vRelativeRotation; }

@@ -84,7 +84,22 @@ bool UIParam::Param_VEC4(Vec4* _Data, const string& _Desc)
 	return false;
 }
 
-bool UIParam::Param_TEXTURE(Ptr<CTexture>& _Texture, const string& _Desc, UI* _Inst, DELEGATE_1 _Func)
+bool UIParam::Param_BOOL(bool* _Data, const string& _Desc)
+{
+	TextBox(_Desc.c_str());
+	ImGui::SameLine();
+
+	char szID[256] = {};
+	sprintf_s(szID, "##bool%d", g_ID++);
+	if (ImGui::Checkbox(szID, _Data))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool UIParam::Param_TEXTURE(_Inout_ Ptr<CTexture>& _Texture, const string& _Desc, UI* _Inst, DELEGATE_1 _Func)
 {
 	TextBox(_Desc.c_str());
 	ImGui::SameLine();
