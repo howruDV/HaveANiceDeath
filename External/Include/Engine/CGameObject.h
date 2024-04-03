@@ -21,6 +21,7 @@ private:
     CGameObject*            m_Parent;
     int                     m_iLayerIdx; // ¼Ò¼ÓµÈ Layer Index
     bool                    m_bDead;
+    bool                    m_bActivate;
 
 public:
     void begin();
@@ -38,6 +39,8 @@ public:
 public:
     void AddComponent(CComponent* _Component);
     void AddChild(CGameObject* _Child);
+    void Activate() { m_bActivate = true; }
+    void Deactivate() { m_bActivate = false; }
 
     CGameObject* GetParent() { return m_Parent; }
     vector<CGameObject*>& GetChild() { return m_vecChild; }
@@ -45,6 +48,7 @@ public:
     int GetLayerIdx() { return m_iLayerIdx; }
     bool IsDead() { return m_bDead; }
     bool IsAncestor(CGameObject* _Other);
+    bool IsActivate() { return m_bActivate; }
     template <typename T>
     T* GetScriptByType();
 

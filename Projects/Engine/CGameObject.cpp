@@ -16,6 +16,7 @@ CGameObject::CGameObject()
 	, m_Parent(nullptr)
 	, m_iLayerIdx(-1)	// 어떤 Layer에도 소속되지 않은 상태
 	, m_bDead(false)
+	, m_bActivate(true)
 {
 }
 
@@ -26,6 +27,7 @@ CGameObject::CGameObject(const CGameObject& _OriginObject)
 	, m_Parent(nullptr)
 	, m_iLayerIdx(-1)
 	, m_bDead(false)
+	, m_bActivate(_OriginObject.m_bActivate)
 {
 	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
 	{
@@ -60,6 +62,9 @@ CGameObject::~CGameObject()
 
 void CGameObject::begin()
 {
+	if (!m_bActivate)
+		return;
+
 	size_t CurChildSize = m_vecChild.size();
 
 	for (UINT i = 0; i < UINT(COMPONENT_TYPE::END); ++i)
@@ -77,6 +82,9 @@ void CGameObject::begin()
 
 void CGameObject::tick()
 {
+	if (!m_bActivate)
+		return;
+
 	for (UINT i = 0; i < UINT(COMPONENT_TYPE::END); ++i)
 	{
 		if (m_arrCom[i])
@@ -92,6 +100,9 @@ void CGameObject::tick()
 
 void CGameObject::finaltick()
 {
+	if (!m_bActivate)
+		return;
+
 	for (UINT i = 0; i < UINT(COMPONENT_TYPE::END); ++i)
 	{
 		if (m_arrCom[i])
@@ -125,6 +136,9 @@ void CGameObject::finaltick()
 
 void CGameObject::render()
 {
+	if (!m_bActivate)
+		return;
+
 	if (m_RenderCom)
 		m_RenderCom->render();
 }

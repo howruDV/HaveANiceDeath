@@ -78,6 +78,10 @@ void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, FILE* _File)
 	// 1. obj name
 	SaveWString(_Obj->GetName(), _File);
 
+	// Activate
+	bool bActivate = _Obj->IsActivate();
+	fwrite(&bActivate, sizeof(bool), 1, _File);
+
 	// 2. components
 	UINT i = 0;
 	for (; i < (UINT)COMPONENT_TYPE::END; ++i)
@@ -180,6 +184,12 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 	wstring strName;
 	LoadWString(strName, _File);
 	pObject->SetName(strName);
+
+	// Activate
+	bool bActivate = true;
+	fwrite(&bActivate, sizeof(bool), 1, _File);
+	if (bActivate) pObject->Activate();
+	else pObject->Deactivate();
 
 	// 2. copmonents
 	COMPONENT_TYPE type = COMPONENT_TYPE::END;

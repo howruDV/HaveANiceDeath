@@ -29,7 +29,6 @@ void UICollider2D::render_update()
 	//ImGui::SeparatorText("Transform");
 	TextBox("Offset");			ImGui::SameLine(); ImGui::DragFloat3("##Collider Offset Position", vPos);
 	TextBox("Scale");			ImGui::SameLine(); ImGui::DragFloat3("##Collider Offset Scale", vScale);
-	TextBox("Scale Absolute");	ImGui::SameLine(); ImGui::Checkbox("##Collider Offset Absolute", &bAbsolute);
 
 	//ImGui::SeparatorText("Collider");
 	const char* items[] = { "Rectangle", "Circle" };
@@ -49,7 +48,9 @@ void UICollider2D::render_update()
 		}
 		ImGui::EndCombo();
 	}
+
 	TextBox("Collision Count"); ImGui::SameLine(); ImGui::Text(std::to_string(iCollisionCount).c_str());
+	TextBox("Collider Absolute");	ImGui::SameLine(); ImGui::Checkbox("##Collider Offset Absolute", &bAbsolute);
 
 	// set collider member vars
 	GetTargetObject()->Collider2D()->SetOffsetPos(vPos);

@@ -58,7 +58,14 @@ void UIInspectorPannel::render_update()
 	// layer
 	TextBox("Layer"); ImGui::SameLine();
 	DrawLayerUI();
+
+	// Activate
+	bool bActive = GetTargetObject()->IsActivate();
+	TextBox("Active"); ImGui::SameLine(); ImGui::Checkbox("##ObjActive", &bActive);
 	ImGui::Separator();
+	
+	if (bActive) GetTargetObject()->Activate();
+	else GetTargetObject()->Deactivate();
 }
 
 void UIInspectorPannel::SetTargetObject(CGameObject* _Object)
