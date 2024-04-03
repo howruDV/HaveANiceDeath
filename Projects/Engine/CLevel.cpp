@@ -100,6 +100,22 @@ void CLevel::ChangeState(LEVEL_STATE _NextState)
 	m_State = _NextState;
 }
 
+int CLevel::GetLayerIdxByName(const wstring& _strLayerName)
+{
+	for (int i = 0; i < LAYER_MAX; ++i)
+	{
+		if (m_arrLayer[i]->GetName() == _strLayerName)
+			return i;
+	}
+
+	return -1;
+}
+
+wstring CLevel::GetLayerNameByIdx(int _LayerIdx)
+{
+	return m_arrLayer[_LayerIdx]->GetName();
+}
+
 CLayer* CLevel::GetLayer(const wstring& _strLayerName)
 {
 	for (int i = 0; i < LAYER_MAX; ++i)

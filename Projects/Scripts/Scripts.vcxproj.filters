@@ -43,6 +43,12 @@
     <ClInclude Include="CWallScript.h">
       <Filter>Scripts\Platform\Wall</Filter>
     </ClInclude>
+    <ClInclude Include="CHitboxScript.h">
+      <Filter>Scripts\Hitbox</Filter>
+    </ClInclude>
+    <ClInclude Include="CKoTBigScript.h">
+      <Filter>Scripts\Unit\Enemy\KnightOfTimeBig</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -86,6 +92,12 @@
     </ClCompile>
     <ClCompile Include="CWallScript.cpp">
       <Filter>Scripts\Platform\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="CHitboxScript.cpp">
+      <Filter>Scripts\Hitbox</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoTBigScript.cpp">
+      <Filter>Scripts\Unit\Enemy\KnightOfTimeBig</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +145,15 @@
     </Filter>
     <Filter Include="Scripts\Platform\CornerTrigger">
       <UniqueIdentifier>{bba47db1-2fb4-4b4c-8d5f-2b6e55d10296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit\Enemy">
+      <UniqueIdentifier>{df411cb7-8c48-41e0-9b91-12d74bfb26bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit\Enemy\KnightOfTimeBig">
+      <UniqueIdentifier>{2a0a7b40-9bb2-4fef-9cc3-e25a93928a0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Hitbox">
+      <UniqueIdentifier>{7c6846e7-de7b-4d68-ae64-1bf533dca3f8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

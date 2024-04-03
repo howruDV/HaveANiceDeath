@@ -1,4 +1,6 @@
 CIdleState
+CKoTBigAttack2
+CKoTBigIdle
 CPlayerConcentrate
 CPlayerConcentrate_Start
 CPlayerDash

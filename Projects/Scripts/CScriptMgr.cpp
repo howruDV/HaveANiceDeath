@@ -3,6 +3,8 @@
 
 #include "CCornerTriggerScript.h"
 #include "CGameMgr.h"
+#include "CHitboxScript.h"
+#include "CKoTBigScript.h"
 #include "CMissileScript_Test.h"
 #include "CMonsterScript_Test.h"
 #include "CPlayerMgr.h"
@@ -15,6 +17,8 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CCornerTriggerScript");
 	_vec.push_back(L"CGameMgr");
+	_vec.push_back(L"CHitboxScript");
+	_vec.push_back(L"CKoTBigScript");
 	_vec.push_back(L"CMissileScript_Test");
 	_vec.push_back(L"CMonsterScript_Test");
 	_vec.push_back(L"CPlayerMgr");
@@ -30,6 +34,10 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CCornerTriggerScript;
 	if (L"CGameMgr" == _strScriptName)
 		return new CGameMgr;
+	if (L"CHitboxScript" == _strScriptName)
+		return new CHitboxScript;
+	if (L"CKoTBigScript" == _strScriptName)
+		return new CKoTBigScript;
 	if (L"CMissileScript_Test" == _strScriptName)
 		return new CMissileScript_Test;
 	if (L"CMonsterScript_Test" == _strScriptName)
@@ -56,6 +64,12 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::GAMEMGR:
 		return new CGameMgr;
+		break;
+	case (UINT)SCRIPT_TYPE::HITBOXSCRIPT:
+		return new CHitboxScript;
+		break;
+	case (UINT)SCRIPT_TYPE::KOTBIGSCRIPT:
+		return new CKoTBigScript;
 		break;
 	case (UINT)SCRIPT_TYPE::MISSILESCRIPT_TEST:
 		return new CMissileScript_Test;
@@ -92,6 +106,14 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::GAMEMGR:
 		return L"CGameMgr";
+		break;
+
+	case SCRIPT_TYPE::HITBOXSCRIPT:
+		return L"CHitboxScript";
+		break;
+
+	case SCRIPT_TYPE::KOTBIGSCRIPT:
+		return L"CKoTBigScript";
 		break;
 
 	case SCRIPT_TYPE::MISSILESCRIPT_TEST:

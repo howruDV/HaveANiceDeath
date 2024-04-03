@@ -162,6 +162,8 @@ call ScriptsCopy.bat</Command>
   <ItemGroup>
     <ClInclude Include="CCornerTriggerScript.h" />
     <ClInclude Include="CGameMgr.h" />
+    <ClInclude Include="CHitboxScript.h" />
+    <ClInclude Include="CKoTBigScript.h" />
     <ClInclude Include="CMissileScript_Test.h" />
     <ClInclude Include="CMonsterScript_Test.h" />
     <ClInclude Include="CPlayerMgr.h" />
@@ -178,6 +180,8 @@ call ScriptsCopy.bat</Command>
   <ItemGroup>
     <ClCompile Include="CCornerTriggerScript.cpp" />
     <ClCompile Include="CGameMgr.cpp" />
+    <ClCompile Include="CHitboxScript.cpp" />
+    <ClCompile Include="CKoTBigScript.cpp" />
     <ClCompile Include="CMissileScript_Test.cpp" />
     <ClCompile Include="CMonsterScript_Test.cpp" />
     <ClCompile Include="CPlayerMgr.cpp" />

@@ -85,7 +85,7 @@ void CRenderMgr::render_editor()
 
 void CRenderMgr::render_debug()
 {
-	if (m_vecCam.empty() && !m_EditorCam)
+	if (!m_DebugPosition || m_vecCam.empty() && !m_EditorCam)
 		return;
 
 	// TODO : 일단 0번 카메라로 지정한 듯? 나중에 고쳐야 함

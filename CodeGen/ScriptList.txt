@@ -1,5 +1,7 @@
 CCornerTriggerScript
 CGameMgr
+CHitboxScript
+CKoTBigScript
 CMissileScript_Test
 CMonsterScript_Test
 CPlayerMgr

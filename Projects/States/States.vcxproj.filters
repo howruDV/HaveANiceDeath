@@ -91,6 +91,18 @@
     <Filter Include="States\Weapon\Scythe\Diss\Rest">
       <UniqueIdentifier>{db9a9a8c-94a6-4941-afb9-1f0273cda45b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Enemy">
+      <UniqueIdentifier>{3816f7f6-40d1-465b-ad80-7b62827d8078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Enemy\KnightOfTimeBig">
+      <UniqueIdentifier>{8698b017-703f-4c3f-b417-311bb9739187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Enemy\KnightOfTimeBig\Idle">
+      <UniqueIdentifier>{990565ec-5a06-4f97-9ae3-e91dab0b75a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Enemy\KnightOfTimeBig\Attack2">
+      <UniqueIdentifier>{66ef2423-e0f4-430f-86ff-3a8d6c9d35ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -176,6 +188,12 @@
     <ClInclude Include="CScytheDissRest.h">
       <Filter>States\Weapon\Scythe\Diss\Rest</Filter>
     </ClInclude>
+    <ClInclude Include="CKoTBigIdle.h">
+      <Filter>States\Enemy\KnightOfTimeBig\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="CKoTBigAttack2.h">
+      <Filter>States\Enemy\KnightOfTimeBig\Attack2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -259,6 +277,12 @@
     </ClCompile>
     <ClCompile Include="CScytheDissRest.cpp">
       <Filter>States\Weapon\Scythe\Diss\Rest</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoTBigIdle.cpp">
+      <Filter>States\Enemy\KnightOfTimeBig\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoTBigAttack2.cpp">
+      <Filter>States\Enemy\KnightOfTimeBig\Attack2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

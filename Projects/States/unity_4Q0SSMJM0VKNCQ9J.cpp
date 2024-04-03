@@ -3,6 +3,12 @@
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CIdleState.cpp"
 
 
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CKoTBigAttack2.cpp"
+
+
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CKoTBigIdle.cpp"
+
+
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CPlayerConcentrate.cpp"
 
 

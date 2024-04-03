@@ -2,6 +2,8 @@
 #include "CStateMgr.h"
 
 #include "CIdleState.h"
+#include "CKoTBigAttack2.h"
+#include "CKoTBigIdle.h"
 #include "CPlayerConcentrate.h"
 #include "CPlayerConcentrate_Start.h"
 #include "CPlayerDash.h"
@@ -29,6 +31,8 @@
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CIdleState");
+	_vec.push_back(L"CKoTBigAttack2");
+	_vec.push_back(L"CKoTBigIdle");
 	_vec.push_back(L"CPlayerConcentrate");
 	_vec.push_back(L"CPlayerConcentrate_Start");
 	_vec.push_back(L"CPlayerDash");
@@ -58,6 +62,10 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 {
 	if (L"CIdleState" == _strStateName)
 		return new CIdleState;
+	if (L"CKoTBigAttack2" == _strStateName)
+		return new CKoTBigAttack2;
+	if (L"CKoTBigIdle" == _strStateName)
+		return new CKoTBigIdle;
 	if (L"CPlayerConcentrate" == _strStateName)
 		return new CPlayerConcentrate;
 	if (L"CPlayerConcentrate_Start" == _strStateName)
@@ -113,6 +121,12 @@ CState* CStateMgr::GetState(UINT _iStateType)
 	{
 	case (UINT)STATE_TYPE::IDLESTATE:
 		return new CIdleState;
+		break;
+	case (UINT)STATE_TYPE::KOTBIGATTACK2:
+		return new CKoTBigAttack2;
+		break;
+	case (UINT)STATE_TYPE::KOTBIGIDLE:
+		return new CKoTBigIdle;
 		break;
 	case (UINT)STATE_TYPE::PLAYERCONCENTRATE:
 		return new CPlayerConcentrate;
@@ -193,6 +207,14 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 	{
 	case STATE_TYPE::IDLESTATE:
 		return L"CIdleState";
+		break;
+
+	case STATE_TYPE::KOTBIGATTACK2:
+		return L"CKoTBigAttack2";
+		break;
+
+	case STATE_TYPE::KOTBIGIDLE:
+		return L"CKoTBigIdle";
 		break;
 
 	case STATE_TYPE::PLAYERCONCENTRATE:

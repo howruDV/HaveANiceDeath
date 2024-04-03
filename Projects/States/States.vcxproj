@@ -173,6 +173,8 @@ call CodeGen.exe</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CIdleState.h" />
+    <ClInclude Include="CKoTBigAttack2.h" />
+    <ClInclude Include="CKoTBigIdle.h" />
     <ClInclude Include="CPlayerConcentrate.h" />
     <ClInclude Include="CPlayerConcentrate_Start.h" />
     <ClInclude Include="CPlayerPowerUp.h" />
@@ -203,6 +205,8 @@ call CodeGen.exe</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CIdleState.cpp" />
+    <ClCompile Include="CKoTBigAttack2.cpp" />
+    <ClCompile Include="CKoTBigIdle.cpp" />
     <ClCompile Include="CPlayerConcentrate.cpp" />
     <ClCompile Include="CPlayerConcentrate_Start.cpp" />
     <ClCompile Include="CPlayerPowerUp.cpp" />
