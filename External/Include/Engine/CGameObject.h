@@ -44,6 +44,7 @@ public:
 
     CGameObject* GetParent() { return m_Parent; }
     vector<CGameObject*>& GetChild() { return m_vecChild; }
+    CGameObject* GetChildByName(const wstring& _strName);
     const vector<CScript*>& GetScripts() { return m_vecScript; }
     int GetLayerIdx() { return m_iLayerIdx; }
     bool IsDead() { return m_bDead; }

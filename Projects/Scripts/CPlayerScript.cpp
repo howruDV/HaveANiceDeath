@@ -34,13 +34,46 @@ CPlayerScript::CPlayerScript()
 	, m_fComboAccTime(0.f)
 	, m_NextComboIdx(0)
 	, m_bAerialCan(true)
+	, m_bComboCan(false)
 {
 	m_fSpeed = 500.f;
 	m_fSpeedInAir = m_fSpeed;
-	m_iHPMax = 65;
-	m_iHPActive = m_iHPMax;
+	m_iHPMax = 65.f;
 	m_iHPCur = m_iHPMax;
+	m_iHPActive = m_iHPMax;
 	m_CurScythe = new CScytheDissScript();
+
+	AddScriptParam(SCRIPT_PARAM::INT, "HP Active", &m_iHPActive);
+	//AddScriptParam(SCRIPT_PARAM::OBJECT, "Cur Scythe", &m_CurScythe);
+}
+
+CPlayerScript::CPlayerScript(const CPlayerScript& _Origin)
+	: CUnitScript(_Origin)
+	, m_fJumpVelocMax(_Origin.m_fJumpVelocMax)
+	, m_fSpeedDash(_Origin.m_fSpeedDash)
+	, m_iMPMax(_Origin.m_iMPMax)
+	, m_iMPCur(_Origin.m_iMPCur)
+	, m_iIngot(_Origin.m_iIngot)
+	, m_iSoulary(_Origin.m_iSoulary)
+	, m_iPrismium(_Origin.m_iPrismium)
+	, m_iAnimaMax(_Origin.m_iAnimaMax)
+	, m_iAnimaBlue(_Origin.m_iAnimaBlue)
+	, m_iAnimaGold(_Origin.m_iAnimaGold)
+	, m_fDashCoolTime(_Origin.m_fDashCoolTime)
+	, m_fDashAccTime(_Origin.m_fDashAccTime)
+	, m_bDashCan(_Origin.m_bDashCan)
+	, m_AirColPlatform(_Origin.m_AirColPlatform)
+	, m_bAirCol(_Origin.m_bAirCol)
+	, m_ColWall(_Origin.m_ColWall)
+	, m_bWallCol(_Origin.m_bWallCol)
+	, m_CurScythe(_Origin.m_CurScythe)
+	, m_fComboCoolTime(_Origin.m_fComboCoolTime)
+	, m_fComboAccTime(_Origin.m_fComboAccTime)
+	, m_NextComboIdx(_Origin.m_NextComboIdx)
+	, m_bAerialCan(_Origin.m_bAerialCan)
+{
+	AddScriptParam(SCRIPT_PARAM::INT, "HP Active", &m_iHPActive);
+	//AddScriptParam(SCRIPT_PARAM::OBJECT, "Cur Scythe", &m_CurScythe);
 }
 
 CPlayerScript::~CPlayerScript()
@@ -282,6 +315,18 @@ void CPlayerScript::EndPushDown(CGameObject* _OtherObj)
 {
 	/*m_AirColPlatform = nullptr;
 	m_bAirCol = false;*/
+}
+
+void CPlayerScript::SaveToFile(FILE* _File)
+{
+	CUnitScript::SaveToFile(_File);
+	// @TODO 馬...せ
+}
+
+void CPlayerScript::LoadFromFile(FILE* _File)
+{
+	CUnitScript::LoadFromFile(_File);
+	// @TODO 馬...せ
 }
 
 void CPlayerScript::StartDashCoolTime(bool _bDashCan)

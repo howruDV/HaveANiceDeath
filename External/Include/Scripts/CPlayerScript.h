@@ -65,8 +65,8 @@ public:
     virtual void EndPushUp(CGameObject* _OtherObj) override;
     virtual void EndPushDown(CGameObject* _OtherObj) override;
 
-    virtual void SaveToFile(FILE* _File) {}
-    virtual void LoadFromFile(FILE* _File) {}
+    virtual void SaveToFile(FILE* _File);
+    virtual void LoadFromFile(FILE* _File);
 
     void StartDashCoolTime(bool _bDashCan = false);
     void StartCombo(int _ComboIdx);
@@ -99,5 +99,6 @@ public:
 public:
     CLONE(CPlayerScript);
     CPlayerScript();
+    CPlayerScript(const CPlayerScript& _Origin);
     ~CPlayerScript();
 };

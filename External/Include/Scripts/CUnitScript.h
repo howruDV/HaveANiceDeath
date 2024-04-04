@@ -1,5 +1,6 @@
 #pragma once
 #include <Engine/CScript.h>
+#include "CHitboxScript.h"
 
 class CGameObject;
 
@@ -39,11 +40,11 @@ public:
     virtual void EndPushLeft(CGameObject* _OtherObj) {};
     virtual void EndPushRight(CGameObject* _OtherObj) {};
 
-    virtual void SaveToFile(FILE* _File) {}
-    virtual void LoadFromFile(FILE* _File) {}
+    virtual void SaveToFile(FILE* _File);
+    virtual void LoadFromFile(FILE* _File);
 
     // Hit & Attack
-    void GetDamage(int _iHP) { m_iHPCur = -_iHP; }
+    void HitDamage(FDamage _Damage) { m_iHPCur -= _Damage.iCurHPDamage; m_iHPMax -= _Damage.iMaxHPDamage; }
     //void AddDamage(float iDamage);
 
 public:
@@ -69,5 +70,6 @@ public:
 public:
     CLONE(CUnitScript);
     CUnitScript(UINT m_iScriptType);
+    CUnitScript(const CUnitScript& _Origin);
     ~CUnitScript();
 };

@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "CKoTBigAttack2.h"
 
+#include <Engine/CCollider2D.h>
+
 CKoTBigAttack2::CKoTBigAttack2()
 	: CState(KOTBIGATTACK2)
+	, m_pHitbox(nullptr)
 {
 }
 
@@ -27,7 +30,9 @@ void CKoTBigAttack2::finaltick()
 void CKoTBigAttack2::Enter()
 {
 	GetOwner()->Animator2D()->Play(L"Attack2", false);
-	//GetOwner()->GetChildByName(L"Attack2_Hitbox");
+	m_pHitbox = GetOwner()->GetChildByName(L"Attack2_Hitbox");
+	m_pHitbox->Activate();
+	m_pHitbox->Collider2D()->Activate();
 }
 
 void CKoTBigAttack2::Exit()

@@ -74,7 +74,15 @@ void CKoTBigScript::begin()
 	pHitbox->Transform()->SetRelativePos(Vec3(0.f, 0.f, 0.f));
 	pHitbox->Transform()->SetRelativeScale(Vec3(550.f, 150.f, 1.f));
 
+	CHitboxScript* pHitboxComp = pHitbox->GetScriptByType<CHitboxScript>();
+	pHitboxComp->SetDamage(FDamage{10, 0});
+	pHitboxComp->SetHostileLayer(3);
+	pHitboxComp->SetRepeat(true);
+	pHitboxComp->SetCoolTime(5.f);
+
 	GetOwner()->AddChild(pHitbox);
+	pHitbox->Collider2D()->Deactivate();
+	pHitbox->Deactivate();
 
 	FTask task = {};
 	task.Type = TASK_TYPE::CREATE_OBJECT; // Param1: Layer Index | Param2: Object Address

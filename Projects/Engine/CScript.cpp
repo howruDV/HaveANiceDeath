@@ -12,6 +12,7 @@ CScript::CScript(UINT _ScriptType)
 CScript::CScript(const CScript& _Origin)
 	: CComponent(_Origin)
 	, m_iScriptType(_Origin.m_iScriptType)
+	, m_ScriptParam()
 {
 }
 

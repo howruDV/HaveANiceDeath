@@ -136,7 +136,7 @@ void CImGuiMgr::render_copytex()
 			ImVec2 mousePosition = ImGui::GetMousePos();
 			Vec2 MouseWorldPos = GetMouseWorldPos(mousePosition);
 			pObj->Transform()->SetRelativePos(Vec3(MouseWorldPos.x, MouseWorldPos.y, pObj->Transform()->GetRelativePos().z));
-			GamePlayStatic::SpawnGameObject(pObj, pObj->GetLayerIdx());
+			GamePlayStatic::SpawnGameObject(pObj, 0);
 		}
 
 		ImGui::EndDragDropTarget();

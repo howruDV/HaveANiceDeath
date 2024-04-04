@@ -290,6 +290,17 @@ void CGameObject::AddChild(CGameObject* _Child)
 	m_vecChild.push_back(_Child);
 }
 
+CGameObject* CGameObject::GetChildByName(const wstring& _strName)
+{
+	for (CGameObject* it : m_vecChild)
+	{
+		if (it->GetName() == _strName)
+			return it;
+	}
+
+	return nullptr;
+}
+
 bool CGameObject::IsAncestor(CGameObject* _Other)
 {
 	CGameObject* pParent = m_Parent;
