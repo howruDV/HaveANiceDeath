@@ -43,7 +43,7 @@ void CPlayerJumpFalling::finaltick()
 	if (KEY_TAP(KEY::LBTN))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
-		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
 
 		if (PLAYERSCRIPT->CanAerialAttack())
 			ChangeState(strCurScytheName + L"_Aerial");
@@ -56,13 +56,13 @@ void CPlayerJumpFalling::finaltick()
 
 	if ((KEY_PRESSED(KEY::S) || KEY_TAP(KEY::S)) && KEY_TAP(KEY::LBTN))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
 		ChangeState(strCurScytheName + L"_Crush");
 	}
 
 	if ((KEY_PRESSED(KEY::W) || KEY_TAP(KEY::W)) && KEY_TAP(KEY::LBTN))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
 		ChangeState(strCurScytheName + L"_Up");
 	}
 }

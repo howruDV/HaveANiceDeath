@@ -1,6 +1,11 @@
 #pragma once
 #include <Engine/CScript.h>
 #include "CHitboxScript.h"
+// =======================================
+// CUnitScript: Unit을 정의하는 Parent Script
+// =======================================
+// - 스탯
+// - 상태 판단에 사용되는 정보
 
 class CGameObject;
 
@@ -44,8 +49,8 @@ public:
     virtual void LoadFromFile(FILE* _File);
 
     // Hit & Attack
-    void HitDamage(FDamage _Damage) { m_iHPCur -= _Damage.iCurHPDamage; m_iHPMax -= _Damage.iMaxHPDamage; }
-    //void AddDamage(float iDamage);
+    virtual void HitDamage(FDamage _Damage) { m_iHPCur -= _Damage.iCurHPDamage; }   // Hit: Unit의 Hit에 따른 패널티 처리 (HP 감소 등)
+    virtual void Attack() {};                                                       // Attack: Unit의 Attack에 따른 보상 처리 (각성게이지 증가 등)
 
 public:
     void SetSpeed(float _fSpeed) { m_fSpeed = m_fSpeed; }

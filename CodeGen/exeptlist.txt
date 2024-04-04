@@ -1,3 +1,6 @@
 CScriptMgr.h
 CUnitScript.h
-CScytheScript.h
+global.h
+struct.h
+define.h
+extern.h

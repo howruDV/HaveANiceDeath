@@ -38,7 +38,7 @@ void CPlayerIdle::finaltick()
 	if (KEY_TAP(KEY::LBTN) && (KEY_NONE(KEY::S) || KEY_RELEASED(KEY::S)))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
-		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
 
 		if (nextCombo == 0)
 			ChangeState(strCurScytheName + L"_ComboA");
@@ -56,7 +56,7 @@ void CPlayerIdle::finaltick()
 
 	if (KEY_TAP(KEY::LBTN) && (KEY_PRESSED(KEY::S) || KEY_TAP(KEY::S)))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
 		ChangeState(strCurScytheName + L"_Special");
 	}
 
@@ -72,13 +72,13 @@ void CPlayerIdle::finaltick()
 
 	if ((KEY_PRESSED(KEY::W) || KEY_TAP(KEY::W)) && KEY_TAP(KEY::LBTN))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
 		ChangeState(strCurScytheName +L"_Up");
 	}
 
 	if ((KEY_PRESSED(KEY::Q) || KEY_TAP(KEY::Q)) && KEY_TAP(KEY::LBTN))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
 		ChangeState(strCurScytheName +L"_Rest");
 	}
 }

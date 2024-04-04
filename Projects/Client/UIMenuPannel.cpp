@@ -15,6 +15,7 @@
 #include <Engine/CGameObject.h>
 #include <Engine/components.h>
 #include <Engine/CScript.h>
+
 #include <Scripts/CScriptMgr.h>
 
 UIMenuPannel::UIMenuPannel()

@@ -21,7 +21,7 @@ void CPlayerJumpLanding::finaltick()
 	if (KEY_TAP(KEY::LBTN))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
-		wstring strCurScytheName = PLAYERSCRIPT->GetScythe()->GetName();
+		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
 
 		if (nextCombo == 0)
 			ChangeState(strCurScytheName + L"_ComboA");

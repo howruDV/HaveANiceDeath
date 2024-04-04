@@ -37,4 +37,5 @@ void CKoTBigAttack2::Enter()
 
 void CKoTBigAttack2::Exit()
 {
+	m_pHitbox->Deactivate();
 }

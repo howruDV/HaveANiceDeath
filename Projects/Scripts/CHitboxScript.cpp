@@ -14,7 +14,7 @@ CHitboxScript::CHitboxScript()
 	, m_bRepeat(false)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Hostile Layer", &m_HostileLayer);
-	AddScriptParam(SCRIPT_PARAM::INT, "Attack Damage(MaxHP)", &m_Damage.iMaxHPDamage);
+	AddScriptParam(SCRIPT_PARAM::INT, "Attack Damage(ActiveHP)", &m_Damage.iActiveHPDamage);
 	AddScriptParam(SCRIPT_PARAM::INT, "Attack Damage(CurHP)", &m_Damage.iCurHPDamage);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Attack CoolTime", &m_fCoolTime);
 	AddScriptParam(SCRIPT_PARAM::BOOL, "Attack Repeat", &m_bRepeat);
@@ -28,7 +28,7 @@ CHitboxScript::CHitboxScript(const CHitboxScript& _Origin)
 	, m_bRepeat(_Origin.m_bRepeat)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "Hostile Layer", &m_HostileLayer);
-	AddScriptParam(SCRIPT_PARAM::INT, "Attack Damage(MaxHP)", &m_Damage.iMaxHPDamage);
+	AddScriptParam(SCRIPT_PARAM::INT, "Attack Damage(MaxHP)", &m_Damage.iActiveHPDamage);
 	AddScriptParam(SCRIPT_PARAM::INT, "Attack Damage(CurHP)", &m_Damage.iCurHPDamage);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Attack CoolTime", &m_fCoolTime);
 	AddScriptParam(SCRIPT_PARAM::BOOL, "Attack Repeat", &m_bRepeat);
@@ -75,14 +75,14 @@ void CHitboxScript::tick()
 
 void CHitboxScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
-	Attack(_OtherObj);
+	Attack(GetOwner(), _OtherObj);
 }
 
 void CHitboxScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
 	if (m_bRepeat)
 	{
-		Attack(_OtherObj);
+		Attack(GetOwner(), _OtherObj);
 	}
 }
 
@@ -106,7 +106,7 @@ void CHitboxScript::LoadFromFile(FILE* _File)
 	fread(&m_bRepeat, sizeof(bool), 1, _File);
 }
 
-void CHitboxScript::Attack(CGameObject* pTarget)
+void CHitboxScript::Attack(CGameObject* pInstigator, CGameObject* pTarget)
 {
 	// case: 이전에 충돌하고 아직 cooltime만큼 지나지 않은 경우
 	for (const FAttackHistory& it : m_vecAttackHistory)
@@ -121,9 +121,12 @@ void CHitboxScript::Attack(CGameObject* pTarget)
 		return;
 
 	// attack
+	CUnitScript* pInstigatorUnit = pInstigator->GetScriptByType<CUnitScript>();
+	if (pInstigatorUnit)
+		pInstigatorUnit->Attack();
 	pAttackTarget->HitDamage(m_Damage);
 
-	//push vector
+	// push vector
 	FAttackHistory AttackRec = {};
 	AttackRec.pTarget = pTarget;
 	AttackRec.fAccTime = 0.f;

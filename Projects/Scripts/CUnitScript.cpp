@@ -3,6 +3,7 @@
 
 #include <Engine/CGameObject.h>
 #include <Engine/CAnimator2D.h>
+#include <Engine/CStateMachine.h>
 
 CUnitScript::CUnitScript(UINT m_iScriptType)
 	: CScript(m_iScriptType)
@@ -68,6 +69,16 @@ void CUnitScript::tick()
 
 		m_Dir_Prev = m_Dir;
 		m_Dir = m_Dir_Next;
+	}
+
+	// HP check
+	if (m_iHPCur > m_iHPMax)
+		m_iHPCur = m_iHPMax;
+
+	else if (m_iHPCur <= 0)
+	{
+		m_iHPCur = 0;
+		//StateMachine()->GetFSM()->ChangeState(L"Death");
 	}
 }
 

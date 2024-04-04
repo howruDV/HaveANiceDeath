@@ -7,10 +7,13 @@
 #ifndef PCH_H
 #define PCH_H
 
-// 여기에 미리 컴파일하려는 헤더 추가
+// ------------------------------
+// Library
+// ------------------------------
 #include "framework.h"
 
 #include <Engine/global.h>
+#include <Scripts/global.h>
 
 #ifdef _DEBUG
 #pragma comment(lib, "Engine\\Engine_debug.lib")
@@ -18,8 +21,10 @@
 #pragma comment(lib, "Engine\\Engine.lib")
 #endif
 
+// ------------------------------
+// States
+// ------------------------------
 #include "CStateMgr.h"
-
 #include "define.h"
 
 #endif //PCH_H

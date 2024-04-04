@@ -16,6 +16,8 @@ CPlayerScript::CPlayerScript()
 	, m_fSpeedDash(1800.f)
 	, m_iMPMax(50)
 	, m_iMPCur(m_iMPMax)
+	, m_iRestMax(100)
+	, m_iRestCur(0)
 	, m_iIngot(0)
 	, m_iSoulary(0)
 	, m_iPrismium(0)
@@ -27,9 +29,7 @@ CPlayerScript::CPlayerScript()
 	, m_bDashCan(true)
 	, m_AirColPlatform(nullptr)
 	, m_bAirCol(false)
-	, m_ColWall(nullptr)
-	, m_bWallCol(false)
-	, m_CurScythe(nullptr)
+	, m_CurScythe(SCYTHE_TYPE::DISS)
 	, m_fComboCoolTime(0.3f)
 	, m_fComboAccTime(0.f)
 	, m_NextComboIdx(0)
@@ -41,7 +41,6 @@ CPlayerScript::CPlayerScript()
 	m_iHPMax = 65.f;
 	m_iHPCur = m_iHPMax;
 	m_iHPActive = m_iHPMax;
-	m_CurScythe = new CScytheDissScript();
 
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Active", &m_iHPActive);
 	//AddScriptParam(SCRIPT_PARAM::OBJECT, "Cur Scythe", &m_CurScythe);
@@ -64,9 +63,6 @@ CPlayerScript::CPlayerScript(const CPlayerScript& _Origin)
 	, m_bDashCan(_Origin.m_bDashCan)
 	, m_AirColPlatform(_Origin.m_AirColPlatform)
 	, m_bAirCol(_Origin.m_bAirCol)
-	, m_ColWall(_Origin.m_ColWall)
-	, m_bWallCol(_Origin.m_bWallCol)
-	, m_CurScythe(_Origin.m_CurScythe)
 	, m_fComboCoolTime(_Origin.m_fComboCoolTime)
 	, m_fComboAccTime(_Origin.m_fComboAccTime)
 	, m_NextComboIdx(_Origin.m_NextComboIdx)
@@ -78,8 +74,6 @@ CPlayerScript::CPlayerScript(const CPlayerScript& _Origin)
 
 CPlayerScript::~CPlayerScript()
 {
-	if (m_CurScythe)
-		delete m_CurScythe;
 }
 
 void CPlayerScript::begin()
@@ -268,6 +262,28 @@ void CPlayerScript::tick()
 	}
 
 	CUnitScript::tick();
+
+	// HP - Active
+	if (m_iHPActive > m_iHPMax)
+		m_iHPActive = m_iHPMax;
+	else if (m_iHPActive <= 0)
+		m_iHPActive = 0;
+
+	if (m_iHPCur > m_iHPActive)
+		m_iHPCur = m_iHPActive;
+	else if (m_iHPCur <= 0)
+		m_iHPCur = 0;
+		// ChangeState
+
+	// MP
+	if (m_iMPCur > m_iMPMax)
+		m_iMPCur = m_iMPMax;
+	else if (m_iMPCur <= 0)
+		m_iMPCur = 0;
+
+	// Rest
+	if (m_iRestCur > m_iRestMax)
+		m_iRestCur = m_iRestMax;
 }
 
 void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
@@ -320,13 +336,33 @@ void CPlayerScript::EndPushDown(CGameObject* _OtherObj)
 void CPlayerScript::SaveToFile(FILE* _File)
 {
 	CUnitScript::SaveToFile(_File);
-	// @TODO 馬...せ
+
+	fwrite(&m_fSpeedInAir, sizeof(float), 1, _File);
+	fwrite(&m_fSpeedDash, sizeof(float), 1, _File);
+	fwrite(&m_fJumpVelocMax, sizeof(float), 1, _File);
+	fwrite(&m_iHPActive, sizeof(int), 1, _File);
+	fwrite(&m_iMPMax, sizeof(int), 1, _File);
+	fwrite(&m_iMPCur, sizeof(int), 1, _File);
+	fwrite(&m_iRestMax, sizeof(int), 1, _File);
+	fwrite(&m_iRestCur, sizeof(int), 1, _File);
+	fwrite(&m_fDashCoolTime, sizeof(int), 1, _File);
+	fwrite(&m_fComboCoolTime, sizeof(int), 1, _File);
 }
 
 void CPlayerScript::LoadFromFile(FILE* _File)
 {
 	CUnitScript::LoadFromFile(_File);
-	// @TODO 馬...せ
+
+	fread(&m_fSpeedInAir, sizeof(float), 1, _File);
+	fread(&m_fSpeedDash, sizeof(float), 1, _File);
+	fread(&m_fJumpVelocMax, sizeof(float), 1, _File);
+	fread(&m_iHPActive, sizeof(int), 1, _File);
+	fread(&m_iMPMax, sizeof(int), 1, _File);
+	fread(&m_iMPCur, sizeof(int), 1, _File);
+	fread(&m_iRestMax, sizeof(int), 1, _File);
+	fread(&m_iRestCur, sizeof(int), 1, _File);
+	fread(&m_fDashCoolTime, sizeof(int), 1, _File);
+	fread(&m_fComboCoolTime, sizeof(int), 1, _File);
 }
 
 void CPlayerScript::StartDashCoolTime(bool _bDashCan)
@@ -344,4 +380,12 @@ void CPlayerScript::StartCombo(int _ComboIdx)
 	m_fComboAccTime = 0.f;
 	m_NextComboIdx = _ComboIdx + 1;
 	m_bComboCan = true;
+}
+
+FScytheDamage CPlayerScript::GetScytheDamage()
+{
+	if (m_CurScythe == SCYTHE_TYPE::DISS)
+		return SCYTHE_DISS_DAMAGE;
+
+	return FScytheDamage{};
 }

@@ -1,10 +1,14 @@
 #pragma once
 #include <Engine/CScript.h>
+// =======================================
+// CHitboxScript: Attack 영역 정의 및 기능 Script
+// =======================================
+// - Owner의 Collision을 hitbox로 정의해줌
 
 struct FDamage
 {
     int iCurHPDamage;
-    int iMaxHPDamage;
+    int iActiveHPDamage;
 };
 
 struct FAttackHistory
@@ -19,7 +23,7 @@ class CHitboxScript :
     public CScript
 {
 private:
-    vector<FAttackHistory> m_vecAttackHistory;
+    vector<FAttackHistory>  m_vecAttackHistory;
     FDamage                 m_Damage;
     int                     m_HostileLayer;
     float                   m_fCoolTime;
@@ -36,8 +40,10 @@ public:
     virtual void SaveToFile(FILE* _File) override;
     virtual void LoadFromFile(FILE* _File) override;
 
+    void Clear() { m_vecAttackHistory.clear(); }
+
 private:
-    void Attack(CGameObject* pTarget);
+    void Attack(CGameObject* pInstigator, CGameObject* pTarget);
 
 public:
     void SetDamage(FDamage _Damage) { m_Damage = _Damage; }
