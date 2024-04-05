@@ -18,6 +18,7 @@ CRenderMgr::CRenderMgr()
 	, m_DebugPosition(true)
 	, m_EditorCam(nullptr)
 	, m_RenderFunc(nullptr)
+	, m_BloomLevel(5)
 {
 	m_RenderFunc = &CRenderMgr::render_play;
 
@@ -42,9 +43,10 @@ void CRenderMgr::tick()
 {
 	// Output Merge State(OM)에 Render Target Texture와 Depth Stencil Texture 전달
 	// ImGUI 붙이면서 renderTarget이 중간에 바뀔 수 있으므로 renderMgr로 옮겨줌
-	Ptr<CTexture> pRTTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex");
+	/*Ptr<CTexture> pRTTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex");
 	Ptr<CTexture> pDSTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"DepthStencilTex");
-	CONTEXT->OMSetRenderTargets(1, pRTTex->GetRTV().GetAddressOf(), pDSTex->GetDSV().Get());
+	CONTEXT->OMSetRenderTargets(1, pRTTex->GetRTV().GetAddressOf(), pDSTex->GetDSV().Get());*/
+	CDevice::GetInst()->SetRenderTarget();
 
 	// buffer init
 	float ClearColor[4] = { 0.3f, 0.3f, 0.3f, 1.f };
@@ -123,7 +125,6 @@ void CRenderMgr::render_debug()
 			break;
 		}
 
-		m_pDbgObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"DebugShapeMat"));
 		m_pDbgObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, (*iter).vColor); // 생성자로 vec3 -> vec4 자동 확장
 		D3D11_PRIMITIVE_TOPOLOGY PrevTopology = m_pDbgObj->MeshRender()->GetMaterial()->GetShader()->GetTopology();
 		if ((*iter).ShapeType == DEBUG_SHAPE::CROSS)
@@ -142,6 +143,52 @@ void CRenderMgr::render_debug()
 		else
 			++iter;
 	}
+}
+
+void CRenderMgr::CreatePostprocessTexture(Vec2 _vResolution)
+{
+	m_PostProcessTex = CAssetMgr::GetInst()->CreateTexture(L"PostProcessTex", (UINT)_vResolution.x, (UINT)_vResolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE);
+}
+
+void CRenderMgr::CreateRTCopyTexture(Vec2 _vResolution)
+{
+	m_RTCopyTex = CAssetMgr::GetInst()->CreateTexture(L"RTCopyTex", (UINT)_vResolution.x, (UINT)_vResolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE, D3D11_USAGE_DEFAULT);
+}
+
+void CRenderMgr::CreateBloomTextures(Vec2 _vResolution)
+{
+	m_BloomRTTex = CAssetMgr::GetInst()->CreateTexture(L"BloomRTTex", (UINT)_vResolution.x, (UINT)_vResolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET | D3D11_BIND_UNORDERED_ACCESS);
+	m_BloomRTCopyTex = CAssetMgr::GetInst()->CreateTexture(L"BloomRTCopyTex", (UINT)_vResolution.x, (UINT)_vResolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET | D3D11_BIND_UNORDERED_ACCESS, D3D11_USAGE_DEFAULT); // @Todo 터짐여기
+
+	for (int i = 1; i < m_BloomLevel; i++)
+	{
+		wstring strTexKey = L"BlurXTex" + std::to_wstring(i);
+		Vec2 vResol = _vResolution / pow(2, i);
+
+		Ptr<CTexture> pBlurTex = CAssetMgr::GetInst()->CreateTexture(strTexKey, (UINT)vResol.x, (UINT)vResol.y, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET | D3D11_BIND_UNORDERED_ACCESS);
+		m_vecBlurXTex.push_back(pBlurTex);
+		
+		strTexKey = L"BlurXYTex" + std::to_wstring(i);
+		pBlurTex = CAssetMgr::GetInst()->CreateTexture(strTexKey, (UINT)vResol.x, (UINT)vResol.y, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET | D3D11_BIND_UNORDERED_ACCESS);
+		m_vecBlurXYTex.push_back(pBlurTex);
+	}
+}
+
+void CRenderMgr::CreateDebugObj()
+{
+	m_pDbgObj = new CGameObject;
+	m_pDbgObj->AddComponent(new CTransform);
+	m_pDbgObj->AddComponent(new CMeshRender);
+	m_pDbgObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"DebugShapeMat"));
+}
+
+void CRenderMgr::CreateBloomCS()
+{
+	m_CSBloomDownScaling	= (CDownSampling*)	CAssetMgr::GetInst()->FindAsset<CComputeShader>(L"BloomDownScalingShader").Get();
+	m_CSBloomUpScaling		= (CUpsampling*)	CAssetMgr::GetInst()->FindAsset<CComputeShader>(L"BloomUpScalingShader").Get();
+	m_CSBloomBluringX		= (CBlurX*)			CAssetMgr::GetInst()->FindAsset<CComputeShader>(L"BloomBluringXShader").Get();
+	m_CSBloomBluringY		= (CBlurY*)			CAssetMgr::GetInst()->FindAsset<CComputeShader>(L"BloomBluringYShader").Get();
+	m_CSBloomCombine		= (CCombine*)		CAssetMgr::GetInst()->FindAsset<CComputeShader>(L"BloomCombineShader").Get();
 }
 
 void CRenderMgr::UpdatePipeline()
@@ -201,6 +248,64 @@ void CRenderMgr::CopyRenderTargetToImGuiRenderTexture()
 {
 	Ptr<CTexture> pRTTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex");
 	CONTEXT->CopyResource(m_RTCopyTex->GetTex2D().Get(), pRTTex->GetTex2D().Get());
+}
+
+void CRenderMgr::CopyRenderTargetToBloomTarget()
+{
+	Ptr<CTexture> pRTTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex");
+	CONTEXT->CopyResource(m_BloomRTCopyTex->GetTex2D().Get(), pRTTex->GetTex2D().Get());
+}
+
+void CRenderMgr::Execute_Bloom()
+{
+	CDevice::GetInst()->ClearRenderTarget();
+
+	// 1. DownScaling
+	for (int i = 0; i < m_BloomLevel - 1; i++)
+	{
+		// case: first (full size -> half size)
+		if (i == 0)
+			m_CSBloomDownScaling->SetResourceTex(m_BloomRTTex);			// source
+		else
+			m_CSBloomDownScaling->SetResourceTex(m_vecBlurXTex[i-1]);	// source
+
+		m_CSBloomDownScaling->SetTargetTexture(m_vecBlurXTex[i]);		// target
+		m_CSBloomDownScaling->Execute();
+	}
+
+	// 2. Bluring (x, y) & UpScaling
+	for (int i = m_BloomLevel - 2; i >= 0; i--)
+	{
+		// Blur X
+		m_CSBloomBluringX->SetResourceTex(m_vecBlurXTex[i]);			// source
+		m_CSBloomBluringX->SetTargetTexture(m_vecBlurXYTex[i]);			// target
+		m_CSBloomBluringX->Execute();
+
+		// Blur Y
+		m_CSBloomBluringY->SetResourceTex(m_vecBlurXYTex[i]);			// source
+		m_CSBloomBluringY->SetTargetTexture(m_vecBlurXTex[i]);			// target
+		m_CSBloomBluringY->Execute();
+
+		// UpScaling
+		m_CSBloomUpScaling->SetResourceTex(m_vecBlurXTex[i]);			// source
+
+		if (i == 0)
+			m_CSBloomUpScaling->SetTargetTexture(m_BloomRTTex);			// target
+		else
+			m_CSBloomUpScaling->SetTargetTexture(m_vecBlurXTex[i-1]);	// target
+
+		m_CSBloomUpScaling->Execute();
+	}
+
+	// 3. Combine
+	Ptr<CTexture> pRTTex = CAssetMgr::GetInst()->FindAsset<CTexture>(L"RenderTargetTex");
+	CopyRenderTargetToBloomTarget();
+	m_CSBloomCombine->SetRenderTargetCopyTex(m_BloomRTCopyTex);			// combine1
+	m_CSBloomCombine->SetBloomTex(m_BloomRTTex);						// combine2
+	m_CSBloomCombine->SetRenderTargetTex(pRTTex);						// RT(output)
+	m_CSBloomCombine->Execute();
+
+	CDevice::GetInst()->SetRenderTarget();
 }
 
 void CRenderMgr::RegisterCamera(CCamera* _Cam, int _idx)

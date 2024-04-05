@@ -161,6 +161,30 @@
     <Filter Include="08. Component\10. Movement">
       <UniqueIdentifier>{41c08561-c267-4d28-95ac-0d3cea834116}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderCode\Compute\Bloom">
+      <UniqueIdentifier>{4e9dd22d-2d04-4695-aa3d-8f5fe0c4b27c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Compute\Bloom\Scaling">
+      <UniqueIdentifier>{f80d479e-6573-45df-bcf0-319b61139442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Compute\Bloom\Scaling\DownScaling">
+      <UniqueIdentifier>{776f9849-05b9-4e1b-82b9-155a9ed639e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Compute\Bloom\Scaling\UpScaling">
+      <UniqueIdentifier>{5cc6758d-1764-46f6-af5f-6fabd5fe3133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Compute\Bloom\Bluring">
+      <UniqueIdentifier>{00e12439-4ac1-4a4a-9d8c-c4dc99b25a56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Compute\Bloom\Bluring\BlurX">
+      <UniqueIdentifier>{412b3215-9a70-483a-9927-bd0bbbce9129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Compute\Bloom\Bluring\BlurY">
+      <UniqueIdentifier>{b2d34257-3efa-43aa-937a-cf842145f280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Compute\Bloom\Combine">
+      <UniqueIdentifier>{b8fcd1b1-83b9-4339-b5f1-3d48002367c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -332,6 +356,36 @@
     <ClInclude Include="CMovement.h">
       <Filter>08. Component\10. Movement</Filter>
     </ClInclude>
+    <ClInclude Include="CBloomUpScaling.h">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\UpScaling</Filter>
+    </ClInclude>
+    <ClInclude Include="CBloomDownScaling.h">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\DownScaling</Filter>
+    </ClInclude>
+    <ClInclude Include="CBloomCombine.h">
+      <Filter>ShaderCode\Compute\Bloom\Combine</Filter>
+    </ClInclude>
+    <ClInclude Include="CBloomBluringY.h">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurY</Filter>
+    </ClInclude>
+    <ClInclude Include="CBloomBluringX.h">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurX</Filter>
+    </ClInclude>
+    <ClInclude Include="CBlurX.h">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurX</Filter>
+    </ClInclude>
+    <ClInclude Include="CBlurY.h">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurY</Filter>
+    </ClInclude>
+    <ClInclude Include="CCombine.h">
+      <Filter>ShaderCode\Compute\Bloom\Combine</Filter>
+    </ClInclude>
+    <ClInclude Include="CUpsampling.h">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\UpScaling</Filter>
+    </ClInclude>
+    <ClInclude Include="CDownSampling.h">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\DownScaling</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -491,6 +545,36 @@
     <ClCompile Include="CMovement.cpp">
       <Filter>08. Component\10. Movement</Filter>
     </ClCompile>
+    <ClCompile Include="CBloomUpScaling.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\UpScaling</Filter>
+    </ClCompile>
+    <ClCompile Include="CBloomDownScaling.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\DownScaling</Filter>
+    </ClCompile>
+    <ClCompile Include="CBloomCombine.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Combine</Filter>
+    </ClCompile>
+    <ClCompile Include="CBloomBluringY.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurY</Filter>
+    </ClCompile>
+    <ClCompile Include="CBloomBluringX.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurX</Filter>
+    </ClCompile>
+    <ClCompile Include="CBlurX.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurX</Filter>
+    </ClCompile>
+    <ClCompile Include="CBlurY.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurY</Filter>
+    </ClCompile>
+    <ClCompile Include="CCombine.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Combine</Filter>
+    </ClCompile>
+    <ClCompile Include="CUpsampling.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\UpScaling</Filter>
+    </ClCompile>
+    <ClCompile Include="CDownSampling.cpp">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\DownScaling</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="UI.fx">
@@ -511,9 +595,6 @@
     <FxCompile Include="value.fx">
       <Filter>ShaderCode\Util</Filter>
     </FxCompile>
-    <FxCompile Include="postprocess.fx">
-      <Filter>ShaderCode\Util</Filter>
-    </FxCompile>
     <FxCompile Include="tilemap.fx">
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
@@ -525,6 +606,27 @@
     </FxCompile>
     <FxCompile Include="particle_update.fx">
       <Filter>ShaderCode\Compute\ParticleUpdate</Filter>
+    </FxCompile>
+    <FxCompile Include="postprocess.fx">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="blurx.fx">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurX</Filter>
+    </FxCompile>
+    <FxCompile Include="blury.fx">
+      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurY</Filter>
+    </FxCompile>
+    <FxCompile Include="combind.fx">
+      <Filter>ShaderCode\Compute\Bloom\Combine</Filter>
+    </FxCompile>
+    <FxCompile Include="upsampling.fx">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\UpScaling</Filter>
+    </FxCompile>
+    <FxCompile Include="downsampling.fx">
+      <Filter>ShaderCode\Compute\Bloom\Scaling\DownScaling</Filter>
+    </FxCompile>
+    <FxCompile Include="std2d_glow.fx">
+      <Filter>ShaderCode\Render</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

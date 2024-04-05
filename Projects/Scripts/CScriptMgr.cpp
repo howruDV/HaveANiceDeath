@@ -10,7 +10,6 @@
 #include "CPlayerMgr.h"
 #include "CPlayerScript.h"
 #include "CPlayerScript_Test.h"
-#include "CScytheDissScript.h"
 #include "CWallScript.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
@@ -24,7 +23,6 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerMgr");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CPlayerScript_Test");
-	_vec.push_back(L"CScytheDissScript");
 	_vec.push_back(L"CWallScript");
 }
 
@@ -48,8 +46,6 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlayerScript;
 	if (L"CPlayerScript_Test" == _strScriptName)
 		return new CPlayerScript_Test;
-	if (L"CScytheDissScript" == _strScriptName)
-		return new CScytheDissScript;
 	if (L"CWallScript" == _strScriptName)
 		return new CWallScript;
 	return nullptr;
@@ -85,9 +81,6 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT_TEST:
 		return new CPlayerScript_Test;
-		break;
-	case (UINT)SCRIPT_TYPE::SCYTHEDISSSCRIPT:
-		return new CScytheDissScript;
 		break;
 	case (UINT)SCRIPT_TYPE::WALLSCRIPT:
 		return new CWallScript;
@@ -134,10 +127,6 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::PLAYERSCRIPT_TEST:
 		return L"CPlayerScript_Test";
-		break;
-
-	case SCRIPT_TYPE::SCYTHEDISSSCRIPT:
-		return L"CScytheDissScript";
 		break;
 
 	case SCRIPT_TYPE::WALLSCRIPT:

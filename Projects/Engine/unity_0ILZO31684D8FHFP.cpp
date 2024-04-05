@@ -1,5 +1,11 @@
 #include "pch.h"
 
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Engine\CPrefab.cpp"
+
+
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Engine\CRenderMgr.cpp"
+
+
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Engine\CRenderMgr_init.cpp"
 
 
@@ -27,6 +33,9 @@
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Engine\CTileMap.cpp"
 
 
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Engine\CUpsampling.cpp"
+
+
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Engine\extern.cpp"
 
 
@@ -46,7 +55,4 @@
 
 
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Engine\CDevice.cpp"
-
-
-#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\Engine\CEngine.cpp"
 

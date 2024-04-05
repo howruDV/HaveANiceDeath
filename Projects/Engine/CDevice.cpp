@@ -2,6 +2,7 @@
 #include "CDevice.h"
 #include "CConstBuffer.h"
 #include "CAssetMgr.h"
+#include "CRenderMgr.h"
 
 CDevice::CDevice()
     : m_hRenderWnd(nullptr)
@@ -106,6 +107,19 @@ int CDevice::init(HWND _hWnd, Vec2 _vResolution)
     return S_OK;
 }
 
+void CDevice::SetRenderTarget()
+{
+    Ptr<CTexture> pBloomRTTex = CRenderMgr::GetInst()->GetBloomRTTex();
+    ID3D11RenderTargetView* arrRTV[2] = { m_RTTex->GetRTV().Get(), pBloomRTTex->GetRTV().Get() };
+
+    CONTEXT->OMSetRenderTargets(2, arrRTV, m_DSTex->GetDSV().Get());
+}
+
+void CDevice::ClearRenderTarget()
+{
+    CONTEXT->OMSetRenderTargets(0, nullptr, nullptr);
+}
+
 void CDevice::ClearRenderTarget(float(&Color)[4])
 {
     // RenderTargetTexture 색상값 초기화
@@ -127,7 +141,7 @@ int CDevice::CreateSwapChain()
     // - SwapChain이 관리하는 Render Target Buffer의 구성 정보
     DXGI_SWAP_CHAIN_DESC tDesc = {};
     tDesc.BufferCount = 1; // 개념적 버퍼는 하나
-    tDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+    tDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_UNORDERED_ACCESS;;
     tDesc.BufferDesc.Width = (UINT)m_vRenderResolution.x;
     tDesc.BufferDesc.Height = (UINT)m_vRenderResolution.y;
     tDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // 32bit
@@ -384,4 +398,9 @@ int CDevice::CreateConstBuffer()
     m_arrCB[(UINT)CB_TYPE::GLOBAL_DATA]->Create(sizeof(FGlobalData), 1);
 
     return S_OK;
+}
+
+int CDevice::CreateBloomTex()
+{
+    return 0;
 }

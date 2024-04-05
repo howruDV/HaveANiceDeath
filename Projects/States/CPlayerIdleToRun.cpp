@@ -3,7 +3,6 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
-#include <Scripts/CScytheScript.h>
 
 CPlayerIdleToRun::CPlayerIdleToRun()
 	: CState(PLAYERIDLETORUN)

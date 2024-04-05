@@ -35,6 +35,7 @@ private:
     CConstBuffer*                   m_arrCB[(UINT)CB_TYPE::END];
 
 private:
+    // pipeline
     int CreateSwapChain();
     int CreateTargetView();
     int CreateRasterizerState();
@@ -42,10 +43,16 @@ private:
     int CreateBlendState();
     int CreateSamplerState();
 
+    // const buffer
     int CreateConstBuffer();
+
+    // bloom
+    int CreateBloomTex();
 
 public:
     int init(HWND _hWnd, Vec2 _vResolution);
+    void SetRenderTarget();
+    void ClearRenderTarget();
     void ClearRenderTarget(float(&Color)[4]);
     void Present();
     

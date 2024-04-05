@@ -62,6 +62,7 @@ int CEngine::init(HWND _hWnd, Vec2 _vResolution)
 	return S_OK;
 }
 
+#include "CMeshRender.h"
 void CEngine::progress()
 {
 	// Manager Update
@@ -73,7 +74,6 @@ void CEngine::progress()
 
 	// Level Update
 	CLevelMgr::GetInst()->tick();
-	
 	CRenderMgr::GetInst()->tick();
 	//CTimeMgr::GetInst()->render();
 	CRenderMgr::GetInst()->CopyRenderTargetToImGuiRenderTexture();

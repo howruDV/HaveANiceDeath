@@ -7,5 +7,4 @@ CMonsterScript_Test
 CPlayerMgr
 CPlayerScript
 CPlayerScript_Test
-CScytheDissScript
 CWallScript

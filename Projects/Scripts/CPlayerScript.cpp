@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "CPlayerScript.h"
 #include "CPlayerMgr.h"
-#include "CScytheDissScript.h"
 
 #include <Engine/components.h>
 #include <Engine/CKeyMgr.h>

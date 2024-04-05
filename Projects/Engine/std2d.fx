@@ -4,6 +4,9 @@
 #include "value.fx"
 #include "func.fx"
 
+#define GlowEnable g_int_0
+#define GlowColor g_vec4_0
+#define Threshold g_float_0
 
 
 struct VS_IN
@@ -18,7 +21,13 @@ struct VS_OUT
     float4 vPosition : SV_Position;
     float4 vColor : COLOR;
     float2 vUV : TEXCOORD;
-    float3 vWorldPos : Position;
+    float3 vWorldPos : POSITION;
+};
+
+struct PS_OUT
+{
+    float4 RenderTarget : SV_Target0;
+    float4 GlowTarget : SV_Target1;
 };
 
 VS_OUT VS_Std2D(VS_IN _in)
@@ -57,23 +66,19 @@ VS_OUT VS_Std2D(VS_IN _in)
     output.vPosition = mul(output.vPosition, g_matProj);
     
     output.vColor = _in.vColor;
-    //output.vUV = _in.vUV;
     
     return output;
 }
 
-float4 PS_Std2D(VS_OUT _in) : SV_Target
+PS_OUT PS_Std2D(VS_OUT _in) : SV_Target
 {
     // 1. sampling
+    PS_OUT output;
     float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
     
     if (g_UseAnim2D)
     {
-        // Background
         float2 vBackgroundLeftTop = g_vLeftTop + (g_vCutSize / 2.f) - (g_vBackgroundSize / 2.f);
-        // vBackgroundLeftTop -= g_vOffset;
-        
-        // Flip
         float2 vUV = vBackgroundLeftTop + _in.vUV * g_vBackgroundSize; //UV는 한 프레임의 크기를 대상으로 하므로, 프레임의 크기만큼 곱해줘야 함
         
         // 가져오려는 이미지를 벗어나면 그리지 않음
@@ -89,27 +94,43 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
         if (g_btex_0)
         {
             vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
-            
-            // alpha blending (magenta background delete)
-            float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f); // saturate: 0~1 넘지 않게 보정
-            if (fAlpha < 0.1f)
-            {
-                // 픽셀 쉐이더 중간에 폐기
-                // clip(-1);
-                discard;
-            }
+        }
+        
+        // alpha blending (magenta background delete)
+        float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f); // saturate: 0~1 넘지 않게 보정
+        
+        if (fAlpha < 0.1f)
+        {
+            discard;
         }
     }
     
-    // 3. cut masked
-    if (vColor.a == 0.f)
-        discard;
+    // Relative luminance
+    float RelativeLuminance = dot(vColor.rgb, float3(0.2126f, 0.7152f, 0.0722f));
+    
+    // render target 1
+    //if (GlowEnable && (Threshold < RelativeLuminance))
+    if (GlowEnable && (Threshold < RelativeLuminance))
+    {
+        output.GlowTarget = GlowColor;
+    }
+    else
+    {
+        output.GlowTarget = float4(0.f, 0.f, 0.f, 1.f);
+    }
+
     
     // 2. lighting
     tLightColor LightColor = (tLightColor) 0.f;
+    
     for (int i = 0; i < g_Light2DCount; ++i)
         CalLight2D(_in.vWorldPos, i, LightColor);
+    
     vColor.rgb *= LightColor.vColor.rgb + LightColor.vAmbient.rgb;
+    
+    // 3. cut masked
+    if (vColor.a <= 0.05f)
+        discard;
     
     // ex. effect - paper burn
     //float x = g_NoiseTex.Sample(g_sam_0, _in.vUV).x;
@@ -118,8 +139,12 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     //    discard;
     //}
     
-    return vColor;
+    // render target 0
+    output.RenderTarget = vColor;
+    return output;
 }
+
+
 
 // Effect Shader
 float4 PS_Std2D_Effect(VS_OUT _in) : SV_Target

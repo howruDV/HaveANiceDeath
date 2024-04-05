@@ -19,6 +19,8 @@ CPlayerMgr::~CPlayerMgr()
 
 }
 
+#include <Engine/CLevelMgr.h>
+
 void CPlayerMgr::tick()
 {
 	if (!m_This)

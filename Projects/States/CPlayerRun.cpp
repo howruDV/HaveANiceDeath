@@ -6,7 +6,6 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
-#include <Scripts/CScytheScript.h>
 
 CPlayerRun::CPlayerRun()
 	:CState(PLAYERRUN)

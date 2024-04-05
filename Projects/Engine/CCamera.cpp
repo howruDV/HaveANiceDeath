@@ -99,6 +99,7 @@ void CCamera::render()
 	render(m_vecTransparent);
 
 	render_postprocess();
+	CRenderMgr::GetInst()->Execute_Bloom();
 }
 
 void CCamera::SortObject()

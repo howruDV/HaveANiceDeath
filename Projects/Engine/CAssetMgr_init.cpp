@@ -170,13 +170,24 @@ void CAssetMgr::CreateDefaultGraphicsShader()
 
 	AddAsset(L"Std2DShader", pShader.Get());
 
+	// Glow Shader
+	pShader = new CGraphicsShader;
+	pShader->CreateVertexShader(L"shader\\std2d_glow.fx", "VS_Std2D_Glow");
+	pShader->CreatePixelShader(L"shader\\std2d_glow.fx", "PS_Std2D_Glow");
+	pShader->SetRSType(RS_TYPE::CULL_BACK);
+	pShader->SetDSType(DS_TYPE::LESS);
+	pShader->SetBSType(BS_TYPE::ALPHA_BLEND);
+	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
+
+	AddAsset(L"GlowShader", pShader.Get());
+
 	// AlphaBlend Shader
 	pShader = new CGraphicsShader;
 	pShader->CreateVertexShader(L"shader\\std2d.fx", "VS_Std2D");
 	pShader->CreatePixelShader(L"shader\\std2d.fx", "PS_Std2D");
-	pShader->SetRSType(RS_TYPE::CULL_BACK);
+	pShader->SetRSType(RS_TYPE::CULL_NONE);
 	pShader->SetDSType(DS_TYPE::LESS);
-	pShader->SetBSType(BS_TYPE::ALPHA_BLEND);
+	pShader->SetBSType(BS_TYPE::DEFAULT);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
 
 	AddAsset(L"AlphaBlendShader", pShader.Get());
@@ -263,17 +274,39 @@ void CAssetMgr::CreateDefaultGraphicsShader()
 
 #include "CSetColorShader.h"
 #include "CParticleUpdate.h"
+#include "CDownSampling.h"
+#include "CUpsampling.h" 
+#include "CBlurX.h"   
+#include "CBlurY.h"     
+#include "CCombine.h"
+
 void CAssetMgr::CreateDefaultComputeShader()
 {
 	Ptr<CComputeShader> pShader = nullptr;
 
-	// SetColorShader
+	// SetColor Shader
 	pShader = new CSetColorShader;
 	AddAsset(L"SetColorShader", pShader.Get());
 
-	// SetColorShader
+	// ParticleUpdate Shader
 	pShader = new CParticleUpdate;
 	AddAsset(L"ParticleUpdateShader", pShader.Get());
+
+	// Bloom Shader
+	pShader = new CDownSampling;
+	AddAsset(L"BloomDownScalingShader", pShader.Get());
+
+	pShader = new CUpsampling;
+	AddAsset(L"BloomUpScalingShader", pShader.Get());
+
+	pShader = new CBlurX;
+	AddAsset(L"BloomBluringXShader", pShader.Get());
+
+	pShader = new CBlurY;
+	AddAsset(L"BloomBluringYShader", pShader.Get());
+
+	pShader = new CCombine;
+	AddAsset(L"BloomCombineShader", pShader.Get());
 }
 
 void CAssetMgr::CreateDefaultMaterial()
@@ -284,6 +317,14 @@ void CAssetMgr::CreateDefaultMaterial()
 	pMat = new CMaterial(true);
 	pMat->SetShader(FindAsset<CGraphicsShader>(L"AlphaBlendShader"));
 	AddAsset(L"Std2DMat", pMat);
+
+	// Bloom Mat
+	pMat = new CMaterial(true);
+	pMat->SetShader(FindAsset<CGraphicsShader>(L"AlphaBlendShader"));
+	AddAsset(L"BloomMat", pMat);
+	pMat->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+	pMat->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1.f,0.f,0.f,1.f));
+	pMat->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.3f);
 
 	// AlphaBlend Mat
 	//pMat = new CMaterial(true);
