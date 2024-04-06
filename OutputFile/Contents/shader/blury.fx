@@ -4,7 +4,7 @@
 Texture2D<float4> inputTexture : register(t0);
 RWTexture2D<float4> outputTexture : register(u0);
 
-static const float weight[5] = { 0.06136f, 0.24477f, 0.38774f, 0.24477f, 0.06136f };
+static const float weight[5] = { 0.0545f, 0.2442f, 0.4026f, 0.2442f, 0.0545f };
 
 [numthreads(32, 32, 1)]
 void CS_BlurY(uint3 dispatchThreadID : SV_DispatchThreadID)

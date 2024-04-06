@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CDownSampling.h"
+#include "CDevice.h"
 
 CDownSampling::CDownSampling()
     : CComputeShader(32, 32, 1)
@@ -16,7 +17,6 @@ int CDownSampling::UpdatePipeline()
 {
 	if (nullptr == m_TargetTex || nullptr == m_ResourceTex)
 		return E_FAIL;
-
 
 	// 텍스쳐 U0 에 바인딩
 	if (FAILED(m_ResourceTex->UpdateCS_SRV(0)))

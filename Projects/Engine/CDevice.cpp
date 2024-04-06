@@ -126,6 +126,7 @@ void CDevice::ClearRenderTarget(float(&Color)[4])
     // - Color: Normalized Value (0~255 X , 0~1 O)
     // - Depth: 0~1, 1로 갈수록 멀어짐
     m_Context->ClearRenderTargetView(m_RTTex->GetRTV().Get(), Color);
+    m_Context->ClearRenderTargetView(CRenderMgr::GetInst()->GetBloomRTTex()->GetRTV().Get(), Vec4(0,0,0,1));
     m_Context->ClearDepthStencilView(m_DSTex->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 }
 
@@ -398,9 +399,4 @@ int CDevice::CreateConstBuffer()
     m_arrCB[(UINT)CB_TYPE::GLOBAL_DATA]->Create(sizeof(FGlobalData), 1);
 
     return S_OK;
-}
-
-int CDevice::CreateBloomTex()
-{
-    return 0;
 }

@@ -46,9 +46,6 @@ private:
     // const buffer
     int CreateConstBuffer();
 
-    // bloom
-    int CreateBloomTex();
-
 public:
     int init(HWND _hWnd, Vec2 _vResolution);
     void SetRenderTarget();
