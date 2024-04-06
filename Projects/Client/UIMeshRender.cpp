@@ -2,6 +2,7 @@
 #include "UIMeshRender.h"
 #include "UIInspectorPannel.h"
 #include "UIListPannel.h"
+#include "UIMaterial.h"
 #include "CImGuiMgr.h"
 #include "func_ImGUI.h"
 
@@ -96,6 +97,10 @@ void UIMeshRender::render_update()
 		pList->SetDBClickeDelegate(this, (DELEGATE_1)&UIMeshRender::MaterialSelect);
 		pList->Activate();
 	}
+
+	// Material 인자 표시
+	if(pMat.Get())
+		UIMaterial::render_UIMatParam(pMat, pMat->GetShader());
 }
 
 void UIMeshRender::MeshSelect(DWORD_PTR _ptr)

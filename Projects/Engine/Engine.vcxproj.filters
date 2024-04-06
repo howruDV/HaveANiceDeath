@@ -356,21 +356,6 @@
     <ClInclude Include="CMovement.h">
       <Filter>08. Component\10. Movement</Filter>
     </ClInclude>
-    <ClInclude Include="CBloomUpScaling.h">
-      <Filter>ShaderCode\Compute\Bloom\Scaling\UpScaling</Filter>
-    </ClInclude>
-    <ClInclude Include="CBloomDownScaling.h">
-      <Filter>ShaderCode\Compute\Bloom\Scaling\DownScaling</Filter>
-    </ClInclude>
-    <ClInclude Include="CBloomCombine.h">
-      <Filter>ShaderCode\Compute\Bloom\Combine</Filter>
-    </ClInclude>
-    <ClInclude Include="CBloomBluringY.h">
-      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurY</Filter>
-    </ClInclude>
-    <ClInclude Include="CBloomBluringX.h">
-      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurX</Filter>
-    </ClInclude>
     <ClInclude Include="CBlurX.h">
       <Filter>ShaderCode\Compute\Bloom\Bluring\BlurX</Filter>
     </ClInclude>
@@ -544,21 +529,6 @@
     </ClCompile>
     <ClCompile Include="CMovement.cpp">
       <Filter>08. Component\10. Movement</Filter>
-    </ClCompile>
-    <ClCompile Include="CBloomUpScaling.cpp">
-      <Filter>ShaderCode\Compute\Bloom\Scaling\UpScaling</Filter>
-    </ClCompile>
-    <ClCompile Include="CBloomDownScaling.cpp">
-      <Filter>ShaderCode\Compute\Bloom\Scaling\DownScaling</Filter>
-    </ClCompile>
-    <ClCompile Include="CBloomCombine.cpp">
-      <Filter>ShaderCode\Compute\Bloom\Combine</Filter>
-    </ClCompile>
-    <ClCompile Include="CBloomBluringY.cpp">
-      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurY</Filter>
-    </ClCompile>
-    <ClCompile Include="CBloomBluringX.cpp">
-      <Filter>ShaderCode\Compute\Bloom\Bluring\BlurX</Filter>
     </ClCompile>
     <ClCompile Include="CBlurX.cpp">
       <Filter>ShaderCode\Compute\Bloom\Bluring\BlurX</Filter>

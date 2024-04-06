@@ -45,12 +45,14 @@ void CRenderComponent::SetMaterial(Ptr<CMaterial> _Mat)
 	// 재질이 변경되면 기존에 복사본 받아둔 DynamicMaterial 을 삭제한다.
 	m_CurMat = m_SharedMat = _Mat;
 	m_DynamicMat = nullptr;
+
+	GetDynamicMaterial();
 }
 
 Ptr<CMaterial> CRenderComponent::GetDynamicMaterial()
 {
 	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
-	if (pCurLevel->GetState() != LEVEL_STATE::PLAY)
+	if (!pCurLevel || pCurLevel->GetState() != LEVEL_STATE::PLAY)
 		return nullptr;
 
 	// case: dynamic material을 보유한 경우
@@ -66,6 +68,11 @@ Ptr<CMaterial> CRenderComponent::GetDynamicMaterial()
 	}
 
 	return nullptr;
+}
+
+void CRenderComponent::begin()
+{
+	GetDynamicMaterial();
 }
 
 void CRenderComponent::SaveToFile(FILE* _File)

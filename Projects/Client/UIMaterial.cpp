@@ -29,7 +29,7 @@ void UIMaterial::render_update()
     Ptr<CMaterial> pMat = (CMaterial*)GetAsset().Get();
     Ptr<CGraphicsShader> pShader = pMat->GetShader();
     string strPath = string(pMat->GetRelativePath().begin(), pMat->GetRelativePath().end());
-    string strShaderName;
+    string strShaderName = "";
     if (pShader.Get())
         strShaderName = string(pShader->GetKey().begin(), pShader->GetKey().end());
 
@@ -41,12 +41,38 @@ void UIMaterial::render_update()
     ImGui::SameLine();
     ImGui::InputText("##ShaderName", (char*)strShaderName.c_str(), strShaderName.length(), ImGuiInputTextFlags_ReadOnly);
 
-    // Shader Parameter
-    
+    // Render Material Param
+    render_UIMatParam(pMat, pShader);
+
+    // Set Material Param
+    const vector<FTexParam>& vecTexParam = pShader->GetTexParam();
+    for (size_t i = 0; i < vecTexParam.size(); ++i)
+    {
+        Ptr<CTexture> pTex = pMat->GetTexParam(vecTexParam[i].Type);
+
+        // case: 리스트 버튼을 누름
+        if (UIParam::Param_TEXTURE(pTex, vecTexParam[i].Desc, this, (DELEGATE_1)&UIMaterial::SelectTexture))
+            m_SelectTexParam = vecTexParam[i].Type;
+        pMat->SetTexParam(vecTexParam[i].Type, pTex);
+    }
+}
+
+void UIMaterial::SelectTexture(DWORD_PTR _dwData)
+{
+    string strTex = (char*)_dwData;
+    wstring strTexName = StrToWstr(strTex);
+
+    Ptr<CTexture> pTex = CAssetMgr::GetInst()->FindAsset<CTexture>(strTexName);
+    Ptr<CMaterial> pMtrl = (CMaterial*)GetAsset().Get();
+    pMtrl->SetTexParam(m_SelectTexParam, pTex);
+}
+
+void UIMaterial::render_UIMatParam(Ptr<CMaterial> pMat, Ptr<CGraphicsShader> pShader)
+{
     ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing(); ImGui::Spacing();
     TextBox("Material Parameter");
     ImGui::Spacing(); ImGui::Spacing();
-    
+
     if (!pShader.Get())
         return;
 
@@ -86,25 +112,4 @@ void UIMaterial::render_update()
             break;
         }
     }
-
-    const vector<FTexParam>& vecTexParam = pShader->GetTexParam();
-    for (size_t i = 0; i < vecTexParam.size(); ++i)
-    {
-        Ptr<CTexture> pTex = pMat->GetTexParam(vecTexParam[i].Type);
-        
-        // case: 리스트 버튼을 누름
-        if (UIParam::Param_TEXTURE(pTex, vecTexParam[i].Desc, this, (DELEGATE_1)&UIMaterial::SelectTexture))
-            m_SelectTexParam = vecTexParam[i].Type;
-        pMat->SetTexParam(vecTexParam[i].Type, pTex);
-    }
-}
-
-void UIMaterial::SelectTexture(DWORD_PTR _dwData)
-{
-    string strTex = (char*)_dwData;
-    wstring strTexName = StrToWstr(strTex);
-
-    Ptr<CTexture> pTex = CAssetMgr::GetInst()->FindAsset<CTexture>(strTexName);
-    Ptr<CMaterial> pMtrl = (CMaterial*)GetAsset().Get();
-    pMtrl->SetTexParam(m_SelectTexParam, pTex);
 }

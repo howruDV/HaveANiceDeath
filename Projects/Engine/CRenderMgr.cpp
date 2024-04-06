@@ -276,15 +276,15 @@ void CRenderMgr::Execute_Bloom()
 	// 2. Bluring (x, y) & UpScaling
 	for (int i = m_BloomLevel - 2; i >= 0; i--)
 	{
-		// Blur X
-		m_CSBloomBluringX->SetResourceTex(m_vecBlurXTex[i]);			// source
-		m_CSBloomBluringX->SetTargetTexture(m_vecBlurXYTex[i]);			// target
-		m_CSBloomBluringX->Execute();
+		//// Blur X
+		//m_CSBloomBluringX->SetResourceTex(m_vecBlurXTex[i]);			// source
+		//m_CSBloomBluringX->SetTargetTexture(m_vecBlurXYTex[i]);			// target
+		//m_CSBloomBluringX->Execute();
 
-		// Blur Y
-		m_CSBloomBluringY->SetResourceTex(m_vecBlurXYTex[i]);			// source
-		m_CSBloomBluringY->SetTargetTexture(m_vecBlurXTex[i]);			// target
-		m_CSBloomBluringY->Execute();
+		//// Blur Y
+		//m_CSBloomBluringY->SetResourceTex(m_vecBlurXYTex[i]);			// source
+		//m_CSBloomBluringY->SetTargetTexture(m_vecBlurXTex[i]);			// target
+		//m_CSBloomBluringY->Execute();
 
 		// UpScaling
 		m_CSBloomUpScaling->SetResourceTex(m_vecBlurXTex[i]);			// source

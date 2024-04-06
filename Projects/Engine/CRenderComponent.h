@@ -19,6 +19,7 @@ private:
     Ptr<CMaterial>          m_CurMat;
 
 public:
+    virtual void begin() override;
     virtual void finaltick() {};
     virtual void UpdatePipeline() = 0;
     virtual void render() = 0;

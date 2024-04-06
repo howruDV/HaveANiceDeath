@@ -2,9 +2,6 @@
 #define DOWNSAMPLING
 
 #define INTERPOL_LEVEL 3
-
-SamplerState g_sam_0 : register(s0);
-SamplerState g_sam_1 : register(s1);
 Texture2D<float4> inputTexture : register(t0);      // 큰 사이즈 텍스쳐
 RWTexture2D<float4> outputTexture : register(u0);   // 작은 사이즈 텍스쳐
 

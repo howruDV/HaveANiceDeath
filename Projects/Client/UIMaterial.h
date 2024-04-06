@@ -11,6 +11,7 @@ public:
 
 public:
     void SelectTexture(DWORD_PTR _dwData);
+    static void render_UIMatParam(Ptr<CMaterial> pMat, Ptr<CGraphicsShader> pShader);
 
 public:
     UIMaterial();

@@ -1,10 +1,11 @@
 #ifndef COMBIND
 #define COMBIND
 
+#include "value.fx"
+#define STRENGTH g_float_0
 
 Texture2D<float4> RenderTargetCopy : register(t0);
 Texture2D<float4> BloomTexture : register(t1);
-
 RWTexture2D<float4> RenderTarget : register(u0);
 
 // 1901 950 475 237 118
@@ -28,7 +29,7 @@ void CS_Combind(uint3 dispatchThreadID : SV_DispatchThreadID)
         return;
     }
     
-    RenderTarget[dispatchThreadID.xy] = saturate(RenderTargetCopy[dispatchThreadID.xy] + BloomTexture[dispatchThreadID.xy]);
+    RenderTarget[dispatchThreadID.xy] = saturate(RenderTargetCopy[dispatchThreadID.xy] + STRENGTH * BloomTexture[dispatchThreadID.xy]);
 }
 
 #endif

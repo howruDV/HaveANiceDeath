@@ -3,6 +3,7 @@
 
 CCombine::CCombine()
 	: CComputeShader(32, 32, 1)
+	, m_fStrength(0.85f)
 {
 	Create(L"shader\\combind.fx", "CS_Combind");
 }
@@ -17,6 +18,7 @@ int CCombine::UpdatePipeline()
 	if (nullptr == m_RenderTargetCopyTex || nullptr == m_BloomTex || nullptr == m_RenderTarget)
 		return E_FAIL;
 
+	m_Const.fArr[0] = m_fStrength;
 
 	// 텍스쳐 t0 에 바인딩
 	if (FAILED(m_RenderTargetCopyTex->UpdateCS_SRV(0)))
