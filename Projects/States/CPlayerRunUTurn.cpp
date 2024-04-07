@@ -119,8 +119,8 @@ void CPlayerRunUTurn::finaltick()
 
 void CPlayerRunUTurn::Enter()
 {
-	m_PlayerMgr = CPlayerMgr::PlayerMgr();
-	m_PlayerMgr->GetPlayerScript()->SetDirLock(true);
+	//m_PlayerMgr = CPlayerMgr::PlayerMgr();
+	PLAYERSCRIPT->SetDirLock(true);
 
 	// play anim
 	GetOwner()->Animator2D()->Play(L"Run_UTurn", false);
@@ -128,6 +128,6 @@ void CPlayerRunUTurn::Enter()
 
 void CPlayerRunUTurn::Exit()
 {
-	m_PlayerMgr->GetPlayerScript()->SetDirLock(false);
+	PLAYERSCRIPT->SetDirLock(false);
 	GetOwner()->Movement()->SetVelocity(Vec3());
 }

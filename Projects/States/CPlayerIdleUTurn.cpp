@@ -101,8 +101,8 @@ void CPlayerIdleUTurn::finaltick()
 
 void CPlayerIdleUTurn::Enter()
 {
-	m_PlayerMgr = CPlayerMgr::PlayerMgr();
-	m_PlayerMgr->GetPlayerScript()->SetDirLock(true);
+	//m_PlayerMgr = CPlayerMgr::PlayerMgr();
+	PLAYERSCRIPT->SetDirLock(true);
 	GetOwner()->Movement()->SetVelocity(Vec3());
 
 	// play anim

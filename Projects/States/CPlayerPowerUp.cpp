@@ -62,9 +62,11 @@ void CPlayerPowerUp::Enter()
 	m_TargetPos = m_LandPos + m_MoveTop;
 
 	GetOwner()->Animator2D()->Play(L"PowerUp", false);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }
 
 void CPlayerPowerUp::Exit()
 {
 	GetOwner()->Movement()->UseGravity(true);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 }

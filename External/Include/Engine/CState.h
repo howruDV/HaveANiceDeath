@@ -5,6 +5,7 @@
 #include "CGameObject.h"
 #include "CMovement.h"
 #include "CAnimator2D.h"
+#include "CMeshRender.h"
 
 // =======================================
 // CState: State가 상속하는 parent class, 하나의 상태

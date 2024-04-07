@@ -54,9 +54,11 @@ void CScytheDissCrush::Enter()
 {
 	m_StartPos = GetOwner()->Transform()->GetRelativePos();
 	GetOwner()->Animator2D()->Play(L"ScytheDiss_Crush", false);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }
 
 void CScytheDissCrush::Exit()
 {
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 	m_LandingPos = Vec3();
 }

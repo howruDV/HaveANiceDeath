@@ -49,10 +49,12 @@ void CScytheDissComboB::finaltick()
 void CScytheDissComboB::Enter()
 {
 	GetOwner()->Animator2D()->Play(L"ScytheDiss_ComboB", false);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }
 
 void CScytheDissComboB::Exit()
 {
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 	PLAYERSCRIPT->StartCombo(1);
 	m_bCombo = false;
 }

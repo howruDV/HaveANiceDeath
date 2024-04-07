@@ -44,9 +44,11 @@ void CScytheDissAerial::Enter()
 
 	GetOwner()->Animator2D()->Play(L"ScytheDiss_Aerial", false);
 	PLAYERSCRIPT->DeactiveAerialAttack();
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }
 
 void CScytheDissAerial::Exit()
 {
 	GetOwner()->Movement()->UseGravity(true);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 }

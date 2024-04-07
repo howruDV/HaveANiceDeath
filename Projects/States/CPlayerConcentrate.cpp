@@ -29,8 +29,10 @@ void CPlayerConcentrate::finaltick()
 void CPlayerConcentrate::Enter()
 {
 	GetOwner()->Animator2D()->Play(L"Concentrate", true);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }
 
 void CPlayerConcentrate::Exit()
 {
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 }

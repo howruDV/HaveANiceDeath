@@ -140,6 +140,18 @@ CGameObject* CLevel::FindObjectByName(const wstring& _strName)
 	return nullptr;
 }
 
+CGameObject* CLevel::FindObjectByName(const wstring& _strName, int _LayerIdx)
+{
+	const vector<CGameObject*>& vecObject = m_arrLayer[_LayerIdx]->GetLayerObjects();
+	for (size_t j = 0; j < vecObject.size(); ++j)
+	{
+		if (vecObject[j]->GetName() == _strName)
+			return vecObject[j];
+	}
+
+	return nullptr;
+}
+
 void CLevel::FindObjectsByName(const wstring& _strName, vector<CGameObject*>& _out)
 {
 	for (size_t i = 0; i < LAYER_MAX; ++i)

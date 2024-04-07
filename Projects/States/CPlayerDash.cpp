@@ -43,23 +43,24 @@ void CPlayerDash::finaltick()
 void CPlayerDash::Enter()
 {
 	GetOwner()->Movement()->SetVelocity(Vec3());
-	m_PlayerMgr = CPlayerMgr::PlayerMgr();
 
 	// set speed
 	Vec3 vSpeed = Vec3();
 	vSpeed.x = *((float*)GetBlackboardData(L"fSpeedDash"));
-	if (m_PlayerMgr->GetPlayerScript()->GetDir() == UNIT_DIRX::LEFT)
+	if (PLAYERSCRIPT->GetDir() == UNIT_DIRX::LEFT)
 		vSpeed.x *= -1;
 	GetOwner()->Movement()->UseMaxSpeed(false);
 	GetOwner()->Movement()->SetVelocity(vSpeed);
 
 	// anim
 	GetOwner()->Animator2D()->Play(L"Dash", true);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }
 
 void CPlayerDash::Exit()
 {
 	GetOwner()->Movement()->UseMaxSpeed(true);
 	GetOwner()->Movement()->SetVelocity(Vec3());
-	m_PlayerMgr->GetPlayerScript()->StartDashCoolTime();
+	PLAYERSCRIPT->StartDashCoolTime();
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 }

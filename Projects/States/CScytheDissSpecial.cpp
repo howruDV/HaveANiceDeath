@@ -29,9 +29,11 @@ void CScytheDissSpecial::Enter()
 	m_OrginScale = GetOwner()->Transform()->GetRelativeScale();
 	Vec3 Scale = m_OrginScale * 1.2f;
 	GetOwner()->Transform()->SetRelativeScale(Scale);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }
 
 void CScytheDissSpecial::Exit()
 {
 	GetOwner()->Transform()->SetRelativeScale(m_OrginScale);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 }

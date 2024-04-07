@@ -78,7 +78,7 @@ CPlayerScript::~CPlayerScript()
 void CPlayerScript::begin()
 {
 	// Mgr 등록
-	CPlayerMgr::PlayerMgr()->SetPlayer(GetOwner());
+	//CPlayerMgr::PlayerMgr()->SetPlayer(GetOwner());
 
 	// Create Player's Component : Player Script에서는 생성자에서는 owner 모르고, begin은 이미 실행된 이후라 애매;
 	Collider2D()->SetAbsolute(true);
@@ -86,8 +86,11 @@ void CPlayerScript::begin()
 	Collider2D()->SetOffsetPos(Vec3(0.f, -10.f, 0.f));
 
 	MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"Std2DMat"));
+	MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"BloomMat"));
 	MeshRender()->GetDynamicMaterial();
+	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.5f, 0.1f, 1.f, 1.f));
+	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.2f);
 
 	Movement()->UseGravity(true);
 	Movement()->SetInitSpeed(m_fSpeed);

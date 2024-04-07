@@ -48,7 +48,7 @@ void CPlayerJumpLanding::finaltick()
 
 void CPlayerJumpLanding::Enter()
 {
-	m_PlayerMgr = CPlayerMgr::PlayerMgr();
+	//m_PlayerMgr = CPlayerMgr::PlayerMgr();
 
 	// set velocity
 	Vec3 vVeloc = GetOwner()->Movement()->GetVelocity();

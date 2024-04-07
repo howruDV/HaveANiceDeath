@@ -20,10 +20,10 @@
       <Filter>Scripts\Dummy</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerMgr.h">
-      <Filter>Scripts\Manager\PlayerMgr</Filter>
+      <Filter>Manager\PlayerMgr</Filter>
     </ClInclude>
     <ClInclude Include="CGameMgr.h">
-      <Filter>Scripts\Manager\GameMgr</Filter>
+      <Filter>Manager\GameMgr</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerScript.h">
       <Filter>Scripts\Unit\Player</Filter>
@@ -73,10 +73,10 @@
       <Filter>Scripts\Dummy</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerMgr.cpp">
-      <Filter>Scripts\Manager\PlayerMgr</Filter>
+      <Filter>Manager\PlayerMgr</Filter>
     </ClCompile>
     <ClCompile Include="CGameMgr.cpp">
-      <Filter>Scripts\Manager\GameMgr</Filter>
+      <Filter>Manager\GameMgr</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>Scripts\Unit\Player</Filter>
@@ -116,15 +116,6 @@
     <Filter Include="Scripts\Unit">
       <UniqueIdentifier>{4df81294-5a06-45c1-8ba4-413d46147310}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Manager">
-      <UniqueIdentifier>{185fe919-7162-4950-afec-c5f831d3da43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Manager\PlayerMgr">
-      <UniqueIdentifier>{84a441f0-289c-4f18-8f0d-575f4497fc46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Manager\GameMgr">
-      <UniqueIdentifier>{c235a9f8-27d7-4685-91fc-666ce864f0c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts\Unit\Player">
       <UniqueIdentifier>{1cf859de-d203-4603-b5a9-56d36a4a181d}</UniqueIdentifier>
     </Filter>
@@ -148,6 +139,15 @@
     </Filter>
     <Filter Include="Header">
       <UniqueIdentifier>{1dbd8512-ef06-48d5-a44c-5f1357a8e0a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{185fe919-7162-4950-afec-c5f831d3da43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\PlayerMgr">
+      <UniqueIdentifier>{84a441f0-289c-4f18-8f0d-575f4497fc46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameMgr">
+      <UniqueIdentifier>{c235a9f8-27d7-4685-91fc-666ce864f0c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

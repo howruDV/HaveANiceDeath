@@ -8,7 +8,7 @@
 CFSM::CFSM(CFSM* _Origin, bool _bEngine)
 	: CAsset(ASSET_TYPE::FSM, _bEngine)
 	, m_Origin(_Origin)
-	, m_Blackboard_OBJ(nullptr)
+	//, m_Blackboard_OBJ(nullptr)
 	, m_StateMachine(nullptr)
 	, m_CurState(nullptr)
 	, m_PrevState(nullptr)

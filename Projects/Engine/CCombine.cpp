@@ -3,7 +3,7 @@
 
 CCombine::CCombine()
 	: CComputeShader(32, 32, 1)
-	, m_fStrength(0.85f)
+	, m_fStrength(0.7f)
 {
 	Create(L"shader\\combind.fx", "CS_Combind");
 }

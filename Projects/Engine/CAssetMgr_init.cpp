@@ -326,8 +326,8 @@ void CAssetMgr::CreateDefaultMaterial()
 	pMat->SetShader(FindAsset<CGraphicsShader>(L"BloomShader"));
 	AddAsset(L"BloomMat", pMat);
 	pMat->SetScalarParam(SCALAR_PARAM::INT_0, 1);
-	pMat->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.8f,0.1f,0.8f,1.f));
-	pMat->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.75f);
+	pMat->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.5f,0.1f,1.f,1.f));
+	pMat->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.2f);
 
 	// AlphaBlend Mat
 	//pMat = new CMaterial(true);

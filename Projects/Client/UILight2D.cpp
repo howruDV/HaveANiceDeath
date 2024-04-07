@@ -30,8 +30,8 @@ void UILight2D::render_update()
 	// UI render
 	const char* items[] = { "Directional", "Point", "Spot" };
 	static ImGuiComboFlags flags = 0;
-	TextBox("Type	 "); ImGui::SameLine();
-	if (ImGui::BeginCombo(" ", items[item_currentType], flags))
+	TextBox("Type"); ImGui::SameLine(0);
+	if (ImGui::BeginCombo("##LightTypeCombo", items[item_currentType], flags))
 	{
 		for (int n = 0; n < IM_ARRAYSIZE(items); n++)
 		{

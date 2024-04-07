@@ -37,9 +37,11 @@ void CPlayerConcentrate_Start::finaltick()
 void CPlayerConcentrate_Start::Enter()
 {
 	GetOwner()->Animator2D()->Play(L"Concentrate_Start", false);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }
 
 void CPlayerConcentrate_Start::Exit()
 {
 	PLAYERSCRIPT->DeactiveCombo();
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 }

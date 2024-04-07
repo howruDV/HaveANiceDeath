@@ -17,7 +17,7 @@ void CStateMachine::begin()
 	{
 		m_FSM_Inst = m_FSM_Origin->GetFSMIstance();
 		m_FSM_Inst->SetStateMachine(this);
-		m_FSM_Inst->m_Blackboard_OBJ = &m_Blackboard;
+		//m_FSM_Inst->m_Blackboard_OBJ = &m_Blackboard;
 	}
 }
 

@@ -4,27 +4,39 @@
 
 #include <Engine/CGameObject.h>
 
-CPlayerMgr* CPlayerMgr::m_This = nullptr;
+CGameObject* CPlayerMgr::m_pPlayer = nullptr;
+CPlayerScript* CPlayerMgr::m_pPlayerScript = nullptr;
 
 CPlayerMgr::CPlayerMgr()
 	: CScript(PLAYERMGR)
-	, m_pPlayer(nullptr)
 {
-	if (!m_This)
-		m_This = this;
 }
 
 CPlayerMgr::~CPlayerMgr()
 {
-
 }
 
 #include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
+
+void CPlayerMgr::begin()
+{
+	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+	if (pLevel)
+	{
+		int LayerIdx = pLevel->GetLayerIdxByName(L"Player");
+		CGameObject* pObj = pLevel->FindObjectByName(L"Death", LayerIdx);
+		SetPlayer(pObj);
+	}
+}
 
 void CPlayerMgr::tick()
 {
-	if (!m_This)
-		m_This = this;
+	if (!m_pPlayer)
+	{
+		m_pPlayerScript = nullptr;
+		MessageBoxA(nullptr, "Can't Find Player!", "Failed to Find Player", MB_OK);
+	}
 }
 
 void CPlayerMgr::SetPlayer(CGameObject* _obj)
@@ -41,7 +53,7 @@ void CPlayerMgr::SetPlayer(CGameObject* _obj)
 
 	if (not m_pPlayerScript)
 	{
-		MessageBoxA(nullptr, "Can't Find Player Script From Player!", "Failed to Create Animation", MB_OK);
+		MessageBoxA(nullptr, "Can't Find Player Script From Player!", "Failed to Find PlayerScript", MB_OK);
 		assert(nullptr);
 	}
 }

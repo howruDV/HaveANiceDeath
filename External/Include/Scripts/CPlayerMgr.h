@@ -12,11 +12,11 @@ class CPlayerMgr
 	: public CScript
 {
 private:
-	static CPlayerMgr* m_This;
-	CGameObject*	m_pPlayer;
-	CPlayerScript*	m_pPlayerScript;
+	static CGameObject*	m_pPlayer;
+	static CPlayerScript*	m_pPlayerScript;
 
 public:
+	virtual void begin() override;
 	virtual void tick() override;
 
 	virtual void SaveToFile(FILE* _File) override {};
@@ -25,11 +25,10 @@ public:
 	//void SavePlayerInfo();
 
 public:
-	static CPlayerMgr* PlayerMgr() { return m_This; }
 	void SetPlayer(CGameObject* _obj);
 
-	CGameObject* GetPlayer() { return m_pPlayer; };
-	CPlayerScript* GetPlayerScript() { return m_pPlayerScript; }
+	static CGameObject* GetPlayer() { return m_pPlayer; };
+	static CPlayerScript* GetPlayerScript() { return m_pPlayerScript; }
 
 public:
 	CLONE_DISABLE(CPlayerMgr)

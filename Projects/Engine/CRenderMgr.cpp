@@ -18,7 +18,7 @@ CRenderMgr::CRenderMgr()
 	, m_DebugPosition(true)
 	, m_EditorCam(nullptr)
 	, m_RenderFunc(nullptr)
-	, m_BloomLevel(5)
+	, m_BloomLevel(3)
 {
 	m_RenderFunc = &CRenderMgr::render_play;
 

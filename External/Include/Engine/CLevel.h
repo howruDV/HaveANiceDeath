@@ -32,6 +32,7 @@ public:
     CLayer* GetLayer(int _iLayerIdx) { return m_arrLayer[_iLayerIdx]; }
     CLayer* GetLayer(const wstring& _strLayerName);
     CGameObject* FindObjectByName(const wstring& _strName);
+    CGameObject* FindObjectByName(const wstring& _strName, int _LayerIdx);
     void FindObjectsByName(const wstring& _strName, vector<CGameObject*>& _out);
     LEVEL_STATE GetState() { return m_State; }
 

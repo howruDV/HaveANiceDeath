@@ -53,7 +53,7 @@ void CKoTBigScript::begin()
 		// blackboard
 		StateMachine()->AddBlackboardData(L"fDetectRange", BB_DATA::FLOAT, &m_fDetectRange);
 		StateMachine()->AddBlackboardData(L"fAttack2_Damage", BB_DATA::FLOAT, &m_iAttack2Damage);
-		CGameObject* pPlayer = CPlayerMgr::PlayerMgr()->GetPlayer();
+		CGameObject* pPlayer = CPlayerMgr::GetPlayer();
 
 		if (pPlayer)
 			StateMachine()->AddBlackboardData(L"pTarget", BB_DATA::OBJECT, pPlayer);

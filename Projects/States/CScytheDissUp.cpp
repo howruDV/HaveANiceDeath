@@ -66,9 +66,11 @@ void CScytheDissUp::Enter()
 	m_TargetPos = m_LandPos + m_MoveTop;
 
 	GetOwner()->Animator2D()->Play(L"ScytheDiss_Up", false);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }
 
 void CScytheDissUp::Exit()
 {
 	GetOwner()->Movement()->UseGravity(true);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 }
