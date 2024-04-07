@@ -69,6 +69,9 @@ void CImGuiMgr::tick()
 	if (CTaskMgr::GetInst()->GetChangeLevel())
 	{
 		LoadLayerName();
+
+		UIInspectorPannel* pInspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
+		pInspector->SetTargetObject(nullptr);
 	}
 	ImGui::ShowDemoWindow();
 	UIParam::ResetID();

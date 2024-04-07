@@ -28,13 +28,15 @@ void CGameMgr::tick()
 
 void CGameMgr::GameEnding_Fail()
 {
-	// @TODO : Level 새로 파는게 가장 좋음
-	m_GameEnding_Fail->Activate();
+	CLevel* pLevel = CLevel::LEVEL_LOAD(L"level\\Ending_tmp.lv");
+	CLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::PLAY);
+
+	/*m_GameEnding_Fail->Activate();
 
 	CGameObject* pAnimObj = m_GameEnding_Fail->GetChildByName(L"Dead_Screen");
 
 	if (!pAnimObj->Animator2D()->IsPlaying())
-	pAnimObj->Animator2D()->Play(L"Dead_Screen", false);
+	pAnimObj->Animator2D()->Play(L"Dead_Screen", false);*/
 }
 
 void CGameMgr::GameEnding_Win()

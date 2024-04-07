@@ -4,12 +4,20 @@
 // =======================================
 // CLevel: GameObject가 배치되는 Scene
 // =======================================
+class CLevel;
+typedef void(*SAVE_LEVEL)(CLevel*, const wstring&);
+typedef CLevel* (*LOAD_LEVEL)(const wstring&);
+
 class CLayer;
 class CGameObject;
 
 class CLevel :
     public CEntity
 {
+public:
+    static SAVE_LEVEL LEVEL_SAVE;
+    static LOAD_LEVEL LEVEL_LOAD;
+
 private:
     CLayer*         m_arrLayer[LAYER_MAX];
     LEVEL_STATE		m_State;

@@ -97,6 +97,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     CPrefab::GAMEOBJECT_SAVE = &CLevelSaveLoad::SaveGameObject;
     CPrefab::GAMEOBJECT_LOAD = &CLevelSaveLoad::LoadGameObject;
+    CLevel::LEVEL_SAVE = &CLevelSaveLoad::SaveLevel;
+    CLevel::LEVEL_LOAD = &CLevelSaveLoad::LoadLevel;
 
 #ifndef _RELEASE_GAME
     // create temp level

@@ -6,4 +6,3 @@ public:
 	static void CreateTempLevel();
 	static void CreateGameEndig_Fail();
 };
-

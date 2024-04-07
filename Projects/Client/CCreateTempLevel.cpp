@@ -446,7 +446,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pTempLevel->AddObject(pObj, L"UI", false);
 
 	// UI GameEnding Object
-	pObj = new CGameObject;
+	/*pObj = new CGameObject;
 	pObj->AddComponent(new CTransform);
 	pObj->SetName(L"GameEnding_Fail");
 	pObj->Transform()->SetRelativePos(Vec3(0, 0, 500.f));
@@ -488,7 +488,7 @@ void CCreateTempLevel::CreateTempLevel()
 
 	pMgrObj->GetScriptByType<CGameMgr>()->SetGameEndingFail(pObj);
 	pTempLevel->AddObject(pObj, L"UI", false);
-	pObj->Deactivate();
+	pObj->Deactivate();*/
 
 	// PostProcess Object Create
 	/*pObj = new CGameObject;
@@ -523,4 +523,128 @@ void CCreateTempLevel::CreateTempLevel()
 
 void CCreateTempLevel::CreateGameEndig_Fail()
 {
+	CLevel* pEndingLevel = new CLevel;
+	CGameObject* pObj;
+
+	// -------------------------------------------
+	// Layer
+	// -------------------------------------------
+	pEndingLevel->GetLayer(0)->SetName(L"Default");
+	pEndingLevel->GetLayer(1)->SetName(L"Background");
+	pEndingLevel->GetLayer(2)->SetName(L"Tile");
+	pEndingLevel->GetLayer(3)->SetName(L"Player");
+	pEndingLevel->GetLayer(4)->SetName(L"Monster");
+	pEndingLevel->GetLayer(5)->SetName(L"Light");
+	pEndingLevel->GetLayer(6)->SetName(L"Platform");
+	pEndingLevel->GetLayer(31)->SetName(L"UI");
+
+	// -------------------------------------------
+	// Camera
+	// -------------------------------------------
+	
+	// Create Main Camera
+	CGameObject* pCamObj = new CGameObject;
+	pCamObj->SetName(L"MainCamera");
+	pCamObj->AddComponent(new CTransform);
+	pCamObj->AddComponent(new CCamera);
+	//pCamObj->AddComponent(new CCameraMoveScript);
+
+	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
+	pCamObj->Transform()->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+
+	pCamObj->Camera()->SetCameraPriority(0);
+	pCamObj->Camera()->LayerCheckAll();
+	pCamObj->Camera()->LayerCheck(31, false);
+	pCamObj->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
+
+	pEndingLevel->AddObject(pCamObj, L"Default", false);
+
+	// Create UI Camera
+	pCamObj = new CGameObject;
+	pCamObj->SetName(L"UICamera");
+	pCamObj->AddComponent(new CTransform);
+	pCamObj->AddComponent(new CCamera);
+
+	pCamObj->Transform()->SetRelativePos(Vec3(0.5f, 0.f, 0.f));
+	pCamObj->Transform()->SetRelativeRotation(Vec3());
+
+	pCamObj->Camera()->SetCameraPriority(1);
+	pCamObj->Camera()->LayerCheck(31, true);
+	pCamObj->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
+
+	pEndingLevel->AddObject(pCamObj, L"Default", false);
+
+	// -------------------------------------------
+	// Create Light
+	// -------------------------------------------
+	CGameObject* pLight = new CGameObject;
+	pLight->SetName(L"Light");
+	pLight->AddComponent(new CTransform);
+	pLight->AddComponent(new CMeshRender);
+	pLight->AddComponent(new CLight2D);
+
+	pLight->Light2D()->SetLightType(LIGHT_TYPE::DIRECTIONAL);
+	pLight->Light2D()->SetLightColor(Vec3(1.f));
+	pLight->Light2D()->SetAmbient(Vec3(1.f));
+
+	pLight->Transform()->SetRelativePos(Vec3(0.f, 0.f, 200.f));
+	pEndingLevel->AddObject(pLight, L"Light");
+
+	// Light2
+	pLight = new CGameObject;
+	pLight->SetName(L"PointLight");
+	pLight->AddComponent(new CTransform);
+	pLight->AddComponent(new CMeshRender);
+	pLight->AddComponent(new CLight2D);
+
+	pLight->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	pLight->Light2D()->SetLightColor(Vec3(0.3f, 0.3f, 0.3f));
+	pLight->Light2D()->SetRadius(500.f);
+
+	pLight->Transform()->SetRelativePos(Vec3(0.f, 2000.f, 200.f));
+	pEndingLevel->AddObject(pLight, L"Light");
+
+	// -------------------------------------------
+	// Create objects
+	// -------------------------------------------
+	pObj = new CGameObject();
+	pObj->SetName(L"Background");
+	pObj->AddComponent(new CTransform);
+	pObj->AddComponent(new CMeshRender);
+
+	pObj->Transform()->SetAbsolute(true);
+	pObj->Transform()->SetRelativeScale(Vec3(3000, 2000, 0));
+	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"UIMat"));
+	Ptr<CTexture> pTex = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\UI\\background_black.jpg");
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
+
+	pEndingLevel->AddObject(pObj, L"UI");
+
+	pObj = new CGameObject();
+	pObj->SetName(L"Dead_Screen");
+	pObj->AddComponent(new CTransform);
+	pObj->AddComponent(new CMeshRender);
+	pObj->AddComponent(new CAnimator2D);
+
+	pObj->Transform()->SetAbsolute(true);
+	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"UIMat"));
+
+	FILE* pFile = nullptr;
+	CAnim* pAnim = new CAnim;
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\UI\\LD_Dead_Screen.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	pObj->Animator2D()->Create(pAnim, L"Dead_Screen");
+	fclose(pFile);
+	delete pAnim;
+
+	pObj->Animator2D()->Play(L"Dead_Screen");
+	pEndingLevel->AddObject(pObj, L"UI");
+
+	// -------------------------------------------
+	// Save Level
+	// -------------------------------------------
+	CLevelMgr::GetInst()->ChangeLevel(pEndingLevel, LEVEL_STATE::STOP);
+	CLevelSaveLoad::SaveLevel(pEndingLevel, L"level\\Ending_tmp.lv");
 }

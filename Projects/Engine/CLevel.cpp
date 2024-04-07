@@ -5,6 +5,9 @@
 #include "CTimeMgr.h"
 #include "CRenderMgr.h"
 
+SAVE_LEVEL CLevel::LEVEL_SAVE = nullptr;
+LOAD_LEVEL CLevel::LEVEL_LOAD = nullptr;
+
 CLevel::CLevel()
 	: m_arrLayer{}
 	, m_State(LEVEL_STATE::NONE)
