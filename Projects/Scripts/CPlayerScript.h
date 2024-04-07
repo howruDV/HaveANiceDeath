@@ -74,7 +74,7 @@ public:
     virtual void SaveToFile(FILE* _File);
     virtual void LoadFromFile(FILE* _File);
 
-    virtual void HitDamage(FDamage _Damage) { m_iHPCur -= _Damage.iCurHPDamage; m_iHPActive -= _Damage.iActiveHPDamage; }
+    virtual void HitDamage(FDamage _Damage) { CUnitScript::HitDamage(_Damage);  m_iHPActive -= _Damage.iActiveHPDamage; }
     virtual void Attack() { m_iRestCur += 5; }
 
 public:

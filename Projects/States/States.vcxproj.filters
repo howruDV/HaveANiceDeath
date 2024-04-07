@@ -103,6 +103,9 @@
     <Filter Include="States\Enemy\KnightOfTimeBig\Attack2">
       <UniqueIdentifier>{66ef2423-e0f4-430f-86ff-3a8d6c9d35ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Player\Hit">
+      <UniqueIdentifier>{ef62df18-c909-4cd9-a88c-df555c9fb6a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -194,6 +197,9 @@
     <ClInclude Include="CKoTBigAttack2.h">
       <Filter>States\Enemy\KnightOfTimeBig\Attack2</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerHit.h">
+      <Filter>States\Player\Hit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -283,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="CKoTBigAttack2.cpp">
       <Filter>States\Enemy\KnightOfTimeBig\Attack2</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerHit.cpp">
+      <Filter>States\Player\Hit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

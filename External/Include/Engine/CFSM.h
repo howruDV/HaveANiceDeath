@@ -24,6 +24,8 @@ private:
     //CBlackboard*                    m_Blackboard_OBJ;   // 기록한 FSM 정보 (실제소유: 컴포넌트)
     CBlackboard*                    m_Blackboard_FSM;   // 기록한 FSM 정보 (실제소유: 컴포넌트)
 
+    bool                            m_bGlobalState;
+
 public:
     void finaltick();
     virtual int Save(const wstring& _strRelativePath);
@@ -36,6 +38,7 @@ public:
     CState* FindState(const wstring& _StateName);
     void ChangeState(const wstring& _strStateName);
     void DeleteState(const wstring& _StateKey);
+    void SetGlobalState(bool _GlobalState) { m_bGlobalState = _GlobalState; }
 
     const unordered_map<wstring, CState*>& GetStates() { return m_mapState; }
     CFSM* GetFSMIstance();
@@ -44,6 +47,7 @@ public:
     CBlackboard* GetBlackboard_FSM() { return m_Blackboard_FSM; }
     CState* GetCurState() { return m_CurState; }
     CState* GetPrevState() { return m_PrevState; }
+    bool IsGlobalState() { return m_bGlobalState; }
 
 private:
     void ChangeState_proc(CState* _pNextState);

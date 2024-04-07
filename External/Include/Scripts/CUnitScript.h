@@ -15,6 +15,12 @@ class CUnitScript :
 protected:
     // Info
     float       m_fSpeed;
+
+    // hp
+    int         m_iHPMax;
+    int         m_iHPCur;
+
+    // direction
     UNIT_DIRX   m_Dir;
     UNIT_DIRX   m_Dir_Prev;
     UNIT_DIRX   m_Dir_Next;
@@ -24,10 +30,6 @@ protected:
 
     // Collision
     vector<CGameObject*> m_CollisionGround;
-
-    // hp
-    int         m_iHPMax;
-    int         m_iHPCur;
 
 public:
     virtual void begin() override {};
@@ -49,7 +51,7 @@ public:
     virtual void LoadFromFile(FILE* _File);
 
     // Hit & Attack
-    virtual void HitDamage(FDamage _Damage) { m_iHPCur -= _Damage.iCurHPDamage; }   // Hit: Unit의 Hit에 따른 패널티 처리 (HP 감소 등)
+    virtual void HitDamage(FDamage _Damage);                                        // Hit: Unit의 Hit에 따른 패널티 처리 (HP 감소 등)
     virtual void Attack() {};                                                       // Attack: Unit의 Attack에 따른 보상 처리 (각성게이지 증가 등)
 
 public:

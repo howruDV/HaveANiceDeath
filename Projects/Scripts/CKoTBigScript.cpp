@@ -81,7 +81,7 @@ void CKoTBigScript::begin()
 	pHitboxComp->SetCoolTime(5.f);
 
 	GetOwner()->AddChild(pHitbox);
-	pHitbox->Collider2D()->Deactivate();
+	//pHitbox->Collider2D()->Deactivate();
 	pHitbox->Deactivate();
 
 	FTask task = {};

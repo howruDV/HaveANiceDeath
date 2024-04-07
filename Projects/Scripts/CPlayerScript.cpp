@@ -213,6 +213,11 @@ void CPlayerScript::begin()
 	Animator2D()->Create(pAnim, L"ScytheDiss_Rest");
 	fclose(pFile);
 
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Hit02.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Hit");
+	fclose(pFile);
+
 	delete pAnim;
 
 	// StateMachine
@@ -232,13 +237,21 @@ void CPlayerScript::begin()
 
 void CPlayerScript::tick()
 {
+	// ----------------------------
 	// set direction
+	// ----------------------------
 	if ((KEY_TAP(KEY::A) || KEY_PRESSED(KEY::A)) && (KEY_NONE(KEY::D) || KEY_RELEASED(KEY::D)))
 		SetDir(UNIT_DIRX::LEFT);
 
 	if ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && (KEY_NONE(KEY::A) || KEY_RELEASED(KEY::A)))
 		SetDir(UNIT_DIRX::RIGHT);
 
+	CUnitScript::tick();
+
+	// ----------------------------
+	// check state
+	// ----------------------------
+	
 	// check coolTime
 	if (!m_bDashCan)
 	{
@@ -262,8 +275,6 @@ void CPlayerScript::tick()
 			m_NextComboIdx = 0;
 		}
 	}
-
-	CUnitScript::tick();
 
 	// HP - Active
 	if (m_iHPActive > m_iHPMax)

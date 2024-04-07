@@ -12,6 +12,7 @@ CFSM::CFSM(CFSM* _Origin, bool _bEngine)
 	, m_StateMachine(nullptr)
 	, m_CurState(nullptr)
 	, m_PrevState(nullptr)
+	, m_bGlobalState(false)
 {
 	// origin인 경우
 	if (not m_Origin)
@@ -137,6 +138,9 @@ void CFSM::ChangeState(const wstring& _strState)
 	// @TODO : 현재 State 재입장 할수도 있을듯?
 	//if (_strState == m_CurState->GetName())
 	//	return;
+
+	if (m_bGlobalState)
+		return;
 
 	// 1. next state check
 	CState* pNextState = FindState(_strState);

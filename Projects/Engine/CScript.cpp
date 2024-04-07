@@ -2,6 +2,7 @@
 #include "CScript.h"
 #include "CGameObject.h"
 #include "CTransform.h"
+#include "CStateMachine.h"
 
 CScript::CScript(UINT _ScriptType)
 	: CComponent(COMPONENT_TYPE::SCRIPT)
@@ -28,4 +29,14 @@ void CScript::Instantiate(Ptr<CPrefab> _Prefab, Vec3 _vWorldPos, int _layerIdx)
 	CGameObject* pNewObj = _Prefab->Instantiate();
 	pNewObj->Transform()->SetRelativePos(_vWorldPos);
 	GamePlayStatic::SpawnGameObject(pNewObj, _layerIdx);
+}
+
+void CScript::SetGlobalState(bool _play)
+{
+	GetOwner()->StateMachine()->GetFSM()->SetGlobalState(_play);
+}
+
+bool CScript::IsGlobalState()
+{
+	return GetOwner()->StateMachine()->GetFSM()->IsGlobalState();
 }

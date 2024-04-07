@@ -29,10 +29,11 @@ void CKoTBigAttack2::finaltick()
 
 void CKoTBigAttack2::Enter()
 {
-	GetOwner()->Animator2D()->Play(L"Attack2", false);
 	m_pHitbox = GetOwner()->GetChildByName(L"Attack2_Hitbox");
 	m_pHitbox->Activate();
-	m_pHitbox->Collider2D()->Activate();
+	//m_pHitbox->Collider2D()->Activate();
+
+	GetOwner()->Animator2D()->Play(L"Attack2", false);
 }
 
 void CKoTBigAttack2::Exit()

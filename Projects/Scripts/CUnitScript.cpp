@@ -43,6 +43,9 @@ CUnitScript::~CUnitScript()
 
 void CUnitScript::tick()
 {
+	// ----------------------------
+	// check direction
+	// ----------------------------
 	m_bDirChange_Next = false;
 	m_bDirChange_Cur = false;
 
@@ -70,6 +73,10 @@ void CUnitScript::tick()
 		m_Dir_Prev = m_Dir;
 		m_Dir = m_Dir_Next;
 	}
+
+	// ----------------------------
+	// check state
+	// ----------------------------
 
 	// HP check
 	if (m_iHPCur > m_iHPMax)
@@ -103,6 +110,14 @@ void CUnitScript::LoadFromFile(FILE* _File)
 	fread(&m_Dir, sizeof(int), 1, _File);
 	fread(&m_iHPMax, sizeof(int), 1, _File);
 	fread(&m_iHPCur, sizeof(int), 1, _File);
+}
+
+void CUnitScript::HitDamage(FDamage _Damage)
+{ 
+	if (StateMachine() && StateMachine()->GetFSM()->FindState(L"Hit"))
+		StateMachine()->GetFSM()->ChangeState(L"Hit");
+
+	m_iHPCur -= _Damage.iCurHPDamage;
 }
 
 void CUnitScript::DeleteGround(CGameObject* _Ground)

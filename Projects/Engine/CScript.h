@@ -36,9 +36,11 @@ protected:
     void AddScriptParam(SCRIPT_PARAM _Param, const string& _Desc, void* _Data) { m_ScriptParam.push_back(FScriptParam{ _Param , _Desc, _Data }); }
 
 public:
+    void SetGlobalState(bool _play);
+
     UINT GetScriptType() { return m_iScriptType; }
     const vector<FScriptParam>& GetScriptParam() { return m_ScriptParam; }
-
+    bool IsGlobalState();
 
 public:
     CScript(UINT m_iScriptType);

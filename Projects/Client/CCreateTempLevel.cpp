@@ -39,6 +39,7 @@
 #include <States/CPlayerConcentrate.h>
 #include <States/CPlayerConcentrate_Start.h>
 #include <States/CPlayerPowerUp.h>
+#include <States/CPlayerHit.h>
 #include <States/CScytheDissComboA.h>
 #include <States/CScytheDissComboB.h>
 #include <States/CScytheDissComboC.h>
@@ -88,6 +89,7 @@ void CCreateTempLevel::Init()
 	pFSM->AddState(L"Concentrate", new CPlayerConcentrate);
 	pFSM->AddState(L"Concentrate_Start", new CPlayerConcentrate_Start);
 	pFSM->AddState(L"PowerUp", new CPlayerPowerUp);
+	pFSM->AddState(L"Hit", new CPlayerHit);
 	pFSM->AddState(L"ScytheDiss_ComboA", new CScytheDissComboA);
 	pFSM->AddState(L"ScytheDiss_ComboB", new CScytheDissComboB);
 	pFSM->AddState(L"ScytheDiss_ComboC", new CScytheDissComboC);
