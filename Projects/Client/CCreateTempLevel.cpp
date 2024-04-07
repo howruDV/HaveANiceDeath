@@ -13,9 +13,11 @@
 #include <Engine/CTexture.h>
 #include <Engine/CPrefab.h>
 #include <Engine/CFSM.h>
+#include <Engine/CAnim.h>
 
 #include <Engine/CSetColorShader.h>
 
+#include <Scripts/CGameMgr.h>
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript_Test.h>
 #include <Scripts/CMissileScript_Test.h>
@@ -40,6 +42,7 @@
 #include <States/CPlayerConcentrate_Start.h>
 #include <States/CPlayerPowerUp.h>
 #include <States/CPlayerHit.h>
+#include <States/CPlayerDie.h>
 #include <States/CScytheDissComboA.h>
 #include <States/CScytheDissComboB.h>
 #include <States/CScytheDissComboC.h>
@@ -90,6 +93,7 @@ void CCreateTempLevel::Init()
 	pFSM->AddState(L"Concentrate_Start", new CPlayerConcentrate_Start);
 	pFSM->AddState(L"PowerUp", new CPlayerPowerUp);
 	pFSM->AddState(L"Hit", new CPlayerHit);
+	pFSM->AddState(L"Die", new CPlayerDie);
 	pFSM->AddState(L"ScytheDiss_ComboA", new CScytheDissComboA);
 	pFSM->AddState(L"ScytheDiss_ComboB", new CScytheDissComboB);
 	pFSM->AddState(L"ScytheDiss_ComboC", new CScytheDissComboC);
@@ -291,6 +295,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pMgrObj->SetName(L"Manager");
 	pMgrObj->AddComponent(new CTransform);
 	pMgrObj->AddComponent(new CPlayerMgr);
+	pMgrObj->AddComponent(new CGameMgr);
 	pTempLevel->AddObject(pMgrObj, L"Default", false);
 
 	// Create Player
@@ -353,6 +358,7 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
 	pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
 	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"FSM\\PlayerFSM.fsm"));
+	pObj->GetScriptByType<CPlayerScript>()->init();
 
 	//pMgrObj->GetScriptByType<CPlayerMgr>()->SetPlayer(pObj);
 	pTempLevel->AddObject(pObj, L"Player", false);
@@ -433,12 +439,56 @@ void CCreateTempLevel::CreateTempLevel()
 
 	pObj->Transform()->SetRelativePos(Vec3(-590, 310.f, 500.f));
 	pObj->Transform()->SetRelativeScale(Vec3(50.f, 50.f, 1.f));
-
 	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"UIMat"));
 	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
 
 	pTempLevel->AddObject(pObj, L"UI", false);
+
+	// UI GameEnding Object
+	pObj = new CGameObject;
+	pObj->AddComponent(new CTransform);
+	pObj->SetName(L"GameEnding_Fail");
+	pObj->Transform()->SetRelativePos(Vec3(0, 0, 500.f));
+	
+	{
+		CGameObject* pChildObj;
+
+		pChildObj = new CGameObject();
+		pChildObj->SetName(L"Background");
+		pChildObj->AddComponent(new CTransform);
+		pChildObj->AddComponent(new CMeshRender);
+		pChildObj->Transform()->SetAbsolute(true);
+		pChildObj->Transform()->SetRelativeScale(Vec3(3000, 2000, 0));
+		pChildObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pChildObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"UIMat"));
+		Ptr<CTexture> pTex = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\UI\\background_black.jpg");
+		pChildObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
+		pObj->AddChild(pChildObj);
+
+		pChildObj = new CGameObject();
+		pChildObj->SetName(L"Dead_Screen");
+		pChildObj->AddComponent(new CTransform);
+		pChildObj->AddComponent(new CMeshRender);
+		pChildObj->AddComponent(new CAnimator2D);
+		pChildObj->Transform()->SetAbsolute(true);
+		pChildObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+		pChildObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"UIMat"));
+
+		FILE* pFile = nullptr;
+		CAnim* pAnim = new CAnim;
+		_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\UI\\LD_Dead_Screen.anim").c_str(), L"rb");
+		pAnim->LoadFromFile(pFile);
+		pChildObj->Animator2D()->Create(pAnim, L"Dead_Screen");
+		fclose(pFile);
+		delete pAnim;
+
+		pObj->AddChild(pChildObj);
+	}
+
+	pMgrObj->GetScriptByType<CGameMgr>()->SetGameEndingFail(pObj);
+	pTempLevel->AddObject(pObj, L"UI", false);
+	pObj->Deactivate();
 
 	// PostProcess Object Create
 	/*pObj = new CGameObject;
@@ -471,6 +521,6 @@ void CCreateTempLevel::CreateTempLevel()
 	CLevelSaveLoad::SaveLevel(pTempLevel, L"level\\temp.lv");
 }
 
-void CCreateTempLevel::CreateTempHaND()
+void CCreateTempLevel::CreateGameEndig_Fail()
 {
 }

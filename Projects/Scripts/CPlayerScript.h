@@ -60,6 +60,7 @@ private:
 
 
 public:
+    virtual void init() override;
     virtual void begin() override;
     virtual void tick() override;
 

@@ -85,7 +85,9 @@ void CUnitScript::tick()
 	else if (m_iHPCur <= 0)
 	{
 		m_iHPCur = 0;
-		//StateMachine()->GetFSM()->ChangeState(L"Death");
+
+		if (StateMachine() && StateMachine()->GetFSM()->FindState(L"Die"))
+			StateMachine()->GetFSM()->ChangeState(L"Die");
 	}
 }
 

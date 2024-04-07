@@ -96,12 +96,6 @@
     <Filter Include="03. Scripts">
       <UniqueIdentifier>{5bd32861-1453-402c-bf27-c612bce40dd6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Manager\03. CreateTempLevel">
-      <UniqueIdentifier>{9737b10f-1b5e-40da-b714-c9b4b94d338b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Manager\04. LevelSaveLoad">
-      <UniqueIdentifier>{79d98ae5-e43d-4d31-abc4-a6578775ddaa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. UI\3. InspectorPannel\AssetUI\Prefab">
       <UniqueIdentifier>{cd12a3d7-5045-4d30-909f-811d49852eff}</UniqueIdentifier>
     </Filter>
@@ -144,11 +138,17 @@
     <Filter Include="02. UI\6. GamePlayPannel">
       <UniqueIdentifier>{7b569d2c-f8d7-4475-99fe-64fe10af19a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Manager\05. ObjectController">
-      <UniqueIdentifier>{19f0750e-48f1-4ec5-abde-a4340927f530}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. UI\4. MenuPannel\Layer Editor">
       <UniqueIdentifier>{c1446ac8-3fe7-4825-9688-ca79f1354b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\03. LevelSaveLoad">
+      <UniqueIdentifier>{79d98ae5-e43d-4d31-abc4-a6578775ddaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\04. ObjectController">
+      <UniqueIdentifier>{19f0750e-48f1-4ec5-abde-a4340927f530}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. CreateLevel">
+      <UniqueIdentifier>{9737b10f-1b5e-40da-b714-c9b4b94d338b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -278,11 +278,8 @@
     <ClInclude Include="CEditorObj.h">
       <Filter>01. Manager\02. EditorObjMgr\CEditorObject</Filter>
     </ClInclude>
-    <ClInclude Include="CCreateTempLevel.h">
-      <Filter>01. Manager\03. CreateTempLevel</Filter>
-    </ClInclude>
     <ClInclude Include="CLevelSaveLoad.h">
-      <Filter>01. Manager\04. LevelSaveLoad</Filter>
+      <Filter>01. Manager\03. LevelSaveLoad</Filter>
     </ClInclude>
     <ClInclude Include="UIPrefab.h">
       <Filter>02. UI\3. InspectorPannel\AssetUI\Prefab</Filter>
@@ -318,10 +315,13 @@
       <Filter>02. UI\6. GamePlayPannel</Filter>
     </ClInclude>
     <ClInclude Include="ObjectController.h">
-      <Filter>01. Manager\05. ObjectController</Filter>
+      <Filter>01. Manager\04. ObjectController</Filter>
     </ClInclude>
     <ClInclude Include="LayerEditor.h">
       <Filter>02. UI\4. MenuPannel\Layer Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="CCreateTempLevel.h">
+      <Filter>04. CreateLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -453,11 +453,8 @@
     <ClCompile Include="CEditorObj.cpp">
       <Filter>01. Manager\02. EditorObjMgr\CEditorObject</Filter>
     </ClCompile>
-    <ClCompile Include="CCreateTempLevel.cpp">
-      <Filter>01. Manager\03. CreateTempLevel</Filter>
-    </ClCompile>
     <ClCompile Include="CLevelSaveLoad.cpp">
-      <Filter>01. Manager\04. LevelSaveLoad</Filter>
+      <Filter>01. Manager\03. LevelSaveLoad</Filter>
     </ClCompile>
     <ClCompile Include="UIPrefab.cpp">
       <Filter>02. UI\3. InspectorPannel\AssetUI\Prefab</Filter>
@@ -493,10 +490,13 @@
       <Filter>02. UI\6. GamePlayPannel</Filter>
     </ClCompile>
     <ClCompile Include="ObjectController.cpp">
-      <Filter>01. Manager\05. ObjectController</Filter>
+      <Filter>01. Manager\04. ObjectController</Filter>
     </ClCompile>
     <ClCompile Include="LayerEditor.cpp">
       <Filter>02. UI\4. MenuPannel\Layer Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="CCreateTempLevel.cpp">
+      <Filter>04. CreateLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

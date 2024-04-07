@@ -7,6 +7,7 @@
 #include "CPlayerConcentrate.h"
 #include "CPlayerConcentrate_Start.h"
 #include "CPlayerDash.h"
+#include "CPlayerDie.h"
 #include "CPlayerHit.h"
 #include "CPlayerIdle.h"
 #include "CPlayerIdleToRun.h"
@@ -37,6 +38,7 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerConcentrate");
 	_vec.push_back(L"CPlayerConcentrate_Start");
 	_vec.push_back(L"CPlayerDash");
+	_vec.push_back(L"CPlayerDie");
 	_vec.push_back(L"CPlayerHit");
 	_vec.push_back(L"CPlayerIdle");
 	_vec.push_back(L"CPlayerIdleToRun");
@@ -74,6 +76,8 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 		return new CPlayerConcentrate_Start;
 	if (L"CPlayerDash" == _strStateName)
 		return new CPlayerDash;
+	if (L"CPlayerDie" == _strStateName)
+		return new CPlayerDie;
 	if (L"CPlayerHit" == _strStateName)
 		return new CPlayerHit;
 	if (L"CPlayerIdle" == _strStateName)
@@ -140,6 +144,9 @@ CState* CStateMgr::GetState(UINT _iStateType)
 		break;
 	case (UINT)STATE_TYPE::PLAYERDASH:
 		return new CPlayerDash;
+		break;
+	case (UINT)STATE_TYPE::PLAYERDIE:
+		return new CPlayerDie;
 		break;
 	case (UINT)STATE_TYPE::PLAYERHIT:
 		return new CPlayerHit;
@@ -234,6 +241,10 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 
 	case STATE_TYPE::PLAYERDASH:
 		return L"CPlayerDash";
+		break;
+
+	case STATE_TYPE::PLAYERDIE:
+		return L"CPlayerDie";
 		break;
 
 	case STATE_TYPE::PLAYERHIT:

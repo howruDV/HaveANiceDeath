@@ -246,7 +246,7 @@ void UIMenuPannel::GameObject()
             {
                 if (nullptr != TargetObject)
                 {
-                    TargetObject->AddComponent(new CStateMachine());
+                    TargetObject->AddComponent(new CMovement());
                     inspector->SetTargetObject(TargetObject);
                 }
             }
@@ -255,7 +255,7 @@ void UIMenuPannel::GameObject()
             {
                 if (nullptr != TargetObject)
                 {
-                    TargetObject->AddComponent(new CMovement());
+                    TargetObject->AddComponent(new CMeshRender());
                     inspector->SetTargetObject(TargetObject);
                 }
             }
@@ -285,7 +285,7 @@ void UIMenuPannel::GameObject()
             UIInspectorPannel* inspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
             CGameObject* TargetObject = inspector->GetTargetObject();
 
-            if (ImGui::MenuItem("Delete Collider"))
+            if (ImGui::MenuItem("Collider"))
             {
                 if (nullptr != TargetObject)
                 {
@@ -294,7 +294,7 @@ void UIMenuPannel::GameObject()
                 }
             }
 
-            if (ImGui::MenuItem("Delete Animator"))
+            if (ImGui::MenuItem("Animator"))
             {
                 if (nullptr != TargetObject)
                 {
@@ -303,7 +303,7 @@ void UIMenuPannel::GameObject()
                 }
             }
 
-            if (ImGui::MenuItem("Delete Light"))
+            if (ImGui::MenuItem("Light"))
             {
                 if (nullptr != TargetObject)
                 {
@@ -312,7 +312,16 @@ void UIMenuPannel::GameObject()
                 }
             }
 
-            if (ImGui::MenuItem("Delete StateMachine"))
+            if (ImGui::MenuItem("Camera"))
+            {
+                if (nullptr != TargetObject)
+                {
+                    TargetObject->DeleteComponent(COMPONENT_TYPE::CAMERA);
+                    inspector->SetTargetObject(TargetObject);
+                }
+            }
+
+            if (ImGui::MenuItem("StateMachine"))
             {
                 if (nullptr != TargetObject)
                 {
@@ -321,7 +330,16 @@ void UIMenuPannel::GameObject()
                 }
             }
 
-            if (ImGui::MenuItem("Delete MeshRender"))
+            if (ImGui::MenuItem("Movement"))
+            {
+                if (nullptr != TargetObject)
+                {
+                    TargetObject->DeleteComponent(COMPONENT_TYPE::MOVEMENT);
+                    inspector->SetTargetObject(TargetObject);
+                }
+            }
+
+            if (ImGui::MenuItem("MeshRender"))
             {
                 if (nullptr != TargetObject)
                 {
@@ -331,7 +349,7 @@ void UIMenuPannel::GameObject()
             }
 
 
-            if (ImGui::MenuItem("Delete TileMap"))
+            if (ImGui::MenuItem("TileMap"))
             {
                 if (nullptr != TargetObject)
                 {
@@ -340,7 +358,7 @@ void UIMenuPannel::GameObject()
                 }
             }
 
-            if (ImGui::MenuItem("Delete ParticleSystem"))
+            if (ImGui::MenuItem("ParticleSystem"))
             {
                 if (nullptr != TargetObject)
                 {

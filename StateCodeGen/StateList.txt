@@ -4,6 +4,7 @@ CKoTBigIdle
 CPlayerConcentrate
 CPlayerConcentrate_Start
 CPlayerDash
+CPlayerDie
 CPlayerHit
 CPlayerIdle
 CPlayerIdleToRun

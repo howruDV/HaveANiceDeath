@@ -172,6 +172,7 @@ call CodeGen.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CPlayerDie.h" />
     <ClInclude Include="CPlayerHit.h" />
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CKoTBigAttack2.h" />
@@ -205,6 +206,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CPlayerDie.cpp" />
     <ClCompile Include="CPlayerHit.cpp" />
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CKoTBigAttack2.cpp" />

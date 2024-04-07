@@ -75,7 +75,7 @@ CPlayerScript::~CPlayerScript()
 {
 }
 
-void CPlayerScript::begin()
+void CPlayerScript::init()
 {
 	// Mgr µî·Ï
 	//CPlayerMgr::PlayerMgr()->SetPlayer(GetOwner());
@@ -90,14 +90,14 @@ void CPlayerScript::begin()
 	MeshRender()->GetDynamicMaterial();
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.5f, 0.1f, 1.f, 1.f));
-	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.2f);
+	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.8f);
 
 	Movement()->UseGravity(true);
 	Movement()->SetInitSpeed(m_fSpeed);
 	Movement()->SetInitSpeed_InAir(300.f);
 	Movement()->SetMaxSpeed_Ground(m_fSpeed);
 	Movement()->SetMaxSpeed_InAir(5000.f);
-	Movement()->SetGravityForce(Vec3(0.f,-4000.f,0.f));
+	Movement()->SetGravityForce(Vec3(0.f, -4000.f, 0.f));
 
 	// Player Animation
 	FILE* pFile = nullptr;
@@ -153,20 +153,30 @@ void CPlayerScript::begin()
 	pAnim->LoadFromFile(pFile);
 	Animator2D()->Create(pAnim, L"Dash");
 	fclose(pFile);
-	
+
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Concentrate.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
 	Animator2D()->Create(pAnim, L"Concentrate");
 	fclose(pFile);
-	
+
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Concentrate_Start.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
 	Animator2D()->Create(pAnim, L"Concentrate_Start");
 	fclose(pFile);
-	
+
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_PowerUp1.anim").c_str(), L"rb");
 	pAnim->LoadFromFile(pFile);
 	Animator2D()->Create(pAnim, L"PowerUp");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Hit02.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Hit");
+	fclose(pFile);
+
+	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Disappear1.anim").c_str(), L"rb");
+	pAnim->LoadFromFile(pFile);
+	Animator2D()->Create(pAnim, L"Die");
 	fclose(pFile);
 
 	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Combo2a.anim").c_str(), L"rb");
@@ -213,12 +223,12 @@ void CPlayerScript::begin()
 	Animator2D()->Create(pAnim, L"ScytheDiss_Rest");
 	fclose(pFile);
 
-	_wfopen_s(&pFile, (CPathMgr::GetContentPath() + (wstring)L"animation\\death\\LD_Hit02.anim").c_str(), L"rb");
-	pAnim->LoadFromFile(pFile);
-	Animator2D()->Create(pAnim, L"Hit");
-	fclose(pFile);
-
 	delete pAnim;
+}
+
+void CPlayerScript::begin()
+{
+	//init();
 
 	// StateMachine
 	if (StateMachine())

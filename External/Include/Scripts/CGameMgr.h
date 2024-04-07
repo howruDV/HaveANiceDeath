@@ -5,11 +5,13 @@
 // CGameMgr: Game 진행 관리
 // =======================================
 
+class CGameObject;
+
 class CGameMgr :
     public CScript
 {
 private:
-	static CGameMgr* m_This;
+	CGameObject* m_GameEnding_Fail;
 
 public:
 	virtual void begin() override {};
@@ -18,8 +20,12 @@ public:
 	virtual void SaveToFile(FILE* _File) override {};
 	virtual void LoadFromFile(FILE* _File) override {};
 
+private:
+	void GameEnding_Fail();
+	void GameEnding_Win();
+
 public:
-	static CGameMgr* GameMgr() { return m_This; }
+	void SetGameEndingFail(CGameObject* pObj) { m_GameEnding_Fail = pObj; }
 
 public:
 	CLONE_DISABLE(CGameMgr)

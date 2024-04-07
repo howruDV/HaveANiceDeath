@@ -106,6 +106,9 @@
     <Filter Include="States\Player\Hit">
       <UniqueIdentifier>{ef62df18-c909-4cd9-a88c-df555c9fb6a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Player\Die">
+      <UniqueIdentifier>{fe253018-074f-4b21-8203-615a77130711}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -200,6 +203,9 @@
     <ClInclude Include="CPlayerHit.h">
       <Filter>States\Player\Hit</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerDie.h">
+      <Filter>States\Player\Die</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -292,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerHit.cpp">
       <Filter>States\Player\Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerDie.cpp">
+      <Filter>States\Player\Die</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
