@@ -103,6 +103,7 @@ void CUnitScript::SaveToFile(FILE* _File)
 	fwrite(&m_Dir, sizeof(int), 1, _File);
 	fwrite(&m_iHPMax, sizeof(int), 1, _File);
 	fwrite(&m_iHPCur, sizeof(int), 1, _File);
+	fwrite(&m_bDirLock, sizeof(bool), 1, _File);
 	//vector<CGameObject*> m_CollisionGround;
 }
 
@@ -112,6 +113,7 @@ void CUnitScript::LoadFromFile(FILE* _File)
 	fread(&m_Dir, sizeof(int), 1, _File);
 	fread(&m_iHPMax, sizeof(int), 1, _File);
 	fread(&m_iHPCur, sizeof(int), 1, _File);
+	fread(&m_bDirLock, sizeof(bool), 1, _File);
 }
 
 void CUnitScript::HitDamage(FDamage _Damage)

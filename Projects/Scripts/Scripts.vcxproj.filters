@@ -52,6 +52,9 @@
     <ClInclude Include="global.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="CMonsterScript.h">
+      <Filter>Scripts\Unit\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -98,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="extern.cpp">
       <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterScript.cpp">
+      <Filter>Scripts\Unit\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

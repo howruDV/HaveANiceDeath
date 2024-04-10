@@ -91,23 +91,50 @@
     <Filter Include="States\Weapon\Scythe\Diss\Rest">
       <UniqueIdentifier>{db9a9a8c-94a6-4941-afb9-1f0273cda45b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="States\Enemy">
-      <UniqueIdentifier>{3816f7f6-40d1-465b-ad80-7b62827d8078}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Enemy\KnightOfTimeBig">
-      <UniqueIdentifier>{8698b017-703f-4c3f-b417-311bb9739187}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Enemy\KnightOfTimeBig\Idle">
-      <UniqueIdentifier>{990565ec-5a06-4f97-9ae3-e91dab0b75a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Enemy\KnightOfTimeBig\Attack2">
-      <UniqueIdentifier>{66ef2423-e0f4-430f-86ff-3a8d6c9d35ac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="States\Player\Hit">
       <UniqueIdentifier>{ef62df18-c909-4cd9-a88c-df555c9fb6a5}</UniqueIdentifier>
     </Filter>
     <Filter Include="States\Player\Die">
       <UniqueIdentifier>{fe253018-074f-4b21-8203-615a77130711}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster">
+      <UniqueIdentifier>{21d0067b-c8b9-43d3-b0d0-786287632166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Stun">
+      <UniqueIdentifier>{7bfec369-eab6-412f-a369-9100dbd645e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Run">
+      <UniqueIdentifier>{11e68eb7-ce1d-41b3-a01b-7ae6cd8b7960}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Surprised">
+      <UniqueIdentifier>{039f5ba6-4032-4739-ad7d-8ae2f7cb0850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\UTurn">
+      <UniqueIdentifier>{41db7349-c73a-4fd9-918a-458aabf4bd10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Appear">
+      <UniqueIdentifier>{7ca3921d-dd06-4cae-941e-7bd14a9f3caa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Appear_Wait">
+      <UniqueIdentifier>{510f1814-ed1e-4562-9e74-b90fe099d1b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Die">
+      <UniqueIdentifier>{eb20c2e9-b8d2-45a0-aa25-66f41e855630}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Hit">
+      <UniqueIdentifier>{5d27e751-fb52-4945-a2c1-f872f60b1b50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Idle">
+      <UniqueIdentifier>{990565ec-5a06-4f97-9ae3-e91dab0b75a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster_Attack">
+      <UniqueIdentifier>{3816f7f6-40d1-465b-ad80-7b62827d8078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster_Attack\Attack2">
+      <UniqueIdentifier>{66ef2423-e0f4-430f-86ff-3a8d6c9d35ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster_Attack\Attack1">
+      <UniqueIdentifier>{cd0c98e0-1bb6-40ed-97ae-2d687747ccad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -194,17 +221,29 @@
     <ClInclude Include="CScytheDissRest.h">
       <Filter>States\Weapon\Scythe\Diss\Rest</Filter>
     </ClInclude>
-    <ClInclude Include="CKoTBigIdle.h">
-      <Filter>States\Enemy\KnightOfTimeBig\Idle</Filter>
+    <ClInclude Include="CMonsterIdle.h">
+      <Filter>States\Monster\Idle</Filter>
     </ClInclude>
     <ClInclude Include="CKoTBigAttack2.h">
-      <Filter>States\Enemy\KnightOfTimeBig\Attack2</Filter>
+      <Filter>States\Monster_Attack\Attack2</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerHit.h">
       <Filter>States\Player\Hit</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerDie.h">
       <Filter>States\Player\Die</Filter>
+    </ClInclude>
+    <ClInclude Include="CKoTBigAttack1.h">
+      <Filter>States\Monster_Attack\Attack1</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterSurprised.h">
+      <Filter>States\Monster\Surprised</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterUTurn.h">
+      <Filter>States\Monster\UTurn</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterRun.h">
+      <Filter>States\Monster\Run</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -290,17 +329,29 @@
     <ClCompile Include="CScytheDissRest.cpp">
       <Filter>States\Weapon\Scythe\Diss\Rest</Filter>
     </ClCompile>
-    <ClCompile Include="CKoTBigIdle.cpp">
-      <Filter>States\Enemy\KnightOfTimeBig\Idle</Filter>
+    <ClCompile Include="CMonsterIdle.cpp">
+      <Filter>States\Monster\Idle</Filter>
     </ClCompile>
     <ClCompile Include="CKoTBigAttack2.cpp">
-      <Filter>States\Enemy\KnightOfTimeBig\Attack2</Filter>
+      <Filter>States\Monster_Attack\Attack2</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerHit.cpp">
       <Filter>States\Player\Hit</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerDie.cpp">
       <Filter>States\Player\Die</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoTBigAttack1.cpp">
+      <Filter>States\Monster_Attack\Attack1</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterSurprised.cpp">
+      <Filter>States\Monster\Surprised</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterUTurn.cpp">
+      <Filter>States\Monster\UTurn</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterRun.cpp">
+      <Filter>States\Monster\Run</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

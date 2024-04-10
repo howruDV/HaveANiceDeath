@@ -39,8 +39,10 @@ public:
 public:
     void AddComponent(CComponent* _Component);
     void AddChild(CGameObject* _Child);
+    void AddChild_Load(CGameObject* _Child);
     void Activate() { m_bActivate = true; }
     void Deactivate() { m_bActivate = false; }
+    void SetLayerIdx(int _LayerIdx) { m_iLayerIdx = _LayerIdx; }
 
     CGameObject* GetParent() { return m_Parent; }
     vector<CGameObject*>& GetChild() { return m_vecChild; }

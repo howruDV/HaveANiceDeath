@@ -24,7 +24,6 @@
 #include <Scripts/CMonsterScript_Test.h>
 #include <Scripts/CPlayerScript.h>
 #include <Scripts/CWallScript.h>
-#include <Scripts/CKoTBigScript.h>
 
 #include <States/CIdleState.h>
 #include <States/CTraceState.h>
@@ -52,8 +51,6 @@
 #include <States/CScytheDissUp.h>
 #include <States/CScytheDissCrush.h>
 #include <States/CScytheDissRest.h>
-#include <States/CKoTBigIdle.h>
-#include <States/CKoTBigAttack2.h>
 
 void CCreateTempLevel::Init()
 {
@@ -105,10 +102,10 @@ void CCreateTempLevel::Init()
 	pFSM->AddState(L"ScytheDiss_Rest", new CScytheDissRest);
 	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\PlayerFSM.fsm", pFSM.Get());
 
-	pFSM = new CFSM(nullptr, false);
-	pFSM->AddState(L"Idle", new CKoTBigIdle);
-	pFSM->AddState(L"Attack2", new CKoTBigAttack2);
-	CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\KoTBigFSM.fsm", pFSM.Get());
+	//pFSM = new CFSM(nullptr, false);
+	//pFSM->AddState(L"Idle", new CMonsterIdle);
+	//pFSM->AddState(L"Attack2", new CKoTBigAttack2);
+	//CAssetMgr::GetInst()->AddAsset<CFSM>(L"FSM\\KoTBigFSM.fsm", pFSM.Get());
 
 	// -----------------------------------------------FSM CODEGEN TEST
 	//CFSM* pFSM = new CFSM(nullptr, true);
@@ -369,13 +366,13 @@ void CCreateTempLevel::CreateTempLevel()
 	pObj->AddComponent(new CCollider2D);
 	pObj->AddComponent(new CMeshRender);
 	pObj->AddComponent(new CAnimator2D);
-	pObj->AddComponent(new CStateMachine);
+	//pObj->AddComponent(new CStateMachine);
 	pObj->AddComponent(new CMovement);
-	pObj->AddComponent(new CKoTBigScript);
+	//pObj->AddComponent(new CKoTBigScript);
 
-	pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
-	pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
-	pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"FSM\\KoTBigFSM.fsm"));
+	//pObj->Transform()->SetRelativePos(Vec3(0.f, 0.f, 100.f));
+	//pObj->Transform()->SetRelativeScale(Vec3(100.f, 100.f, 1.f));
+	//pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"FSM\\KoTBigFSM.fsm"));
 	pTempLevel->AddObject(pObj, L"Monster", false);
 
 
@@ -598,10 +595,10 @@ void CCreateTempLevel::CreateGameEndig_Fail()
 	pLight->AddComponent(new CLight2D);
 
 	pLight->Light2D()->SetLightType(LIGHT_TYPE::POINT);
-	pLight->Light2D()->SetLightColor(Vec3(0.3f, 0.3f, 0.3f));
-	pLight->Light2D()->SetRadius(500.f);
+	pLight->Light2D()->SetLightColor(Vec3(0.15f, 0.15f, 0.15f));
+	pLight->Light2D()->SetRadius(800.f);
 
-	pLight->Transform()->SetRelativePos(Vec3(0.f, 2000.f, 200.f));
+	pLight->Transform()->SetRelativePos(Vec3(0.f, 400.f, 200.f));
 	pEndingLevel->AddObject(pLight, L"Light");
 
 	// -------------------------------------------
@@ -615,9 +612,7 @@ void CCreateTempLevel::CreateGameEndig_Fail()
 	pObj->Transform()->SetAbsolute(true);
 	pObj->Transform()->SetRelativeScale(Vec3(3000, 2000, 0));
 	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"UIMat"));
-	Ptr<CTexture> pTex = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\UI\\background_black.jpg");
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, pTex);
+	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"material\\GameEnd_Background.mat"));
 
 	pEndingLevel->AddObject(pObj, L"UI");
 
@@ -639,7 +634,7 @@ void CCreateTempLevel::CreateGameEndig_Fail()
 	fclose(pFile);
 	delete pAnim;
 
-	pObj->Animator2D()->Play(L"Dead_Screen");
+	pObj->Animator2D()->Play(L"Dead_Screen", false);
 	pEndingLevel->AddObject(pObj, L"UI");
 
 	// -------------------------------------------

@@ -15,15 +15,13 @@ CKoTBigAttack2::~CKoTBigAttack2()
 
 void CKoTBigAttack2::finaltick()
 {
-	float Speed = *((float*)GetBlackboardData(L"fAttack2_Damage"));
-	CGameObject* pTarget = ((CGameObject*)GetBlackboardData(L"pTarget"));
-
 	// playing anim
 	if (GetOwner()->Animator2D()->IsPlaying())
 	{
 		return;
 	}
 
+	// change state
 	ChangeState(L"Idle");
 }
 

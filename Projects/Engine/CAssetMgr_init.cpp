@@ -165,7 +165,7 @@ void CAssetMgr::CreateDefaultGraphicsShader()
 
 	// Paramater 연결
 	// @TODO 필요에 맞게 수정
-	pShader->AddScalarParam(SCALAR_PARAM::INT_0, "Test Param");
+	//pShader->AddScalarParam(SCALAR_PARAM::INT_0, "Test Param");
 	pShader->AddTexParam(TEX_PARAM::TEX_0, "Output Texture 1");
 
 	AddAsset(L"Std2DShader", pShader.Get());

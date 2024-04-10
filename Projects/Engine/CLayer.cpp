@@ -87,6 +87,18 @@ void CLayer::AddObject(CGameObject* _Object, bool _bMove)
 	}
 }
 
+void CLayer::AddObject_Load(CGameObject* _Object, bool _bMove)
+{
+	assert(m_iLayerIdx == _Object->m_iLayerIdx);
+
+	// 최상위 부모 오브젝트였다.
+	if (nullptr == _Object->GetParent())
+	{
+		// 최상위 부모 오브젝트는 m_vecParent 에서 가리키도록 한다.
+		m_vecParent.push_back(_Object);
+	}
+}
+
 void CLayer::DetachGameObject(CGameObject* _Object)
 {
 	assert(!(_Object->m_iLayerIdx == -1 || _Object->m_iLayerIdx != m_iLayerIdx));

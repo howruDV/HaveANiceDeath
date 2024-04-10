@@ -165,6 +165,7 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CHitboxScript.h" />
     <ClInclude Include="CKoTBigScript.h" />
     <ClInclude Include="CMissileScript_Test.h" />
+    <ClInclude Include="CMonsterScript.h" />
     <ClInclude Include="CMonsterScript_Test.h" />
     <ClInclude Include="CPlayerMgr.h" />
     <ClInclude Include="CPlayerScript.h" />
@@ -184,6 +185,7 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CHitboxScript.cpp" />
     <ClCompile Include="CKoTBigScript.cpp" />
     <ClCompile Include="CMissileScript_Test.cpp" />
+    <ClCompile Include="CMonsterScript.cpp" />
     <ClCompile Include="CMonsterScript_Test.cpp" />
     <ClCompile Include="CPlayerMgr.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />

@@ -1,6 +1,10 @@
 CIdleState
+CKoTBigAttack1
 CKoTBigAttack2
-CKoTBigIdle
+CMonsterIdle
+CMonsterRun
+CMonsterSurprised
+CMonsterUTurn
 CPlayerConcentrate
 CPlayerConcentrate_Start
 CPlayerDash

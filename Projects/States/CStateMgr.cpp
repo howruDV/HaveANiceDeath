@@ -2,8 +2,12 @@
 #include "CStateMgr.h"
 
 #include "CIdleState.h"
+#include "CKoTBigAttack1.h"
 #include "CKoTBigAttack2.h"
-#include "CKoTBigIdle.h"
+#include "CMonsterIdle.h"
+#include "CMonsterRun.h"
+#include "CMonsterSurprised.h"
+#include "CMonsterUTurn.h"
 #include "CPlayerConcentrate.h"
 #include "CPlayerConcentrate_Start.h"
 #include "CPlayerDash.h"
@@ -33,8 +37,12 @@
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CIdleState");
+	_vec.push_back(L"CKoTBigAttack1");
 	_vec.push_back(L"CKoTBigAttack2");
-	_vec.push_back(L"CKoTBigIdle");
+	_vec.push_back(L"CMonsterIdle");
+	_vec.push_back(L"CMonsterRun");
+	_vec.push_back(L"CMonsterSurprised");
+	_vec.push_back(L"CMonsterUTurn");
 	_vec.push_back(L"CPlayerConcentrate");
 	_vec.push_back(L"CPlayerConcentrate_Start");
 	_vec.push_back(L"CPlayerDash");
@@ -66,10 +74,18 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 {
 	if (L"CIdleState" == _strStateName)
 		return new CIdleState;
+	if (L"CKoTBigAttack1" == _strStateName)
+		return new CKoTBigAttack1;
 	if (L"CKoTBigAttack2" == _strStateName)
 		return new CKoTBigAttack2;
-	if (L"CKoTBigIdle" == _strStateName)
-		return new CKoTBigIdle;
+	if (L"CMonsterIdle" == _strStateName)
+		return new CMonsterIdle;
+	if (L"CMonsterRun" == _strStateName)
+		return new CMonsterRun;
+	if (L"CMonsterSurprised" == _strStateName)
+		return new CMonsterSurprised;
+	if (L"CMonsterUTurn" == _strStateName)
+		return new CMonsterUTurn;
 	if (L"CPlayerConcentrate" == _strStateName)
 		return new CPlayerConcentrate;
 	if (L"CPlayerConcentrate_Start" == _strStateName)
@@ -130,11 +146,23 @@ CState* CStateMgr::GetState(UINT _iStateType)
 	case (UINT)STATE_TYPE::IDLESTATE:
 		return new CIdleState;
 		break;
+	case (UINT)STATE_TYPE::KOTBIGATTACK1:
+		return new CKoTBigAttack1;
+		break;
 	case (UINT)STATE_TYPE::KOTBIGATTACK2:
 		return new CKoTBigAttack2;
 		break;
-	case (UINT)STATE_TYPE::KOTBIGIDLE:
-		return new CKoTBigIdle;
+	case (UINT)STATE_TYPE::MONSTERIDLE:
+		return new CMonsterIdle;
+		break;
+	case (UINT)STATE_TYPE::MONSTERRUN:
+		return new CMonsterRun;
+		break;
+	case (UINT)STATE_TYPE::MONSTERSURPRISED:
+		return new CMonsterSurprised;
+		break;
+	case (UINT)STATE_TYPE::MONSTERUTURN:
+		return new CMonsterUTurn;
 		break;
 	case (UINT)STATE_TYPE::PLAYERCONCENTRATE:
 		return new CPlayerConcentrate;
@@ -223,12 +251,28 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 		return L"CIdleState";
 		break;
 
+	case STATE_TYPE::KOTBIGATTACK1:
+		return L"CKoTBigAttack1";
+		break;
+
 	case STATE_TYPE::KOTBIGATTACK2:
 		return L"CKoTBigAttack2";
 		break;
 
-	case STATE_TYPE::KOTBIGIDLE:
-		return L"CKoTBigIdle";
+	case STATE_TYPE::MONSTERIDLE:
+		return L"CMonsterIdle";
+		break;
+
+	case STATE_TYPE::MONSTERRUN:
+		return L"CMonsterRun";
+		break;
+
+	case STATE_TYPE::MONSTERSURPRISED:
+		return L"CMonsterSurprised";
+		break;
+
+	case STATE_TYPE::MONSTERUTURN:
+		return L"CMonsterUTurn";
 		break;
 
 	case STATE_TYPE::PLAYERCONCENTRATE:

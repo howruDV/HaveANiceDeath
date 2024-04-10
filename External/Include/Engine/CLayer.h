@@ -22,6 +22,7 @@ private:
 
 public:
     void AddObject(CGameObject* _Object, bool _bMove = false);
+    void AddObject_Load(CGameObject* _Object, bool _bMove = false);
     void RegisterGameObject(CGameObject* _Object) { m_vecObjects.push_back(_Object); }
     void DetachGameObject(CGameObject* _Object);
     const vector<CGameObject*>& GetLayerObjects() { return m_vecObjects; }

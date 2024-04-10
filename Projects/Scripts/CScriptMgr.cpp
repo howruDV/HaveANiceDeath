@@ -6,6 +6,7 @@
 #include "CHitboxScript.h"
 #include "CKoTBigScript.h"
 #include "CMissileScript_Test.h"
+#include "CMonsterScript.h"
 #include "CMonsterScript_Test.h"
 #include "CPlayerMgr.h"
 #include "CPlayerScript.h"
@@ -19,6 +20,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CHitboxScript");
 	_vec.push_back(L"CKoTBigScript");
 	_vec.push_back(L"CMissileScript_Test");
+	_vec.push_back(L"CMonsterScript");
 	_vec.push_back(L"CMonsterScript_Test");
 	_vec.push_back(L"CPlayerMgr");
 	_vec.push_back(L"CPlayerScript");
@@ -38,6 +40,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CKoTBigScript;
 	if (L"CMissileScript_Test" == _strScriptName)
 		return new CMissileScript_Test;
+	if (L"CMonsterScript" == _strScriptName)
+		return new CMonsterScript;
 	if (L"CMonsterScript_Test" == _strScriptName)
 		return new CMonsterScript_Test;
 	if (L"CPlayerMgr" == _strScriptName)
@@ -69,6 +73,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::MISSILESCRIPT_TEST:
 		return new CMissileScript_Test;
+		break;
+	case (UINT)SCRIPT_TYPE::MONSTERSCRIPT:
+		return new CMonsterScript;
 		break;
 	case (UINT)SCRIPT_TYPE::MONSTERSCRIPT_TEST:
 		return new CMonsterScript_Test;
@@ -111,6 +118,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::MISSILESCRIPT_TEST:
 		return L"CMissileScript_Test";
+		break;
+
+	case SCRIPT_TYPE::MONSTERSCRIPT:
+		return L"CMonsterScript";
 		break;
 
 	case SCRIPT_TYPE::MONSTERSCRIPT_TEST:

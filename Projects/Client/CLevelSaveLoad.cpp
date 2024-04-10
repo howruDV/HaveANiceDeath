@@ -78,6 +78,10 @@ void CLevelSaveLoad::SaveGameObject(CGameObject* _Obj, FILE* _File)
 	// 1. obj name
 	SaveWString(_Obj->GetName(), _File);
 
+	// layer idx
+	int LayerIdx = _Obj->GetLayerIdx();
+	fwrite(&LayerIdx, sizeof(int), 1, _File);
+
 	// 2. components
 	UINT i = 0;
 	for (; i < (UINT)COMPONENT_TYPE::END; ++i)
@@ -172,7 +176,7 @@ void CLevelSaveLoad::LoadLayer(CLayer* _Layer, FILE* _File)
 	for (size_t i = 0; i < ObjCount; ++i)
 	{
 		CGameObject* pObject = LoadGameObject(_File);
-		_Layer->AddObject(pObject, false);
+		_Layer->AddObject_Load(pObject, false);
 	}
 }
 
@@ -184,6 +188,11 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 	wstring strName;
 	LoadWString(strName, _File);
 	pObject->SetName(strName);
+
+	// LayerIdx
+	int LayerIdx = -1;
+	fread(&LayerIdx, sizeof(int), 1, _File);
+	pObject->SetLayerIdx(LayerIdx);
 
 	// 2. copmonents
 	COMPONENT_TYPE type = COMPONENT_TYPE::END;
@@ -257,7 +266,7 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 
 	for (size_t i = 0; i < childcount; ++i)
 	{
-		pObject->AddChild(LoadGameObject(_File));
+		pObject->AddChild_Load(LoadGameObject(_File));
 	}
 
 	// Activate

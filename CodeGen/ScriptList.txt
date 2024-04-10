@@ -3,6 +3,7 @@ CGameMgr
 CHitboxScript
 CKoTBigScript
 CMissileScript_Test
+CMonsterScript
 CMonsterScript_Test
 CPlayerMgr
 CPlayerScript

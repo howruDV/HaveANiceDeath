@@ -290,6 +290,13 @@ void CGameObject::AddChild(CGameObject* _Child)
 	m_vecChild.push_back(_Child);
 }
 
+void CGameObject::AddChild_Load(CGameObject* _Child)
+{
+	// 부모 자식 연결
+	_Child->m_Parent = this;
+	m_vecChild.push_back(_Child);
+}
+
 CGameObject* CGameObject::GetChildByName(const wstring& _strName)
 {
 	for (CGameObject* it : m_vecChild)
