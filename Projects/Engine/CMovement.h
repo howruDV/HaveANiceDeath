@@ -16,7 +16,7 @@ private:
     Vec3        m_vVelocity;         // 현재 속도
     Vec3        m_vGravityForce;     // 중력 방향, 배율
     float       m_fMass;             // 질량
-    float       m_fInitSpeed;        // 최소(초기화) 속력
+    float       m_fInitSpeed_Ground;        // 최소(초기화) 속력
     float       m_fInitSpeed_InAir;  // 최소(초기화) 속력
     float       m_fMaxSpeed_Ground;  // 대지 최대 속력
     float       m_fMaxSpeed_InAir;   // 공중 최대 속력
@@ -37,7 +37,7 @@ public:
     void SetVelocity(Vec3 _vVelocity) { m_vVelocity = _vVelocity; }
     void SetGravityForce(Vec3 _vGravityForce) { m_vGravityForce = _vGravityForce; }
     void SetMass(float _Mass) { m_fMass = _Mass; }
-    void SetInitSpeed(float _Speed) { m_fInitSpeed = _Speed; }
+    void SetInitSpeed(float _Speed) { m_fInitSpeed_Ground = _Speed; }
     void SetInitSpeed_InAir(float _Speed) { m_fInitSpeed_InAir = _Speed; }
     void SetMaxSpeed_Ground(float _Speed) { m_fMaxSpeed_Ground = _Speed; }
     void SetMaxSpeed_InAir(float _Speed) { m_fMaxSpeed_InAir = _Speed; }
@@ -51,7 +51,7 @@ public:
     Vec3 GetVelocity() {return m_vVelocity;}
     Vec3 GetGravityForce() { return m_vGravityForce; }
     float GetMass() { return m_fMass; }
-    float GetInitSpeed() { return m_fInitSpeed; }
+    float GetInitSpeed() { return m_fInitSpeed_Ground; }
     float GetMaxSpeed_Ground() { return m_fMaxSpeed_Ground; }
     float GetMaxSpeed_InAir() { return m_fMaxSpeed_InAir; }
     float GetFrictionScale() { return m_fFrictionScale; }
@@ -61,6 +61,6 @@ public:
 public:
     CLONE(CMovement);
     CMovement();
-    CMovement(const CMovement& _Origin);
+    //CMovement(const CMovement& _Origin);
     ~CMovement();
 };

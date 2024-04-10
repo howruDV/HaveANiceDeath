@@ -123,6 +123,8 @@ void CMonsterScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, 
 
 void CMonsterScript::SaveToFile(FILE* _File)
 {
+	CUnitScript::SaveToFile(_File);
+
 	fwrite(&m_fDetectRange, sizeof(float), 1, _File);
 	fwrite(&m_fAttackRange, sizeof(float), 1, _File);
 	fwrite(&m_fAttackCoolTime, sizeof(float), 1, _File);
@@ -133,6 +135,8 @@ void CMonsterScript::SaveToFile(FILE* _File)
 
 void CMonsterScript::LoadFromFile(FILE* _File)
 {
+	CUnitScript::SaveToFile(_File);
+
 	fread(&m_fDetectRange, sizeof(float), 1, _File);
 	fread(&m_fAttackRange, sizeof(float), 1, _File);
 	fread(&m_fAttackCoolTime, sizeof(float), 1, _File);

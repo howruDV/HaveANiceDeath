@@ -4,6 +4,10 @@
 class UIAnimator2D :
     public UIComponent
 {
+private:
+    string m_AddStateKey;
+
+public:
     virtual void render_update() override;
 
 private:

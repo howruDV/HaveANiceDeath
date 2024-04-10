@@ -36,6 +36,11 @@ void UIAnimator2D::render_update()
 	TextBox("Current Animation"); ImGui::SameLine();
 	ImGui::InputText("##CurrentAnimation", (char*)CurAnim.c_str(), CurAnim.length(), ImGuiInputTextFlags_ReadOnly);
 
+	char buffer[64];
+	strcpy_s(buffer, m_AddStateKey.c_str());
+	TextBox("New Anim Key"); ImGui::SameLine(); ImGui::InputText("##AnimationKey", buffer, 64);
+	m_AddStateKey = buffer;
+
 	// 애니메이션 목록
 	TextBox("Animation List");
 	ImGui::SameLine();
@@ -122,7 +127,7 @@ void UIAnimator2D::AddAnimation()
 		// read
 		CAnim* pAnim = new CAnim;
 		pAnim->LoadFromFile(pFile);
-		GetTargetObject()->Animator2D()->Create(pAnim);
+		GetTargetObject()->Animator2D()->Create(pAnim, StrToWstr(m_AddStateKey));
 
 		// close read file
 		fclose(pFile);

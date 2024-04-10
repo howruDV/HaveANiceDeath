@@ -10,7 +10,7 @@ CMovement::CMovement()
 	: CComponent(COMPONENT_TYPE::MOVEMENT)
 	, m_vGravityForce(Vec3(0.f, -981.f, 0.f))
 	, m_fMass(1.f)
-	, m_fInitSpeed(0.f)
+	, m_fInitSpeed_Ground(0.f)
 	, m_fInitSpeed_InAir(0.f)
 	, m_fMaxSpeed_Ground(100.f)
 	, m_fMaxSpeed_InAir(1000.f)
@@ -21,18 +21,20 @@ CMovement::CMovement()
 {
 }
 
-CMovement::CMovement(const CMovement& _Origin)
-	: CComponent(_Origin)
-	, m_vGravityForce(_Origin.m_vGravityForce)
-	, m_fMass(_Origin.m_fMass)
-	, m_fInitSpeed(_Origin.m_fInitSpeed)
-	, m_fMaxSpeed_Ground(_Origin.m_fMaxSpeed_Ground)
-	, m_fMaxSpeed_InAir(_Origin.m_fMaxSpeed_InAir)
-	, m_bUseGravity(_Origin.m_bUseGravity)
-	, m_bGround(false)
-	, m_bUseMaxSpeed(_Origin.m_bUseMaxSpeed)
-{
-}
+//CMovement::CMovement(const CMovement& _Origin)
+//	: CComponent(_Origin)
+//	, m_vGravityForce(_Origin.m_vGravityForce)
+//	, m_fMass(_Origin.m_fMass)
+//	, m_fInitSpeed(_Origin.m_fInitSpeed)
+//	, m_fInitSpeed_InAir(_Origin.m_fInitSpeed_InAir)
+//	, m_fMaxSpeed_Ground(_Origin.m_fMaxSpeed_Ground)
+//	, m_fMaxSpeed_InAir(_Origin.m_fMaxSpeed_InAir)
+//	, m_fFrictionScale(_Origin.m_fFrictionScale)
+//	, m_bUseGravity(_Origin.m_bUseGravity)
+//	, m_bGround(false)
+//	, m_bUseMaxSpeed(_Origin.m_bUseMaxSpeed)
+//{
+//}
 
 CMovement::~CMovement()
 {
@@ -75,7 +77,7 @@ void CMovement::finaltick()
 		{
 			Vec3 vAccelDir = m_vAccel;
 			vAccelDir.Normalize();
-			m_vVelocity = vAccelDir * m_fInitSpeed;
+			m_vVelocity = vAccelDir * m_fInitSpeed_Ground;
 		}
 	}
 	else
@@ -135,20 +137,26 @@ void CMovement::SaveToFile(FILE* _File)
 {
 	fwrite(&m_vGravityForce, sizeof(Vec3), 1, _File);
 	fwrite(&m_fMass, sizeof(float), 1, _File);
-	fwrite(&m_fInitSpeed, sizeof(float), 1, _File);
+	fwrite(&m_fInitSpeed_Ground, sizeof(float), 1, _File);
+	fwrite(&m_fInitSpeed_InAir, sizeof(float), 1, _File);
+	fwrite(&m_fMaxSpeed_Ground, sizeof(float), 1, _File);
 	fwrite(&m_fMaxSpeed_InAir, sizeof(float), 1, _File);
 	fwrite(&m_fFrictionScale, sizeof(float), 1, _File);
 	fwrite(&m_bUseGravity, sizeof(bool), 1, _File);
 	fwrite(&m_bGround, sizeof(bool), 1, _File);
+	fwrite(&m_bUseMaxSpeed, sizeof(bool), 1, _File);
 }
 
 void CMovement::LoadFromFile(FILE* _File)
 {
 	fread(&m_vGravityForce, sizeof(Vec3), 1, _File);
 	fread(&m_fMass, sizeof(float), 1, _File);
-	fread(&m_fInitSpeed, sizeof(float), 1, _File);
+	fread(&m_fInitSpeed_Ground, sizeof(float), 1, _File);
+	fread(&m_fInitSpeed_InAir, sizeof(float), 1, _File);
+	fread(&m_fMaxSpeed_Ground, sizeof(float), 1, _File);
 	fread(&m_fMaxSpeed_InAir, sizeof(float), 1, _File);
 	fread(&m_fFrictionScale, sizeof(float), 1, _File);
 	fread(&m_bUseGravity, sizeof(bool), 1, _File);
 	fread(&m_bGround, sizeof(bool), 1, _File);
+	fread(&m_bUseMaxSpeed, sizeof(bool), 1, _File);
 }
