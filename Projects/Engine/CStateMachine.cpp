@@ -43,7 +43,7 @@ Ptr<CFSM> CStateMachine::GetFSM()
 {
 	if (not m_FSM_Origin.Get())
 	{
-		MessageBoxA(nullptr, "There is No Original FSM", "Failed to return FSM Instance", MB_OK);
+		//MessageBoxA(nullptr, "There is No Original FSM", "Failed to return FSM Instance", MB_OK);
 		return nullptr;
 	}
 

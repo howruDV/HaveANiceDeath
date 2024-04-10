@@ -191,7 +191,7 @@ void UIMenuPannel::GameObject()
         }
 
         ImGui::SeparatorText("Components");
-        if (ImGui::BeginMenu("Add Component", ""))
+        if (ImGui::BeginMenu("Add Component"))
         {
             UIInspectorPannel* inspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
             CGameObject* TargetObject = inspector->GetTargetObject();
@@ -239,7 +239,6 @@ void UIMenuPannel::GameObject()
                     TargetObject->AddComponent(new CStateMachine());
                     inspector->SetTargetObject(TargetObject);
                 }
-                ImGui::EndMenu();
             }
 
             if (ImGui::MenuItem("Movement"))
@@ -280,7 +279,7 @@ void UIMenuPannel::GameObject()
             ImGui::EndMenu();
         }
 
-        if (ImGui::BeginMenu("Delete Component", ""))
+        if (ImGui::BeginMenu("Delete Component"))
         {
             UIInspectorPannel* inspector = (UIInspectorPannel*)CImGuiMgr::GetInst()->FindUI("##Inspector");
             CGameObject* TargetObject = inspector->GetTargetObject();
@@ -370,7 +369,7 @@ void UIMenuPannel::GameObject()
             ImGui::EndMenu();
         }
 
-        if (ImGui::BeginMenu("Script", ""))
+        if (ImGui::BeginMenu("Script"))
         {
             vector<wstring> vecScriptName;
             CScriptMgr::GetScriptInfo(vecScriptName);
@@ -383,12 +382,14 @@ void UIMenuPannel::GameObject()
                     if (nullptr != inspector->GetTargetObject())
                     {
                         inspector->GetTargetObject()->AddComponent(CScriptMgr::GetScript(vecScriptName[i]));
+                        inspector->SetTargetObject(inspector->GetTargetObject());
                     }
                 }
             }
 
             ImGui::EndMenu();
         }
+
         ImGui::EndMenu();
     }
 }

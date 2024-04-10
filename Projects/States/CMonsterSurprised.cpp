@@ -15,6 +15,10 @@ CMonsterSurprised::CMonsterSurprised()
 
 CMonsterSurprised::~CMonsterSurprised()
 {
+}
+
+void CMonsterSurprised::finaltick()
+{
 	// playing anim
 	if (GetOwner()->Animator2D()->IsPlaying())
 	{
@@ -52,7 +56,7 @@ CMonsterSurprised::~CMonsterSurprised()
 			int rand = Random(1, pMonster->GetAttackTypeCount());
 			strName += std::to_wstring(rand);
 
-			ChangeState(strName);
+			//ChangeState(strName);
 		}
 		else
 			ChangeState(L"Idle");
@@ -62,10 +66,6 @@ CMonsterSurprised::~CMonsterSurprised()
 	{
 		ChangeState(L"UTurn");
 	}
-}
-
-void CMonsterSurprised::finaltick()
-{
 }
 
 void CMonsterSurprised::Enter()

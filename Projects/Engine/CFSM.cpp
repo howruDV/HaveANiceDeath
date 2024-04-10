@@ -103,6 +103,7 @@ int CFSM::Load(const wstring& _strFilePath)
 
 		// 스테이트 생성
 		CState* pState = CStateMgr::GetState(StateName);
+		pState->SetName(StateName);
 		pState->LoadFromFile(pFile);
 
 		pState->m_FSM = this;

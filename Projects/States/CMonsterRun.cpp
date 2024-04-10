@@ -57,7 +57,7 @@ void CMonsterRun::finaltick()
 			int rand = Random(1, pMonster->GetAttackTypeCount());
 			strName += std::to_wstring(rand);
 
-			ChangeState(strName);
+			//ChangeState(strName);
 		}
 		else
 			ChangeState(L"Idle");
@@ -76,5 +76,5 @@ void CMonsterRun::Enter()
 
 void CMonsterRun::Exit()
 {
-	GetOwner()->Movement()->AddForce(Vec3());
+	GetOwner()->Movement()->SetVelocity(Vec3());
 }

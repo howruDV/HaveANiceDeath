@@ -132,9 +132,13 @@ void CCreateTempLevel::CreateTempLevel()
 	//pStd2DMtrl->SetTexParam(TEX_PARAM::TEX_0, CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Fighter.bmp"));
 
 	// @TODO »èÁ¦ - Level Load
-	//CLevel* pLevel = CLevelSaveLoad::LoadLevel(L"level\\temp.lv");
-	//CLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::STOP);
-	//return;
+	CLevel* pLevel = CLevelSaveLoad::LoadLevel(L"level\\WorkSpace.lv");
+	CLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::STOP);
+	CCollisionMgr::GetInst()->LayerCheck(3, 4);
+	CCollisionMgr::GetInst()->LayerCheck(4, 4);
+	CCollisionMgr::GetInst()->LayerCheck(3, 6);
+	CCollisionMgr::GetInst()->LayerCheck(4, 6);
+	return;
 
 	CLevel* pTempLevel = new CLevel;
 	pTempLevel->GetLayer(0)->SetName(L"Default");
@@ -164,8 +168,7 @@ void CCreateTempLevel::CreateTempLevel()
 	CCollisionMgr::GetInst()->LayerCheck(3, 4);
 	CCollisionMgr::GetInst()->LayerCheck(4, 4);
 	CCollisionMgr::GetInst()->LayerCheck(3, 6);
-	CCollisionMgr::GetInst()->LayerCheck(3, 7);
-	CCollisionMgr::GetInst()->LayerCheck(3, 8);
+	CCollisionMgr::GetInst()->LayerCheck(4, 6);
 
 	// Create Main Camera
 	CGameObject* pCamObj = new CGameObject;

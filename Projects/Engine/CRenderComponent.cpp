@@ -22,7 +22,7 @@ CRenderComponent::CRenderComponent(const CRenderComponent& _OriginRenderCom)
 
 		// 복사하는 render component도 dynamic material 생성
 		GetDynamicMaterial();
-		*m_DynamicMat.Get() = *_OriginRenderCom.m_DynamicMat.Get(); // 현재 생성한 동적재질로 원본 동적재질 값 복사 // @TODO 이거맞냐
+		m_DynamicMat = _OriginRenderCom.m_DynamicMat; // 현재 생성한 동적재질로 원본 동적재질 값 복사 // @TODO 이거맞냐
 	}
 	else
 	{

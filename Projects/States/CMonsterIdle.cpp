@@ -44,7 +44,7 @@ void CMonsterIdle::finaltick()
 			int rand = Random(1, pMonster->GetAttackTypeCount());
 			strName += std::to_wstring(rand);
 
-			ChangeState(strName);
+			//ChangeState(strName);
 		}
 	}
 

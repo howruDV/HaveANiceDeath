@@ -135,7 +135,7 @@ void CMonsterScript::SaveToFile(FILE* _File)
 
 void CMonsterScript::LoadFromFile(FILE* _File)
 {
-	CUnitScript::SaveToFile(_File);
+	CUnitScript::LoadFromFile(_File);
 
 	fread(&m_fDetectRange, sizeof(float), 1, _File);
 	fread(&m_fAttackRange, sizeof(float), 1, _File);

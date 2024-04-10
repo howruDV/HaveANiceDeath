@@ -10,6 +10,7 @@ CUnitScript::CUnitScript(UINT m_iScriptType)
 	, m_fSpeed(100.f)
 	, m_Dir(UNIT_DIRX::RIGHT)
 	, m_Dir_Prev(m_Dir)
+	, m_Dir_Next(m_Dir)
 	, m_iHPMax(100)
 	, m_iHPCur(m_iHPMax)
 	, m_bDirLock(false)
@@ -19,6 +20,7 @@ CUnitScript::CUnitScript(UINT m_iScriptType)
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Max", &m_iHPMax);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Current", &m_iHPCur);
+	AddScriptParam(SCRIPT_PARAM::INT, "m_Dir", &m_Dir);
 }
 
 CUnitScript::CUnitScript(const CUnitScript& _Origin)
@@ -26,6 +28,7 @@ CUnitScript::CUnitScript(const CUnitScript& _Origin)
 	, m_fSpeed(_Origin.m_fSpeed)
 	, m_Dir(_Origin.m_Dir)
 	, m_Dir_Prev(m_Dir)
+	, m_Dir_Next(m_Dir)
 	, m_iHPMax(_Origin.m_iHPMax)
 	, m_iHPCur(_Origin.m_iHPCur)
 	, m_bDirLock(false)
@@ -35,6 +38,7 @@ CUnitScript::CUnitScript(const CUnitScript& _Origin)
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Max", &m_iHPMax);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Current", &m_iHPCur);
+	AddScriptParam(SCRIPT_PARAM::INT, "m_Dir", &m_Dir);
 }
 
 CUnitScript::~CUnitScript()
@@ -114,6 +118,9 @@ void CUnitScript::LoadFromFile(FILE* _File)
 	fread(&m_iHPMax, sizeof(int), 1, _File);
 	fread(&m_iHPCur, sizeof(int), 1, _File);
 	fread(&m_bDirLock, sizeof(bool), 1, _File);
+
+	m_Dir_Prev = m_Dir;
+	m_Dir_Next = m_Dir;
 }
 
 void CUnitScript::HitDamage(FDamage _Damage)

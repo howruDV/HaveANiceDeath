@@ -230,6 +230,8 @@ void CAnimator2D::SaveToFile(FILE* _File)
 
     SaveWString(PlayAnimName, _File);
     fwrite(&m_bRepeat, sizeof(bool), 1, _File);
+    fwrite(&m_bFlipX, sizeof(int), 1, _File);
+    fwrite(&m_bFlipY, sizeof(int), 1, _File);
 }
 
 void CAnimator2D::LoadFromFile(FILE* _File)
@@ -257,4 +259,6 @@ void CAnimator2D::LoadFromFile(FILE* _File)
     }
 
     fread(&m_bRepeat, sizeof(bool), 1, _File);
+    fread(&m_bFlipX, sizeof(int), 1, _File);
+    fread(&m_bFlipY, sizeof(int), 1, _File);
 }
