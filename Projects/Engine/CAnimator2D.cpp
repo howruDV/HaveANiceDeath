@@ -80,7 +80,18 @@ void CAnimator2D::finaltick()
 void CAnimator2D::UpdatePipeline()
 {
     if (not m_CurAnim)
+    {
+        if ((CLevelMgr::GetInst()->GetCurrentLevel()->GetState() == LEVEL_STATE::STOP || CLevelMgr::GetInst()->GetCurrentLevel()->GetState() == LEVEL_STATE::NONE)
+            && !m_mapAnim.empty())
+        {
+            CAnim* pAnim = FindAnim(L"Idle");
+            if (pAnim)
+                pAnim->UpdatePipeline();
+            else
+                m_mapAnim.begin()->second->UpdatePipeline();
+        }
         return;
+    }
 
     m_CurAnim->UpdatePipeline();
 }

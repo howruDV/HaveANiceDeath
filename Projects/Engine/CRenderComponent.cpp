@@ -51,9 +51,9 @@ void CRenderComponent::SetMaterial(Ptr<CMaterial> _Mat)
 
 Ptr<CMaterial> CRenderComponent::GetDynamicMaterial()
 {
-	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
-	if (!pCurLevel || pCurLevel->GetState() != LEVEL_STATE::PLAY)
-		return nullptr;
+	//CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+	//if (!pCurLevel || pCurLevel->GetState() != LEVEL_STATE::PLAY)
+		//return nullptr;
 
 	// case: dynamic material을 보유한 경우
 	if (m_DynamicMat.Get())

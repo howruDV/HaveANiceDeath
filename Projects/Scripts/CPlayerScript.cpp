@@ -5,6 +5,8 @@
 #include <Engine/components.h>
 #include <Engine/CKeyMgr.h>
 #include <Engine/CTimeMgr.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
 #include <Engine/CMovement.h>
 #include <Engine/CAnimator2D.h>
 #include <Engine/CTransform.h>
@@ -311,6 +313,9 @@ void CPlayerScript::tick()
 
 void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
 {
+	if (CLevelMgr::GetInst()->GetCurrentLevel()->GetState() != LEVEL_STATE::PLAY)
+		return;
+
 	// Platform
 	if (_OtherObj->GetLayerIdx() == 6)
 	{
