@@ -1,10 +1,12 @@
 #include "pch.h"
 #include "CScriptMgr.h"
 
+#include "CBloomScript.h"
 #include "CCornerTriggerScript.h"
 #include "CGameMgr.h"
 #include "CHitboxScript.h"
 #include "CKoTBigScript.h"
+#include "CKoTSpear_ProjScript.h"
 #include "CMissileScript_Test.h"
 #include "CMonsterScript.h"
 #include "CMonsterScript_Test.h"
@@ -15,10 +17,12 @@
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
+	_vec.push_back(L"CBloomScript");
 	_vec.push_back(L"CCornerTriggerScript");
 	_vec.push_back(L"CGameMgr");
 	_vec.push_back(L"CHitboxScript");
 	_vec.push_back(L"CKoTBigScript");
+	_vec.push_back(L"CKoTSpear_ProjScript");
 	_vec.push_back(L"CMissileScript_Test");
 	_vec.push_back(L"CMonsterScript");
 	_vec.push_back(L"CMonsterScript_Test");
@@ -30,6 +34,8 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 
 CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 {
+	if (L"CBloomScript" == _strScriptName)
+		return new CBloomScript;
 	if (L"CCornerTriggerScript" == _strScriptName)
 		return new CCornerTriggerScript;
 	if (L"CGameMgr" == _strScriptName)
@@ -38,6 +44,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CHitboxScript;
 	if (L"CKoTBigScript" == _strScriptName)
 		return new CKoTBigScript;
+	if (L"CKoTSpear_ProjScript" == _strScriptName)
+		return new CKoTSpear_ProjScript;
 	if (L"CMissileScript_Test" == _strScriptName)
 		return new CMissileScript_Test;
 	if (L"CMonsterScript" == _strScriptName)
@@ -59,6 +67,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 {
 	switch (_iScriptType)
 	{
+	case (UINT)SCRIPT_TYPE::BLOOMSCRIPT:
+		return new CBloomScript;
+		break;
 	case (UINT)SCRIPT_TYPE::CORNERTRIGGERSCRIPT:
 		return new CCornerTriggerScript;
 		break;
@@ -70,6 +81,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::KOTBIGSCRIPT:
 		return new CKoTBigScript;
+		break;
+	case (UINT)SCRIPT_TYPE::KOTSPEAR_PROJSCRIPT:
+		return new CKoTSpear_ProjScript;
 		break;
 	case (UINT)SCRIPT_TYPE::MISSILESCRIPT_TEST:
 		return new CMissileScript_Test;
@@ -100,6 +114,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 {
 	switch ((SCRIPT_TYPE)_pScript->GetScriptType())
 	{
+	case SCRIPT_TYPE::BLOOMSCRIPT:
+		return L"CBloomScript";
+		break;
+
 	case SCRIPT_TYPE::CORNERTRIGGERSCRIPT:
 		return L"CCornerTriggerScript";
 		break;
@@ -114,6 +132,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::KOTBIGSCRIPT:
 		return L"CKoTBigScript";
+		break;
+
+	case SCRIPT_TYPE::KOTSPEAR_PROJSCRIPT:
+		return L"CKoTSpear_ProjScript";
 		break;
 
 	case SCRIPT_TYPE::MISSILESCRIPT_TEST:

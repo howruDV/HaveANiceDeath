@@ -51,7 +51,6 @@ void CMonsterUTurn::finaltick()
 void CMonsterUTurn::Enter()
 {
 	MONSTERSCRIPT->SetDirLock(true);
-	GetOwner()->Movement()->SetVelocity(Vec3());
 
 	// play anim
 	GetOwner()->Animator2D()->Play(L"UTurn", false);
@@ -60,12 +59,5 @@ void CMonsterUTurn::Enter()
 void CMonsterUTurn::Exit()
 {
 	GetOwner()->Movement()->SetVelocity(Vec3());
-
-	CMonsterScript* pMonster = MONSTERSCRIPT;
-	pMonster->SetDirLock(false);
-
-	if (MONSTERSCRIPT->GetDir() == UNIT_DIRX::RIGHT)
-		pMonster->SetDir(UNIT_DIRX::LEFT);
-	else
-		pMonster->SetDir(UNIT_DIRX::RIGHT);
+	MONSTERSCRIPT->SetDirLock(false);
 }

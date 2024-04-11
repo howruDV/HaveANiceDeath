@@ -33,10 +33,8 @@ void CMonsterSurprised::finaltick()
 
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos() + GetOwner()->Collider2D()->GetOffsetPos();
 	Vec3 vDist = pTarget->Transform()->GetWorldPos() - vPos;
+	UNIT_DIRX ToPlayerLook = (vDist.x < 0) ? UNIT_DIRX::LEFT : UNIT_DIRX::RIGHT;
 	GamePlayStatic::DrawDebugCircle(vPos, AttackRange, Vec3(0.1f, 1.f, 0.1f), false);
-
-	UNIT_DIRX ToPlayerLook = ((pTarget->Transform()->GetWorldPos() - GetOwner()->Transform()->GetWorldPos()).x < 0) ? UNIT_DIRX::LEFT : UNIT_DIRX::RIGHT;
-
 
 	// change state
 	if (vDist.Length() > DetectRange)
@@ -52,11 +50,11 @@ void CMonsterSurprised::finaltick()
 	{
 		if (pMonster->CanAttack())
 		{
-			wstring strName = GetOwner()->GetName() + L"Attack";
+			wstring strName = L"Attack";
 			int rand = Random(1, pMonster->GetAttackTypeCount());
 			strName += std::to_wstring(rand);
 
-			//ChangeState(strName);
+			ChangeState(strName);
 		}
 		else
 			ChangeState(L"Idle");
@@ -64,15 +62,18 @@ void CMonsterSurprised::finaltick()
 
 	if (pMonster->GetDir() != ToPlayerLook)
 	{
-		ChangeState(L"UTurn");
+		if (MONSTERSCRIPT->WillDirChange())
+			ChangeState(L"UTurn");
 	}
 }
 
 void CMonsterSurprised::Enter()
 {
+	MONSTERSCRIPT->SetDirLock(true);
 	GetOwner()->Animator2D()->Play(L"Surprised", false);
 }
 
 void CMonsterSurprised::Exit()
 {
+	MONSTERSCRIPT->SetDirLock(false);
 }

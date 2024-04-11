@@ -51,6 +51,7 @@ void CRenderComponent::SetMaterial(Ptr<CMaterial> _Mat)
 
 Ptr<CMaterial> CRenderComponent::GetDynamicMaterial()
 {
+	// @TODO 터지면여기
 	//CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();
 	//if (!pCurLevel || pCurLevel->GetState() != LEVEL_STATE::PLAY)
 		//return nullptr;

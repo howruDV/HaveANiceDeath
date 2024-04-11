@@ -4,8 +4,17 @@
 #include "CIdleState.h"
 #include "CKoTBigAttack1.h"
 #include "CKoTBigAttack2.h"
+#include "CKoTFlyingAttack1.h"
+#include "CKoTSpearAttack1.h"
+#include "CKoTSpearAttack2.h"
+#include "CKoTSpearAttack3.h"
+#include "CMonsterAppear.h"
+#include "CMonsterAppearWait.h"
+#include "CMonsterDie.h"
+#include "CMonsterHit.h"
 #include "CMonsterIdle.h"
 #include "CMonsterRun.h"
+#include "CMonsterStun.h"
 #include "CMonsterSurprised.h"
 #include "CMonsterUTurn.h"
 #include "CPlayerConcentrate.h"
@@ -39,8 +48,17 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CIdleState");
 	_vec.push_back(L"CKoTBigAttack1");
 	_vec.push_back(L"CKoTBigAttack2");
+	_vec.push_back(L"CKoTFlyingAttack1");
+	_vec.push_back(L"CKoTSpearAttack1");
+	_vec.push_back(L"CKoTSpearAttack2");
+	_vec.push_back(L"CKoTSpearAttack3");
+	_vec.push_back(L"CMonsterAppear");
+	_vec.push_back(L"CMonsterAppearWait");
+	_vec.push_back(L"CMonsterDie");
+	_vec.push_back(L"CMonsterHit");
 	_vec.push_back(L"CMonsterIdle");
 	_vec.push_back(L"CMonsterRun");
+	_vec.push_back(L"CMonsterStun");
 	_vec.push_back(L"CMonsterSurprised");
 	_vec.push_back(L"CMonsterUTurn");
 	_vec.push_back(L"CPlayerConcentrate");
@@ -78,10 +96,28 @@ CState* CStateMgr::GetState(const wstring& _strStateName)
 		return new CKoTBigAttack1;
 	if (L"CKoTBigAttack2" == _strStateName)
 		return new CKoTBigAttack2;
+	if (L"CKoTFlyingAttack1" == _strStateName)
+		return new CKoTFlyingAttack1;
+	if (L"CKoTSpearAttack1" == _strStateName)
+		return new CKoTSpearAttack1;
+	if (L"CKoTSpearAttack2" == _strStateName)
+		return new CKoTSpearAttack2;
+	if (L"CKoTSpearAttack3" == _strStateName)
+		return new CKoTSpearAttack3;
+	if (L"CMonsterAppear" == _strStateName)
+		return new CMonsterAppear;
+	if (L"CMonsterAppearWait" == _strStateName)
+		return new CMonsterAppearWait;
+	if (L"CMonsterDie" == _strStateName)
+		return new CMonsterDie;
+	if (L"CMonsterHit" == _strStateName)
+		return new CMonsterHit;
 	if (L"CMonsterIdle" == _strStateName)
 		return new CMonsterIdle;
 	if (L"CMonsterRun" == _strStateName)
 		return new CMonsterRun;
+	if (L"CMonsterStun" == _strStateName)
+		return new CMonsterStun;
 	if (L"CMonsterSurprised" == _strStateName)
 		return new CMonsterSurprised;
 	if (L"CMonsterUTurn" == _strStateName)
@@ -152,11 +188,38 @@ CState* CStateMgr::GetState(UINT _iStateType)
 	case (UINT)STATE_TYPE::KOTBIGATTACK2:
 		return new CKoTBigAttack2;
 		break;
+	case (UINT)STATE_TYPE::KOTFLYINGATTACK1:
+		return new CKoTFlyingAttack1;
+		break;
+	case (UINT)STATE_TYPE::KOTSPEARATTACK1:
+		return new CKoTSpearAttack1;
+		break;
+	case (UINT)STATE_TYPE::KOTSPEARATTACK2:
+		return new CKoTSpearAttack2;
+		break;
+	case (UINT)STATE_TYPE::KOTSPEARATTACK3:
+		return new CKoTSpearAttack3;
+		break;
+	case (UINT)STATE_TYPE::MONSTERAPPEAR:
+		return new CMonsterAppear;
+		break;
+	case (UINT)STATE_TYPE::MONSTERAPPEARWAIT:
+		return new CMonsterAppearWait;
+		break;
+	case (UINT)STATE_TYPE::MONSTERDIE:
+		return new CMonsterDie;
+		break;
+	case (UINT)STATE_TYPE::MONSTERHIT:
+		return new CMonsterHit;
+		break;
 	case (UINT)STATE_TYPE::MONSTERIDLE:
 		return new CMonsterIdle;
 		break;
 	case (UINT)STATE_TYPE::MONSTERRUN:
 		return new CMonsterRun;
+		break;
+	case (UINT)STATE_TYPE::MONSTERSTUN:
+		return new CMonsterStun;
 		break;
 	case (UINT)STATE_TYPE::MONSTERSURPRISED:
 		return new CMonsterSurprised;
@@ -259,12 +322,48 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 		return L"CKoTBigAttack2";
 		break;
 
+	case STATE_TYPE::KOTFLYINGATTACK1:
+		return L"CKoTFlyingAttack1";
+		break;
+
+	case STATE_TYPE::KOTSPEARATTACK1:
+		return L"CKoTSpearAttack1";
+		break;
+
+	case STATE_TYPE::KOTSPEARATTACK2:
+		return L"CKoTSpearAttack2";
+		break;
+
+	case STATE_TYPE::KOTSPEARATTACK3:
+		return L"CKoTSpearAttack3";
+		break;
+
+	case STATE_TYPE::MONSTERAPPEAR:
+		return L"CMonsterAppear";
+		break;
+
+	case STATE_TYPE::MONSTERAPPEARWAIT:
+		return L"CMonsterAppearWait";
+		break;
+
+	case STATE_TYPE::MONSTERDIE:
+		return L"CMonsterDie";
+		break;
+
+	case STATE_TYPE::MONSTERHIT:
+		return L"CMonsterHit";
+		break;
+
 	case STATE_TYPE::MONSTERIDLE:
 		return L"CMonsterIdle";
 		break;
 
 	case STATE_TYPE::MONSTERRUN:
 		return L"CMonsterRun";
+		break;
+
+	case STATE_TYPE::MONSTERSTUN:
+		return L"CMonsterStun";
 		break;
 
 	case STATE_TYPE::MONSTERSURPRISED:

@@ -127,14 +127,32 @@
     <Filter Include="States\Monster\Idle">
       <UniqueIdentifier>{990565ec-5a06-4f97-9ae3-e91dab0b75a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="States\Monster_Attack">
+    <Filter Include="States\Monster\Attack">
       <UniqueIdentifier>{3816f7f6-40d1-465b-ad80-7b62827d8078}</UniqueIdentifier>
     </Filter>
-    <Filter Include="States\Monster_Attack\Attack2">
+    <Filter Include="States\Monster\Attack\KoTBig">
+      <UniqueIdentifier>{c4ca9946-b33c-4a65-a792-1baa36efd78f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Attack\KoTBig\Attack2">
       <UniqueIdentifier>{66ef2423-e0f4-430f-86ff-3a8d6c9d35ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="States\Monster_Attack\Attack1">
+    <Filter Include="States\Monster\Attack\KoTBig\Attack1">
       <UniqueIdentifier>{cd0c98e0-1bb6-40ed-97ae-2d687747ccad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Attack\KoTSpear">
+      <UniqueIdentifier>{1fb02c4b-268e-49ca-b3cf-6ee4ecae91b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Attack\KoTSpear\Attack1">
+      <UniqueIdentifier>{3ed783b8-021f-4146-8330-67993c9b5fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Attack\KoTSpear\Attack2">
+      <UniqueIdentifier>{009d0184-7063-4ae4-a658-c4b8dd8b9117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Attack\KoTSpear\Attack3">
+      <UniqueIdentifier>{c9cdb51c-4c7f-4370-87e6-d5bdaccfcb12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Monster\Attack\KoTFlying">
+      <UniqueIdentifier>{a7b24aac-8bc1-4529-8c58-926711e659dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -225,7 +243,7 @@
       <Filter>States\Monster\Idle</Filter>
     </ClInclude>
     <ClInclude Include="CKoTBigAttack2.h">
-      <Filter>States\Monster_Attack\Attack2</Filter>
+      <Filter>States\Monster\Attack\KoTBig\Attack2</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerHit.h">
       <Filter>States\Player\Hit</Filter>
@@ -234,7 +252,7 @@
       <Filter>States\Player\Die</Filter>
     </ClInclude>
     <ClInclude Include="CKoTBigAttack1.h">
-      <Filter>States\Monster_Attack\Attack1</Filter>
+      <Filter>States\Monster\Attack\KoTBig\Attack1</Filter>
     </ClInclude>
     <ClInclude Include="CMonsterSurprised.h">
       <Filter>States\Monster\Surprised</Filter>
@@ -244,6 +262,33 @@
     </ClInclude>
     <ClInclude Include="CMonsterRun.h">
       <Filter>States\Monster\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterStun.h">
+      <Filter>States\Monster\Stun</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterHit.h">
+      <Filter>States\Monster\Hit</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterDie.h">
+      <Filter>States\Monster\Die</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterAppearWait.h">
+      <Filter>States\Monster\Appear_Wait</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterAppear.h">
+      <Filter>States\Monster\Appear</Filter>
+    </ClInclude>
+    <ClInclude Include="CKoTSpearAttack2.h">
+      <Filter>States\Monster\Attack\KoTSpear\Attack2</Filter>
+    </ClInclude>
+    <ClInclude Include="CKoTSpearAttack1.h">
+      <Filter>States\Monster\Attack\KoTSpear\Attack1</Filter>
+    </ClInclude>
+    <ClInclude Include="CKoTSpearAttack3.h">
+      <Filter>States\Monster\Attack\KoTSpear\Attack3</Filter>
+    </ClInclude>
+    <ClInclude Include="CKoTFlyingAttack1.h">
+      <Filter>States\Monster\Attack\KoTFlying</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -333,7 +378,7 @@
       <Filter>States\Monster\Idle</Filter>
     </ClCompile>
     <ClCompile Include="CKoTBigAttack2.cpp">
-      <Filter>States\Monster_Attack\Attack2</Filter>
+      <Filter>States\Monster\Attack\KoTBig\Attack2</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerHit.cpp">
       <Filter>States\Player\Hit</Filter>
@@ -342,7 +387,7 @@
       <Filter>States\Player\Die</Filter>
     </ClCompile>
     <ClCompile Include="CKoTBigAttack1.cpp">
-      <Filter>States\Monster_Attack\Attack1</Filter>
+      <Filter>States\Monster\Attack\KoTBig\Attack1</Filter>
     </ClCompile>
     <ClCompile Include="CMonsterSurprised.cpp">
       <Filter>States\Monster\Surprised</Filter>
@@ -352,6 +397,33 @@
     </ClCompile>
     <ClCompile Include="CMonsterRun.cpp">
       <Filter>States\Monster\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterStun.cpp">
+      <Filter>States\Monster\Stun</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterHit.cpp">
+      <Filter>States\Monster\Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterDie.cpp">
+      <Filter>States\Monster\Die</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterAppearWait.cpp">
+      <Filter>States\Monster\Appear_Wait</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterAppear.cpp">
+      <Filter>States\Monster\Appear</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoTSpearAttack2.cpp">
+      <Filter>States\Monster\Attack\KoTSpear\Attack2</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoTSpearAttack1.cpp">
+      <Filter>States\Monster\Attack\KoTSpear\Attack1</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoTSpearAttack3.cpp">
+      <Filter>States\Monster\Attack\KoTSpear\Attack3</Filter>
+    </ClCompile>
+    <ClCompile Include="CKoTFlyingAttack1.cpp">
+      <Filter>States\Monster\Attack\KoTFlying</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

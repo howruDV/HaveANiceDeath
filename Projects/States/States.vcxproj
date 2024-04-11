@@ -173,6 +173,10 @@ call CodeGen.exe</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CKoTBigAttack1.h" />
+    <ClInclude Include="CMonsterAppear.h" />
+    <ClInclude Include="CMonsterAppearWait.h" />
+    <ClInclude Include="CMonsterDie.h" />
+    <ClInclude Include="CMonsterHit.h" />
     <ClInclude Include="CMonsterUTurn.h" />
     <ClInclude Include="CMonsterRun.h" />
     <ClInclude Include="CMonsterSurprised.h" />
@@ -204,13 +208,22 @@ call CodeGen.exe</Command>
     <ClInclude Include="CScytheDissUp.h" />
     <ClInclude Include="CScytheDissSpecial.h" />
     <ClInclude Include="CStateMgr.h" />
+    <ClInclude Include="CMonsterStun.h" />
     <ClInclude Include="CTraceState.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
+    <ClInclude Include="CKoTSpearAttack1.h" />
+    <ClInclude Include="CKoTSpearAttack2.h" />
+    <ClInclude Include="CKoTSpearAttack3.h" />
+    <ClInclude Include="CKoTFlyingAttack1.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CKoTBigAttack1.cpp" />
+    <ClCompile Include="CMonsterAppear.cpp" />
+    <ClCompile Include="CMonsterAppearWait.cpp" />
+    <ClCompile Include="CMonsterDie.cpp" />
+    <ClCompile Include="CMonsterHit.cpp" />
     <ClCompile Include="CMonsterUTurn.cpp" />
     <ClCompile Include="CMonsterRun.cpp" />
     <ClCompile Include="CMonsterSurprised.cpp" />
@@ -242,11 +255,16 @@ call CodeGen.exe</Command>
     <ClCompile Include="CScytheDissUp.cpp" />
     <ClCompile Include="CScytheDissSpecial.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
+    <ClCompile Include="CMonsterStun.cpp" />
     <ClCompile Include="CTraceState.cpp" />
     <ClInclude Include="define.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClCompile Include="func.cpp" />
+    <ClCompile Include="CKoTSpearAttack1.cpp" />
+    <ClCompile Include="CKoTSpearAttack2.cpp" />
+    <ClCompile Include="CKoTSpearAttack3.cpp" />
+    <ClCompile Include="CKoTFlyingAttack1.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

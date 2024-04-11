@@ -1,7 +1,9 @@
+CBloomScript
 CCornerTriggerScript
 CGameMgr
 CHitboxScript
 CKoTBigScript
+CKoTSpear_ProjScript
 CMissileScript_Test
 CMonsterScript
 CMonsterScript_Test

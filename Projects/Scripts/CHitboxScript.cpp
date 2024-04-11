@@ -41,7 +41,13 @@ CHitboxScript::~CHitboxScript()
 void CHitboxScript::begin()
 {
 	// change layer
-	int Layer = GetOwner()->GetParent()->GetLayerIdx();
+	int Layer = 0;
+
+	if (GetOwner()->GetParent())
+		Layer = GetOwner()->GetParent()->GetLayerIdx();
+	else
+		Layer = GetOwner()->GetLayerIdx();
+
 	GetOwner()->ChangeLayer(Layer);
 
 	// change hositle layer

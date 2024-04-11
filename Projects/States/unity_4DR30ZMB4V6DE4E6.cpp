@@ -42,10 +42,25 @@
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CStateMgr.cpp"
 
 
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CMonsterStun.cpp"
+
+
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CTraceState.cpp"
 
 
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\func.cpp"
+
+
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CKoTSpearAttack1.cpp"
+
+
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CKoTSpearAttack2.cpp"
+
+
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CKoTSpearAttack3.cpp"
+
+
+#include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\CKoTFlyingAttack1.cpp"
 
 
 #include "C:\Users\DVYH\Desktop\DV\PROJECT\HaveANiceDeath\Projects\States\States.cpp"

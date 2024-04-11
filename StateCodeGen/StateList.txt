@@ -1,8 +1,17 @@
 CIdleState
 CKoTBigAttack1
 CKoTBigAttack2
+CKoTFlyingAttack1
+CKoTSpearAttack1
+CKoTSpearAttack2
+CKoTSpearAttack3
+CMonsterAppear
+CMonsterAppearWait
+CMonsterDie
+CMonsterHit
 CMonsterIdle
 CMonsterRun
+CMonsterStun
 CMonsterSurprised
 CMonsterUTurn
 CPlayerConcentrate

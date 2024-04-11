@@ -40,7 +40,7 @@ void CMonsterRun::finaltick()
 	// range & dir check
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos() + GetOwner()->Collider2D()->GetOffsetPos();
 	Vec3 vDist = pTarget->Transform()->GetWorldPos() - vPos;
-	UNIT_DIRX ToPlayerLook = ((pTarget->Transform()->GetWorldPos() - GetOwner()->Transform()->GetWorldPos()).x < 0) ? UNIT_DIRX::LEFT : UNIT_DIRX::RIGHT;
+	UNIT_DIRX ToPlayerLook = (vDist.x < 0) ? UNIT_DIRX::LEFT : UNIT_DIRX::RIGHT;
 	GamePlayStatic::DrawDebugCircle(vPos, AttackRange, Vec3(0.1f, 1.f, 0.1f), false);
 
 	// change state
@@ -53,11 +53,11 @@ void CMonsterRun::finaltick()
 	{
 		if (pMonster->CanAttack())
 		{
-			wstring strName = GetOwner()->GetName() + L"Attack";
+			wstring strName = L"Attack";
 			int rand = Random(1, pMonster->GetAttackTypeCount());
 			strName += std::to_wstring(rand);
 
-			//ChangeState(strName);
+			ChangeState(strName);
 		}
 		else
 			ChangeState(L"Idle");
@@ -65,7 +65,8 @@ void CMonsterRun::finaltick()
 
 	if (pMonster->GetDir() != ToPlayerLook)
 	{
-		ChangeState(L"UTurn");
+		if (MONSTERSCRIPT->WillDirChange())
+			ChangeState(L"UTurn");
 	}
 }
 

@@ -87,8 +87,9 @@ void CPlayerScript::init()
 	Collider2D()->SetOffsetScale(Vec3(50.f, 110.f, 1.f));
 	Collider2D()->SetOffsetPos(Vec3(0.f, -10.f, 0.f));
 
-	MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"BloomMat"));
+	/*MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"BloomMat"));*/
+	// dynamic material
 	MeshRender()->GetDynamicMaterial();
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.5f, 0.1f, 1.f, 1.f));
@@ -230,7 +231,16 @@ void CPlayerScript::init()
 
 void CPlayerScript::begin()
 {
-	//init();
+	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.5f, 0.1f, 1.f, 1.f));
+	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.8f);
+
+	Movement()->UseGravity(true);
+	Movement()->SetInitSpeed(m_fSpeed);
+	Movement()->SetInitSpeed_InAir(300.f);
+	Movement()->SetMaxSpeed_Ground(m_fSpeed);
+	Movement()->SetMaxSpeed_InAir(5000.f);
+	Movement()->SetGravityForce(Vec3(0.f, -4000.f, 0.f));
 
 	// StateMachine
 	if (StateMachine())

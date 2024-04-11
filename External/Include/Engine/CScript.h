@@ -32,8 +32,10 @@ public:
     virtual void SaveToFile(FILE* _File) = 0;
     virtual void LoadFromFile(FILE* _File) = 0;
 
-protected:
+public:
     void Instantiate(Ptr<CPrefab> _Prefab, Vec3 _vWorldPos, int _LayerIdx);
+
+protected:
     void AddScriptParam(SCRIPT_PARAM _Param, const string& _Desc, void* _Data) { m_ScriptParam.push_back(FScriptParam{ _Param , _Desc, _Data }); }
 
 public:

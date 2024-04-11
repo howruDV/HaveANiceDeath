@@ -4,6 +4,8 @@
 
 #include <Engine\CTimeMgr.h>
 #include <Engine\CStateMachine.h>
+#include <Engine\CTransform.h>
+#include <Engine\CCollider2D.h>
 
 CMonsterScript::CMonsterScript()
 	: CUnitScript(MONSTERSCRIPT)
@@ -50,21 +52,21 @@ CMonsterScript::~CMonsterScript()
 void CMonsterScript::begin()
 {
 	// component
-	MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"BloomMat"));
+	// dynamic material
 	MeshRender()->GetDynamicMaterial();
-	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
-	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1.f, 1.f, 1.f, 1.f));
+	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1.f, 0.f, 0.f, 1.f));
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.8f);
 
-	Movement()->UseGravity(true);
+	if (m_bFlying)
+		Movement()->UseGravity(false);
+	else
+		Movement()->UseGravity(true);
 	Movement()->SetInitSpeed(m_fSpeed);
 	Movement()->SetInitSpeed_InAir(300.f);
 	Movement()->SetMaxSpeed_Ground(m_fSpeed);
-	Movement()->SetMaxSpeed_InAir(300.f);
-	Movement()->SetGravityForce(Vec3(0.f, -4000.f, 0.f));
-
-	// animation
+	Movement()->SetMaxSpeed_InAir(5000.f);
+	Movement()->SetGravityForce(Vec3(0.f, -6500.f, 0.f));
 
 	// FSM
 	if (StateMachine())
@@ -84,7 +86,7 @@ void CMonsterScript::begin()
 		if (StateMachine()->GetFSM().Get())
 		{
 			if (m_bAppear)
-				StateMachine()->GetFSM()->ChangeState(L"Appear_Stand");
+				StateMachine()->GetFSM()->ChangeState(L"Appear_Wait");
 			else
 				StateMachine()->GetFSM()->ChangeState(L"Idle");
 		}
@@ -96,6 +98,16 @@ void CMonsterScript::tick()
 	// ----------------------------
 	// set direction
 	// ----------------------------
+	CGameObject* pPlayer = CPlayerMgr::GetPlayer();
+	Vec3 vPos = Transform()->GetRelativePos() + Collider2D()->GetOffsetPos();
+	Vec3 vDist = pPlayer->Transform()->GetWorldPos() - vPos;
+
+	if (vDist.Length() <= m_fDetectRange)
+	{
+		UNIT_DIRX ToPlayerLook = (vDist.x < 0) ? UNIT_DIRX::LEFT : UNIT_DIRX::RIGHT;
+		SetDir(ToPlayerLook);
+	}
+
 	CUnitScript::tick();
 
 	// ----------------------------
