@@ -7,6 +7,8 @@
 #include <Engine\CTransform.h>
 #include <Engine\CCollider2D.h>
 
+#include <States\func.h>
+
 CMonsterScript::CMonsterScript()
 	: CUnitScript(MONSTERSCRIPT)
 	, m_fDetectRange(400.f)
@@ -155,4 +157,15 @@ void CMonsterScript::LoadFromFile(FILE* _File)
 	fread(&m_iAttackTypeCount, sizeof(int), 1, _File);
 	fread(&m_bAppear, sizeof(bool), 1, _File);
 	fread(&m_bFlying, sizeof(bool), 1, _File);
+}
+
+void CMonsterScript::HitDamage(FDamage _Damage)
+{
+	int rand = Random(0, 10);
+	m_iHPCur -= _Damage.iCurHPDamage;
+
+	if (rand > 5)
+		StateMachine()->GetFSM()->ChangeState(L"Stun");
+	else
+		StateMachine()->GetFSM()->ChangeState(L"Hit");
 }

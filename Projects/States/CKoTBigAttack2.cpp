@@ -18,7 +18,7 @@ CKoTBigAttack2::~CKoTBigAttack2()
 void CKoTBigAttack2::finaltick()
 {
 	CGameObject* Hitbox = GetOwner()->GetChildByName(L"Attack2_Hitbox");
-	if (!Hitbox || !Hitbox->IsActivate())
+	if (!Hitbox || !Hitbox->Collider2D()->IsActive())
 		return;
 
 	// Update Hitbox Transform
@@ -69,15 +69,13 @@ void CKoTBigAttack2::finaltick()
 
 void CKoTBigAttack2::Enter()
 {
-	CGameObject* pHitbox = GetOwner()->GetChildByName(L"Attack2_Hitbox");
-	pHitbox->Activate();
+	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Collider2D()->Activate();
 
 	GetOwner()->Animator2D()->Play(L"Attack2", false);
 }
 
 void CKoTBigAttack2::Exit()
 {
-	CGameObject* pHitbox = GetOwner()->GetChildByName(L"Attack2_Hitbox");
-	pHitbox->Deactivate();
+	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Collider2D()->Deactivate();
 	MONSTERSCRIPT->StartAttackCool();
 }

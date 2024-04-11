@@ -114,17 +114,20 @@ void CHitboxScript::LoadFromFile(FILE* _File)
 
 void CHitboxScript::Attack(CGameObject* pInstigator, CGameObject* pTarget)
 {
+	if (pTarget->GetName() == L"KoTFlying")
+		int a = 0;
+
+	// check Hostile
+	CUnitScript* pAttackTarget = pTarget->GetScriptByType<CUnitScript>();
+	if (pTarget->GetLayerIdx() != m_HostileLayer || !pAttackTarget)
+		return;
+
 	// case: 이전에 충돌하고 아직 cooltime만큼 지나지 않은 경우
 	for (const FAttackHistory& it : m_vecAttackHistory)
 	{
 		if (it.pTarget == pTarget)
 			return;
 	}
-
-	// check Hostile
-	CUnitScript* pAttackTarget = pTarget->GetScriptByType<CUnitScript>();
-	if (pTarget->GetLayerIdx() != m_HostileLayer || !pAttackTarget)
-		return;
 
 	// attack
 	CUnitScript* pInstigatorUnit = pInstigator->GetScriptByType<CUnitScript>();

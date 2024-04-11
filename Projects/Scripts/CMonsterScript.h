@@ -29,6 +29,8 @@ public:
     virtual void SaveToFile(FILE* _File);
     virtual void LoadFromFile(FILE* _File);
 
+    virtual void HitDamage(FDamage _Damage) override;
+
 public:
     void StartAttackCool() { m_bAttackCool = true; m_fAttackCoolAcc = 0.f; }
 

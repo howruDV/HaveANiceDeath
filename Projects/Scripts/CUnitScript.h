@@ -31,6 +31,11 @@ protected:
     // Collision
     vector<CGameObject*> m_CollisionGround;
 
+    // State
+    float       m_fStunTime;
+    float       m_fStunCoolAcc;
+    bool        m_bStun;
+
 public:
     virtual void begin() override {};
     virtual void tick() override;
@@ -51,8 +56,8 @@ public:
     virtual void LoadFromFile(FILE* _File);
 
     // Hit & Attack
-    virtual void HitDamage(FDamage _Damage);                                        // Hit: Unit의 Hit에 따른 패널티 처리 (HP 감소 등)
-    virtual void Attack() {};                                                       // Attack: Unit의 Attack에 따른 보상 처리 (각성게이지 증가 등)
+    virtual void HitDamage(FDamage _Damage);  // Hit: Unit의 Hit에 따른 패널티 처리 (HP 감소 등)
+    virtual void Attack() {};                 // Attack: Unit의 Attack에 따른 보상 처리 (각성게이지 증가 등)
 
 public:
     void SetSpeed(float _fSpeed) { m_fSpeed = m_fSpeed; }
@@ -62,6 +67,7 @@ public:
     void SetDirLock(bool _bLock) { m_bDirLock = _bLock; }
     void PushGround(CGameObject* _Ground) { m_CollisionGround.push_back(_Ground); }
     void DeleteGround(CGameObject* _Ground);
+    void StartStun() { m_bStun = true; m_fStunCoolAcc = 0.f; }
 
     float GetSpeed() { return m_fSpeed; }
     UNIT_DIRX GetDir() { return m_Dir_Prev; }
@@ -73,6 +79,7 @@ public:
     bool IsDirChange() { return m_bDirChange_Cur; }
     bool IsDirLock() { return m_bDirLock; }
     bool IsGround(CGameObject* _Platform);
+    bool IsStun() { return m_bStun; }
 
 public:
     CLONE(CUnitScript);

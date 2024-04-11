@@ -7,6 +7,7 @@
 
 class CGameObject;
 class CPlayerScript;
+class CHitboxScript;
 
 class CPlayerMgr
 	: public CScript
@@ -27,7 +28,7 @@ public:
 public:
 	void SetPlayer(CGameObject* _obj);
 
-	static CGameObject* GetPlayer() { return m_pPlayer; };
+	static CGameObject* GetPlayer() { return m_pPlayer; }
 	static CPlayerScript* GetPlayerScript() { return m_pPlayerScript; }
 
 public:

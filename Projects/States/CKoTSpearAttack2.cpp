@@ -18,7 +18,7 @@ CKoTSpearAttack2::~CKoTSpearAttack2()
 void CKoTSpearAttack2::finaltick()
 {
 	CGameObject* pHitbox = GetOwner()->GetChildByName(L"Attack2_Hitbox");
-	if (!pHitbox || !pHitbox->IsActivate())
+	if (!pHitbox || !pHitbox->Collider2D()->IsActive())
 		return;
 
 	// Update HitBox Transform
@@ -63,13 +63,13 @@ void CKoTSpearAttack2::finaltick()
 
 void CKoTSpearAttack2::Enter()
 {
-	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Activate();
+	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Collider2D()->Activate();
 	GetOwner()->Animator2D()->Play(L"Attack4", false);
 }
 
 void CKoTSpearAttack2::Exit()
 {
-	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Deactivate();
+	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Collider2D()->Deactivate();
 	GetOwner()->Movement()->SetVelocity(Vec3());
 	MONSTERSCRIPT->StartAttackCool();
 }

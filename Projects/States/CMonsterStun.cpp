@@ -14,16 +14,19 @@ CMonsterStun::~CMonsterStun()
 
 void CMonsterStun::finaltick()
 {
-	// playing animation
 	if (GetOwner()->Animator2D()->IsPlaying())
 		return;
 
+	GetFSM()->SetGlobalState(false);
 	ChangeState(L"Idle");
 }
 
 void CMonsterStun::Enter()
 {
 	MONSTERSCRIPT->SetDirLock(true);
+	//MONSTERSCRIPT->StartStun();
+	GetFSM()->SetGlobalState(true);
+
 	GetOwner()->Animator2D()->Play(L"Stun", false);
 }
 

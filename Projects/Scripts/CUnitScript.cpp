@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CUnitScript.h"
 
+#include <Engine/CTimeMgr.h>
 #include <Engine/CGameObject.h>
 #include <Engine/CAnimator2D.h>
 #include <Engine/CStateMachine.h>
@@ -16,11 +17,14 @@ CUnitScript::CUnitScript(UINT m_iScriptType)
 	, m_bDirLock(false)
 	, m_bDirChange_Next(false)
 	, m_bDirChange_Cur(false)
+	, m_fStunTime(3.f)
+	, m_fStunCoolAcc(0.f)
+	, m_bStun(false)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Max", &m_iHPMax);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Current", &m_iHPCur);
-	AddScriptParam(SCRIPT_PARAM::INT, "m_Dir", &m_Dir);
+	AddScriptParam(SCRIPT_PARAM::FLOAT, "Stun Time", &m_fStunTime);
 }
 
 CUnitScript::CUnitScript(const CUnitScript& _Origin)
@@ -34,11 +38,14 @@ CUnitScript::CUnitScript(const CUnitScript& _Origin)
 	, m_bDirLock(false)
 	, m_bDirChange_Next(false)
 	, m_bDirChange_Cur(false)
+	, m_fStunTime(3.f)
+	, m_fStunCoolAcc(0.f)
+	, m_bStun(false)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Max", &m_iHPMax);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Current", &m_iHPCur);
-	AddScriptParam(SCRIPT_PARAM::INT, "m_Dir", &m_Dir);
+	AddScriptParam(SCRIPT_PARAM::FLOAT, "Stun Time", &m_fStunTime);
 }
 
 CUnitScript::~CUnitScript()
@@ -92,6 +99,17 @@ void CUnitScript::tick()
 
 		if (StateMachine() && StateMachine()->GetFSM()->FindState(L"Die"))
 			StateMachine()->GetFSM()->ChangeState(L"Die");
+	}
+
+	if (m_bStun)
+	{
+		m_fStunCoolAcc += DT;
+
+		if (m_fStunCoolAcc >= m_fStunTime)
+		{
+			m_fStunCoolAcc = 0.f;
+			m_bStun = false;
+		}
 	}
 }
 

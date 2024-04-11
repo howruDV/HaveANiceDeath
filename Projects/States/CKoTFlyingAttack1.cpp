@@ -3,6 +3,7 @@
 
 #include <Engine\CAssetMgr.h>
 #include <Engine\CTransform.h>
+#include <Engine\CCollider2D.h>
 
 #include <Scripts\CMonsterScript.h>
 
@@ -18,7 +19,7 @@ CKoTFlyingAttack1::~CKoTFlyingAttack1()
 void CKoTFlyingAttack1::finaltick()
 {
 	CGameObject* pHitbox = GetOwner()->GetChildByName(L"Attack1_Hitbox");
-	if (!pHitbox || !pHitbox->IsActivate())
+	if (!pHitbox || !pHitbox->Collider2D()->IsActive())
 		return;
 
 	// Update HitBox Transform
@@ -69,12 +70,12 @@ void CKoTFlyingAttack1::finaltick()
 
 void CKoTFlyingAttack1::Enter()
 {
-	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Activate();
+	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Collider2D()->Activate();
 	GetOwner()->Animator2D()->Play(L"Attack2", false);
 }
 
 void CKoTFlyingAttack1::Exit()
 {
-	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Deactivate();
+	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Collider2D()->Deactivate();
 	MONSTERSCRIPT->StartAttackCool();
 }
