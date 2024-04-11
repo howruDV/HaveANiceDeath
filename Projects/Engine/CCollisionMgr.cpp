@@ -110,7 +110,7 @@ void CCollisionMgr::CollisionBtwLayer(UINT _left, UINT _right)
 
 			// 두 충돌체중 하나라도 활성화 상태 아니라면, 충돌을 검사하지 않는다.
 			if (!IsActive)
-				return;
+				continue;
 
 			// case: 현재 프레임 충돌
 			if (CollisionBtwCollider2D(vecLeft[i]->Collider2D(), vecRight[j]->Collider2D()))

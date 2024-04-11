@@ -98,6 +98,9 @@ void CCollider2D::Overlap(CCollider2D* _OtherCollider)
 
 void CCollider2D::EndOverlap(CCollider2D* _OtherCollider)
 {
+	if (GetOwner()->GetName() == L"KoTFlying")
+	  		int a = 0;
+
 	--m_CollisionCount;
 	
 	const vector<CScript*>& vecScript = GetOwner()->GetScripts();

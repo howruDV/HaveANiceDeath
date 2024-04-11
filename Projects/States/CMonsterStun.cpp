@@ -33,4 +33,5 @@ void CMonsterStun::Enter()
 void CMonsterStun::Exit()
 {
 	MONSTERSCRIPT->SetDirLock(false);
+	GetFSM()->SetGlobalState(false);
 }

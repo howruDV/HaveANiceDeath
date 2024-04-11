@@ -114,9 +114,6 @@ void CHitboxScript::LoadFromFile(FILE* _File)
 
 void CHitboxScript::Attack(CGameObject* pInstigator, CGameObject* pTarget)
 {
-	if (pTarget->GetName() == L"KoTFlying")
-		int a = 0;
-
 	// check Hostile
 	CUnitScript* pAttackTarget = pTarget->GetScriptByType<CUnitScript>();
 	if (pTarget->GetLayerIdx() != m_HostileLayer || !pAttackTarget)
@@ -139,5 +136,7 @@ void CHitboxScript::Attack(CGameObject* pInstigator, CGameObject* pTarget)
 	FAttackHistory AttackRec = {};
 	AttackRec.pTarget = pTarget;
 	AttackRec.fAccTime = 0.f;
-	m_vecAttackHistory.push_back(AttackRec);
+
+	if (m_fCoolTime != 0.f)
+		m_vecAttackHistory.push_back(AttackRec);
 }

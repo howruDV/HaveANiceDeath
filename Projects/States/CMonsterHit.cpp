@@ -35,4 +35,5 @@ void CMonsterHit::Enter()
 void CMonsterHit::Exit()
 {
 	MONSTERSCRIPT->SetDirLock(false);
+	GetFSM()->SetGlobalState(false);
 }
