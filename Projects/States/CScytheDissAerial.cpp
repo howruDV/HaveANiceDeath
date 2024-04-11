@@ -88,7 +88,7 @@ void CScytheDissAerial::Enter()
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 
 	// hitbox
-	m_pHitbox = GetOwner()->GetChildByName(L"Hitbox");
+	m_pHitbox = GetOwner()->GetChildByName(L"Aerial_Hitbox");
 	SetPlayerHitboxDamage(m_pHitbox, SCYTHE_DAMAGE_NAME::Air);
 	m_pHitbox->Collider2D()->Activate();
 }

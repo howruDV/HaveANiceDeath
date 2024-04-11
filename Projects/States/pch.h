@@ -26,5 +26,6 @@
 // ------------------------------
 #include "CStateMgr.h"
 #include "define.h"
+#include "func.h"
 
 #endif //PCH_H

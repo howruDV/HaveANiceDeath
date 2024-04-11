@@ -6,7 +6,8 @@ class CScytheDissCrush :
 {
 private:
     Vec3 m_StartPos;
-    Vec3 m_LandingPos;
+    CGameObject* m_pHitbox;
+    bool m_bDownFirst;
 
 public:
     virtual void finaltick() override;

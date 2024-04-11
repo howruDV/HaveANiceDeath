@@ -4,6 +4,9 @@
 class CScytheDissComboD :
     public CState
 {
+private:
+    CGameObject* m_pHitbox;
+
 public:
     virtual void finaltick() override;
     virtual void Enter() override;

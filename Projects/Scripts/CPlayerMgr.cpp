@@ -3,6 +3,8 @@
 #include "CPlayerScript.h"
 
 #include <Engine/CGameObject.h>
+#include <Engine/CLevelMgr.h>
+#include <Engine/CLevel.h>
 
 CGameObject* CPlayerMgr::m_pPlayer = nullptr;
 CPlayerScript* CPlayerMgr::m_pPlayerScript = nullptr;
@@ -15,9 +17,6 @@ CPlayerMgr::CPlayerMgr()
 CPlayerMgr::~CPlayerMgr()
 {
 }
-
-#include <Engine/CLevelMgr.h>
-#include <Engine/CLevel.h>
 
 void CPlayerMgr::begin()
 {

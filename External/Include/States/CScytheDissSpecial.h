@@ -6,6 +6,7 @@ class CScytheDissSpecial :
 {
 private:
     Vec3 m_OrginScale;
+    CGameObject* m_pHitbox;
 
 public:
     virtual void finaltick() override;

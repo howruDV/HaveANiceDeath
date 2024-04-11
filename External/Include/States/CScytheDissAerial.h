@@ -1,6 +1,5 @@
 #pragma once
 #include <Engine/CState.h>
-#include <Scripts\CHitboxScript.h>
 
 class CScytheDissAerial :
     public CState

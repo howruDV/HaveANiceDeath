@@ -329,14 +329,32 @@ void CPlayerScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj,
 	// Platform
 	if (_OtherObj->GetLayerIdx() == 6)
 	{
-		// case: aireal collision
 		wstring strState = StateMachine()->GetFSM()->GetCurState()->GetName();
-		if ( strState == L"PowerUp" || strState == L"ScytheDiss_Up")
+
+		// case: upto platform
+		if (strState.find(L"_Crush") != std::string::npos)
+		{
+			Vec3 GroundPos = Transform()->GetRelativePos();
+			GroundPos.y = _OtherCollider->GetFinalPos().y + _OtherCollider->GetFinalScale().y / 2.f;
+			GroundPos.y += _Collider->GetFinalScale().y / 2.f - _Collider->GetOffsetPos().y;
+			Transform()->SetRelativePos(GroundPos);
+
+			Movement()->SetGround(true);
+		}
+
+		// case: aireal collision
+		if ( strState == L"PowerUp" || strState.find(L"_Up") != std::string::npos)
 		{
 			m_AirColPlatform = _OtherObj;
 			m_bAirCol = true;
 		}
 	}
+}
+
+
+void CPlayerScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)
+{
+
 }
 
 void CPlayerScript::EndOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, CCollider2D* _OtherCollider)

@@ -5,9 +5,9 @@ class CScytheDissUp :
     public CState
 {
 private:
-    Vec3 m_LandPos;
     Vec3 m_MoveTop;
     Vec3 m_TargetPos;
+    CGameObject* m_pHitbox;
 
 public:
     virtual void finaltick() override;

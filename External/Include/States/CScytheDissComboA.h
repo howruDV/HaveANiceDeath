@@ -6,6 +6,7 @@ class CScytheDissComboA :
 {
 private:
     bool m_bCombo;
+    CGameObject* m_pHitbox;
 
 public:
     virtual void finaltick() override;
