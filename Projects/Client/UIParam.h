@@ -16,6 +16,7 @@ private:
 
 public:
 	static void ResetID() { g_ID = 0; }
+	static int	GetID() { return g_ID++; }
 	static bool Param_INT(int* _Data, const string& _Desc);
 	static bool Param_FLOAT(float* _Data, const string& _Desc);
 	static bool Param_VEC2(Vec2* _Data, const string& _Desc);

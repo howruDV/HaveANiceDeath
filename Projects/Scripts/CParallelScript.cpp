@@ -28,7 +28,7 @@ CParallelScript::CParallelScript(const CParallelScript& _Origin)
 	, m_bAirPerspective(_Origin.m_bAirPerspective)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
-	AddScriptParam(SCRIPT_PARAM::VEC4, "Merge Color", &m_vAirColor);
+	AddScriptParam(SCRIPT_PARAM::VEC4, "Air Color", &m_vAirColor);
 	AddScriptParam(SCRIPT_PARAM::BOOL, "Use AirPerspective", &m_bAirPerspective);
 }
 
@@ -62,7 +62,11 @@ void CParallelScript::tick()
 		return;
 
 	Vec3 vUpdatePos = GetOwner()->Transform()->GetRelativePos();
-	vUpdatePos.x -= vCamMove.x * m_fSpeed * (1 / vUpdatePos.z);
+	if (vUpdatePos.z == 0.f)
+		vUpdatePos.x -= vCamMove.x * m_fSpeed;
+	else
+		vUpdatePos.x -= vCamMove.x * m_fSpeed * (1 / vUpdatePos.z);
+
 	GetOwner()->Transform()->SetRelativePos(vUpdatePos);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, vUpdatePos.z); // @TODO : release, 혹은 개발 완료시 지우기
 }
