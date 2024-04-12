@@ -10,7 +10,7 @@
 
 CCamCtrlScript::CCamCtrlScript()
 	: CScript(CAMCTRLSCRIPT)
-	, m_fSpeed(2000.f)
+	, m_fSpeed(1500.f)
 	, m_Target(nullptr)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
@@ -45,14 +45,15 @@ void CCamCtrlScript::tick()
 		return;
 
 	Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
-	if (vTargetPos == m_vPrevPos)
+	vTargetPos.z = m_vPrevPos.z;
+	if ((vTargetPos - m_vPrevPos).Length() <= 0.1f)
 		return;
 
 	Vec3 vCamPos = GetOwner()->Transform()->GetWorldPos();
 	Vec3 vDir = (vTargetPos - vCamPos).Normalize();
 	Vec3 vUpdatePos = vCamPos + vDir * DT * m_fSpeed;
 
-	GetOwner()->Transform()->SetRelativePos(Vec3(vUpdatePos.x, vUpdatePos.y, 0.f));
+	GetOwner()->Transform()->SetRelativePos(Vec3(vUpdatePos.x, vUpdatePos.y, vCamPos.z));
 	m_vMove.x = vUpdatePos.x - vCamPos.x;
 	m_vMove.y = vUpdatePos.y - vCamPos.y;
 	m_vPrevPos = vUpdatePos;
@@ -65,5 +66,5 @@ void CCamCtrlScript::SaveToFile(FILE* _File)
 
 void CCamCtrlScript::LoadFromFile(FILE* _File)
 {
-	//fread(&m_fSpeed, 1, sizeof(float), _File);
+	fread(&m_fSpeed, 1, sizeof(float), _File);
 }

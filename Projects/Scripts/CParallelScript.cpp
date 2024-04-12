@@ -48,13 +48,6 @@ void CParallelScript::tick()
 	if (!m_MainCamCtrlr)
 		return;
 
-
-	// 카메라가 움직일 때
-	// background x는 반대로 움직임 (이미 에셋작업을 y고려 X...)
-
-	// 메인카메라 위치 변화량이 있다면
-	// Transform 적용
-	// -위치변화량 * (고정)이동속도 * z축 반영값
 	Vec3 vCamMove = m_MainCamCtrlr->GetMove();
 	if (vCamMove == Vec3())
 		return;
@@ -66,10 +59,10 @@ void CParallelScript::tick()
 
 void CParallelScript::SaveToFile(FILE* _File)
 {
-	//fwrite(&m_vColor, 1, sizeof(Vec4), _File);
+	fwrite(&m_vColor, 1, sizeof(Vec4), _File);
 }
 
 void CParallelScript::LoadFromFile(FILE* _File)
 {
-	//fread(&m_vColor, 1, sizeof(Vec4), _File);
+	fread(&m_vColor, 1, sizeof(Vec4), _File);
 }
