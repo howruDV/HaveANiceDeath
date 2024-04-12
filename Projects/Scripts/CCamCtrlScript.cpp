@@ -2,10 +2,10 @@
 #include "CCamCtrlScript.h"
 #include "CPlayerMgr.h"
 
-#include <Engine/CLevelMgr.h>
 #include <Engine/CTimeMgr.h>
-#include <Engine/CGameObject.h>
+#include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
+#include <Engine/CGameObject.h>
 #include <Engine/CTransform.h>
 
 CCamCtrlScript::CCamCtrlScript()
@@ -65,5 +65,5 @@ void CCamCtrlScript::SaveToFile(FILE* _File)
 
 void CCamCtrlScript::LoadFromFile(FILE* _File)
 {
-	fread(&m_fSpeed, 1, sizeof(float), _File);
+	//fread(&m_fSpeed, 1, sizeof(float), _File);
 }
