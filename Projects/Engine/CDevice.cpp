@@ -311,7 +311,7 @@ int CDevice::CreateBlendState()
 
     // AlphaBlend
     tDesc.AlphaToCoverageEnable = false;
-    tDesc.IndependentBlendEnable = true;
+    tDesc.IndependentBlendEnable = false;
 
     tDesc.RenderTarget[0].BlendEnable = true;
     tDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;

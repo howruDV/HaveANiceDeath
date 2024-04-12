@@ -72,7 +72,13 @@ void UIMenuPannel::File()
             ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
             if (GetSaveFileName(&ofn))
             {
-                CLevelSaveLoad::SaveLevel(CLevelMgr::GetInst()->GetCurrentLevel(), CPathMgr::GetRelativePath(szSelect));
+                string strWarning = path(szSelect).filename().string() + "을 덮어쓰시겠습니까?";
+                int value = MessageBoxA(nullptr, strWarning.c_str(), "Save Level", MB_YESNO);
+                
+                if (value == IDYES)
+                {
+                    CLevelSaveLoad::SaveLevel(CLevelMgr::GetInst()->GetCurrentLevel(), CPathMgr::GetRelativePath(szSelect));
+                }
             }
         }
 

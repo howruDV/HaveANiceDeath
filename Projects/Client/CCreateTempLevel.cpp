@@ -410,15 +410,15 @@ void CCreateTempLevel::CreateTempLevel()
 	//pObj->AddComponent(new CMonsterScript_Test);
 
 	pObj->Transform()->SetRelativePos(Vec3(200.f, 0.f, 100.f));
-	pObj->Transform()->SetRelativeScale(Vec3(200.f, 200.f, 1.f));
+	pObj->Transform()->SetRelativeScale(Vec3(600.f, 600.f, 1.f));
 
 	pObj->Collider2D()->SetAbsolute(true);
 	pObj->Collider2D()->SetOffsetScale(Vec3(50.f, 50.f, 1.f));
 	pObj->Collider2D()->SetOffsetPos(Vec3(0.f, 0.f, 0.f));
 
 	pObj->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
-	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"BloomMat"));
-	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, CAssetMgr::GetInst()->Load<CTexture>(L"texture\\Fighter.bmp"));
+	pObj->MeshRender()->SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"EffetMat"));
+	pObj->MeshRender()->GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, CAssetMgr::GetInst()->Load<CTexture>(L"texture\\test1.png"));
 
 	//pObj->StateMachine()->SetFSM(CAssetMgr::GetInst()->FindAsset<CFSM>(L"NormalMonsterFSM"));
 

@@ -26,7 +26,7 @@ PS_OUT PS_Std2D_AirPersp(VS_OUT _in) : SV_Target
 {
     // 1. sampling
     PS_OUT output;
-    float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
+    float4 vColor;
     
     if (g_UseAnim2D)
     {
@@ -46,21 +46,21 @@ PS_OUT PS_Std2D_AirPersp(VS_OUT _in) : SV_Target
             vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
         }
         
-        // alpha blending (magenta background delete)
-        float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f); // saturate: 0~1 넘지 않게 보정
+    //    // alpha blending (magenta background delete)
+    //    float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f); // saturate: 0~1 넘지 않게 보정
         
-        if (fAlpha < 0.1f)
-        {
-            discard;
+    //    if (fAlpha == 0.f)
+    //    {
+    //        discard;
+    //    }
+    //
         }
-    }
     
     // Air Perspective
-    if (AirPerspUnable && ObjDepth >= 0.f)
+    if (AirPerspUnable && ObjDepth != 0.f)
     {
         float alpha = ObjDepth / 2000.f;
         float4 airColor = AirColor;
-        airColor.a = vColor.a;
         vColor.rgb = vColor.rgb * (1 - alpha) + airColor.rgb * alpha * AirColor.a;
     }
     

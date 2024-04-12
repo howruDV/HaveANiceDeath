@@ -11,11 +11,11 @@
 CParallelScript::CParallelScript()
 	: CScript(PARALLELSCRIPT)
 	, m_vAirColor(Vec4(174, 184, 169, 255))
-	, m_fSpeed(50.f)
+	, m_fMaxDepth(1200.f)
 	, m_MainCamCtrlr(nullptr)
 	, m_bAirPerspective(true)
 {
-	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
+	AddScriptParam(SCRIPT_PARAM::FLOAT, "Max Depth", &m_fMaxDepth);
 	AddScriptParam(SCRIPT_PARAM::VEC4, "Air Color", &m_vAirColor);
 	AddScriptParam(SCRIPT_PARAM::BOOL, "Use AirPerspective", &m_bAirPerspective);
 }
@@ -23,11 +23,11 @@ CParallelScript::CParallelScript()
 CParallelScript::CParallelScript(const CParallelScript& _Origin)
 	: CScript(PARALLELSCRIPT)
 	, m_vAirColor(_Origin.m_vAirColor)
-	, m_fSpeed(_Origin.m_fSpeed)
+	, m_fMaxDepth(_Origin.m_fMaxDepth)
 	, m_MainCamCtrlr(nullptr)
 	, m_bAirPerspective(_Origin.m_bAirPerspective)
 {
-	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
+	AddScriptParam(SCRIPT_PARAM::FLOAT, "Max Depth", &m_fMaxDepth);
 	AddScriptParam(SCRIPT_PARAM::VEC4, "Air Color", &m_vAirColor);
 	AddScriptParam(SCRIPT_PARAM::BOOL, "Use AirPerspective", &m_bAirPerspective);
 }
@@ -58,14 +58,21 @@ void CParallelScript::tick()
 		return;
 
 	Vec3 vCamMove = m_MainCamCtrlr->GetMove();
-	if (vCamMove == Vec3())
-		return;
-
 	Vec3 vUpdatePos = GetOwner()->Transform()->GetRelativePos();
-	if (vUpdatePos.z == 0.f)
-		vUpdatePos.x -= vCamMove.x * m_fSpeed;
+	if (vCamMove == Vec3() || vUpdatePos.z == 0.f)
+		return;
+	
+	//- z축이 양수인 경우 :
+	//-0과 가까워질수록 덜 밀어줌
+	//	- 커질수록 : 카메라의 진행방향으로 밀어줌(최대 : 카메라가 아무리 움직여도 거의 고정된 것처럼)
+	//- z축이 음수인 경우 :
+	//	-0과 가까워질수록 덜 밀어줌
+	//	- 작아질수록 : 카메라 진행의 반대방향으로 밀어줌
+	//vUpdatePos.x -= vCamMove.x * m_fSpeed * (1 / vUpdatePos.z);
+	if (vUpdatePos.z > 0)
+		vUpdatePos.x += vCamMove.x * (vUpdatePos.z / m_fMaxDepth);
 	else
-		vUpdatePos.x -= vCamMove.x * m_fSpeed * (1 / vUpdatePos.z);
+		vUpdatePos.x += vCamMove.x / m_fMaxDepth * (1.f / vUpdatePos.z);
 
 	GetOwner()->Transform()->SetRelativePos(vUpdatePos);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, vUpdatePos.z); // @TODO : release, 혹은 개발 완료시 지우기

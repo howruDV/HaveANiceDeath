@@ -8,7 +8,7 @@ class CParallelScript :
 {
 private:
     CCamCtrlScript* m_MainCamCtrlr;
-    float m_fSpeed;
+    float m_fMaxDepth;
 
     // air perspective
     Vec4 m_vAirColor;
