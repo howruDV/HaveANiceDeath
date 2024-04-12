@@ -37,6 +37,8 @@ private:
 public:
     virtual void render_update() override;
 
+    void SelectTex(DWORD_PTR _ptr);
+
 private:
     void Save();
     void Load();

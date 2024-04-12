@@ -75,15 +75,15 @@ void UIOutlinerPannel::DrawRightClickMenu()
 
 	if (ImGui::BeginPopupContextItem("##OutlinerRightClickPopup"))
 	{
-		if (ImGui::BeginMenu("Components"))
-		{
-			if (ImGui::MenuItem("Click me"))
-			{
+		//if (ImGui::BeginMenu("Components"))
+		//{
+		//	if (ImGui::MenuItem("Click me"))
+		//	{
 
-			}
+		//	}
 
-			ImGui::EndMenu();
-		}
+		//	ImGui::EndMenu();
+		//}
 
 		if (ImGui::Selectable("Copy"))
 		{

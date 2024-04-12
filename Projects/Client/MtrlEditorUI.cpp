@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "MtrlEditorUI.h"
+#include "UIParam.h"
+#include "UIListPannel.h"
 
 #include <Engine/CAssetMgr.h>
-
-#include "UIParam.h"
 
 UIMatEditor::UIMatEditor()
 	: UI("Mat Inspector", "##MatInspector")
@@ -166,6 +166,21 @@ void UIMatEditor::render_update()
 			}
 
 			ImGui::EndDragDropTarget();
+		}
+
+		// List UI
+		ImGui::SameLine();
+		if (ImGui::Button("##MatTex0", ImVec2(20, 20)))
+		{
+			UIListPannel* pListUI = (UIListPannel*)CImGuiMgr::GetInst()->FindUI("##List");
+			vector<string> vecTex;
+			unordered_map<wstring, Ptr<CAsset>> hashTex = CAssetMgr::GetInst()->GetAssetsByType(ASSET_TYPE::TEXTURE);
+			for (const std::pair<wstring, Ptr<CAsset>>& pair : hashTex)
+				vecTex.push_back(WstrToStr(pair.first));
+
+			pListUI->AddString(vecTex);
+			pListUI->SetDBClickeDelegate(this, (DELEGATE_1)&UIMatEditor::SelectTex);
+			pListUI->Activate();
 		}
 
 		ImGui::Separator(); ImGui::Spacing(); ImGui::Spacing();
@@ -425,6 +440,17 @@ void UIMatEditor::render_update()
 			ImGui::Image(pTex->GetSRV().Get(), ImVec2(150, 150), uv_min, uv_max, tint_col, border_col);
 		}
 	}
+}
+
+void UIMatEditor::SelectTex(DWORD_PTR _ptr)
+{
+	string strTexKey = (char*)_ptr;
+	Ptr<CTexture> pTex = CAssetMgr::GetInst()->FindAsset<CTexture>(StrToWstr(strTexKey));
+	if (!pTex.Get())
+		return;
+
+	m_TargetMtrl->SetTexParam(TEX_PARAM::TEX_0, pTex);
+	m_TEX_PATH[0] = strTexKey;
 }
 
 void UIMatEditor::Save()
