@@ -42,12 +42,18 @@ void CCamCtrlScript::begin()
 void CCamCtrlScript::tick()
 {
 	if (!m_Target)
+	{
+		m_vMove = Vec3();
 		return;
+	}
 
 	Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
 	vTargetPos.z = m_vPrevPos.z;
 	if ((vTargetPos - m_vPrevPos).Length() <= 0.1f)
+	{
+		m_vMove = Vec3();
 		return;
+	}
 
 	Vec3 vCamPos = GetOwner()->Transform()->GetWorldPos();
 	Vec3 vDir = (vTargetPos - vCamPos).Normalize();

@@ -8,8 +8,11 @@ class CParallelScript :
 {
 private:
     CCamCtrlScript* m_MainCamCtrlr;
-    Vec4 m_vColor;
     float m_fSpeed;
+
+    // air perspective
+    Vec4 m_vAirColor;
+    bool m_bAirPerspective;
 
 public:
     virtual void begin() override;

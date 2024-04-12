@@ -299,6 +299,7 @@ call EngineCopy.bat</Command>
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="func.cpp" />
+    <FxCompile Include="std2d_airPersp.fx" />
     <FxCompile Include="blurx.fx" />
     <FxCompile Include="blury.fx" />
     <FxCompile Include="combind.fx" />

@@ -598,6 +598,9 @@
     <FxCompile Include="std2d_glow.fx">
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
+    <FxCompile Include="std2d_airPersp.fx">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
