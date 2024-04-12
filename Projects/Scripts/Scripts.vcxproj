@@ -161,6 +161,7 @@ call ScriptsCopy.bat</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CBloomScript.h" />
+    <ClInclude Include="CCamCtrlScript.h" />
     <ClInclude Include="CCornerTriggerScript.h" />
     <ClInclude Include="CGameMgr.h" />
     <ClInclude Include="CHitboxScript.h" />
@@ -169,6 +170,7 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CMissileScript_Test.h" />
     <ClInclude Include="CMonsterScript.h" />
     <ClInclude Include="CMonsterScript_Test.h" />
+    <ClInclude Include="CParallelScript.h" />
     <ClInclude Include="CPlayerMgr.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayerScript_Test.h" />
@@ -183,6 +185,7 @@ call ScriptsCopy.bat</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBloomScript.cpp" />
+    <ClCompile Include="CCamCtrlScript.cpp" />
     <ClCompile Include="CCornerTriggerScript.cpp" />
     <ClCompile Include="CGameMgr.cpp" />
     <ClCompile Include="CHitboxScript.cpp" />
@@ -191,6 +194,7 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CMissileScript_Test.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />
     <ClCompile Include="CMonsterScript_Test.cpp" />
+    <ClCompile Include="CParallelScript.cpp" />
     <ClCompile Include="CPlayerMgr.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayerScript_Test.cpp" />

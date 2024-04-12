@@ -2,6 +2,7 @@
 #include "CScriptMgr.h"
 
 #include "CBloomScript.h"
+#include "CCamCtrlScript.h"
 #include "CCornerTriggerScript.h"
 #include "CGameMgr.h"
 #include "CHitboxScript.h"
@@ -10,6 +11,7 @@
 #include "CMissileScript_Test.h"
 #include "CMonsterScript.h"
 #include "CMonsterScript_Test.h"
+#include "CParallelScript.h"
 #include "CPlayerMgr.h"
 #include "CPlayerScript.h"
 #include "CPlayerScript_Test.h"
@@ -18,6 +20,7 @@
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CBloomScript");
+	_vec.push_back(L"CCamCtrlScript");
 	_vec.push_back(L"CCornerTriggerScript");
 	_vec.push_back(L"CGameMgr");
 	_vec.push_back(L"CHitboxScript");
@@ -26,6 +29,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CMissileScript_Test");
 	_vec.push_back(L"CMonsterScript");
 	_vec.push_back(L"CMonsterScript_Test");
+	_vec.push_back(L"CParallelScript");
 	_vec.push_back(L"CPlayerMgr");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CPlayerScript_Test");
@@ -36,6 +40,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 {
 	if (L"CBloomScript" == _strScriptName)
 		return new CBloomScript;
+	if (L"CCamCtrlScript" == _strScriptName)
+		return new CCamCtrlScript;
 	if (L"CCornerTriggerScript" == _strScriptName)
 		return new CCornerTriggerScript;
 	if (L"CGameMgr" == _strScriptName)
@@ -52,6 +58,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CMonsterScript;
 	if (L"CMonsterScript_Test" == _strScriptName)
 		return new CMonsterScript_Test;
+	if (L"CParallelScript" == _strScriptName)
+		return new CParallelScript;
 	if (L"CPlayerMgr" == _strScriptName)
 		return new CPlayerMgr;
 	if (L"CPlayerScript" == _strScriptName)
@@ -69,6 +77,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	{
 	case (UINT)SCRIPT_TYPE::BLOOMSCRIPT:
 		return new CBloomScript;
+		break;
+	case (UINT)SCRIPT_TYPE::CAMCTRLSCRIPT:
+		return new CCamCtrlScript;
 		break;
 	case (UINT)SCRIPT_TYPE::CORNERTRIGGERSCRIPT:
 		return new CCornerTriggerScript;
@@ -94,6 +105,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::MONSTERSCRIPT_TEST:
 		return new CMonsterScript_Test;
 		break;
+	case (UINT)SCRIPT_TYPE::PARALLELSCRIPT:
+		return new CParallelScript;
+		break;
 	case (UINT)SCRIPT_TYPE::PLAYERMGR:
 		return new CPlayerMgr;
 		break;
@@ -116,6 +130,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 	{
 	case SCRIPT_TYPE::BLOOMSCRIPT:
 		return L"CBloomScript";
+		break;
+
+	case SCRIPT_TYPE::CAMCTRLSCRIPT:
+		return L"CCamCtrlScript";
 		break;
 
 	case SCRIPT_TYPE::CORNERTRIGGERSCRIPT:
@@ -148,6 +166,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::MONSTERSCRIPT_TEST:
 		return L"CMonsterScript_Test";
+		break;
+
+	case SCRIPT_TYPE::PARALLELSCRIPT:
+		return L"CParallelScript";
 		break;
 
 	case SCRIPT_TYPE::PLAYERMGR:

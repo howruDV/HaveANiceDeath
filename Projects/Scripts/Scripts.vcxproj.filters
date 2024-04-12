@@ -61,6 +61,12 @@
     <ClInclude Include="CKoTSpear_ProjScript.h">
       <Filter>Scripts\Proj\KoTSpear_Proj</Filter>
     </ClInclude>
+    <ClInclude Include="CParallelScript.h">
+      <Filter>Scripts\Parallel</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamCtrlScript.h">
+      <Filter>Scripts\CameraController</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -116,6 +122,12 @@
     </ClCompile>
     <ClCompile Include="CKoTSpear_ProjScript.cpp">
       <Filter>Scripts\Proj\KoTSpear_Proj</Filter>
+    </ClCompile>
+    <ClCompile Include="CParallelScript.cpp">
+      <Filter>Scripts\Parallel</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamCtrlScript.cpp">
+      <Filter>Scripts\CameraController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +187,12 @@
     </Filter>
     <Filter Include="Scripts\Proj\KoTSpear_Proj">
       <UniqueIdentifier>{2a696216-48da-4dab-add9-7c6b1827e920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Parallel">
+      <UniqueIdentifier>{ecd77797-454e-4f50-87bd-b0102d85c537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\CameraController">
+      <UniqueIdentifier>{f23c0f35-4bc1-4d7c-9ea6-e6c4e53e5e28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

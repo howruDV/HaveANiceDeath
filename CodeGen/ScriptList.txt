@@ -1,4 +1,5 @@
 CBloomScript
+CCamCtrlScript
 CCornerTriggerScript
 CGameMgr
 CHitboxScript
@@ -7,6 +8,7 @@ CKoTSpear_ProjScript
 CMissileScript_Test
 CMonsterScript
 CMonsterScript_Test
+CParallelScript
 CPlayerMgr
 CPlayerScript
 CPlayerScript_Test
