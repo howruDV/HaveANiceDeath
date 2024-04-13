@@ -15,6 +15,7 @@ union CollisionID
 };
 
 class CCollider2D;
+class CGameObject;
 
 class CCollisionMgr :
     public CSingleton<CCollisionMgr>
@@ -26,6 +27,7 @@ private:
     map<UINT_PTR, bool>     m_ColPrevInfo;  // 이전 프레임 충돌정보 기록
 
 public:
+    void begin();
     void tick();
 
 public:

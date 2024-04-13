@@ -52,7 +52,7 @@ void UIMatEditor::render_update()
 		return;
 
 	// 머터리얼 경로 
-	ImGui::Text("Material"); ImGui::SameLine(100); ImGui::InputText("##MaterialPath", (char*)m_MtrlPath.data(), 32);
+	ImGui::Text("Material"); ImGui::SameLine(100); ImGui::InputText("##MaterialPath", (char*)m_MtrlPath.data(), 64);
 
 	// 쉐이더 이름
 	ImGui::Text("Shader"); ImGui::SameLine(100); ImGui::InputText("##ShaderName", (char*)m_ShaderName.data(), 32, ImGuiInputTextFlags_ReadOnly);

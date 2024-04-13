@@ -4,6 +4,7 @@
 #include "CBloomScript.h"
 #include "CCamCtrlScript.h"
 #include "CCornerTriggerScript.h"
+#include "CElevatorScript.h"
 #include "CGameMgr.h"
 #include "CHitboxScript.h"
 #include "CKoTBigScript.h"
@@ -15,6 +16,7 @@
 #include "CPlayerMgr.h"
 #include "CPlayerScript.h"
 #include "CPlayerScript_Test.h"
+#include "CRepeatImgScript.h"
 #include "CRotateScript.h"
 #include "CWallScript.h"
 
@@ -23,6 +25,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CBloomScript");
 	_vec.push_back(L"CCamCtrlScript");
 	_vec.push_back(L"CCornerTriggerScript");
+	_vec.push_back(L"CElevatorScript");
 	_vec.push_back(L"CGameMgr");
 	_vec.push_back(L"CHitboxScript");
 	_vec.push_back(L"CKoTBigScript");
@@ -34,6 +37,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerMgr");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CPlayerScript_Test");
+	_vec.push_back(L"CRepeatImgScript");
 	_vec.push_back(L"CRotateScript");
 	_vec.push_back(L"CWallScript");
 }
@@ -46,6 +50,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CCamCtrlScript;
 	if (L"CCornerTriggerScript" == _strScriptName)
 		return new CCornerTriggerScript;
+	if (L"CElevatorScript" == _strScriptName)
+		return new CElevatorScript;
 	if (L"CGameMgr" == _strScriptName)
 		return new CGameMgr;
 	if (L"CHitboxScript" == _strScriptName)
@@ -68,6 +74,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlayerScript;
 	if (L"CPlayerScript_Test" == _strScriptName)
 		return new CPlayerScript_Test;
+	if (L"CRepeatImgScript" == _strScriptName)
+		return new CRepeatImgScript;
 	if (L"CRotateScript" == _strScriptName)
 		return new CRotateScript;
 	if (L"CWallScript" == _strScriptName)
@@ -87,6 +95,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::CORNERTRIGGERSCRIPT:
 		return new CCornerTriggerScript;
+		break;
+	case (UINT)SCRIPT_TYPE::ELEVATORSCRIPT:
+		return new CElevatorScript;
 		break;
 	case (UINT)SCRIPT_TYPE::GAMEMGR:
 		return new CGameMgr;
@@ -121,6 +132,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT_TEST:
 		return new CPlayerScript_Test;
 		break;
+	case (UINT)SCRIPT_TYPE::REPEATIMGSCRIPT:
+		return new CRepeatImgScript;
+		break;
 	case (UINT)SCRIPT_TYPE::ROTATESCRIPT:
 		return new CRotateScript;
 		break;
@@ -145,6 +159,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::CORNERTRIGGERSCRIPT:
 		return L"CCornerTriggerScript";
+		break;
+
+	case SCRIPT_TYPE::ELEVATORSCRIPT:
+		return L"CElevatorScript";
 		break;
 
 	case SCRIPT_TYPE::GAMEMGR:
@@ -189,6 +207,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::PLAYERSCRIPT_TEST:
 		return L"CPlayerScript_Test";
+		break;
+
+	case SCRIPT_TYPE::REPEATIMGSCRIPT:
+		return L"CRepeatImgScript";
 		break;
 
 	case SCRIPT_TYPE::ROTATESCRIPT:

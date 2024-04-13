@@ -46,6 +46,9 @@ void CParallelScript::begin()
 		m_MainCamCtrlr = pLevel->FindObjectByName(L"MainCamera", LayerIdx)->GetScriptByType<CCamCtrlScript>();
 	}
 
+	if (GetOwner()->GetName() == L"background_ruin2")
+		int a = 0;
+
 	Ptr<CMaterial> pMat = GetOwner()->MeshRender()->GetMaterial();
 	pMat->SetScalarParam(SCALAR_PARAM::INT_0, m_bAirPerspective);
 	pMat->SetScalarParam(SCALAR_PARAM::VEC4_0, m_vAirColor/255.f);
@@ -62,15 +65,15 @@ void CParallelScript::tick()
 	if (vCamMove == Vec3() || vUpdatePos.z == 0.f)
 		return;
 	
-	//- z축이 양수인 경우 :
-	//-0과 가까워질수록 덜 밀어줌
-	//	- 커질수록 : 카메라의 진행방향으로 밀어줌(최대 : 카메라가 아무리 움직여도 거의 고정된 것처럼)
-	//- z축이 음수인 경우 :
-	//	-0과 가까워질수록 덜 밀어줌
-	//	- 작아질수록 : 카메라 진행의 반대방향으로 밀어줌
-	//vUpdatePos.x -= vCamMove.x * m_fSpeed * (1 / vUpdatePos.z);
+	// case: z > 0
+	// - 값이 커질수록: 카메라의 진행방향으로 밀어줌
+	// - (멀리 있을수록, 카메라가 움직여도 이미지는 고정된 것처럼 보임)
 	if (vUpdatePos.z > 0)
-		vUpdatePos.x += vCamMove.x * (vUpdatePos.z / m_fMaxDepth);
+ 		vUpdatePos.x += vCamMove.x * (vUpdatePos.z / m_fMaxDepth);
+
+	// case: z < 0
+	// - 값이 작을수록 : 카메라 진행방향의 반대로 밀어줌
+	// - (가까이 있을수록, 카메라가 조금 움직여도 이미지의 변화값이 큼)
 	else
 		vUpdatePos.x += vCamMove.x / m_fMaxDepth * (1.f / vUpdatePos.z);
 

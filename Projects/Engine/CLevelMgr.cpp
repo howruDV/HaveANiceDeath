@@ -39,7 +39,8 @@ void CLevelMgr::tick()
 		m_CurLevel->tick();
 	m_CurLevel->finaltick();
 
-	CCollisionMgr::GetInst()->tick();
+	if (m_CurLevel->GetState() == LEVEL_STATE::PLAY)
+		CCollisionMgr::GetInst()->tick();
 	//CRenderMgr::GetInst()->tick();
 	//CTimeMgr::GetInst()->render();
 	//CRenderMgr::GetInst()->CopyRenderTargetToImGuiRenderTexture();

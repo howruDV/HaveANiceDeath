@@ -163,6 +163,7 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CBloomScript.h" />
     <ClInclude Include="CCamCtrlScript.h" />
     <ClInclude Include="CCornerTriggerScript.h" />
+    <ClInclude Include="CElevatorScript.h" />
     <ClInclude Include="CGameMgr.h" />
     <ClInclude Include="CHitboxScript.h" />
     <ClInclude Include="CKoTBigScript.h" />
@@ -178,6 +179,7 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CScriptMgr.h" />
     <ClInclude Include="CUnitScript.h" />
     <ClInclude Include="CWallScript.h" />
+    <ClInclude Include="CRepeatImgScript.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="struct.h" />
@@ -188,6 +190,7 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CBloomScript.cpp" />
     <ClCompile Include="CCamCtrlScript.cpp" />
     <ClCompile Include="CCornerTriggerScript.cpp" />
+    <ClCompile Include="CElevatorScript.cpp" />
     <ClCompile Include="CGameMgr.cpp" />
     <ClCompile Include="CHitboxScript.cpp" />
     <ClCompile Include="CKoTBigScript.cpp" />
@@ -203,6 +206,7 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CScriptMgr.cpp" />
     <ClCompile Include="CUnitScript.cpp" />
     <ClCompile Include="CWallScript.cpp" />
+    <ClCompile Include="CRepeatImgScript.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

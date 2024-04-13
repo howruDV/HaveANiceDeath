@@ -70,6 +70,10 @@
     <ClInclude Include="CRotateScript.h">
       <Filter>Scripts\Rotate</Filter>
     </ClInclude>
+    <ClInclude Include="CElevatorScript.h">
+      <Filter>Scripts\Elevator</Filter>
+    </ClInclude>
+    <ClInclude Include="CRepeatImgScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -135,6 +139,10 @@
     <ClCompile Include="CRotateScript.cpp">
       <Filter>Scripts\Rotate</Filter>
     </ClCompile>
+    <ClCompile Include="CElevatorScript.cpp">
+      <Filter>Scripts\Elevator</Filter>
+    </ClCompile>
+    <ClCompile Include="CRepeatImgScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -146,12 +154,6 @@
     <Filter Include="ScriptMgr">
       <UniqueIdentifier>{7145593e-0694-420e-a0e1-38eef2e47fb4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Unit">
-      <UniqueIdentifier>{4df81294-5a06-45c1-8ba4-413d46147310}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Unit\Player">
-      <UniqueIdentifier>{1cf859de-d203-4603-b5a9-56d36a4a181d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts\Platform">
       <UniqueIdentifier>{d46e05a9-6414-4df5-89a5-87891d19d720}</UniqueIdentifier>
     </Filter>
@@ -160,12 +162,6 @@
     </Filter>
     <Filter Include="Scripts\Platform\CornerTrigger">
       <UniqueIdentifier>{bba47db1-2fb4-4b4c-8d5f-2b6e55d10296}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Unit\Enemy">
-      <UniqueIdentifier>{df411cb7-8c48-41e0-9b91-12d74bfb26bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Unit\Enemy\KnightOfTimeBig">
-      <UniqueIdentifier>{2a0a7b40-9bb2-4fef-9cc3-e25a93928a0d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scripts\Hitbox">
       <UniqueIdentifier>{7c6846e7-de7b-4d68-ae64-1bf533dca3f8}</UniqueIdentifier>
@@ -202,6 +198,24 @@
     </Filter>
     <Filter Include="Dummy">
       <UniqueIdentifier>{1f12f475-b2cb-4dd4-84e6-e282ced10a1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Elevator">
+      <UniqueIdentifier>{1bd77d6d-4765-4a36-939c-53294dc58074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit">
+      <UniqueIdentifier>{4df81294-5a06-45c1-8ba4-413d46147310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit\Player">
+      <UniqueIdentifier>{1cf859de-d203-4603-b5a9-56d36a4a181d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit\Enemy">
+      <UniqueIdentifier>{df411cb7-8c48-41e0-9b91-12d74bfb26bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit\Enemy\KnightOfTimeBig">
+      <UniqueIdentifier>{2a0a7b40-9bb2-4fef-9cc3-e25a93928a0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\WrapImg">
+      <UniqueIdentifier>{52379d40-1d62-4adc-bca1-328edea43c94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

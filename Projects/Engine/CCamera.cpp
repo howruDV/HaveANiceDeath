@@ -144,6 +144,25 @@ void CCamera::SortObject()
 			}
 		}
 	}
+
+	DepthSort();
+}
+
+bool CmpAscending(CGameObject* _First, CGameObject* _Second)
+{
+	return _First->Transform()->GetWorldPos().z < _Second->Transform()->GetWorldPos().z;
+}
+
+bool CmpDescending(CGameObject* _First, CGameObject* _Second)
+{
+	return _First->Transform()->GetWorldPos().z >_Second->Transform()->GetWorldPos().z;
+}
+
+void CCamera::DepthSort()
+{
+	std::sort(m_vecOpaque.begin(), m_vecOpaque.end(), CmpAscending);
+	std::sort(m_vecMasked.begin(), m_vecMasked.end(), CmpAscending);
+	std::sort(m_vecTransparent.begin(), m_vecTransparent.end(), CmpDescending);
 }
 
 void CCamera::SetCameraPriority(int _Priority)

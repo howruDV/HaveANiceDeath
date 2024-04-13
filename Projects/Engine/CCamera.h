@@ -57,6 +57,7 @@ public:
     virtual void LoadFromFile(FILE* _File) override;
 
     void SortObject();
+    void DepthSort();
 
 public:
     void SetProjType(PROJ_TYPE _Type) { m_ProjType = _Type; }

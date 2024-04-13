@@ -26,6 +26,7 @@ private:
     int                 m_CurFrmIdx;
     float               m_AccTime;
     bool                m_bFinish;
+    bool                m_bReverse;
 
 public:
     void finaltick();
@@ -47,6 +48,7 @@ public:
         m_bFinish = false;
         m_CurFrmIdx = 0;
         m_AccTime = 0.f;
+        m_bReverse = false;
     }
 
 public:

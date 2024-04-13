@@ -1,6 +1,7 @@
 CBloomScript
 CCamCtrlScript
 CCornerTriggerScript
+CElevatorScript
 CGameMgr
 CHitboxScript
 CKoTBigScript
@@ -12,5 +13,6 @@ CParallelScript
 CPlayerMgr
 CPlayerScript
 CPlayerScript_Test
+CRepeatImgScript
 CRotateScript
 CWallScript

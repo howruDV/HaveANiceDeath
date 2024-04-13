@@ -6,6 +6,11 @@
 #include "CGameObject.h"
 #include "CCollider2D.h"
 
+#include "CTransform.h"
+#include "CDevice.h"
+#include "CRenderMgr.h"
+#include "CCamera.h"
+
 CCollisionMgr::CCollisionMgr()
 	: m_Matrix{}
 {
@@ -82,6 +87,26 @@ void CCollisionMgr::CollisionBtwLayer(UINT _left, UINT _right)
 		if (not vecLeft[i]->Collider2D())
 			continue;
 
+		//Vec2 resol = CDevice::GetInst()->GetRenderResolution();
+		//Vec3 RT = vecLeft[i]->Collider2D()->GetFinalPos() + vecLeft[i]->Collider2D()->GetFinalScale();
+		//Vec3 LB = vecLeft[i]->Collider2D()->GetFinalPos() - vecLeft[i]->Collider2D()->GetFinalScale();
+		//Vec3 vCamPos;
+		//if (CRenderMgr::GetInst()->IsEditorMode())
+		//{
+		//	vCamPos = CRenderMgr::GetInst()->GetEditorCamera()->Transform()->GetWorldPos();
+		//}
+		//else
+		//{
+		//	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+		//	if (pLevel)
+		//	{
+		//		int LayerIdx = pLevel->GetLayerIdxByName(L"Default");
+		//		vCamPos = pLevel->FindObjectByName(L"MainCamera", LayerIdx)->Transform()->GetWorldPos();
+		//	}
+		//}
+		//if (!( Vec3().Distance(RT, vCamPos) <= resol.x * 2 || Vec3().Distance(LB, vCamPos) <= resol.x * 2))
+		//	continue;
+
 		// Left와 Right가 동일 레이어인 경우 이중 검사 방지
 		// left 기준, vector idx의 우측으로만 검사
 		size_t j = (_left == _right) ? i + 1 : 0;
@@ -90,6 +115,26 @@ void CCollisionMgr::CollisionBtwLayer(UINT _left, UINT _right)
 		{
 			if (not vecRight[j]->Collider2D())
 				continue;
+
+			//Vec2 resol = CDevice::GetInst()->GetRenderResolution();
+			//Vec3 vCamPos;
+			//Vec3 RT = vecRight[j]->Collider2D()->GetFinalPos() + vecRight[j]->Collider2D()->GetFinalScale();
+			//Vec3 LB = vecRight[j]->Collider2D()->GetFinalPos() - vecRight[j]->Collider2D()->GetFinalScale();
+			//if (CRenderMgr::GetInst()->IsEditorMode())
+			//{
+			//	vCamPos = CRenderMgr::GetInst()->GetEditorCamera()->Transform()->GetWorldPos();
+			//}
+			//else
+			//{
+			//	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+			//	if (pLevel)
+			//	{
+			//		int LayerIdx = pLevel->GetLayerIdxByName(L"Default");
+			//		vCamPos = pLevel->FindObjectByName(L"MainCamera", LayerIdx)->Transform()->GetWorldPos();
+			//	}
+			//}
+			//if (!(Vec3().Distance(RT, vCamPos) <= resol.x * 2 || Vec3().Distance(LB, vCamPos) <= resol.x * 2))
+			//	continue;
 
 			CollisionID ID = {};
 			ID.LeftID = vecLeft[i]->Collider2D()->GetID();

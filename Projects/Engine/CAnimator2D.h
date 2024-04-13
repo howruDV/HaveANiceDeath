@@ -32,7 +32,7 @@ public:
     virtual void LoadFromFile(FILE* _File) override;
 
     static void Clear();    // Animator가 없어도 동작해야하는 함수
-    void Play(const wstring& _strAnimName, bool _bRepeat = true);
+    void Play(const wstring& _strAnimName, bool _bRepeat = true, bool _bReverse = false);
     void Create(const wstring& _strKey, Ptr<CTexture> _AtlasTex, Vec2 _vLeftTop, Vec2 _vOffset, Vec2 _vCutSize, Vec2 _vBackgroundSize, int _FrmCount, float _FPS);
     void Create(const wstring& _strKey, Ptr<CTexture> _AltasTex, const vector<FAnimFrm>& _vecFrm);
     void Create(FILE* _File);

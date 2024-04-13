@@ -595,10 +595,13 @@
     <FxCompile Include="downsampling.fx">
       <Filter>ShaderCode\Compute\Bloom\Scaling\DownScaling</Filter>
     </FxCompile>
-    <FxCompile Include="std2d_glow.fx">
+    <FxCompile Include="std2d_bloom.fx">
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
     <FxCompile Include="std2d_airPersp.fx">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="std2d_repeactImg.fx">
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
   </ItemGroup>

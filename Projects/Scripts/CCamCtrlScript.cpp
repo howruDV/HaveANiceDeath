@@ -49,7 +49,7 @@ void CCamCtrlScript::tick()
 
 	Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
 	vTargetPos.z = m_vPrevPos.z;
-	if ((vTargetPos - m_vPrevPos).Length() <= 0.1f)
+	if ((vTargetPos - m_vPrevPos).Length() <= 1.f)
 	{
 		m_vMove = Vec3();
 		return;

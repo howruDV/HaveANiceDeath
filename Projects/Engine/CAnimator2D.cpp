@@ -186,7 +186,7 @@ int CAnimator2D::DeleteAnim(const wstring& _AnimationKey)
     return S_OK;
 }
 
-void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
+void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat, bool _bReverse)
 {
     CAnim* pAnim = FindAnim(_strAnimName);
     if (!pAnim)
@@ -208,6 +208,9 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat)
     m_bRepeat = _bRepeat;
     m_CurAnim = pAnim;
     m_CurAnim->Reset();
+
+    if (_bReverse)
+        m_CurAnim->m_bReverse = true;
 }
 
 void CAnimator2D::PushNextAnim(const wstring& _strAnimName, bool _bRepeat)

@@ -4,11 +4,6 @@
 #include "value.fx"
 #include "func.fx"
 
-#define GlowEnable g_int_0
-#define GlowColor g_vec4_0
-#define Threshold g_float_0
-
-
 struct VS_IN
 {
     float3 vPos : POSITION; // Sementic
@@ -80,7 +75,7 @@ PS_OUT PS_Std2D(VS_OUT _in) : SV_Target
 {   
     // 1. sampling
     PS_OUT output;
-    float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
+    float4 vColor;
     
     if (g_UseAnim2D)
     {
@@ -103,26 +98,9 @@ PS_OUT PS_Std2D(VS_OUT _in) : SV_Target
         }
         
         // alpha blending (magenta background delete)
-        float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f); // saturate: 0~1 넘지 않게 보정
-        
-        if (fAlpha < 0.1f)
-        {
-            discard;
-        }
-    }
-    
-    // Relative luminance
-    float RelativeLuminance = dot(vColor.rgb, float3(0.2126f, 0.7152f, 0.0722f));
-    
-    // render target 1
-    //if (GlowEnable && (Threshold < RelativeLuminance))
-    if (GlowEnable && (Threshold < RelativeLuminance))
-    {
-        output.GlowTarget = GlowColor;
-    }
-    else
-    {
-        output.GlowTarget = float4(0.f, 0.f, 0.f, 1.f);
+        //float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f); // saturate: 0~1 넘지 않게 보정
+        //if (fAlpha < 0.1f)
+        //    discard;
     }
 
     
@@ -135,7 +113,7 @@ PS_OUT PS_Std2D(VS_OUT _in) : SV_Target
     vColor.rgb *= LightColor.vColor.rgb + LightColor.vAmbient.rgb;
     
     // 3. cut masked
-    if (vColor.a <= 0.05f)
+    if (vColor.a == 0.f)
         discard;
     
     // ex. effect - paper burn
@@ -156,7 +134,7 @@ PS_OUT PS_Std2D(VS_OUT _in) : SV_Target
 float4 PS_Std2D_Effect(VS_OUT _in) : SV_Target
 {
     // 1. sampling
-    float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
+    float4 vColor;
     
     if (g_UseAnim2D)
     {
@@ -176,10 +154,6 @@ float4 PS_Std2D_Effect(VS_OUT _in) : SV_Target
         if (g_btex_0)
         {
             vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
-            
-            float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f); // saturate: 0~1 넘지 않게 보정
-            if (fAlpha < 0.1f)
-                discard;
         }
     }
     

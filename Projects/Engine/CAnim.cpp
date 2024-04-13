@@ -11,6 +11,7 @@ CAnim::CAnim()
 	, m_CurFrmIdx(0)
 	, m_AccTime(0.f)
 	, m_bFinish(false)
+	, m_bReverse(false)
 {
 }
 
@@ -22,6 +23,7 @@ CAnim::CAnim(const CAnim& _OriginAnim)
 	, m_bFinish(false)
 	, m_AtlasTex(_OriginAnim.m_AtlasTex)
 	, m_AccTime(0)
+	, m_bReverse(false)
 {
 }
 
@@ -40,13 +42,27 @@ void CAnim::finaltick()
 
 	if (m_AccTime > m_vecFrm[m_CurFrmIdx].fDuration)
 	{
-		++m_CurFrmIdx;
-
-		if (m_CurFrmIdx >= m_vecFrm.size())
+		if (!m_bReverse)
 		{
-			m_CurFrmIdx = (int)m_vecFrm.size() - 1;
-			m_bFinish = true;
+			++m_CurFrmIdx;
+
+			if (m_CurFrmIdx >= m_vecFrm.size())
+			{
+				m_CurFrmIdx = (int)m_vecFrm.size() - 1;
+				m_bFinish = true;
+			}
 		}
+		else
+		{
+			--m_CurFrmIdx;
+
+			if (m_CurFrmIdx <= -1)
+			{
+				m_CurFrmIdx = 0;
+				m_bFinish = true;
+			}
+		}
+
 		m_AccTime = 0.f;
 	}
 }
