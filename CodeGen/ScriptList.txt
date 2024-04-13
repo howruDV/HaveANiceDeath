@@ -12,4 +12,5 @@ CParallelScript
 CPlayerMgr
 CPlayerScript
 CPlayerScript_Test
+CRotateScript
 CWallScript

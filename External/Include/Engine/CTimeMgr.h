@@ -28,6 +28,7 @@ public:
     float GetDeltaTime() { return (float)m_DeltaTime; }
     float GetEngineDeltaTime() { return (float)m_EngineDeltaTime; }
     double GetEngineDeltaTime_d() { return m_EngineDeltaTime; }
+    float GetGameTime() { return g_Global.g_time; }
     void PauseTime(bool _bPause) { m_bPause = _bPause; }
 };
 

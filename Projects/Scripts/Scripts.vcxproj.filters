@@ -11,13 +11,13 @@
       <Filter>ScriptMgr</Filter>
     </ClInclude>
     <ClInclude Include="CMissileScript_Test.h">
-      <Filter>Scripts\Dummy</Filter>
+      <Filter>Dummy</Filter>
     </ClInclude>
     <ClInclude Include="CMonsterScript_Test.h">
-      <Filter>Scripts\Dummy</Filter>
+      <Filter>Dummy</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerScript_Test.h">
-      <Filter>Scripts\Dummy</Filter>
+      <Filter>Dummy</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerMgr.h">
       <Filter>Manager\PlayerMgr</Filter>
@@ -67,6 +67,9 @@
     <ClInclude Include="CCamCtrlScript.h">
       <Filter>Scripts\CameraController</Filter>
     </ClInclude>
+    <ClInclude Include="CRotateScript.h">
+      <Filter>Scripts\Rotate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -79,13 +82,13 @@
       <Filter>ScriptMgr</Filter>
     </ClCompile>
     <ClCompile Include="CMissileScript_Test.cpp">
-      <Filter>Scripts\Dummy</Filter>
+      <Filter>Dummy</Filter>
     </ClCompile>
     <ClCompile Include="CMonsterScript_Test.cpp">
-      <Filter>Scripts\Dummy</Filter>
+      <Filter>Dummy</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerScript_Test.cpp">
-      <Filter>Scripts\Dummy</Filter>
+      <Filter>Dummy</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerMgr.cpp">
       <Filter>Manager\PlayerMgr</Filter>
@@ -129,6 +132,9 @@
     <ClCompile Include="CCamCtrlScript.cpp">
       <Filter>Scripts\CameraController</Filter>
     </ClCompile>
+    <ClCompile Include="CRotateScript.cpp">
+      <Filter>Scripts\Rotate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -139,9 +145,6 @@
     </Filter>
     <Filter Include="ScriptMgr">
       <UniqueIdentifier>{7145593e-0694-420e-a0e1-38eef2e47fb4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Dummy">
-      <UniqueIdentifier>{1f12f475-b2cb-4dd4-84e6-e282ced10a1d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scripts\Unit">
       <UniqueIdentifier>{4df81294-5a06-45c1-8ba4-413d46147310}</UniqueIdentifier>
@@ -193,6 +196,12 @@
     </Filter>
     <Filter Include="Scripts\CameraController">
       <UniqueIdentifier>{f23c0f35-4bc1-4d7c-9ea6-e6c4e53e5e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Rotate">
+      <UniqueIdentifier>{944e65a0-96cc-4079-b138-49e0b8f79d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dummy">
+      <UniqueIdentifier>{1f12f475-b2cb-4dd4-84e6-e282ced10a1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
