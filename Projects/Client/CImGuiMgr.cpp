@@ -105,11 +105,10 @@ void CImGuiMgr::render_copytex()
 	ImGui::Begin("Viewport##GameWindow");
 
 	Vec2 RenderResolution = CDevice::GetInst()->GetRenderResolution();
-	ImVec2 RenderResol = { RenderResolution.x,RenderResolution.y };
 	Ptr<CTexture> pCopyTex = CRenderMgr::GetInst()->GetRTCopyTex();
 
 	// 현재 크기
-	ImVec2 contentSize = ImGui::GetContentRegionAvail();
+	ImVec2 contentSize = CRenderMgr::GetInst()->IsEditorMode() ? ImGui::GetContentRegionAvail() : ImVec2(1600, 900);
 	Vec2 vResolution = CDevice::GetInst()->GetRenderResolution();
 	ImVec2 Resolution = { vResolution.x,vResolution.y };
 	ImVec2 LeftTopUv;

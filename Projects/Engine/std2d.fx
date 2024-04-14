@@ -4,6 +4,10 @@
 #include "value.fx"
 #include "func.fx"
 
+#define MixColor g_vec4_0
+
+
+
 struct VS_IN
 {
     float3 vPos : POSITION; // Sementic
@@ -111,6 +115,9 @@ PS_OUT PS_Std2D(VS_OUT _in) : SV_Target
         CalLight2D(_in.vWorldPos, i, LightColor);
     
     vColor.rgb *= LightColor.vColor.rgb + LightColor.vAmbient.rgb;
+    
+    if (MixColor.a != 0.f)
+        vColor.rgb *= MixColor.rgb;
     
     // 3. cut masked
     if (vColor.a == 0.f)

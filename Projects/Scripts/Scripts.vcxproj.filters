@@ -8,7 +8,7 @@
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="CScriptMgr.h">
-      <Filter>ScriptMgr</Filter>
+      <Filter>Manager\_ScriptMgr</Filter>
     </ClInclude>
     <ClInclude Include="CMissileScript_Test.h">
       <Filter>Dummy</Filter>
@@ -26,19 +26,19 @@
       <Filter>Manager\GameMgr</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerScript.h">
-      <Filter>Scripts\Unit\Player</Filter>
+      <Filter>Scripts\Obj\Unit\Player</Filter>
     </ClInclude>
     <ClInclude Include="CUnitScript.h">
-      <Filter>Scripts\Unit</Filter>
+      <Filter>Scripts\Obj\Unit</Filter>
     </ClInclude>
     <ClInclude Include="CCornerTriggerScript.h">
-      <Filter>Scripts\Platform\CornerTrigger</Filter>
+      <Filter>Scripts\Function\Platform\CornerTrigger</Filter>
     </ClInclude>
     <ClInclude Include="CWallScript.h">
-      <Filter>Scripts\Platform\Wall</Filter>
+      <Filter>Scripts\Function\Platform\Wall</Filter>
     </ClInclude>
     <ClInclude Include="CHitboxScript.h">
-      <Filter>Scripts\Hitbox</Filter>
+      <Filter>Scripts\Function\Hitbox</Filter>
     </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>Header</Filter>
@@ -50,28 +50,28 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="CMonsterScript.h">
-      <Filter>Scripts\Unit\Enemy</Filter>
+      <Filter>Scripts\Obj\Unit\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="CBloomScript.h">
-      <Filter>Scripts\Bloom</Filter>
+      <Filter>Scripts\Effect\Bloom</Filter>
     </ClInclude>
     <ClInclude Include="CKoTSpear_ProjScript.h">
-      <Filter>Scripts\Proj\KoTSpear_Proj</Filter>
+      <Filter>Scripts\Obj\KoTSpear_Proj</Filter>
     </ClInclude>
     <ClInclude Include="CParallelScript.h">
-      <Filter>Scripts\Parallel</Filter>
+      <Filter>Scripts\Effect\Parallel</Filter>
     </ClInclude>
     <ClInclude Include="CCamCtrlScript.h">
-      <Filter>Scripts\CameraController</Filter>
+      <Filter>Scripts\Function\CameraController</Filter>
     </ClInclude>
     <ClInclude Include="CRotateScript.h">
-      <Filter>Scripts\Rotate</Filter>
+      <Filter>Scripts\Function\Rotate</Filter>
     </ClInclude>
     <ClInclude Include="CElevatorScript.h">
-      <Filter>Scripts\Elevator</Filter>
+      <Filter>Scripts\Obj\Elevator</Filter>
     </ClInclude>
-    <ClInclude Include="CRepeatImgScript.h">
-      <Filter>Scripts\RepeatImg</Filter>
+    <ClInclude Include="CProgressBarScript.h">
+      <Filter>Scripts\UI\ProgressBar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -82,7 +82,7 @@
       <Filter>Default</Filter>
     </ClCompile>
     <ClCompile Include="CScriptMgr.cpp">
-      <Filter>ScriptMgr</Filter>
+      <Filter>Manager\_ScriptMgr</Filter>
     </ClCompile>
     <ClCompile Include="CMissileScript_Test.cpp">
       <Filter>Dummy</Filter>
@@ -100,46 +100,46 @@
       <Filter>Manager\GameMgr</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
-      <Filter>Scripts\Unit\Player</Filter>
+      <Filter>Scripts\Obj\Unit\Player</Filter>
     </ClCompile>
     <ClCompile Include="CUnitScript.cpp">
-      <Filter>Scripts\Unit</Filter>
+      <Filter>Scripts\Obj\Unit</Filter>
     </ClCompile>
     <ClCompile Include="CCornerTriggerScript.cpp">
-      <Filter>Scripts\Platform\CornerTrigger</Filter>
+      <Filter>Scripts\Function\Platform\CornerTrigger</Filter>
     </ClCompile>
     <ClCompile Include="CWallScript.cpp">
-      <Filter>Scripts\Platform\Wall</Filter>
+      <Filter>Scripts\Function\Platform\Wall</Filter>
     </ClCompile>
     <ClCompile Include="CHitboxScript.cpp">
-      <Filter>Scripts\Hitbox</Filter>
+      <Filter>Scripts\Function\Hitbox</Filter>
     </ClCompile>
     <ClCompile Include="extern.cpp">
       <Filter>Header</Filter>
     </ClCompile>
     <ClCompile Include="CMonsterScript.cpp">
-      <Filter>Scripts\Unit\Enemy</Filter>
+      <Filter>Scripts\Obj\Unit\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="CBloomScript.cpp">
-      <Filter>Scripts\Bloom</Filter>
+      <Filter>Scripts\Effect\Bloom</Filter>
     </ClCompile>
     <ClCompile Include="CKoTSpear_ProjScript.cpp">
-      <Filter>Scripts\Proj\KoTSpear_Proj</Filter>
+      <Filter>Scripts\Obj\KoTSpear_Proj</Filter>
     </ClCompile>
     <ClCompile Include="CParallelScript.cpp">
-      <Filter>Scripts\Parallel</Filter>
+      <Filter>Scripts\Effect\Parallel</Filter>
     </ClCompile>
     <ClCompile Include="CCamCtrlScript.cpp">
-      <Filter>Scripts\CameraController</Filter>
+      <Filter>Scripts\Function\CameraController</Filter>
     </ClCompile>
     <ClCompile Include="CRotateScript.cpp">
-      <Filter>Scripts\Rotate</Filter>
+      <Filter>Scripts\Function\Rotate</Filter>
     </ClCompile>
     <ClCompile Include="CElevatorScript.cpp">
-      <Filter>Scripts\Elevator</Filter>
+      <Filter>Scripts\Obj\Elevator</Filter>
     </ClCompile>
-    <ClCompile Include="CRepeatImgScript.cpp">
-      <Filter>Scripts\RepeatImg</Filter>
+    <ClCompile Include="CProgressBarScript.cpp">
+      <Filter>Scripts\UI\ProgressBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,21 +148,6 @@
     </Filter>
     <Filter Include="Scripts">
       <UniqueIdentifier>{af5c3808-4d30-476b-b2ab-d844558017d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ScriptMgr">
-      <UniqueIdentifier>{7145593e-0694-420e-a0e1-38eef2e47fb4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Platform">
-      <UniqueIdentifier>{d46e05a9-6414-4df5-89a5-87891d19d720}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Platform\Wall">
-      <UniqueIdentifier>{a61668dc-6eb2-4d51-89a9-622314d2740b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Platform\CornerTrigger">
-      <UniqueIdentifier>{bba47db1-2fb4-4b4c-8d5f-2b6e55d10296}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Hitbox">
-      <UniqueIdentifier>{7c6846e7-de7b-4d68-ae64-1bf533dca3f8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header">
       <UniqueIdentifier>{1dbd8512-ef06-48d5-a44c-5f1357a8e0a9}</UniqueIdentifier>
@@ -176,41 +161,65 @@
     <Filter Include="Manager\GameMgr">
       <UniqueIdentifier>{c235a9f8-27d7-4685-91fc-666ce864f0c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Bloom">
-      <UniqueIdentifier>{658e2ef6-0b3e-4ac6-b3e6-1672e626ba6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Proj">
-      <UniqueIdentifier>{97aab9e3-ed45-4bfb-b9ec-06ef3ca5c933}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Proj\KoTSpear_Proj">
-      <UniqueIdentifier>{2a696216-48da-4dab-add9-7c6b1827e920}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Parallel">
-      <UniqueIdentifier>{ecd77797-454e-4f50-87bd-b0102d85c537}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\CameraController">
-      <UniqueIdentifier>{f23c0f35-4bc1-4d7c-9ea6-e6c4e53e5e28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Rotate">
-      <UniqueIdentifier>{944e65a0-96cc-4079-b138-49e0b8f79d72}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Dummy">
       <UniqueIdentifier>{1f12f475-b2cb-4dd4-84e6-e282ced10a1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Elevator">
+    <Filter Include="Scripts\Obj">
+      <UniqueIdentifier>{8b7e4a8f-05c1-4350-aa7e-ef2c6aec4b40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Obj\Elevator">
       <UniqueIdentifier>{1bd77d6d-4765-4a36-939c-53294dc58074}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Unit">
+    <Filter Include="Scripts\Obj\KoTSpear_Proj">
+      <UniqueIdentifier>{2a696216-48da-4dab-add9-7c6b1827e920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Obj\Unit">
       <UniqueIdentifier>{4df81294-5a06-45c1-8ba4-413d46147310}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Unit\Player">
+    <Filter Include="Scripts\Obj\Unit\Player">
       <UniqueIdentifier>{1cf859de-d203-4603-b5a9-56d36a4a181d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Unit\Enemy">
+    <Filter Include="Scripts\Obj\Unit\Enemy">
       <UniqueIdentifier>{df411cb7-8c48-41e0-9b91-12d74bfb26bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\RepeatImg">
-      <UniqueIdentifier>{52379d40-1d62-4adc-bca1-328edea43c94}</UniqueIdentifier>
+    <Filter Include="Manager\_ScriptMgr">
+      <UniqueIdentifier>{7145593e-0694-420e-a0e1-38eef2e47fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\UI">
+      <UniqueIdentifier>{759b15c4-d2d2-4ab1-944a-f65aa2cfd8e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\UI\ProgressBar">
+      <UniqueIdentifier>{746592a5-82cd-4a45-8c3e-87a5a88f47b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Effect">
+      <UniqueIdentifier>{93a24031-3f4d-471b-a8b0-7ad7884f0591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Effect\Parallel">
+      <UniqueIdentifier>{ecd77797-454e-4f50-87bd-b0102d85c537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Effect\Bloom">
+      <UniqueIdentifier>{658e2ef6-0b3e-4ac6-b3e6-1672e626ba6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function">
+      <UniqueIdentifier>{fcf1a2ee-7551-460c-948d-27093e4ccac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function\Hitbox">
+      <UniqueIdentifier>{7c6846e7-de7b-4d68-ae64-1bf533dca3f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function\CameraController">
+      <UniqueIdentifier>{f23c0f35-4bc1-4d7c-9ea6-e6c4e53e5e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function\Rotate">
+      <UniqueIdentifier>{944e65a0-96cc-4079-b138-49e0b8f79d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function\Platform">
+      <UniqueIdentifier>{d46e05a9-6414-4df5-89a5-87891d19d720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function\Platform\Wall">
+      <UniqueIdentifier>{a61668dc-6eb2-4d51-89a9-622314d2740b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function\Platform\CornerTrigger">
+      <UniqueIdentifier>{bba47db1-2fb4-4b4c-8d5f-2b6e55d10296}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

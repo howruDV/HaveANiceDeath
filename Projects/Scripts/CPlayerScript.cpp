@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CPlayerScript.h"
 #include "CPlayerMgr.h"
+#include "CProgressBarScript.h"
 
 #include <Engine/components.h>
 #include <Engine/CKeyMgr.h>
@@ -250,6 +251,15 @@ void CPlayerScript::begin()
 			StateMachine()->GetFSM()->ChangeState(L"Idle");
 		}
 	}
+
+	// Find Level Obj
+	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+
+	if (pLevel)
+	{
+		int LayerIdx = pLevel->GetLayerIdxByName(L"UI");
+		m_HPbar = pLevel->FindObjectByName(L"HUD_lifebar", LayerIdx)->GetScriptByType<CProgressBarScript>();
+	}
 }
 
 void CPlayerScript::tick()
@@ -262,6 +272,12 @@ void CPlayerScript::tick()
 
 	if ((KEY_TAP(KEY::D) || KEY_PRESSED(KEY::D)) && (KEY_NONE(KEY::A) || KEY_RELEASED(KEY::A)))
 		SetDir(UNIT_DIRX::RIGHT);
+
+	if ((KEY_TAP(KEY::E)))
+	{
+		m_iHPCur += 30.f;
+		m_HPbar->Increase(30);
+	}
 
 	CUnitScript::tick();
 
@@ -414,6 +430,13 @@ void CPlayerScript::LoadFromFile(FILE* _File)
 	fread(&m_iRestCur, sizeof(int), 1, _File);
 	fread(&m_fDashCoolTime, sizeof(int), 1, _File);
 	fread(&m_fComboCoolTime, sizeof(int), 1, _File);
+}
+
+void CPlayerScript::HitDamage(FDamage _Damage)
+{
+	CUnitScript::HitDamage(_Damage);  
+	m_iHPActive -= _Damage.iActiveHPDamage;
+	m_HPbar->Decrease(_Damage.iCurHPDamage);
 }
 
 void CPlayerScript::StartDashCoolTime(bool _bDashCan)

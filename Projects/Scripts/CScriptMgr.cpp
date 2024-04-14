@@ -15,7 +15,7 @@
 #include "CPlayerMgr.h"
 #include "CPlayerScript.h"
 #include "CPlayerScript_Test.h"
-#include "CRepeatImgScript.h"
+#include "CProgressBarScript.h"
 #include "CRotateScript.h"
 #include "CWallScript.h"
 
@@ -35,7 +35,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerMgr");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CPlayerScript_Test");
-	_vec.push_back(L"CRepeatImgScript");
+	_vec.push_back(L"CProgressBarScript");
 	_vec.push_back(L"CRotateScript");
 	_vec.push_back(L"CWallScript");
 }
@@ -70,8 +70,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlayerScript;
 	if (L"CPlayerScript_Test" == _strScriptName)
 		return new CPlayerScript_Test;
-	if (L"CRepeatImgScript" == _strScriptName)
-		return new CRepeatImgScript;
+	if (L"CProgressBarScript" == _strScriptName)
+		return new CProgressBarScript;
 	if (L"CRotateScript" == _strScriptName)
 		return new CRotateScript;
 	if (L"CWallScript" == _strScriptName)
@@ -125,8 +125,8 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT_TEST:
 		return new CPlayerScript_Test;
 		break;
-	case (UINT)SCRIPT_TYPE::REPEATIMGSCRIPT:
-		return new CRepeatImgScript;
+	case (UINT)SCRIPT_TYPE::PROGRESSBARSCRIPT:
+		return new CProgressBarScript;
 		break;
 	case (UINT)SCRIPT_TYPE::ROTATESCRIPT:
 		return new CRotateScript;
@@ -198,8 +198,8 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 		return L"CPlayerScript_Test";
 		break;
 
-	case SCRIPT_TYPE::REPEATIMGSCRIPT:
-		return L"CRepeatImgScript";
+	case SCRIPT_TYPE::PROGRESSBARSCRIPT:
+		return L"CProgressBarScript";
 		break;
 
 	case SCRIPT_TYPE::ROTATESCRIPT:

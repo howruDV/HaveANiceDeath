@@ -12,6 +12,6 @@ CParallelScript
 CPlayerMgr
 CPlayerScript
 CPlayerScript_Test
-CRepeatImgScript
+CProgressBarScript
 CRotateScript
 CWallScript

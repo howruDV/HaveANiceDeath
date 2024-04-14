@@ -174,11 +174,11 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CPlayerMgr.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayerScript_Test.h" />
+    <ClInclude Include="CProgressBarScript.h" />
     <ClInclude Include="CRotateScript.h" />
     <ClInclude Include="CScriptMgr.h" />
     <ClInclude Include="CUnitScript.h" />
     <ClInclude Include="CWallScript.h" />
-    <ClInclude Include="CRepeatImgScript.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="struct.h" />
@@ -200,11 +200,11 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CPlayerMgr.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayerScript_Test.cpp" />
+    <ClCompile Include="CProgressBarScript.cpp" />
     <ClCompile Include="CRotateScript.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />
     <ClCompile Include="CUnitScript.cpp" />
     <ClCompile Include="CWallScript.cpp" />
-    <ClCompile Include="CRepeatImgScript.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -46,9 +46,6 @@ void CParallelScript::begin()
 		m_MainCamCtrlr = pLevel->FindObjectByName(L"MainCamera", LayerIdx)->GetScriptByType<CCamCtrlScript>();
 	}
 
-	if (GetOwner()->GetName() == L"background_ruin2")
-		int a = 0;
-
 	Ptr<CMaterial> pMat = GetOwner()->MeshRender()->GetMaterial();
 	pMat->SetScalarParam(SCALAR_PARAM::INT_0, m_bAirPerspective);
 	pMat->SetScalarParam(SCALAR_PARAM::VEC4_0, m_vAirColor/255.f);
