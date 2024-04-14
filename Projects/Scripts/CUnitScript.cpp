@@ -5,6 +5,7 @@
 #include <Engine/CGameObject.h>
 #include <Engine/CAnimator2D.h>
 #include <Engine/CStateMachine.h>
+#include <Engine/CCollider2D.h>
 
 CUnitScript::CUnitScript(UINT m_iScriptType)
 	: CScript(m_iScriptType)
@@ -50,6 +51,16 @@ CUnitScript::CUnitScript(const CUnitScript& _Origin)
 
 CUnitScript::~CUnitScript()
 {
+}
+
+void CUnitScript::begin()
+{
+	vector<CGameObject*> childs = GetOwner()->GetChild();
+	for (CGameObject* iter : childs)
+	{
+		if (iter->Collider2D())
+			iter->Collider2D()->Deactivate();
+	}
 }
 
 void CUnitScript::tick()

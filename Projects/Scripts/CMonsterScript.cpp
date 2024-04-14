@@ -53,8 +53,9 @@ CMonsterScript::~CMonsterScript()
 
 void CMonsterScript::begin()
 {
+	CUnitScript::begin();
+
 	// component
-	// dynamic material
 	MeshRender()->GetDynamicMaterial();
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1.f, 0.f, 0.f, 1.f));

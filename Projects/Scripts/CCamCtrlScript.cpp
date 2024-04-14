@@ -48,21 +48,22 @@ void CCamCtrlScript::tick()
 	}
 
 	Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
-	vTargetPos.z = m_vPrevPos.z;
-	if ((vTargetPos - m_vPrevPos).Length() <= 1.f)
-	{
-		m_vMove = Vec3();
-		return;
-	}
-
 	Vec3 vCamPos = GetOwner()->Transform()->GetWorldPos();
-	Vec3 vDir = (vTargetPos - vCamPos).Normalize();
-	Vec3 vUpdatePos = vCamPos + vDir * DT * m_fSpeed;
+	Vec3 vUpdatePos;
+	vTargetPos.z = vCamPos.z;
 
-	GetOwner()->Transform()->SetRelativePos(Vec3(vUpdatePos.x, vUpdatePos.y, vCamPos.z));
+	Vec3 vDir = (vTargetPos - vCamPos).Normalize();
+	vUpdatePos = vCamPos + vDir * DT * m_fSpeed;
 	m_vMove.x = vUpdatePos.x - vCamPos.x;
 	m_vMove.y = vUpdatePos.y - vCamPos.y;
-	m_vPrevPos = vUpdatePos;
+
+	if (m_vMove.Length() > (vTargetPos - vCamPos).Length())
+		vUpdatePos = vTargetPos;
+
+	vUpdatePos = CheckCamArea(vUpdatePos);
+	m_vMove = vUpdatePos - vCamPos;
+
+	GetOwner()->Transform()->SetRelativePos(Vec3(vUpdatePos.x, vUpdatePos.y, vCamPos.z));
 }
 
 void CCamCtrlScript::SaveToFile(FILE* _File)
@@ -73,4 +74,18 @@ void CCamCtrlScript::SaveToFile(FILE* _File)
 void CCamCtrlScript::LoadFromFile(FILE* _File)
 {
 	fread(&m_fSpeed, 1, sizeof(float), _File);
+}
+
+
+Vec3 CCamCtrlScript::CheckCamArea(Vec3 _Pos)
+{
+	Vec3 ret = _Pos;
+
+	if (_Pos.x < -7200.f)
+		ret.x = -7200.f;
+
+	if (_Pos.x > 7120.f)
+		ret.x = 7120.f;
+
+	return ret;
 }

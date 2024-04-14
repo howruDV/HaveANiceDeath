@@ -231,16 +231,11 @@ void CPlayerScript::init()
 
 void CPlayerScript::begin()
 {
+	CUnitScript::begin();
+
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.5f, 0.1f, 1.f, 1.f));
 	MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.8f);
-
-	Movement()->UseGravity(true);
-	Movement()->SetInitSpeed(m_fSpeed);
-	Movement()->SetInitSpeed_InAir(300.f);
-	Movement()->SetMaxSpeed_Ground(m_fSpeed);
-	Movement()->SetMaxSpeed_InAir(5000.f);
-	Movement()->SetGravityForce(Vec3(0.f, -4000.f, 0.f));
 
 	// StateMachine
 	if (StateMachine())

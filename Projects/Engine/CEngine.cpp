@@ -32,7 +32,7 @@ CEngine::~CEngine()
 
 void CEngine::DebugFunctionCheck()
 {
-	if (KEY_TAP(KEY::TAB))
+	if (KEY_TAP(KEY::F12))
 		CRenderMgr::GetInst()->IsDebugPosition() ? CRenderMgr::GetInst()->SetDebugPosition(false) : CRenderMgr::GetInst()->SetDebugPosition(true);
 }
 

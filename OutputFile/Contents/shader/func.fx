@@ -20,8 +20,9 @@ void CalLight2D(float3 _vWorldPos, int _LightIdx, inout tLightColor _output)
         
         if (fDist < info.fRadius)
         {
-            float fTheta = (fDist / info.fRadius) * (PI / 2.f); // 0~1»çÀÌ °ªÀ» 0~pi/2·Î ¸ÅÄª½ÃÅ´
-            fAttenue = saturate(cos(fTheta));
+            //float fTheta = (fDist / info.fRadius) * (PI / 2.f); // 0~1»çÀÌ °ªÀ» 0~pi/2·Î ¸ÅÄª½ÃÅ´
+            //fAttenue = saturate(cos(fTheta));
+            fAttenue = 1 - (fDist / info.fRadius);
             
             _output.vColor += info.Color.vColor * fAttenue;
         }

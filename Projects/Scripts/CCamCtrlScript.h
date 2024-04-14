@@ -24,6 +24,9 @@ public:
 
     Vec3 GetMove() { return m_vMove; }
 
+private:
+    Vec3 CheckCamArea(Vec3 _Pos);
+
 public:
     CLONE(CCamCtrlScript);
     CCamCtrlScript();

@@ -38,7 +38,7 @@ void LayerEditor::render_update()
 		string LayerNum = std::to_string(i);
 
 		char szLayer[255] = {};
-		sprintf(szLayer, "##Layer%s", LayerNum.c_str());
+		sprintf_s(szLayer, "##Layer%s", LayerNum.c_str());
 
 		string CurLayerName = LayerName[i];
 
@@ -49,7 +49,7 @@ void LayerEditor::render_update()
 		}
 
 		char szLayerName[128] = {};
-		strcpy(szLayerName, CurLayerName.c_str());
+		strcpy_s(szLayerName, CurLayerName.c_str());
 
 		ImGui::Text(LayerNum.c_str()); ImGui::SameLine(100);
 		ImGui::InputText(szLayer, szLayerName, 128);

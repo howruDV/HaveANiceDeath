@@ -13,6 +13,10 @@
 #pragma comment(lib, "Engine\\Engine_debug.lib")
 #pragma comment(lib, "Scripts\\Scripts_debug.lib")
 #pragma comment(lib, "States\\States_d.lib")
+
+#include "CImGuiMgr.h"
+#include "CEditorObjMgr.h"
+#include "CCreateTempLevel.h"
 #else
 #pragma comment(lib, "Engine\\Engine.lib")
 #pragma comment(lib, "Scripts\\Scripts.lib")
@@ -22,10 +26,10 @@
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
-#include "CImGuiMgr.h"
-#include "CEditorObjMgr.h"
-#include "CCreateTempLevel.h"
 #include "CLevelSaveLoad.h"
+#include <Engine\CLevel.h>
+#include <Engine\CLevelMgr.h>
+#include <Engine\CCollisionMgr.h>
 
 //#define _RELEASE_GAME
 #define MAX_LOADSTRING 100
@@ -76,11 +80,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     SetWindowPos(hWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
 #else
     Vec2 WinSize = Vec2 (1600,900);
-    LONG_PTR style = GetWindowLongPtr(hWnd, GWL_STYLE);
-    style &= ~WS_OVERLAPPEDWINDOW;
-    style |= WS_POPUP;
-    SetWindowLongPtr(hWnd, GWL_STYLE, style);
-    SetWindowPos(hWnd, HWND_TOP, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+    //LONG_PTR style = GetWindowLongPtr(hWnd, GWL_STYLE);
+    //style &= ~WS_OVERLAPPEDWINDOW;
+    //style |= WS_POPUP;
+    //SetWindowLongPtr(hWnd, GWL_STYLE, style);
+    //SetWindowPos(hWnd, HWND_TOP, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+
+    // window size, position
+    RECT rect = { 0, 0, (int)WinSize.x, (int)WinSize.y };
+    AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+    SetWindowPos(hWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
 #endif
 
     // window style
@@ -111,6 +120,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // ImGUI init
     CImGuiMgr::GetInst()->init(hWnd, DEVICE, CONTEXT);
     CImGuiMgr::GetInst()->begin();
+#else
+    CLevel* pLevel = CLevelSaveLoad::LoadLevel(L"level\\Field1");
+    CLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::PLAY);
+    CCollisionMgr::GetInst()->LayerCheck(3, 4);
+    CCollisionMgr::GetInst()->LayerCheck(3, 6);
+    CCollisionMgr::GetInst()->LayerCheck(4, 6);
 #endif
 
     // ------------------
