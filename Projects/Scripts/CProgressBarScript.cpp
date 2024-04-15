@@ -209,6 +209,9 @@ void CProgressBarScript::LoadFromFile(FILE* _File)
 
 void CProgressBarScript::SetProgress(float _progress)
 {
+	if (_progress > 1.f)
+		_progress = 1.f;
+
 	// get speed & transform info
 	Vec3 scale = m_BarM->Transform()->GetRelativeScale();
 	scale.x = m_fWidth * _progress;

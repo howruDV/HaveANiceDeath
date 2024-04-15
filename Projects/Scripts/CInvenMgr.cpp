@@ -16,11 +16,9 @@ CInvenMgr::CInvenMgr()
     , m_iSoulary(0)
     , m_iPrismium(0)
 {
-    FAnima tmp = { ANIMA_TYPE::BLUE, nullptr };
-    FAnima tmp1 = { ANIMA_TYPE::YELLOW, nullptr };
-    m_Anima[0] = tmp1;
-    m_Anima[1] = tmp;
-    m_Anima[2] = tmp;
+    m_Anima[0] = { ANIMA_TYPE::YELLOW, nullptr };
+    m_Anima[1] = { ANIMA_TYPE::BLUE, nullptr };
+    m_Anima[2] = { ANIMA_TYPE::NONE, nullptr };
 }
 
 CInvenMgr::~CInvenMgr()
@@ -96,4 +94,30 @@ bool CInvenMgr::UseAnima()
     }
 
     return true;
+}
+
+void CInvenMgr::AddAnima()
+{
+    // case: anima isnt' full
+    if (m_iAnimaCount < 3)
+    {
+        m_Anima[m_iAnimaCount].Type = ANIMA_TYPE::BLUE;
+        m_Anima[m_iAnimaCount].pObj->MeshRender()->SetMaterial(m_AnimaMat[1]);
+        m_Anima[m_iAnimaCount].pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0, 1, 1, 1));
+        m_iAnimaCount++;
+    }
+
+    // case: anima is full
+    else
+    {
+        for (int i = 0; i < 3; ++i)
+        {
+            if (m_Anima[i].Type == ANIMA_TYPE::YELLOW)
+                continue;
+
+            m_Anima[i].Type = ANIMA_TYPE::YELLOW;
+            m_Anima[i].pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1, 1, 0, 1));
+            break;
+        }
+    }
 }

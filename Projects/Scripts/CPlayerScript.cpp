@@ -273,6 +273,10 @@ void CPlayerScript::tick()
 	{
 		CPlayerMgr::GetInventory()->UseAnima();
 	}
+	if ((KEY_TAP(KEY::R)))
+	{
+		CPlayerMgr::GetInventory()->AddAnima();
+	}
 
 	CUnitScript::tick();
 

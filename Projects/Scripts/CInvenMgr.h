@@ -41,6 +41,7 @@ public:
 	virtual void LoadFromFile(FILE* _File) override {};
 
     bool UseAnima();
+    void AddAnima();
 
 public:
     void SetIngot(int _Ingot) { m_iIngot = _Ingot; }
