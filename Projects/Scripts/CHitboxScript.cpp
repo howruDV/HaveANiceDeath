@@ -127,7 +127,19 @@ void CHitboxScript::Attack(CGameObject* pInstigator, CGameObject* pTarget)
 	}
 
 	// attack
-	CUnitScript* pInstigatorUnit = pInstigator->GetScriptByType<CUnitScript>();
+	CUnitScript* pInstigatorUnit;
+	if (pInstigator->GetParent())
+	{
+		if (pInstigator->GetParent()->GetScriptByType<CUnitScript>())
+			pInstigatorUnit = pInstigator->GetParent()->GetScriptByType<CUnitScript>();
+		else
+			pInstigatorUnit = pInstigator->GetScriptByType<CUnitScript>();
+	}
+	else
+	{
+		pInstigatorUnit = pInstigator->GetScriptByType<CUnitScript>();
+	}
+
 	if (pInstigatorUnit)
 		pInstigatorUnit->Attack();
 	pAttackTarget->HitDamage(m_Damage);

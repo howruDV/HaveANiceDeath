@@ -133,6 +133,7 @@ enum class SAMPLER_TYPE
 {
 	ANIS,
 	MIPMAP,
+	MIPMAP_CLAMP,
 
 	END,
 };

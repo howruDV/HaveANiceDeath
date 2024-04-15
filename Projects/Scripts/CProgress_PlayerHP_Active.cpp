@@ -10,7 +10,7 @@ CProgress_PlayerHP_Active::CProgress_PlayerHP_Active()
     , m_Player(nullptr)
 {
     m_fWidth = 392.f;
-    m_DefaultColor = Vec4(0.8f, 0.8f, 0.8f, 1.f);
+    m_DefaultColor = Vec4(0.6f, 0.6f, 0.6f, 1.f);
 }
 
 CProgress_PlayerHP_Active::~CProgress_PlayerHP_Active()

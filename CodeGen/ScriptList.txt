@@ -3,6 +3,7 @@ CCamCtrlScript
 CCornerTriggerScript
 CElevatorScript
 CGameMgr
+CGaugeScript
 CHitboxScript
 CInvenMgr
 CKoTSpear_ProjScript

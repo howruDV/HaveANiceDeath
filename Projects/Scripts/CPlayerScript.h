@@ -7,6 +7,7 @@
 // - 상태 판단에 사용되는 정보
 
 class CProgressBarScript;
+class CGaugeScript;
 
 class CPlayerScript :
     public CUnitScript
@@ -30,6 +31,7 @@ private:
     // rest
     int m_iRestMax;
     int m_iRestCur;
+    CGaugeScript* m_RestGauge;
 
     // cooltime
     float m_fDashCoolTime;
@@ -69,8 +71,8 @@ public:
     virtual void SaveToFile(FILE* _File);
     virtual void LoadFromFile(FILE* _File);
 
-    virtual void HitDamage(FDamage _Damage);
-    virtual void Attack() { m_iRestCur += 5; }
+    virtual void HitDamage(FDamage _Damage) override;
+    virtual void Attack() override;
 
     void AddHPCur(int _Add);
     void AddHPActive(int _Add);
@@ -84,6 +86,7 @@ public:
     void SetHPActive(int _HPActive) { m_iHPActive = _HPActive; }
     void SetiMPMax(int _MPMax) { m_iMPMax = _MPMax; }
     void SetiMPCur(int _MPCur) { m_iMPCur = _MPCur; }
+    void ResetRest();
     void SetScythe(SCYTHE_TYPE _Type) { m_CurScythe = _Type; }
     void DeactiveCombo() { m_bComboCan = false; m_fComboAccTime = 0; m_NextComboIdx = 0; }
     void DeactiveAerialAttack() { m_bAerialCan = false; }
@@ -96,9 +99,11 @@ public:
     int GetMPMax() { return m_iMPMax; }
     int GetHPActive() { return m_iHPActive; }
     int GetNextComboIdx() { return m_NextComboIdx; }
+    int GetRestGauge() { return m_iRestCur; }
     bool CanDash() { return m_bDashCan; }
     bool CanAerialAttack() { return m_bAerialCan; }
     bool CanUseMP(int _value) { return m_iMPCur <= _value; }
+    bool CanRest() { return m_iRestCur == m_iRestMax; }
     bool IsRestFull() { return m_iRestCur == m_iRestMax; }
     bool IsAirCol() { return m_bAirCol; }
 

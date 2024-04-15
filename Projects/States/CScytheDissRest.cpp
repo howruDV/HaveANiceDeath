@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "CScytheDissRest.h"
 
+#include <Scripts\CPlayerMgr.h>
+#include <Scripts\CPlayerScript.h>
+
 CScytheDissRest::CScytheDissRest()
 	: CState(SCYTHEDISSREST)
 {
@@ -26,6 +29,7 @@ void CScytheDissRest::Enter()
 {
 	GetOwner()->Animator2D()->Play(L"ScytheDiss_Rest", false);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+	CPlayerMgr::GetPlayerScript()->ResetRest();
 
 	// 순서대로 스폰
 }

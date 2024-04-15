@@ -108,5 +108,6 @@ Texture2D g_NoiseTex : register(t14);
 
 SamplerState g_sam_0 : register(s0);
 SamplerState g_sam_1 : register(s1);
+SamplerState g_sam_2 : register(s2);
 
 #endif

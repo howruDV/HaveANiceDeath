@@ -604,6 +604,9 @@
     <FxCompile Include="std2d_repeactImg.fx">
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
+    <FxCompile Include="std2d_mask.fx">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

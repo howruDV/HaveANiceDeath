@@ -366,6 +366,13 @@ int CDevice::CreateSamplerState()
 
     DEVICE->CreateSamplerState(&tDesc, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP].GetAddressOf());
 
+    // mipmap & Clamp
+    tDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+    tDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+    tDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+
+    DEVICE->CreateSamplerState(&tDesc, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
+
     // pipeline sampler update
     CONTEXT->VSSetSamplers(0, 1, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS].GetAddressOf());
     CONTEXT->HSSetSamplers(0, 1, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS].GetAddressOf());
@@ -380,6 +387,13 @@ int CDevice::CreateSamplerState()
     CONTEXT->GSSetSamplers(1, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP].GetAddressOf());
     CONTEXT->PSSetSamplers(1, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP].GetAddressOf());
     CONTEXT->CSSetSamplers(1, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP].GetAddressOf());
+
+    CONTEXT->VSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
+    CONTEXT->HSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
+    CONTEXT->DSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
+    CONTEXT->GSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
+    CONTEXT->PSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
+    CONTEXT->CSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
 
     return 0;
 }

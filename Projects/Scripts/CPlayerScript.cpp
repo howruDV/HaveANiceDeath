@@ -3,6 +3,7 @@
 #include "CPlayerMgr.h"
 #include "CInvenMgr.h"
 #include "CProgressBarScript.h"
+#include "CGaugeScript.h"
 
 #include <Engine/components.h>
 #include <Engine/CKeyMgr.h>
@@ -40,7 +41,6 @@ CPlayerScript::CPlayerScript()
 	m_iHPActive = m_iHPMax;
 
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Active", &m_iHPActive);
-	//AddScriptParam(SCRIPT_PARAM::OBJECT, "Cur Scythe", &m_CurScythe);
 }
 
 CPlayerScript::CPlayerScript(const CPlayerScript& _Origin)
@@ -60,7 +60,6 @@ CPlayerScript::CPlayerScript(const CPlayerScript& _Origin)
 	, m_bAerialCan(_Origin.m_bAerialCan)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Active", &m_iHPActive);
-	//AddScriptParam(SCRIPT_PARAM::OBJECT, "Cur Scythe", &m_CurScythe);
 }
 
 CPlayerScript::~CPlayerScript()
@@ -255,6 +254,10 @@ void CPlayerScript::begin()
 		pObj = pLevel->FindObjectByName(L"HUD_lifebar_active", LayerIdx);
 		if (pObj)
 			m_HPbar_Active = pObj->GetScriptByType<CProgressBarScript>();
+
+		pObj = pLevel->FindObjectByName(L"HUD_RestGauge", LayerIdx);
+		if (pObj)
+			m_RestGauge = pObj->GetScriptByType<CGaugeScript>();
 	}
 }
 
@@ -442,6 +445,12 @@ void CPlayerScript::HitDamage(FDamage _Damage)
 		m_HPbar_Active->SetProgress((float)m_iHPActive / (float)m_iHPMax);
 }
 
+void CPlayerScript::Attack()
+{
+	m_iRestCur += 5;
+	m_RestGauge->Increase((float)m_iRestCur/(float)m_iRestMax);
+}
+
 void CPlayerScript::AddHPCur(int _Add)
 {
 	m_iHPCur += _Add;
@@ -469,6 +478,12 @@ void CPlayerScript::StartCombo(int _ComboIdx)
 	m_fComboAccTime = 0.f;
 	m_NextComboIdx = _ComboIdx + 1;
 	m_bComboCan = true;
+}
+
+void CPlayerScript::ResetRest()
+{
+	m_iRestCur = 0.f;
+	m_RestGauge->Reset();
 }
 
 FScytheDamage CPlayerScript::GetScytheDamage()

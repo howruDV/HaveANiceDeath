@@ -6,6 +6,7 @@
 #include "CCornerTriggerScript.h"
 #include "CElevatorScript.h"
 #include "CGameMgr.h"
+#include "CGaugeScript.h"
 #include "CHitboxScript.h"
 #include "CInvenMgr.h"
 #include "CKoTSpear_ProjScript.h"
@@ -29,6 +30,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CCornerTriggerScript");
 	_vec.push_back(L"CElevatorScript");
 	_vec.push_back(L"CGameMgr");
+	_vec.push_back(L"CGaugeScript");
 	_vec.push_back(L"CHitboxScript");
 	_vec.push_back(L"CInvenMgr");
 	_vec.push_back(L"CKoTSpear_ProjScript");
@@ -58,6 +60,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CElevatorScript;
 	if (L"CGameMgr" == _strScriptName)
 		return new CGameMgr;
+	if (L"CGaugeScript" == _strScriptName)
+		return new CGaugeScript;
 	if (L"CHitboxScript" == _strScriptName)
 		return new CHitboxScript;
 	if (L"CInvenMgr" == _strScriptName)
@@ -109,6 +113,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::GAMEMGR:
 		return new CGameMgr;
+		break;
+	case (UINT)SCRIPT_TYPE::GAUGESCRIPT:
+		return new CGaugeScript;
 		break;
 	case (UINT)SCRIPT_TYPE::HITBOXSCRIPT:
 		return new CHitboxScript;
@@ -181,6 +188,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::GAMEMGR:
 		return L"CGameMgr";
+		break;
+
+	case SCRIPT_TYPE::GAUGESCRIPT:
+		return L"CGaugeScript";
 		break;
 
 	case SCRIPT_TYPE::HITBOXSCRIPT:

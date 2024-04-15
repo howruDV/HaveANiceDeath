@@ -82,7 +82,12 @@
     <ClInclude Include="CProgress_PlayerHP_Active.h">
       <Filter>Scripts\UI\ProgressBar\PlayerHP_Active</Filter>
     </ClInclude>
-    <ClInclude Include="CInvenMgr.h" />
+    <ClInclude Include="CGaugeScript.h">
+      <Filter>Scripts\UI\Guage</Filter>
+    </ClInclude>
+    <ClInclude Include="CInvenMgr.h">
+      <Filter>Manager\InvenMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -160,7 +165,12 @@
     <ClCompile Include="CProgress_PlayerHP_Active.cpp">
       <Filter>Scripts\UI\ProgressBar\PlayerHP_Active</Filter>
     </ClCompile>
-    <ClCompile Include="CInvenMgr.cpp" />
+    <ClCompile Include="CGaugeScript.cpp">
+      <Filter>Scripts\UI\Guage</Filter>
+    </ClCompile>
+    <ClCompile Include="CInvenMgr.cpp">
+      <Filter>Manager\InvenMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -252,6 +262,9 @@
     </Filter>
     <Filter Include="Manager\InvenMgr">
       <UniqueIdentifier>{c7dc70db-a830-4b8b-9128-7dd0d808c3f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\UI\Guage">
+      <UniqueIdentifier>{57587d79-e9ca-4bb5-bb1e-6242d92bb87b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
