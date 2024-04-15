@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CPlayerScript.h"
 #include "CPlayerMgr.h"
+#include "CInvenMgr.h"
 #include "CProgressBarScript.h"
 
 #include <Engine/components.h>
@@ -20,12 +21,6 @@ CPlayerScript::CPlayerScript()
 	, m_iMPCur(m_iMPMax)
 	, m_iRestMax(100)
 	, m_iRestCur(0)
-	, m_iIngot(0)
-	, m_iSoulary(0)
-	, m_iPrismium(0)
-	, m_iAnimaMax(3)
-	, m_iAnimaBlue(0)
-	, m_iAnimaGold(0)
 	, m_fDashCoolTime(1.f)
 	, m_fDashAccTime(0.f)
 	, m_bDashCan(true)
@@ -54,12 +49,6 @@ CPlayerScript::CPlayerScript(const CPlayerScript& _Origin)
 	, m_fSpeedDash(_Origin.m_fSpeedDash)
 	, m_iMPMax(_Origin.m_iMPMax)
 	, m_iMPCur(_Origin.m_iMPCur)
-	, m_iIngot(_Origin.m_iIngot)
-	, m_iSoulary(_Origin.m_iSoulary)
-	, m_iPrismium(_Origin.m_iPrismium)
-	, m_iAnimaMax(_Origin.m_iAnimaMax)
-	, m_iAnimaBlue(_Origin.m_iAnimaBlue)
-	, m_iAnimaGold(_Origin.m_iAnimaGold)
 	, m_fDashCoolTime(_Origin.m_fDashCoolTime)
 	, m_fDashAccTime(_Origin.m_fDashAccTime)
 	, m_bDashCan(_Origin.m_bDashCan)
@@ -258,7 +247,14 @@ void CPlayerScript::begin()
 	if (pLevel)
 	{
 		int LayerIdx = pLevel->GetLayerIdxByName(L"UI");
-		m_HPbar = pLevel->FindObjectByName(L"HUD_lifebar", LayerIdx)->GetScriptByType<CProgressBarScript>();
+
+		CGameObject* pObj = pLevel->FindObjectByName(L"HUD_lifebar", LayerIdx);
+		if (pObj)
+			m_HPbar_Cur = pObj->GetScriptByType<CProgressBarScript>();
+
+		pObj = pLevel->FindObjectByName(L"HUD_lifebar_active", LayerIdx);
+		if (pObj)
+			m_HPbar_Active = pObj->GetScriptByType<CProgressBarScript>();
 	}
 }
 
@@ -275,8 +271,7 @@ void CPlayerScript::tick()
 
 	if ((KEY_TAP(KEY::E)))
 	{
-		m_iHPCur += 30.f;
-		m_HPbar->Increase(30);
+		CPlayerMgr::GetInventory()->UseAnima();
 	}
 
 	CUnitScript::tick();
@@ -436,7 +431,23 @@ void CPlayerScript::HitDamage(FDamage _Damage)
 {
 	CUnitScript::HitDamage(_Damage);  
 	m_iHPActive -= _Damage.iActiveHPDamage;
-	m_HPbar->Decrease(_Damage.iCurHPDamage);
+
+	if (m_HPbar_Cur)
+		m_HPbar_Cur->Decrease(_Damage.iCurHPDamage);
+	if (m_HPbar_Active)
+		m_HPbar_Active->SetProgress((float)m_iHPActive / (float)m_iHPMax);
+}
+
+void CPlayerScript::AddHPCur(int _Add)
+{
+	m_iHPCur += _Add;
+	m_HPbar_Cur->Increase(_Add);
+}
+
+void CPlayerScript::AddHPActive(int _Add)
+{
+	m_iHPActive += _Add;
+	m_HPbar_Active->SetProgress((float)m_iHPActive / (float)m_iHPMax);
 }
 
 void CPlayerScript::StartDashCoolTime(bool _bDashCan)

@@ -1,22 +1,11 @@
 #include "pch.h"
 #include "CProgressBarScript.h"
-#include "CPlayerScript.h"
 
 #include <Engine\CTimeMgr.h>
-#include <Engine\CLevelMgr.h>
-#include <Engine\CLevel.h>
 #include <Engine\CTransform.h>
 
-#define HP_PROGRESS_WIDTH 392.f
-#define MP_PROGRESS_WIDTH 333.f
-#define HP_DEC_TIME 1.f
-#define HP_INC_TIME 1.f
-#define PROGRESS_SPEED 8.f
-
-CProgressBarScript::CProgressBarScript()
-	: CScript(PROGRESSBARSCRIPT)
-	, m_Type(BAR::LIFE)
-	, m_pUnit(nullptr)
+CProgressBarScript::CProgressBarScript(UINT _ScriptType)
+	: CScript(_ScriptType)
 	, m_BarL(nullptr)
 	, m_BarM(nullptr)
 	, m_BarR(nullptr)
@@ -24,6 +13,11 @@ CProgressBarScript::CProgressBarScript()
 	, m_BarR_Extra(nullptr)
 	, m_PrevDecAcc(0.f)
 	, m_PrevIncAcc(0.f)
+	, m_pUnit(nullptr)
+	, m_fWidth(0.f)
+	, m_fDecTime(0.f)
+	, m_fIncTime(0.f)
+	, m_fProgressSpeed(0.f)
 {
 }
 
@@ -33,14 +27,6 @@ CProgressBarScript::~CProgressBarScript()
 
 void CProgressBarScript::begin()
 {
-	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
-
-	if (pLevel)
-	{
-		int LayerIdx = pLevel->GetLayerIdxByName(L"Player");
-		m_pUnit = pLevel->FindObjectByName(L"Death", LayerIdx)->GetScriptByType<CPlayerScript>();
-	}
-
 	m_BarL = GetOwner()->GetChildByName(L"Bar_L");
 	m_BarM = GetOwner()->GetChildByName(L"Bar_M");
 	m_BarR = GetOwner()->GetChildByName(L"Bar_R");
@@ -49,6 +35,13 @@ void CProgressBarScript::begin()
 
 	m_BarM_Extra->Deactivate();
 	m_BarR_Extra->Deactivate();
+
+	if (m_DefaultColor != Vec4())
+	{
+		m_BarL->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_DefaultColor);
+		m_BarM->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_DefaultColor);
+		m_BarR->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_DefaultColor);
+	}
 }
 
 void CProgressBarScript::tick()
@@ -66,9 +59,8 @@ void CProgressBarScript::tick()
 		if (curEvent.Type == BAR_EVENT_TYPE::DEC_BAR)
 		{
 			// get speed & transform info
-			float progress = (float)m_pUnit->GetHPCur() / (float)m_pUnit->GetHPMax();
 			Vec3 scale = m_BarM->Transform()->GetRelativeScale();
-			scale.x = HP_PROGRESS_WIDTH * progress;
+			scale.x = m_fWidth * GetProgress();
 
 			Vec3 posM = m_BarL->Transform()->GetRelativePos();
 			posM.x += m_BarL->Transform()->GetRelativeScale().x / 2.f;
@@ -78,13 +70,13 @@ void CProgressBarScript::tick()
 			// calc update transform
 			posM.x += scale.x / 2.f;
 			posR.x += scale.x;
-			posM.z = 0.1f;
-			posR.z = 0.1f;
+			posM.z = -0.11f;
+			posR.z = -0.11f;
 
 			Vec3 posM_Extra = m_BarM->Transform()->GetRelativePos();
 			Vec3 posR_Extra = m_BarR->Transform()->GetRelativePos();
-			posM_Extra.z = 0.11f;
-			posR_Extra.z = 0.11f;
+			posM_Extra.z = -0.1f;
+			posR_Extra.z = -0.1f;
 
 			// update transform
 			m_BarM_Extra->Transform()->SetRelativeScale(m_BarM->Transform()->GetRelativeScale());
@@ -95,8 +87,8 @@ void CProgressBarScript::tick()
 			m_BarR->Transform()->SetRelativePos(posR);
 
 			// activate
-			m_BarM_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1, 0, 0, 1));
-			m_BarR_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1, 0, 0, 1));
+			m_BarM_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_DecColor);
+			m_BarR_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_DecColor);
 			m_BarM_Extra->Activate();
 			m_BarR_Extra->Activate();
 		}
@@ -106,7 +98,7 @@ void CProgressBarScript::tick()
 			m_PrevDecAcc -= DT;
 
 			// get speed & transform info
-			float speed = PROGRESS_SPEED * (curEvent.Diff / curEvent.PlayTIme);
+			float speed = m_fProgressSpeed * (curEvent.Diff / curEvent.PlayTIme);
 			Vec3 scale = m_BarM_Extra->Transform()->GetRelativeScale();
 			scale.x -= speed * DT;
 			
@@ -128,8 +120,8 @@ void CProgressBarScript::tick()
 
 			posM.x += scale.x / 2.f;
 			posR.x += scale.x;
-			posM.z = 0.11f;
-			posR.z = 0.11f;
+			posM.z = -0.1f;
+			posR.z = -0.1f;
 
 			// update transform
 			m_BarM_Extra->Transform()->SetRelativeScale(scale);
@@ -140,7 +132,7 @@ void CProgressBarScript::tick()
 		else if (curEvent.Type == BAR_EVENT_TYPE::INC_BAR)
 		{
 			// get speed & transform info
-			float speed = PROGRESS_SPEED * (curEvent.Diff / curEvent.PlayTIme);
+			float speed = m_fProgressSpeed * (curEvent.Diff / curEvent.PlayTIme);
 			Vec3 scale = m_BarM->Transform()->GetRelativeScale();
 			scale.x += speed * DT;
 
@@ -162,8 +154,8 @@ void CProgressBarScript::tick()
 
 			posM.x += scale.x / 2.f;
 			posR.x += scale.x;
-			posM.z = 0.1f;
-			posR.z = 0.1f;
+			posM.z = -0.11f;
+			posR.z = -0.11f;
 
 			// update transform
 			m_BarM->Transform()->SetRelativeScale(scale);
@@ -174,9 +166,8 @@ void CProgressBarScript::tick()
 		else if (curEvent.Type == BAR_EVENT_TYPE::INC_EXTRA)
 		{ 
 			// get speed & transform info
-			float progress = (float)m_pUnit->GetHPCur() / (float)m_pUnit->GetHPMax();
 			Vec3 scale = m_BarM->Transform()->GetRelativeScale();
-			scale.x = HP_PROGRESS_WIDTH * progress;
+			scale.x = m_fWidth * GetProgress();
 
 			Vec3 posM = m_BarL->Transform()->GetRelativePos();
 			posM.x += m_BarL->Transform()->GetRelativeScale().x / 2.f;
@@ -186,8 +177,8 @@ void CProgressBarScript::tick()
 			// calc update transform
 			posM.x += scale.x / 2.f;
 			posR.x += scale.x;
-			posM.z = 0.11f;
-			posR.z = 0.11f;
+			posM.z = -0.1f;
+			posR.z = -0.1f;
 
 			// update transform
 			m_BarM_Extra->Transform()->SetRelativeScale(scale);
@@ -195,8 +186,8 @@ void CProgressBarScript::tick()
 			m_BarR_Extra->Transform()->SetRelativePos(posR);
 
 			// activate
-			m_BarM_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0, 1, 1, 1));
-			m_BarR_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0, 1, 1, 1));
+			m_BarM_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_IncColor);
+			m_BarR_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_IncColor);
 			m_BarM_Extra->Activate();
 			m_BarR_Extra->Activate();
 		}
@@ -214,6 +205,27 @@ void CProgressBarScript::SaveToFile(FILE* _File)
 
 void CProgressBarScript::LoadFromFile(FILE* _File)
 {
+}
+
+void CProgressBarScript::SetProgress(float _progress)
+{
+	// get speed & transform info
+	Vec3 scale = m_BarM->Transform()->GetRelativeScale();
+	scale.x = m_fWidth * _progress;
+
+	Vec3 posM = m_BarL->Transform()->GetRelativePos();
+	posM.x += m_BarL->Transform()->GetRelativeScale().x / 2.f;
+	Vec3 posR = posM;
+	posR.x += m_BarR->Transform()->GetRelativeScale().x / 2.f;
+
+	// calc update transform
+	posM.x += scale.x / 2.f;
+	posR.x += scale.x;
+
+	// update transform
+	m_BarM->Transform()->SetRelativeScale(scale);
+	m_BarM->Transform()->SetRelativePos(posM);
+	m_BarR->Transform()->SetRelativePos(posR);
 }
 
 void CProgressBarScript::Decrease(float _diff)
@@ -246,12 +258,12 @@ void CProgressBarScript::Decrease(float _diff)
 
 	else
 	{
-		m_PrevDecAcc = HP_DEC_TIME;
+		m_PrevDecAcc = m_fDecTime;
 
 		BAR_EVENT event{ BAR_EVENT_TYPE::DEC_BAR, 0.f, 0.f, _diff };
 		m_queueEvent.push_back(event);
 
-		event = { BAR_EVENT_TYPE::DEC_EXTRA, HP_DEC_TIME, 0.f, _diff };
+		event = { BAR_EVENT_TYPE::DEC_EXTRA, m_fDecTime, 0.f, _diff };
 		m_queueEvent.push_back(event);
 	}
 }
@@ -261,6 +273,6 @@ void CProgressBarScript::Increase(float _diff)
 	BAR_EVENT event = { BAR_EVENT_TYPE::INC_EXTRA, 0.f, 0.f, _diff };
 	m_queueEvent.push_back(event);
 
-	event = { BAR_EVENT_TYPE::INC_BAR, HP_INC_TIME, 0.f, _diff };
+	event = { BAR_EVENT_TYPE::INC_BAR, m_fIncTime, 0.f, _diff };
 	m_queueEvent.push_back(event);
 }

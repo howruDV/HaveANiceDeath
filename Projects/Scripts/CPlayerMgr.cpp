@@ -6,8 +6,11 @@
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
 
+#include <Scripts\CInvenMgr.h>
+
 CGameObject* CPlayerMgr::m_pPlayer = nullptr;
 CPlayerScript* CPlayerMgr::m_pPlayerScript = nullptr;
+CInvenMgr* CPlayerMgr::m_pInvenScript = nullptr;
 
 CPlayerMgr::CPlayerMgr()
 	: CScript(PLAYERMGR)
@@ -26,6 +29,11 @@ void CPlayerMgr::begin()
 		int LayerIdx = pLevel->GetLayerIdxByName(L"Player");
 		CGameObject* pObj = pLevel->FindObjectByName(L"Death", LayerIdx);
 		SetPlayer(pObj);
+
+		LayerIdx = pLevel->GetLayerIdxByName(L"Manager");
+		pObj = pLevel->FindObjectByName(L"Manager", LayerIdx);
+		if (pObj)
+			m_pInvenScript = pObj->GetScriptByType<CInvenMgr>();
 	}
 }
 
@@ -40,13 +48,6 @@ void CPlayerMgr::tick()
 
 void CPlayerMgr::SetPlayer(CGameObject* _obj)
 {
-	//if (m_pPlayer)
-	//{
-	//	FUnitInfo& pCurInfo = _obj->GetScript<CUnitScript>()->GetUnitInfo();
-	//	pCurInfo.m_fMaxHP = m_pPlayerInfo.m_fMaxHP;
-	//	pCurInfo.m_fHP = m_pPlayerInfo.m_fHP;
-	//}
-
 	m_pPlayer = _obj;
 	m_pPlayerScript = m_pPlayer->GetScriptByType<CPlayerScript>();
 

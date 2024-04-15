@@ -166,6 +166,7 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CElevatorScript.h" />
     <ClInclude Include="CGameMgr.h" />
     <ClInclude Include="CHitboxScript.h" />
+    <ClInclude Include="CInvenMgr.h" />
     <ClInclude Include="CKoTSpear_ProjScript.h" />
     <ClInclude Include="CMissileScript_Test.h" />
     <ClInclude Include="CMonsterScript.h" />
@@ -175,6 +176,9 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPlayerScript_Test.h" />
     <ClInclude Include="CProgressBarScript.h" />
+    <ClInclude Include="CProgress_PlayerHP.h" />
+    <ClInclude Include="CProgress_PlayerMP.h" />
+    <ClInclude Include="CProgress_PlayerHP_Active.h" />
     <ClInclude Include="CRotateScript.h" />
     <ClInclude Include="CScriptMgr.h" />
     <ClInclude Include="CUnitScript.h" />
@@ -192,6 +196,7 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CElevatorScript.cpp" />
     <ClCompile Include="CGameMgr.cpp" />
     <ClCompile Include="CHitboxScript.cpp" />
+    <ClCompile Include="CInvenMgr.cpp" />
     <ClCompile Include="CKoTSpear_ProjScript.cpp" />
     <ClCompile Include="CMissileScript_Test.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />
@@ -201,6 +206,9 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPlayerScript_Test.cpp" />
     <ClCompile Include="CProgressBarScript.cpp" />
+    <ClCompile Include="CProgress_PlayerHP.cpp" />
+    <ClCompile Include="CProgress_PlayerMP.cpp" />
+    <ClCompile Include="CProgress_PlayerHP_Active.cpp" />
     <ClCompile Include="CRotateScript.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />
     <ClCompile Include="CUnitScript.cpp" />

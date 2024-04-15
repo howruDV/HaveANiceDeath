@@ -73,6 +73,16 @@
     <ClInclude Include="CProgressBarScript.h">
       <Filter>Scripts\UI\ProgressBar</Filter>
     </ClInclude>
+    <ClInclude Include="CProgress_PlayerHP.h">
+      <Filter>Scripts\UI\ProgressBar\PlayerHP</Filter>
+    </ClInclude>
+    <ClInclude Include="CProgress_PlayerMP.h">
+      <Filter>Scripts\UI\ProgressBar\PlayerMP</Filter>
+    </ClInclude>
+    <ClInclude Include="CProgress_PlayerHP_Active.h">
+      <Filter>Scripts\UI\ProgressBar\PlayerHP_Active</Filter>
+    </ClInclude>
+    <ClInclude Include="CInvenMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -141,6 +151,16 @@
     <ClCompile Include="CProgressBarScript.cpp">
       <Filter>Scripts\UI\ProgressBar</Filter>
     </ClCompile>
+    <ClCompile Include="CProgress_PlayerHP.cpp">
+      <Filter>Scripts\UI\ProgressBar\PlayerHP</Filter>
+    </ClCompile>
+    <ClCompile Include="CProgress_PlayerMP.cpp">
+      <Filter>Scripts\UI\ProgressBar\PlayerMP</Filter>
+    </ClCompile>
+    <ClCompile Include="CProgress_PlayerHP_Active.cpp">
+      <Filter>Scripts\UI\ProgressBar\PlayerHP_Active</Filter>
+    </ClCompile>
+    <ClCompile Include="CInvenMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -220,6 +240,18 @@
     </Filter>
     <Filter Include="Scripts\Function\Platform\CornerTrigger">
       <UniqueIdentifier>{bba47db1-2fb4-4b4c-8d5f-2b6e55d10296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\UI\ProgressBar\PlayerHP">
+      <UniqueIdentifier>{d0b67e77-4610-46dd-83d3-f5b9f877b1cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\UI\ProgressBar\PlayerMP">
+      <UniqueIdentifier>{08c39729-e6bf-4afa-acfa-d3f7b11f6073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\UI\ProgressBar\PlayerHP_Active">
+      <UniqueIdentifier>{13f7d2f4-876b-45e0-982b-132f17ac9694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\InvenMgr">
+      <UniqueIdentifier>{c7dc70db-a830-4b8b-9128-7dd0d808c3f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

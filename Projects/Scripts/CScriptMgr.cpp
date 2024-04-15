@@ -7,6 +7,7 @@
 #include "CElevatorScript.h"
 #include "CGameMgr.h"
 #include "CHitboxScript.h"
+#include "CInvenMgr.h"
 #include "CKoTSpear_ProjScript.h"
 #include "CMissileScript_Test.h"
 #include "CMonsterScript.h"
@@ -15,7 +16,9 @@
 #include "CPlayerMgr.h"
 #include "CPlayerScript.h"
 #include "CPlayerScript_Test.h"
-#include "CProgressBarScript.h"
+#include "CProgress_PlayerHP.h"
+#include "CProgress_PlayerHP_Active.h"
+#include "CProgress_PlayerMP.h"
 #include "CRotateScript.h"
 #include "CWallScript.h"
 
@@ -27,6 +30,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CElevatorScript");
 	_vec.push_back(L"CGameMgr");
 	_vec.push_back(L"CHitboxScript");
+	_vec.push_back(L"CInvenMgr");
 	_vec.push_back(L"CKoTSpear_ProjScript");
 	_vec.push_back(L"CMissileScript_Test");
 	_vec.push_back(L"CMonsterScript");
@@ -35,7 +39,9 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CPlayerMgr");
 	_vec.push_back(L"CPlayerScript");
 	_vec.push_back(L"CPlayerScript_Test");
-	_vec.push_back(L"CProgressBarScript");
+	_vec.push_back(L"CProgress_PlayerHP");
+	_vec.push_back(L"CProgress_PlayerHP_Active");
+	_vec.push_back(L"CProgress_PlayerMP");
 	_vec.push_back(L"CRotateScript");
 	_vec.push_back(L"CWallScript");
 }
@@ -54,6 +60,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CGameMgr;
 	if (L"CHitboxScript" == _strScriptName)
 		return new CHitboxScript;
+	if (L"CInvenMgr" == _strScriptName)
+		return new CInvenMgr;
 	if (L"CKoTSpear_ProjScript" == _strScriptName)
 		return new CKoTSpear_ProjScript;
 	if (L"CMissileScript_Test" == _strScriptName)
@@ -70,8 +78,12 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CPlayerScript;
 	if (L"CPlayerScript_Test" == _strScriptName)
 		return new CPlayerScript_Test;
-	if (L"CProgressBarScript" == _strScriptName)
-		return new CProgressBarScript;
+	if (L"CProgress_PlayerHP" == _strScriptName)
+		return new CProgress_PlayerHP;
+	if (L"CProgress_PlayerHP_Active" == _strScriptName)
+		return new CProgress_PlayerHP_Active;
+	if (L"CProgress_PlayerMP" == _strScriptName)
+		return new CProgress_PlayerMP;
 	if (L"CRotateScript" == _strScriptName)
 		return new CRotateScript;
 	if (L"CWallScript" == _strScriptName)
@@ -101,6 +113,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::HITBOXSCRIPT:
 		return new CHitboxScript;
 		break;
+	case (UINT)SCRIPT_TYPE::INVENMGR:
+		return new CInvenMgr;
+		break;
 	case (UINT)SCRIPT_TYPE::KOTSPEAR_PROJSCRIPT:
 		return new CKoTSpear_ProjScript;
 		break;
@@ -125,8 +140,14 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT_TEST:
 		return new CPlayerScript_Test;
 		break;
-	case (UINT)SCRIPT_TYPE::PROGRESSBARSCRIPT:
-		return new CProgressBarScript;
+	case (UINT)SCRIPT_TYPE::PROGRESS_PLAYERHP:
+		return new CProgress_PlayerHP;
+		break;
+	case (UINT)SCRIPT_TYPE::PROGRESS_PLAYERHP_ACTIVE:
+		return new CProgress_PlayerHP_Active;
+		break;
+	case (UINT)SCRIPT_TYPE::PROGRESS_PLAYERMP:
+		return new CProgress_PlayerMP;
 		break;
 	case (UINT)SCRIPT_TYPE::ROTATESCRIPT:
 		return new CRotateScript;
@@ -166,6 +187,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 		return L"CHitboxScript";
 		break;
 
+	case SCRIPT_TYPE::INVENMGR:
+		return L"CInvenMgr";
+		break;
+
 	case SCRIPT_TYPE::KOTSPEAR_PROJSCRIPT:
 		return L"CKoTSpear_ProjScript";
 		break;
@@ -198,8 +223,16 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 		return L"CPlayerScript_Test";
 		break;
 
-	case SCRIPT_TYPE::PROGRESSBARSCRIPT:
-		return L"CProgressBarScript";
+	case SCRIPT_TYPE::PROGRESS_PLAYERHP:
+		return L"CProgress_PlayerHP";
+		break;
+
+	case SCRIPT_TYPE::PROGRESS_PLAYERHP_ACTIVE:
+		return L"CProgress_PlayerHP_Active";
+		break;
+
+	case SCRIPT_TYPE::PROGRESS_PLAYERMP:
+		return L"CProgress_PlayerMP";
 		break;
 
 	case SCRIPT_TYPE::ROTATESCRIPT:

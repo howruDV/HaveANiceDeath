@@ -4,3 +4,4 @@ global.h
 struct.h
 define.h
 extern.h
+CProgressBarScript.h

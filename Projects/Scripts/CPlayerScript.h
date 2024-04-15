@@ -19,7 +19,8 @@ private:
 
     // hp
     int m_iHPActive;
-    CProgressBarScript* m_HPbar;
+    CProgressBarScript* m_HPbar_Cur;
+    CProgressBarScript* m_HPbar_Active;
 
     // mp
     int m_iMPMax;
@@ -46,17 +47,6 @@ private:
     CGameObject* m_AirColPlatform;
     bool m_bAirCol;
 
-    // @TODO : 인벤토리 관리자 따로 만들어야할듯?----------------------------------
-    // money
-    int m_iIngot;
-    int m_iSoulary;
-    int m_iPrismium;
-
-    // Anima
-    int m_iAnimaMax;
-    int m_iAnimaBlue;
-    int m_iAnimaGold;
-
     // 무기, 보조무기, 저주
     // @TODO : 여기서 생성하는것보단 WeaponMgr 만들어서 쭉 파두고 선택하는게 좋을듯?
     // --------------------------------------------------------------------
@@ -82,6 +72,9 @@ public:
     virtual void HitDamage(FDamage _Damage);
     virtual void Attack() { m_iRestCur += 5; }
 
+    void AddHPCur(int _Add);
+    void AddHPActive(int _Add);
+
 public:
     void UseMP(int _value) { m_iMPCur -= _value; }
     void StartDashCoolTime(bool _bDashCan = false);
@@ -91,9 +84,6 @@ public:
     void SetHPActive(int _HPActive) { m_iHPActive = _HPActive; }
     void SetiMPMax(int _MPMax) { m_iMPMax = _MPMax; }
     void SetiMPCur(int _MPCur) { m_iMPCur = _MPCur; }
-    void SetIngot(int _Ingot) { m_iIngot = _Ingot; }
-    void SetSoulary(int _Soulary) { m_iSoulary = _Soulary; }
-    void SetPrismium(int _Prismium) { m_iPrismium = _Prismium; }
     void SetScythe(SCYTHE_TYPE _Type) { m_CurScythe = _Type; }
     void DeactiveCombo() { m_bComboCan = false; m_fComboAccTime = 0; m_NextComboIdx = 0; }
     void DeactiveAerialAttack() { m_bAerialCan = false; }
@@ -102,10 +92,9 @@ public:
     SCYTHE_TYPE GetScytheType() { return m_CurScythe; }
     wstring GetScytheName() { return SCYTHE_NAME[(int)m_CurScythe]; }
     FScytheDamage GetScytheDamage();
+    int GetMPCur() { return m_iMPCur; }
+    int GetMPMax() { return m_iMPMax; }
     int GetHPActive() { return m_iHPActive; }
-    int GetIngot() { return m_iIngot; }
-    int GetSoulary() { return m_iSoulary; }
-    int GetPrismium() { return m_iPrismium; }
     int GetNextComboIdx() { return m_NextComboIdx; }
     bool CanDash() { return m_bDashCan; }
     bool CanAerialAttack() { return m_bAerialCan; }

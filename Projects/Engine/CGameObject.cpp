@@ -227,6 +227,29 @@ void CGameObject::DeleteComponent(COMPONENT_TYPE _Type)
 	}
 }
 
+void CGameObject::DeleteScript(UINT _Type)
+{
+	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+
+	if (LEVEL_STATE::PLAY == pLevel->GetState() || LEVEL_STATE::PAUSE == pLevel->GetState())
+	{
+		return;
+	}
+
+	vector<CScript*>::iterator iter = m_vecScript.begin();
+	
+	for (; iter != m_vecScript.end(); iter++)
+	{
+		if ((*iter)->GetScriptType() == _Type)
+		{
+			CScript* tmp = *iter;
+			m_vecScript.erase(iter);
+			delete tmp;
+			return;
+		}
+	}
+}
+
 void CGameObject::AddComponent(CComponent* _Component)
 {
 	COMPONENT_TYPE type = _Component->GetType();

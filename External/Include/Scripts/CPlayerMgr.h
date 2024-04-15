@@ -7,14 +7,15 @@
 
 class CGameObject;
 class CPlayerScript;
-class CHitboxScript;
+class CInvenMgr;
 
 class CPlayerMgr
 	: public CScript
 {
 private:
-	static CGameObject*	m_pPlayer;
+	static CGameObject*		m_pPlayer;
 	static CPlayerScript*	m_pPlayerScript;
+	static CInvenMgr*		m_pInvenScript;
 
 public:
 	virtual void begin() override;
@@ -30,6 +31,7 @@ public:
 
 	static CGameObject* GetPlayer() { return m_pPlayer; }
 	static CPlayerScript* GetPlayerScript() { return m_pPlayerScript; }
+	static CInvenMgr* GetInventory() { return m_pInvenScript; }
 
 public:
 	CLONE_DISABLE(CPlayerMgr)

@@ -2,12 +2,6 @@
 #include <Engine/CScript.h>
 #include "deque"
 
-enum class BAR
-{
-    LIFE,
-    MANA,
-};
-
 enum class BAR_EVENT_TYPE
 {
     DEC_BAR,
@@ -24,24 +18,32 @@ struct BAR_EVENT
     float Diff;
 };
 
-class CPlayerScript;
+class CUnitScript;
 class CGameObject;
 
 class CProgressBarScript :
     public CScript
 {
 private:
-    BAR m_Type;
-    CPlayerScript* m_pUnit;
-    deque<BAR_EVENT> m_queueEvent;
-    float m_PrevDecAcc;
-    float m_PrevIncAcc;
+    deque<BAR_EVENT>    m_queueEvent;
+    float               m_PrevDecAcc;
+    float               m_PrevIncAcc;
 
-    CGameObject* m_BarL;
-    CGameObject* m_BarM;
-    CGameObject* m_BarR;
-    CGameObject* m_BarM_Extra;
-    CGameObject* m_BarR_Extra;
+    CGameObject*        m_BarL;
+    CGameObject*        m_BarM;
+    CGameObject*        m_BarR;
+    CGameObject*        m_BarM_Extra;
+    CGameObject*        m_BarR_Extra;
+
+protected:
+    CUnitScript*        m_pUnit;
+    float               m_fWidth;
+    float               m_fDecTime;
+    float               m_fIncTime;
+    float               m_fProgressSpeed;
+    Vec4                m_DefaultColor;
+    Vec4                m_DecColor;
+    Vec4                m_IncColor;
 
 public:
     virtual void begin() override;
@@ -50,12 +52,16 @@ public:
     virtual void SaveToFile(FILE* _File);
     virtual void LoadFromFile(FILE* _File);
 
+    void SetProgress(float _progress);
     void Decrease(float _diff);
     void Increase(float _diff);
 
+protected:
+    virtual float GetProgress() { return 0.f; }
+
 public:
     CLONE(CProgressBarScript);
-    CProgressBarScript();
+    CProgressBarScript(UINT _ScriptType);
     ~CProgressBarScript();
 };
 

@@ -4,6 +4,7 @@ CCornerTriggerScript
 CElevatorScript
 CGameMgr
 CHitboxScript
+CInvenMgr
 CKoTSpear_ProjScript
 CMissileScript_Test
 CMonsterScript
@@ -12,6 +13,8 @@ CParallelScript
 CPlayerMgr
 CPlayerScript
 CPlayerScript_Test
-CProgressBarScript
+CProgress_PlayerHP
+CProgress_PlayerHP_Active
+CProgress_PlayerMP
 CRotateScript
 CWallScript
