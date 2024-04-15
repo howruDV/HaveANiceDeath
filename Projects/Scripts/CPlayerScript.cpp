@@ -232,11 +232,6 @@ void CPlayerScript::begin()
 		StateMachine()->AddBlackboardData(L"fSpeedInAir", BB_DATA::FLOAT, &m_fSpeedInAir);
 		StateMachine()->AddBlackboardData(L"fSpeedDash", BB_DATA::FLOAT, &m_fSpeedDash);
 		StateMachine()->AddBlackboardData(L"fJumpVelocMax", BB_DATA::FLOAT, &m_fJumpVelocMax);
-
-		if (StateMachine()->GetFSM().Get())
-		{
-			StateMachine()->GetFSM()->ChangeState(L"Idle");
-		}
 	}
 
 	// Find Level Obj

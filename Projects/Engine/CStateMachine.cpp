@@ -51,6 +51,7 @@ Ptr<CFSM> CStateMachine::GetFSM()
 	{
 		//return m_FSM_Origin;
 		m_FSM_Inst = m_FSM_Origin->GetFSMIstance();
+		m_FSM_Inst->SetStateMachine(this);
 	}
 
 	return m_FSM_Inst;

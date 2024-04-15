@@ -5,6 +5,7 @@
 
 #include <Engine\CLevelMgr.h>
 #include <Engine\CLevel.h>
+#include <Engine\CStateMachine.h>
 
 CGameMgr::CGameMgr()
 	: CScript(GAMEMGR)
@@ -14,6 +15,12 @@ CGameMgr::CGameMgr()
 
 CGameMgr::~CGameMgr()
 {
+}
+
+void CGameMgr::begin()
+{
+	CPlayerMgr::GetPlayerScript()->StateMachine()->GetFSM()->ChangeState(L"Idle");
+	//CPlayerMgr::GetPlayerScript()->StateMachine()->ChangeState(L"Elevator_Out");
 }
 
 void CGameMgr::tick()

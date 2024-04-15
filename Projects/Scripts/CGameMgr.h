@@ -14,7 +14,7 @@ private:
 	CGameObject* m_GameEnding_Fail;
 
 public:
-	virtual void begin() override {};
+	virtual void begin() override;
 	virtual void tick() override;
 
 	virtual void SaveToFile(FILE* _File) override {};
