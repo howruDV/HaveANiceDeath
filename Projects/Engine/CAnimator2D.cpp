@@ -70,7 +70,7 @@ void CAnimator2D::finaltick()
             m_bRepeat = m_listNextAnim.front().bRepeat;
             m_listNextAnim.pop_front();
 
-            m_CurAnim->Reset();
+            Play(m_CurAnim->GetName(), m_bRepeat);
         }
     }
 
@@ -210,7 +210,7 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat, bool _bRevers
     m_CurAnim->Reset();
 
     if (_bReverse)
-        m_CurAnim->m_bReverse = true;
+        m_CurAnim->SetReverse();
 }
 
 void CAnimator2D::PushNextAnim(const wstring& _strAnimName, bool _bRepeat)

@@ -139,6 +139,8 @@ void CCreateTempLevel::CreateTempLevel()
 	CCollisionMgr::GetInst()->LayerCheck(4, 6);
 	return;
 
+	CCreateTempLevel::Init();
+
 	CLevel* pTempLevel = new CLevel;
 	pTempLevel->GetLayer(0)->SetName(L"Default");
 	pTempLevel->GetLayer(1)->SetName(L"Background");

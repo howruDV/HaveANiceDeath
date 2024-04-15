@@ -23,15 +23,15 @@ void CElevatorScript::begin()
 void CElevatorScript::tick()
 {
 	float fDist = (CPlayerMgr::GetPlayer()->Transform()->GetWorldPos() - Transform()->GetWorldPos()).Length();
-	if (fDist > 100.f)
+	if (fDist > 300.f)
 		return;
 
 	// @TODO UI Àç»ý
 
 	if (KEY_TAP(KEY::F))
 	{
-		// Level Control
-		Animator2D()->Play(L"Close", false);
+		// @TODO Level Control
+		Animator2D()->Play(L"Open", false, true);
 	}
 }
 

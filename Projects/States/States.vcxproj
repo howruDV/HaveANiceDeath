@@ -181,6 +181,8 @@ call CodeGen.exe</Command>
     <ClInclude Include="CMonsterRun.h" />
     <ClInclude Include="CMonsterSurprised.h" />
     <ClInclude Include="CPlayerDie.h" />
+    <ClInclude Include="CPlayerElevator_In.h" />
+    <ClInclude Include="CPlayerElevator_Out.h" />
     <ClInclude Include="CPlayerHit.h" />
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CKoTBigAttack2.h" />
@@ -228,6 +230,8 @@ call CodeGen.exe</Command>
     <ClCompile Include="CMonsterRun.cpp" />
     <ClCompile Include="CMonsterSurprised.cpp" />
     <ClCompile Include="CPlayerDie.cpp" />
+    <ClCompile Include="CPlayerElevator_In.cpp" />
+    <ClCompile Include="CPlayerElevator_Out.cpp" />
     <ClCompile Include="CPlayerHit.cpp" />
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CKoTBigAttack2.cpp" />

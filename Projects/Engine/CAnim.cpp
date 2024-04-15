@@ -142,6 +142,12 @@ void CAnim::Create(CAnimator2D* _Animator, Ptr<CTexture> _Atlas, const vector<FA
 	}
 }
 
+void CAnim::SetReverse()
+{
+	m_bReverse = true;
+	m_CurFrmIdx = (int)m_vecFrm.size() - 1;
+}
+
 void CAnim::SaveToFile(FILE* _File)
 {
 	// 애니메이션 이름 저장

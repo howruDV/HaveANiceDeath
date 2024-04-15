@@ -131,6 +131,7 @@ void UIAnimator2D::AddAnimation()
 
 		// close read file
 		fclose(pFile);
+		delete pAnim;
 	}
 }
 

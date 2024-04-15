@@ -19,8 +19,7 @@ CGameMgr::~CGameMgr()
 
 void CGameMgr::begin()
 {
-	CPlayerMgr::GetPlayerScript()->StateMachine()->GetFSM()->ChangeState(L"Idle");
-	//CPlayerMgr::GetPlayerScript()->StateMachine()->ChangeState(L"Elevator_Out");
+	CPlayerMgr::GetPlayerScript()->StateMachine()->GetFSM()->ChangeState(L"Elevator_Out");
 }
 
 void CGameMgr::tick()

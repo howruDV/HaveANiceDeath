@@ -154,6 +154,12 @@
     <Filter Include="States\Monster\Attack\KoTFlying">
       <UniqueIdentifier>{a7b24aac-8bc1-4529-8c58-926711e659dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Player\Elevator_Out">
+      <UniqueIdentifier>{8e18eda1-b28f-4dd0-9539-7a5f050e83d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Elevator_In">
+      <UniqueIdentifier>{02ac6b66-dea5-4a00-b497-43ea9884e382}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -290,6 +296,12 @@
     <ClInclude Include="CKoTFlyingAttack1.h">
       <Filter>States\Monster\Attack\KoTFlying</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerElevator_Out.h">
+      <Filter>States\Player\Elevator_Out</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerElevator_In.h">
+      <Filter>States\Player\Elevator_In</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -424,6 +436,12 @@
     </ClCompile>
     <ClCompile Include="CKoTFlyingAttack1.cpp">
       <Filter>States\Monster\Attack\KoTFlying</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerElevator_Out.cpp">
+      <Filter>States\Player\Elevator_Out</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerElevator_In.cpp">
+      <Filter>States\Player\Elevator_In</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

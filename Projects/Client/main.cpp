@@ -111,7 +111,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 #ifndef _RELEASE_GAME
     // create temp level
-    CCreateTempLevel::Init();
     CCreateTempLevel::CreateTempLevel();
 
     // EditorObjectManager 초기화

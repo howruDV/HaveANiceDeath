@@ -18,6 +18,8 @@ CPlayerConcentrate
 CPlayerConcentrate_Start
 CPlayerDash
 CPlayerDie
+CPlayerElevator_In
+CPlayerElevator_Out
 CPlayerHit
 CPlayerIdle
 CPlayerIdleToRun
