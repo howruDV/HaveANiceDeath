@@ -256,8 +256,8 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 		LoadWString(strScriptName, _File);
 
 		CScript* pScript = CScriptMgr::GetScript(strScriptName);
-		pObject->AddComponent(pScript);
 		pScript->LoadFromFile(_File);
+		pObject->AddComponent(pScript);
 	}
 
 	// 4. child objs	

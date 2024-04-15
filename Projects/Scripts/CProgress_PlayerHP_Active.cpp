@@ -6,7 +6,7 @@
 #include <Engine\CLevel.h>
 
 CProgress_PlayerHP_Active::CProgress_PlayerHP_Active()
-    : CProgressBarScript(PROGRESS_PLAYERHP)
+    : CProgressBarScript(PROGRESS_PLAYERHP_ACTIVE)
     , m_Player(nullptr)
 {
     m_fWidth = 392.f;

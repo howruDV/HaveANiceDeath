@@ -17,7 +17,8 @@ CInvenMgr::CInvenMgr()
     , m_iPrismium(0)
 {
     FAnima tmp = { ANIMA_TYPE::BLUE, nullptr };
-    m_Anima[0] = tmp;
+    FAnima tmp1 = { ANIMA_TYPE::YELLOW, nullptr };
+    m_Anima[0] = tmp1;
     m_Anima[1] = tmp;
     m_Anima[2] = tmp;
 }
@@ -90,8 +91,8 @@ bool CInvenMgr::UseAnima()
         m_Anima[idx].pObj->MeshRender()->SetMaterial(m_AnimaMat[0]);
         m_Anima[idx].Type = ANIMA_TYPE::NONE;
 
-        CPlayerMgr::GetPlayerScript()->AddHPActive(ANIMA_YELLOW);
         CPlayerMgr::GetPlayerScript()->AddHPCur(ANIMA_BLUE);
+        CPlayerMgr::GetPlayerScript()->AddHPActive(ANIMA_YELLOW);
     }
 
     return true;
