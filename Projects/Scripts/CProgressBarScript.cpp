@@ -56,29 +56,25 @@ void CProgressBarScript::tick()
 	{
 		BAR_EVENT& curEvent = m_queueEvent.front();
 
+		Vec3 posM = m_BarM->Transform()->GetRelativePos();
+		Vec3 posR = m_BarR->Transform()->GetRelativePos();
+		posM.x = m_BarL->Transform()->GetRelativePos().x + m_BarL->Transform()->GetRelativeScale().x / 2.f;
+		posR.x = posM.x + m_BarR->Transform()->GetRelativeScale().x / 2.f;
+
+		Vec3 posM_Extra = m_BarM_Extra->Transform()->GetRelativePos();
+		Vec3 posR_Extra = m_BarR_Extra->Transform()->GetRelativePos();
+		posM_Extra.x = posM.x;
+		posR_Extra.x = posR.x;
+
 		if (curEvent.Type == BAR_EVENT_TYPE::DEC_BAR)
 		{
-			// get speed & transform info
+			// update transform
 			Vec3 scale = m_BarM->Transform()->GetRelativeScale();
 			scale.x = m_fWidth * GetProgress();
-
-			Vec3 posM = m_BarL->Transform()->GetRelativePos();
-			posM.x += m_BarL->Transform()->GetRelativeScale().x / 2.f;
-			Vec3 posR = posM;
-			posR.x += m_BarR->Transform()->GetRelativeScale().x / 2.f;
-
-			// calc update transform
 			posM.x += scale.x / 2.f;
 			posR.x += scale.x;
-			posM.z = -0.11f;
-			posR.z = -0.11f;
 
-			Vec3 posM_Extra = m_BarM->Transform()->GetRelativePos();
-			Vec3 posR_Extra = m_BarR->Transform()->GetRelativePos();
-			posM_Extra.z = -0.1f;
-			posR_Extra.z = -0.1f;
-
-			// update transform
+			// set transform
 			m_BarM_Extra->Transform()->SetRelativeScale(m_BarM->Transform()->GetRelativeScale());
 			m_BarM_Extra->Transform()->SetRelativePos(posM_Extra);
 			m_BarR_Extra->Transform()->SetRelativePos(posR_Extra);
@@ -97,10 +93,13 @@ void CProgressBarScript::tick()
 		{
 			m_PrevDecAcc -= DT;
 
-			// get speed & transform info
+			// update transform
 			float speed = m_fProgressSpeed * (curEvent.Diff / curEvent.PlayTIme);
 			Vec3 scale = m_BarM_Extra->Transform()->GetRelativeScale();
+
 			scale.x -= speed * DT;
+			posM_Extra.x += scale.x / 2.f;
+			posR_Extra.x += scale.x;
 			
 			// deactivate
 			if (scale.x <= 0 || curEvent.AccTime + DT >= curEvent.PlayTIme)
@@ -112,29 +111,21 @@ void CProgressBarScript::tick()
 				m_BarR_Extra->Deactivate();
 			}
 
-			// calc update transform
-			Vec3 posM = m_BarL->Transform()->GetRelativePos();
-			posM.x += m_BarL->Transform()->GetRelativeScale().x / 2.f;
-			Vec3 posR = posM;
-			posR.x += m_BarR->Transform()->GetRelativeScale().x / 2.f;
-
-			posM.x += scale.x / 2.f;
-			posR.x += scale.x;
-			posM.z = -0.1f;
-			posR.z = -0.1f;
-
-			// update transform
+			// set transform
 			m_BarM_Extra->Transform()->SetRelativeScale(scale);
-			m_BarM_Extra->Transform()->SetRelativePos(posM);
-			m_BarR_Extra->Transform()->SetRelativePos(posR);
+			m_BarM_Extra->Transform()->SetRelativePos(posM_Extra);
+			m_BarR_Extra->Transform()->SetRelativePos(posR_Extra);
 		}
 
 		else if (curEvent.Type == BAR_EVENT_TYPE::INC_BAR)
 		{
-			// get speed & transform info
+			// update transform
 			float speed = m_fProgressSpeed * (curEvent.Diff / curEvent.PlayTIme);
 			Vec3 scale = m_BarM->Transform()->GetRelativeScale();
+
 			scale.x += speed * DT;
+			posM.x += scale.x / 2.f;
+			posR.x += scale.x;
 
 			// deactivate
 			if (scale.x >= m_BarM_Extra->Transform()->GetRelativeScale().x || curEvent.AccTime + DT >= curEvent.PlayTIme)
@@ -146,50 +137,31 @@ void CProgressBarScript::tick()
 				m_BarR_Extra->Deactivate();
 			}
 
-			// calc update transform
-			Vec3 posM = m_BarL->Transform()->GetRelativePos();
-			posM.x += m_BarL->Transform()->GetRelativeScale().x / 2.f;
-			Vec3 posR = posM;
-			posR.x += m_BarR->Transform()->GetRelativeScale().x / 2.f;
-
-			posM.x += scale.x / 2.f;
-			posR.x += scale.x;
-			posM.z = -0.11f;
-			posR.z = -0.11f;
-
-			// update transform
+			// set transform
 			m_BarM->Transform()->SetRelativeScale(scale);
 			m_BarM->Transform()->SetRelativePos(posM);
 			m_BarR->Transform()->SetRelativePos(posR);
 		}
 
 		else if (curEvent.Type == BAR_EVENT_TYPE::INC_EXTRA)
-		{ 
-			// get speed & transform info
+		{
+			// update transform
 			Vec3 scale = m_BarM->Transform()->GetRelativeScale();
 			scale.x = m_fWidth * GetProgress();
 
-			Vec3 posM = m_BarL->Transform()->GetRelativePos();
-			posM.x += m_BarL->Transform()->GetRelativeScale().x / 2.f;
-			Vec3 posR = posM;
-			posR.x += m_BarR->Transform()->GetRelativeScale().x / 2.f;
-
-			// calc update transform
-			posM.x += scale.x / 2.f;
-			posR.x += scale.x;
-			posM.z = -0.1f;
-			posR.z = -0.1f;
-
-			// update transform
-			m_BarM_Extra->Transform()->SetRelativeScale(scale);
-			m_BarM_Extra->Transform()->SetRelativePos(posM);
-			m_BarR_Extra->Transform()->SetRelativePos(posR);
+			posM_Extra.x += scale.x / 2.f;
+			posR_Extra.x += scale.x;
 
 			// activate
 			m_BarM_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_IncColor);
 			m_BarR_Extra->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_IncColor);
 			m_BarM_Extra->Activate();
 			m_BarR_Extra->Activate();
+
+			// set transform
+			m_BarM_Extra->Transform()->SetRelativeScale(scale);
+			m_BarM_Extra->Transform()->SetRelativePos(posM_Extra);
+			m_BarR_Extra->Transform()->SetRelativePos(posR_Extra);
 		}
 
 		// update Time
@@ -212,20 +184,18 @@ void CProgressBarScript::SetProgress(float _progress)
 	if (_progress > 1.f)
 		_progress = 1.f;
 
-	// get speed & transform info
+	// update transform
 	Vec3 scale = m_BarM->Transform()->GetRelativeScale();
+	Vec3 posM = m_BarM->Transform()->GetRelativePos();
+	Vec3 posR = m_BarR->Transform()->GetRelativePos();
+	posM.x = m_BarL->Transform()->GetRelativePos().x + m_BarL->Transform()->GetRelativeScale().x / 2.f;
+	posR.x = posM.x + m_BarR->Transform()->GetRelativeScale().x / 2.f;
+
 	scale.x = m_fWidth * _progress;
-
-	Vec3 posM = m_BarL->Transform()->GetRelativePos();
-	posM.x += m_BarL->Transform()->GetRelativeScale().x / 2.f;
-	Vec3 posR = posM;
-	posR.x += m_BarR->Transform()->GetRelativeScale().x / 2.f;
-
-	// calc update transform
 	posM.x += scale.x / 2.f;
 	posR.x += scale.x;
 
-	// update transform
+	// set transform
 	m_BarM->Transform()->SetRelativeScale(scale);
 	m_BarM->Transform()->SetRelativePos(posM);
 	m_BarR->Transform()->SetRelativePos(posR);
