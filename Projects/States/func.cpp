@@ -3,6 +3,7 @@
 
 #include <Scripts\CPlayerMgr.h>
 #include <Scripts\CPlayerScript.h>
+#include <Scripts\CInvenMgr.h>
 
 #include <random>
 
@@ -26,7 +27,7 @@ void SetPlayerHitboxDamage(CGameObject* _Obj, SCYTHE_DAMAGE_NAME _State)
 
 int GetScytheAttackDamage(SCYTHE_DAMAGE_NAME _State)
 {
-	SCYTHE_TYPE Type = PLAYERSCRIPT->GetScytheType();
+	SCYTHE_TYPE Type = INVENTORY->GetScytheType();
 	int Damage = 0;
 	
 	switch (Type)

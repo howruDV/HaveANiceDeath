@@ -3,6 +3,7 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CInvenMgr.h>
 
 CPlayerJumpStart::CPlayerJumpStart()
 	: CState(PLAYERJUMPSTART)
@@ -34,7 +35,7 @@ void CPlayerJumpStart::finaltick()
 	if (KEY_TAP(KEY::LBTN))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 
 		if (PLAYERSCRIPT->CanAerialAttack())
 			ChangeState(strCurScytheName + L"_Aerial");
@@ -48,14 +49,14 @@ void CPlayerJumpStart::finaltick()
 
 	if ((KEY_PRESSED(KEY::S) || KEY_TAP(KEY::S)) && KEY_TAP(KEY::LBTN))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 		ChangeState(strCurScytheName + L"_Crush");
 		return;
 	}
 
 	if ((KEY_PRESSED(KEY::W) || KEY_TAP(KEY::W)) && KEY_TAP(KEY::LBTN))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 		ChangeState(strCurScytheName + L"_Up");
 		return;
 	}

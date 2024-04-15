@@ -27,7 +27,6 @@ CPlayerScript::CPlayerScript()
 	, m_bDashCan(true)
 	, m_AirColPlatform(nullptr)
 	, m_bAirCol(false)
-	, m_CurScythe(SCYTHE_TYPE::DISS)
 	, m_fComboCoolTime(0.3f)
 	, m_fComboAccTime(0.f)
 	, m_NextComboIdx(0)
@@ -484,12 +483,4 @@ void CPlayerScript::ResetRest()
 {
 	m_iRestCur = 0.f;
 	m_RestGauge->Reset();
-}
-
-FScytheDamage CPlayerScript::GetScytheDamage()
-{
-	if (m_CurScythe == SCYTHE_TYPE::DISS)
-		return SCYTHE_DISS_DAMAGE;
-
-	return FScytheDamage{};
 }

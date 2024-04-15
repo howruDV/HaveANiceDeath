@@ -19,6 +19,10 @@ CInvenMgr::CInvenMgr()
     m_Anima[0] = { ANIMA_TYPE::YELLOW, nullptr };
     m_Anima[1] = { ANIMA_TYPE::BLUE, nullptr };
     m_Anima[2] = { ANIMA_TYPE::NONE, nullptr };
+
+    m_Weapon[0] = { (UINT)SCYTHE_TYPE::DISS, nullptr };
+    m_Weapon[1] = { -1, nullptr };
+    m_Weapon[2] = { -1, nullptr };
 }
 
 CInvenMgr::~CInvenMgr()
@@ -38,25 +42,43 @@ void CInvenMgr::begin()
     {
         for (int i = 0; i < 3; ++i)
         {
+            // anima
             m_Anima[i].pObj = pLevel->FindObjectByName(L"HUD_Anima" + std::to_wstring(i), 31);
-            if (!m_Anima[i].pObj)
-                continue;
+            if (m_Anima[i].pObj)
+            {
+                if (m_Anima[i].Type == ANIMA_TYPE::BLUE)
+                {
+                    m_iAnimaCount++;
+                    m_Anima[i].pObj->MeshRender()->SetMaterial(m_AnimaMat[1]);
+                    m_Anima[i].pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0, 1, 1, 1));
+                }
+                else if (m_Anima[i].Type == ANIMA_TYPE::YELLOW)
+                {
+                    m_iAnimaCount++;
+                    m_Anima[i].pObj->MeshRender()->SetMaterial(m_AnimaMat[1]);
+                    m_Anima[i].pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1, 1, 0, 1));
+                }
+                else if (m_Anima[i].Type == ANIMA_TYPE::NONE)
+                {
+                    m_Anima[i].pObj->MeshRender()->SetMaterial(m_AnimaMat[0]);
+                }
+            }
 
-            if (m_Anima[i].Type == ANIMA_TYPE::BLUE)
+            //weapon
+            m_Weapon[i].pObj = pLevel->FindObjectByName(L"Icon_Weapon" + std::to_wstring(i), 31);
+            if (m_Weapon[i].pObj)
             {
-                m_iAnimaCount++;
-                m_Anima[i].pObj->MeshRender()->SetMaterial(m_AnimaMat[1]);
-                m_Anima[i].pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0, 1, 1, 1));
-            }
-            else if (m_Anima[i].Type == ANIMA_TYPE::YELLOW)
-            {
-                m_iAnimaCount++;
-                m_Anima[i].pObj->MeshRender()->SetMaterial(m_AnimaMat[1]);
-                m_Anima[i].pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1, 1, 0, 1));
-            }
-            else if (m_Anima[i].Type == ANIMA_TYPE::NONE)
-            {
-                m_Anima[i].pObj->MeshRender()->SetMaterial(m_AnimaMat[0]);
+                if (m_Weapon[i].Type != -1)
+                {
+                    wstring strName = L"material\\Icon_" + GetScytheName() + L".mat";
+                    Ptr<CMaterial> mat = CAssetMgr::GetInst()->Load<CMaterial>(strName);
+                    m_Weapon[i].pObj->GetRenderComponent()->SetMaterial(mat);
+                    m_Weapon[i].pObj->Activate();
+                }
+                else
+                {
+                    m_Weapon[i].pObj->Deactivate();
+                }
             }
         }
     }
@@ -120,4 +142,12 @@ void CInvenMgr::AddAnima()
             break;
         }
     }
+}
+
+FScytheDamage CInvenMgr::GetScytheDamage()
+{
+    if (m_Weapon[0].Type == (int)SCYTHE_TYPE::DISS)
+        return SCYTHE_DISS_DAMAGE;
+
+    return FScytheDamage{};
 }

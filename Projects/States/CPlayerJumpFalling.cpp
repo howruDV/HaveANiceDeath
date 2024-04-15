@@ -5,6 +5,7 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CInvenMgr.h>
 
 CPlayerJumpFalling::CPlayerJumpFalling()
 	: CState(PLAYERJUMPFALLING)
@@ -42,7 +43,7 @@ void CPlayerJumpFalling::finaltick()
 	if (KEY_TAP(KEY::LBTN))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 
 		if (PLAYERSCRIPT->CanAerialAttack())
 			ChangeState(strCurScytheName + L"_Aerial");
@@ -55,20 +56,20 @@ void CPlayerJumpFalling::finaltick()
 
 	if ((KEY_PRESSED(KEY::S) || KEY_TAP(KEY::S)) && KEY_TAP(KEY::LBTN))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 		ChangeState(strCurScytheName + L"_Crush");
 	}
 
 	if ((KEY_PRESSED(KEY::W) || KEY_TAP(KEY::W)) && KEY_TAP(KEY::LBTN))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 		ChangeState(strCurScytheName + L"_Up");
 	}
 }
 
 void CPlayerJumpFalling::Enter()
 {
-	GetOwner()->Animator2D()->Play(L"Jump_Falling", false);
+	GetOwner()->Animator2D()->Play(L"Jump_Falling", true);
 }
 
 void CPlayerJumpFalling::Exit()

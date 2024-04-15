@@ -3,6 +3,7 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CInvenMgr.h>
 
 CPlayerIdle::CPlayerIdle()
 	: CState(PLAYERIDLE)
@@ -37,7 +38,7 @@ void CPlayerIdle::finaltick()
 	if (KEY_TAP(KEY::LBTN) && (KEY_NONE(KEY::S) || KEY_RELEASED(KEY::S)))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 
 		if (nextCombo == 0)
 			ChangeState(strCurScytheName + L"_ComboA");
@@ -55,7 +56,7 @@ void CPlayerIdle::finaltick()
 
 	if (KEY_TAP(KEY::LBTN) && (KEY_PRESSED(KEY::S) || KEY_TAP(KEY::S)))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 		ChangeState(strCurScytheName + L"_Special");
 	}
 
@@ -71,7 +72,7 @@ void CPlayerIdle::finaltick()
 
 	if ((KEY_PRESSED(KEY::W) || KEY_TAP(KEY::W)) && KEY_TAP(KEY::LBTN))
 	{
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 		ChangeState(strCurScytheName +L"_Up");
 	}
 
@@ -79,7 +80,7 @@ void CPlayerIdle::finaltick()
 	{
 		if (CPlayerMgr::GetPlayerScript()->CanRest())
 		{
-			wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+			wstring strCurScytheName = INVENTORY->GetScytheName();
 			ChangeState(strCurScytheName +L"_Rest");
 		}
 	}

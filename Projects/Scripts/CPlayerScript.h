@@ -49,12 +49,6 @@ private:
     CGameObject* m_AirColPlatform;
     bool m_bAirCol;
 
-    // 무기, 보조무기, 저주
-    // @TODO : 여기서 생성하는것보단 WeaponMgr 만들어서 쭉 파두고 선택하는게 좋을듯?
-    // --------------------------------------------------------------------
-    SCYTHE_TYPE m_CurScythe;
-
-
 public:
     virtual void init() override;
     virtual void begin() override;
@@ -87,14 +81,10 @@ public:
     void SetiMPMax(int _MPMax) { m_iMPMax = _MPMax; }
     void SetiMPCur(int _MPCur) { m_iMPCur = _MPCur; }
     void ResetRest();
-    void SetScythe(SCYTHE_TYPE _Type) { m_CurScythe = _Type; }
     void DeactiveCombo() { m_bComboCan = false; m_fComboAccTime = 0; m_NextComboIdx = 0; }
     void DeactiveAerialAttack() { m_bAerialCan = false; }
 
     CGameObject* GetAirColPlatform() { return m_AirColPlatform; }
-    SCYTHE_TYPE GetScytheType() { return m_CurScythe; }
-    wstring GetScytheName() { return SCYTHE_NAME[(int)m_CurScythe]; }
-    FScytheDamage GetScytheDamage();
     int GetMPCur() { return m_iMPCur; }
     int GetMPMax() { return m_iMPMax; }
     int GetHPActive() { return m_iHPActive; }

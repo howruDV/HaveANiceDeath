@@ -3,8 +3,9 @@
 #include "CPlayerRun.h"
 #include "CPlayerRunToIdle.h"
 
-#include "Scripts/CPlayerMgr.h"
-#include "Scripts/CPlayerScript.h"
+#include "Scripts\CPlayerMgr.h"
+#include "Scripts\CPlayerScript.h"
+#include "Scripts\CInvenMgr.h"
 
 CPlayerRunUTurn::CPlayerRunUTurn()
 	: CState(PLAYERRUNUTURN)
@@ -52,7 +53,7 @@ void CPlayerRunUTurn::finaltick()
 	if (KEY_TAP(KEY::LBTN))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 
 		if (nextCombo == 0)
 			ChangeState(strCurScytheName + L"_ComboA");

@@ -3,6 +3,7 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CInvenMgr.h>
 
 CPlayerRunToIdle::CPlayerRunToIdle()
 	: CState(PLAYERRUNTOIDLE)
@@ -30,7 +31,7 @@ void CPlayerRunToIdle::finaltick()
 	if (KEY_TAP(KEY::LBTN))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();
-		wstring strCurScytheName = PLAYERSCRIPT->GetScytheName();
+		wstring strCurScytheName = INVENTORY->GetScytheName();
 
 		if (nextCombo == 0)
 			ChangeState(strCurScytheName + L"_ComboA");
