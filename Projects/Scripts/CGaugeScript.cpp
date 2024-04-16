@@ -36,19 +36,31 @@ void CGaugeScript::begin()
 
 void CGaugeScript::tick()
 {
-	if (m_iCurVar == m_iTargetVar)
-		return;
+	if (m_iCurVar >= 1.f)
+	{
+		if (KEY_TAP(KEY::Q))
+			GamePlayStatic::Play2DSound(L"sound\\player_Info\\UI_PC_Atk_Rest_On_01.wav", 1, 0.25f);
+		if (KEY_RELEASED(KEY::Q))
+			GamePlayStatic::Play2DSound(L"sound\\player_Info\\UI_PC_Atk_Rest_Off_01.wav", 1, 0.25f);
+	}
 
-	// get gauge
-	float fSpeed = (m_iCurVar < m_iTargetVar) ? SPEED : -SPEED;
-	float fDelta = fSpeed * DT;
+	// update gauage
+	if (m_iCurVar != m_iTargetVar)
+	{
+		// get gauge
+		float fSpeed = (m_iCurVar < m_iTargetVar) ? SPEED : -SPEED;
+		float fDelta = fSpeed * DT;
 
-	if (fabs(fDelta) > fabs(m_iTargetVar - m_iCurVar))
-		fDelta = m_iTargetVar - m_iCurVar;
+		if (fabs(fDelta) > fabs(m_iTargetVar - m_iCurVar))
+			fDelta = m_iTargetVar - m_iCurVar;
 
-	// set guage
-	m_iCurVar += fDelta;
-	GetOwner()->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC2_0, Vec2(0.f, m_iCurVar - 1.f));
+		// set guage
+		m_iCurVar += fDelta;
+		GetOwner()->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC2_0, Vec2(0.f, m_iCurVar - 1.f));
+
+		if (m_iCurVar == 1.f)
+			GamePlayStatic::Play2DSound(L"sound\\player_Info\\UI_PC_Bar_RestAtk_Full_X_01.wav", 1, 0.25f);
+	}
 }
 
 void CGaugeScript::SaveToFile(FILE* _File)

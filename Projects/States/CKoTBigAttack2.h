@@ -6,6 +6,9 @@ class CGameObject;
 class CKoTBigAttack2 :
     public CState
 {
+private:
+    bool m_SoundPlay[4];
+
 public:
     virtual void finaltick() override;
     virtual void Enter() override;

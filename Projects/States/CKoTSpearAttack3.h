@@ -4,6 +4,9 @@
 class CKoTSpearAttack3 :
     public CState
 {
+private:
+    bool m_SoundPlay[3];
+
 public:
     virtual void finaltick() override;
     virtual void Enter() override;

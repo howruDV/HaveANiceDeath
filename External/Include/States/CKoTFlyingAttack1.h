@@ -4,6 +4,9 @@
 class CKoTFlyingAttack1 :
     public CState
 {
+private:
+    bool m_SoundPlay[2];
+
 public:
     virtual void finaltick() override;
     virtual void Enter() override;

@@ -87,6 +87,7 @@ void CPlayerJumpStart::Enter()
 	pMovement->SetVelocity(vJumpVeloc);
 
 	// play jump
+	GamePlayStatic::Play2DSound(L"sound\\player\\PC_Nav_Jump_Lgt_01.wav", 1, 0.25f);
 	GetOwner()->Animator2D()->Play(L"Jump_Start", false);
 }
 

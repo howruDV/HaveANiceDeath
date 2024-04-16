@@ -9,6 +9,7 @@
 
 CKoTFlyingAttack1::CKoTFlyingAttack1()
 	: CState(KOTFLYINGATTACK1)
+	, m_SoundPlay{false, }
 {
 }
 
@@ -37,6 +38,12 @@ void CKoTFlyingAttack1::finaltick()
 	{
 		Scale = Vec3(930, 350, 0);
 		Offset = Vec3(0, 50, 0);
+
+		if (!m_SoundPlay[1])
+		{
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_knight\\NPC_Time_Knight_Atk_Whsh_03.wav", 1, 0.25f);
+			m_SoundPlay[1] = true;
+		}
 	}
 	else if (CurFrame == 9)
 	{
@@ -47,6 +54,12 @@ void CKoTFlyingAttack1::finaltick()
 	{
 		Scale = Vec3(175, 290, 0);
 		Offset = Vec3(87, 60, 0);
+
+		if (!m_SoundPlay[0])
+		{
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_knight\\NPC_Time_Knight_Vo_Atk_Short_01.wav", 1, 0.2f);
+			m_SoundPlay[0] = true;
+		}
 	}
 
 	if (MONSTERSCRIPT->GetDir() == UNIT_DIRX::LEFT)
@@ -72,6 +85,9 @@ void CKoTFlyingAttack1::Enter()
 {
 	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Collider2D()->Activate();
 	GetOwner()->Animator2D()->Play(L"Attack2", false);
+
+	for (bool& iter : m_SoundPlay)
+		iter = false;
 }
 
 void CKoTFlyingAttack1::Exit()

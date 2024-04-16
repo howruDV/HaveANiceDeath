@@ -53,6 +53,7 @@ void CPlayerDash::Enter()
 	GetOwner()->Movement()->SetVelocity(vSpeed);
 
 	// anim
+	GamePlayStatic::Play2DSound(L"sound\\player\\PC_Nav_Dash_Lgt_01.wav", 1, 0.25f);
 	GetOwner()->Animator2D()->Play(L"Dash", true);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 }

@@ -6,6 +6,7 @@ class CKoTSpearAttack1 :
     public CState
 {
 private:
+    bool m_SoundPlay[2];
     Ptr<CPrefab> m_pProj;
     bool m_bThrow;
 

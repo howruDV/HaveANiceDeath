@@ -32,6 +32,12 @@ void CPlayerHit::Enter()
 
 	// anim
 	GetOwner()->Animator2D()->Play(L"Hit", false);
+
+	// sound
+	wstring strName = L"sound\\player\\Onos_Player_Death_Hit_light_0";
+	int rand = Random(1, 9);
+	strName += std::to_wstring(rand) + L".wav";
+	GamePlayStatic::Play2DSound(strName, 1, 0.2f);
 }
 
 void CPlayerHit::Exit()

@@ -14,12 +14,12 @@ class CSound :
 	public CAsset
 {
 public:
-	static FMOD::System* g_pFMOD; // FMOD 관리자 클래스
+	static FMOD::System*	g_pFMOD;		// FMOD 관리자 클래스
 
 public:
-	FMOD::Sound* m_pSound;       // 로딩된 사운드 객체
+	FMOD::Sound*			m_pSound;       // 로딩된 사운드 객체
 	list<FMOD::Channel*>	m_listChannel;  // 사운드가 재생되고 있는 채널
-
+	bool					m_bPlay;
 
 public:
 	// _iRoopCount : 0 (무한반복),  _fVolume : 0 ~ 1(Volume), _bOverlap : 소리 중첩 가능여부
@@ -38,11 +38,12 @@ private:
 public:
 	virtual void UpdateData() {}
 
-	// 파일로 저장
 	virtual int Save(const wstring&) override { return S_OK; }
-
-	// 파일로부터 로딩
 	virtual int Load(const wstring& _strFilePath) override;
+
+public:
+	void SetPlay(bool _Play) { m_bPlay = _Play; }
+	bool IsPlaying() { return m_bPlay; }
 
 public:
 	CLONE_DISABLE(CSound);

@@ -82,6 +82,7 @@ void CScytheDissAerial::Enter()
 		GetOwner()->Movement()->UseGravity(false);
 	}
 
+	GamePlayStatic::Play2DSound(L"sound\\scythe\\diss\\PC_Atk_Flail_Combo4_01.wav", 1, 0.25f);
 	GetOwner()->Animator2D()->Play(L"ScytheDiss_Aerial", false);
 
 	PLAYERSCRIPT->DeactiveAerialAttack();

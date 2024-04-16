@@ -4,6 +4,9 @@
 class CKoTBigAttack1 :
     public CState
 {
+private:
+    bool m_SoundPlay;
+
 public:
     virtual void finaltick() override;
     virtual void Enter() override;

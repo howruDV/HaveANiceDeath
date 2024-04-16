@@ -36,6 +36,13 @@ void CKoTBigAttack1::finaltick()
 	{
 		Scale = Vec3(640, 480, 0);
 		Offset = Vec3(125, 120, 0);
+
+		if (!m_SoundPlay)
+		{
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_hammer\\NPC_TimeHammer_Atk_Ground_01.wav", 1, 0.25f);
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_hammer\\NPC_TimeHammer_VO_Atk_Hvy_01.wav", 1, 0.2f);
+			m_SoundPlay = true;
+		}
 	}
 	else if (CurFrame >= 3 && CurFrame <= 7)
 	{
@@ -66,6 +73,9 @@ void CKoTBigAttack1::Enter()
 {
 	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Collider2D()->Activate();
 	GetOwner()->Animator2D()->Play(L"Attack1", false);
+	GamePlayStatic::Play2DSound(L"sound\\npc_time_hammer\\NPC_TimeHammer_Atk_Ground_Prepa_01.wav", 1, 0.2f);
+
+	m_SoundPlay = false;
 }
 
 void CKoTBigAttack1::Exit()

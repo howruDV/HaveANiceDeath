@@ -92,6 +92,7 @@ void CScytheDissUp::Enter()
 	GetOwner()->Movement()->SetVelocity(Vec3());
 	m_TargetPos = GetOwner()->Transform()->GetRelativePos() + m_MoveTop;
 
+	GamePlayStatic::Play2DSound(L"sound\\scythe\\diss\\PC_Atk_Flail_Lvl3_Proj_Up_03.wav", 1, 0.25f);
 	GetOwner()->Animator2D()->Play(L"ScytheDiss_Up", false);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 

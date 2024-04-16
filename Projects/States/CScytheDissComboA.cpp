@@ -81,6 +81,7 @@ void CScytheDissComboA::finaltick()
 
 void CScytheDissComboA::Enter()
 {
+	GamePlayStatic::Play2DSound(L"sound\\scythe\\diss\\PC_Atk_Flail_Combo1_01.wav", 1, 0.25f);
 	GetOwner()->Animator2D()->Play(L"ScytheDiss_ComboA", false);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 

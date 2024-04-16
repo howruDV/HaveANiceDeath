@@ -103,6 +103,7 @@ bool CInvenMgr::UseAnima()
         m_Anima[idx].Type = ANIMA_TYPE::NONE;
 
         CPlayerMgr::GetPlayerScript()->AddHPCur(ANIMA_BLUE);
+        GamePlayStatic::Play2DSound(L"sound\\player_Info\\anima\\UI_Anima_Heal_Lgt_02.wav", 1, 0.25f);
     }
 
     else if (m_Anima[idx].Type == ANIMA_TYPE::YELLOW)
@@ -113,6 +114,7 @@ bool CInvenMgr::UseAnima()
 
         CPlayerMgr::GetPlayerScript()->AddHPCur(ANIMA_BLUE);
         CPlayerMgr::GetPlayerScript()->AddHPActive(ANIMA_YELLOW);
+        GamePlayStatic::Play2DSound(L"sound\\player_Info\\anima\\UI_Anima_Heal_Hvy_01.wav", 1, 0.25f);
     }
 
     return true;
@@ -127,6 +129,11 @@ void CInvenMgr::AddAnima()
         m_Anima[m_iAnimaCount].pObj->MeshRender()->SetMaterial(m_AnimaMat[1]);
         m_Anima[m_iAnimaCount].pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0, 1, 1, 1));
         m_iAnimaCount++;
+
+        wstring strName = L"sound\\player_Info\\anima\\GPE_Potion_Anima_Socket_0";
+        int rand = Random(1, 3);
+        strName += std::to_wstring(rand) + L".wav";
+        GamePlayStatic::Play2DSound(strName, 1, 0.25f);
     }
 
     // case: anima is full
@@ -139,6 +146,7 @@ void CInvenMgr::AddAnima()
 
             m_Anima[i].Type = ANIMA_TYPE::YELLOW;
             m_Anima[i].pObj->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1, 1, 0, 1));
+            GamePlayStatic::Play2DSound(L"sound\\player_Info\\anima\\GPE_Potion_Anima_Socket_Big_03.wav", 1, 0.25f);
             break;
         }
     }

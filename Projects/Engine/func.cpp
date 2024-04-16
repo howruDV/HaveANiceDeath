@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CTaskMgr.h"
 #include "CRenderMgr.h"
+#include <random>
 
 void GamePlayStatic::SpawnGameObject(CGameObject* _Target, int _LayerIdx)
 {
@@ -118,6 +119,13 @@ void GamePlayStatic::Play2DBGM(const wstring& _SoundPath, float _Volume)
 	}
 }
 
+void GamePlayStatic::Stop2DBGM(const wstring& _SoundPath)
+{
+	Ptr<CSound> pSound = CAssetMgr::GetInst()->Load<CSound>(_SoundPath, _SoundPath);
+	if (nullptr != pSound)
+		pSound->Stop();
+}
+
 void Vector3::ToDegree()
 {
 	x = (x / XM_PI) * 180.f;
@@ -130,6 +138,16 @@ void Vector3::ToRadian()
 	x = (x / 180.f) * XM_PI;
 	y = (y / 180.f) * XM_PI;
 	z = (z / 180.f) * XM_PI;
+}
+
+int Random(int min, int max)
+{
+	int ret = 0;
+	std::random_device rd;  // true 랜덤 수 발생기
+	std::mt19937 gen(rd()); // mersenne_twister_engine 알고리즘 사용
+	std::uniform_int_distribution<int> dis(min, max); // 분포 설정
+
+	return dis(gen); // 랜덤 정수 반환
 }
 
 string WstrToStr(const wstring& _wstr)

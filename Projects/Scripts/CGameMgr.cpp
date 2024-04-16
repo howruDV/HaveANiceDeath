@@ -15,11 +15,14 @@ CGameMgr::CGameMgr()
 
 CGameMgr::~CGameMgr()
 {
+	GamePlayStatic::Stop2DBGM(L"sound\\field_time\\Amb_Lp_Level_W08_MysticDunes_01.wav");
 }
 
 void CGameMgr::begin()
 {
 	CPlayerMgr::GetPlayerScript()->StateMachine()->GetFSM()->ChangeState(L"Elevator_Out");
+
+	GamePlayStatic::Play2DBGM(L"sound\\field_time\\Amb_Lp_Level_W08_MysticDunes_01.wav", 0.3f);
 }
 
 void CGameMgr::tick()

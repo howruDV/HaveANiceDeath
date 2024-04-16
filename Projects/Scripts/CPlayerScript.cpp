@@ -441,7 +441,14 @@ void CPlayerScript::HitDamage(FDamage _Damage)
 
 void CPlayerScript::Attack()
 {
+	if (m_iRestCur >= m_iRestMax)
+		return;
+
 	m_iRestCur += 5;
+
+	if (m_iRestCur > m_iRestMax)
+		m_iRestCur = m_iRestMax;
+	
 	m_RestGauge->Increase((float)m_iRestCur/(float)m_iRestMax);
 }
 

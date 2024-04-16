@@ -11,6 +11,7 @@ FMOD::System* CSound::g_pFMOD = nullptr;
 CSound::CSound(bool _Engine)
 	: CAsset(ASSET_TYPE::SOUND, _Engine)
 	, m_pSound(nullptr)
+	, m_bPlay(false)
 {
 }
 
@@ -59,6 +60,8 @@ int CSound::Play(int _iRoopCount, float _fVolume, bool _bOverlap)
 	int iIdx = -1;
 	pChannel->getIndex(&iIdx);
 
+	m_bPlay = true;
+
 	return iIdx;
 }
 
@@ -72,6 +75,8 @@ void CSound::Stop()
 		iter = m_listChannel.begin();
 		(*iter)->stop();
 	}
+
+	m_bPlay = false;
 }
 
 void CSound::RemoveChannel(FMOD::Channel* _pTargetChannel)
@@ -135,6 +140,7 @@ FMOD_RESULT CHANNEL_CALLBACK(FMOD_CHANNELCONTROL* channelcontrol, FMOD_CHANNELCO
 	{
 		cppchannel->getUserData((void**)&pSound);
 		pSound->RemoveChannel(cppchannel);
+		pSound->SetPlay(false);
 	}
 	break;
 	}

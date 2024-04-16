@@ -2,13 +2,23 @@
 #include "CScytheDissSpecial.h"
 
 #include <Engine/CTransform.h>
+#include <Engine/CCollider2D.h>
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
 
 CScytheDissSpecial::CScytheDissSpecial()
 	: CState(SCYTHEDISSSPECIAL)
+	, m_SoundIdx(0)
 {
+	wstring strName = L"sound\\scythe\\diss\\PC_Atk_Flail_Lvl3_Proj_Down_0";
+
+	for (int i = 1; i <= 4; i++)
+	{
+		Ptr<CSound> pSound = CAssetMgr::GetInst()->Load<CSound>(strName + std::to_wstring(i) + L".wav");
+		if (pSound != nullptr)
+			m_vecSound.push_back(pSound);
+	}
 }
 
 CScytheDissSpecial::~CScytheDissSpecial()
@@ -16,7 +26,17 @@ CScytheDissSpecial::~CScytheDissSpecial()
 }
 
 void CScytheDissSpecial::finaltick()
-{	// Update HitBox Transform
+{	
+	// Play Sound
+	if (!m_vecSound[m_SoundIdx].Get()->IsPlaying())
+	{
+		if (++m_SoundIdx > 4)
+			m_SoundIdx = 0;
+
+		m_vecSound[m_SoundIdx].Get()->Play(1, 0.4f);
+	}
+	
+	// Update HitBox Transform
 	int CurFrame = GetOwner()->Animator2D()->GetCurAnimFrmIdx();
 	Vec3 Offset;
 	Vec3 Scale;
@@ -62,10 +82,13 @@ void CScytheDissSpecial::finaltick()
 
 void CScytheDissSpecial::Enter()
 {
-	GetOwner()->Animator2D()->Play(L"ScytheDiss_Special", false);
 	m_OrginScale = GetOwner()->Transform()->GetRelativeScale();
 	Vec3 Scale = m_OrginScale * 1.2f;
 	GetOwner()->Transform()->SetRelativeScale(Scale);
+
+	m_SoundIdx = 0;
+	m_vecSound[0].Get()->Play(1, 0.4f);
+	GetOwner()->Animator2D()->Play(L"ScytheDiss_Special", false);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 
 	// hitbox

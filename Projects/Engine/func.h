@@ -26,12 +26,15 @@ namespace GamePlayStatic
 	// sound
 	void Play2DSound(const wstring& _SoundPath, int _Loop, float _Volume, bool _Overlap = true);
 	void Play2DBGM(const wstring& _SoundPath, float _Volume);
+	void Stop2DBGM(const wstring& _SoundPath);
 }
 
 string WstrToStr(const wstring& _wstr);
 wstring StrToWstr(const string& _str);
 void SaveWString(const wstring& _str, FILE* _File);
 void LoadWString(wstring& _str, FILE* _FILE);
+
+int Random(int min, int max);
 
 template<typename T, UINT SIZE>
 void Delete_Array(T* (&Arr)[SIZE])

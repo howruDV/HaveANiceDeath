@@ -9,6 +9,7 @@
 
 CKoTSpearAttack1::CKoTSpearAttack1()
 	: CState(KOTSPEARATTACK1)
+	, m_SoundPlay{false,}
 	, m_bThrow(false)
 {
 	m_pProj = CAssetMgr::GetInst()->FindAsset<CPrefab>(L"KoTSpear_Proj");
@@ -28,6 +29,20 @@ void CKoTSpearAttack1::finaltick()
 		// @TODO 터지면 여기... bThrow값을 공유하고 있음
 		InstanceProj();
 		m_bThrow = true;
+
+		if (!m_SoundPlay[1])
+		{
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_spear\\NPC_TimeSpear_Atk_Throw_Whsh_01.wav", 1, 0.25f);
+			m_SoundPlay[1] = true;
+		}
+	}
+	else if (CurFrame == 16)
+	{
+		if (!m_SoundPlay[0])
+		{
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_spear\\NPC_TimeSpear_Vo_Atk_Lgt_03.wav", 1, 0.25f);
+			m_SoundPlay[0] = true;
+		}
 	}
 
 	// playing anim
@@ -43,6 +58,9 @@ void CKoTSpearAttack1::finaltick()
 void CKoTSpearAttack1::Enter()
 {
 	GetOwner()->Animator2D()->Play(L"Attack1", false);
+
+	for (bool& iter : m_SoundPlay)
+		iter = false;
 }
 
 void CKoTSpearAttack1::Exit()

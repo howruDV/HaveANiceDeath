@@ -8,6 +8,7 @@
 
 CKoTSpearAttack2::CKoTSpearAttack2()
 	: CState(KOTSPEARATTACK2)
+	, m_SoundPlay{false, }
 {
 }
 
@@ -26,10 +27,25 @@ void CKoTSpearAttack2::finaltick()
 	Vec3 Offset;
 	Vec3 Scale;
 
+	if (CurFrame == 17)
+	{
+		if (!m_SoundPlay[2])
+		{
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_spear\\NPC_TimeSpear_Land_Lgt_02.wav", 1, 0.25f);
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_spear\\NPC_TimeSpear_Vo_Atk_Lgt_01.wav", 1, 0.25f);
+			m_SoundPlay[2] = true;
+		}
+	}
 	if (CurFrame >= 11 && CurFrame <= 14)
 	{
 		Scale = Vec3(345, 275, 0);
 		Offset = Vec3(175, -185, 0);
+
+		if (!m_SoundPlay[1])
+		{
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_spear\\NPC_TimeSpear_Atk_Punch_Whsh_01.wav", 1, 0.25f);
+			m_SoundPlay[1] = true;
+		}
 	}
 
 	if (MONSTERSCRIPT->GetDir() == UNIT_DIRX::LEFT)
@@ -49,6 +65,12 @@ void CKoTSpearAttack2::finaltick()
 			vForce.x *= -1;
 
 		GetOwner()->Movement()->SetVelocity(vForce);
+
+		if (!m_SoundPlay[0])
+		{
+			GamePlayStatic::Play2DSound(L"sound\\npc_time_spear\\NPC_TimeSpear_Jump_Lgt_01.wav", 1, 0.25f);
+			m_SoundPlay[0] = true;
+		}
 	}
 
 	// playing anim
@@ -65,6 +87,9 @@ void CKoTSpearAttack2::Enter()
 {
 	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Collider2D()->Activate();
 	GetOwner()->Animator2D()->Play(L"Attack4", false);
+
+	for (bool& iter : m_SoundPlay)
+		iter = false;
 }
 
 void CKoTSpearAttack2::Exit()
