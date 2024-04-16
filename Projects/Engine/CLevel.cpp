@@ -88,6 +88,7 @@ void CLevel::ChangeState(LEVEL_STATE _NextState)
 		if (LEVEL_STATE::STOP == m_State || LEVEL_STATE::NONE == m_State)
 		{
 			m_State = _NextState;
+			finaltick();
 			begin();
 		}
 	}

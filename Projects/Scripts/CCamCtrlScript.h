@@ -28,7 +28,9 @@ private:
     Vec3 m_vPrevPos;
     Vec3 m_vMove;
     float m_fSpeed;
+
     deque<FCamEffect> m_queueEffect;
+    CGameObject* m_Transition;
 
 public:
     virtual void begin() override;
@@ -40,6 +42,7 @@ public:
 public:
     void SetTarget(CGameObject* _Target) { m_Target = _Target; }
     void PushEffect(FCamEffect _Effect) { m_queueEffect.push_back(_Effect); }
+    void PushTransition(bool _Start);
 
     Vec3 GetMove() { return m_vMove; }
 

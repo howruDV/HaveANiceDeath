@@ -13,6 +13,8 @@ class CGameMgr :
 private:
 	static CGameObject* m_pMainCamera;
 	CGameObject* m_GameEnding_Fail;
+	bool m_bTitle;
+	float m_bTitleAcc;
 
 public:
 	virtual void begin() override;

@@ -2,6 +2,9 @@
 #include "CElevatorScript.h"
 #include "CPlayerMgr.h"
 
+#include "CGameMgr.h"
+#include "CCamCtrlScript.h"
+
 #include <Engine\CKeyMgr.h>
 #include <Engine\CAnimator2D.h>
 #include <Engine\CTransform.h>
@@ -9,6 +12,7 @@
 CElevatorScript::CElevatorScript()
 	: CScript(ELEVATORSCRIPT)
 	, m_bStartOpen(true)
+	, m_bGameEnd(false)
 {
 	AddScriptParam(SCRIPT_PARAM::BOOL, "Start Open", &m_bStartOpen);
 }
@@ -53,10 +57,14 @@ void CElevatorScript::tick()
 	if (fDist > 300.f)
 		return;
 
+	if (m_bGameEnd && !Animator2D()->IsPlaying())
+		CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushTransition(true);
+
 	if (KEY_TAP(KEY::F))
 	{
 		// @TODO Level Control
 		Close();
+		m_bGameEnd = true;
 	}
 }
 

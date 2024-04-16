@@ -88,6 +88,10 @@
     <ClInclude Include="CInvenMgr.h">
       <Filter>Manager\InvenMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CTitleMgr.h">
+      <Filter>Manager\TitleMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -171,6 +175,10 @@
     <ClCompile Include="CInvenMgr.cpp">
       <Filter>Manager\InvenMgr</Filter>
     </ClCompile>
+    <ClCompile Include="CTitleMgr.cpp">
+      <Filter>Manager\TitleMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -265,6 +273,9 @@
     </Filter>
     <Filter Include="Scripts\UI\Guage">
       <UniqueIdentifier>{57587d79-e9ca-4bb5-bb1e-6242d92bb87b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\TitleMgr">
+      <UniqueIdentifier>{bbb1656e-dced-4492-802e-53a3d5cd6c26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

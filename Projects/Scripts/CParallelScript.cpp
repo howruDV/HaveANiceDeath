@@ -42,8 +42,7 @@ void CParallelScript::begin()
 	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
 	if (pLevel)
 	{
-		int LayerIdx = pLevel->GetLayerIdxByName(L"Default");
-		m_MainCamCtrlr = pLevel->FindObjectByName(L"MainCamera", LayerIdx)->GetScriptByType<CCamCtrlScript>();
+		m_MainCamCtrlr = pLevel->FindObjectByName(L"MainCamera", 0)->GetScriptByType<CCamCtrlScript>();
 	}
 
 	Ptr<CMaterial> pMat = GetOwner()->MeshRender()->GetMaterial();

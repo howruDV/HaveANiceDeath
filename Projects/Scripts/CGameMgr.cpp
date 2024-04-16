@@ -4,13 +4,17 @@
 #include "CPlayerScript.h"
 
 #include <Engine\CLevelMgr.h>
+#include <Engine\CTimeMgr.h>
 #include <Engine\CLevel.h>
 #include <Engine\CStateMachine.h>
+
+#include <Scripts\CCamCtrlScript.h>
 
 CGameObject* CGameMgr::m_pMainCamera = nullptr;
 
 CGameMgr::CGameMgr()
 	: CScript(GAMEMGR)
+	, m_bTitleAcc(0.f)
 {
 	AddScriptParam(SCRIPT_PARAM::OBJECT, "GameEnding (Fail)", &m_GameEnding_Fail);
 }
@@ -33,6 +37,7 @@ void CGameMgr::begin()
 	{
 		int LayerIdx = pLevel->GetLayerIdxByName(L"Default");
 		m_pMainCamera = pLevel->FindObjectByName(L"MainCamera", LayerIdx);
+		m_pMainCamera->GetScriptByType<CCamCtrlScript>()->PushTransition(true);
 	}
 }
 
@@ -43,20 +48,24 @@ void CGameMgr::tick()
 	if (pPlayerScript && pPlayerScript->IsDead() && !pPlayerScript->Animator2D()->IsPlaying())
 	{
 		GameEnding_Fail();
+		m_bTitle = true;
+	}
+
+	if (m_bTitle)
+	{
+		m_bTitleAcc += DT;
+
+		if (m_bTitleAcc > 5.f)
+		{
+			CLevel* pLevel = CLevel::LEVEL_LOAD(L"level\\Title.lv");
+			CLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::PLAY);
+		}
 	}
 }
 
 void CGameMgr::GameEnding_Fail()
 {
-	CLevel* pLevel = CLevel::LEVEL_LOAD(L"level\\Ending_tmp.lv");
-	CLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::PLAY);
-
-	/*m_GameEnding_Fail->Activate();
-
-	CGameObject* pAnimObj = m_GameEnding_Fail->GetChildByName(L"Dead_Screen");
-
-	if (!pAnimObj->Animator2D()->IsPlaying())
-	pAnimObj->Animator2D()->Play(L"Dead_Screen", false);*/
+	m_pMainCamera->GetScriptByType<CCamCtrlScript>()->PushTransition(false);
 }
 
 void CGameMgr::GameEnding_Win()
