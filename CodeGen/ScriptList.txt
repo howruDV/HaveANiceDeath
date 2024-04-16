@@ -1,5 +1,6 @@
 CBloomScript
 CCamCtrlScript
+CCameraEffect
 CCornerTriggerScript
 CElevatorScript
 CGameMgr

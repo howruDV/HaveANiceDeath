@@ -41,29 +41,68 @@ void CCamCtrlScript::begin()
 
 void CCamCtrlScript::tick()
 {
+	// chase target
 	if (!m_Target)
 	{
 		m_vMove = Vec3();
-		return;
+	}
+	else
+	{
+		Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
+		Vec3 vCamPos = GetOwner()->Transform()->GetWorldPos();
+		Vec3 vUpdatePos;
+		vTargetPos.z = vCamPos.z;
+
+		Vec3 vDir = (vTargetPos - vCamPos).Normalize();
+		vUpdatePos = vCamPos + vDir * DT * m_fSpeed;
+		m_vMove.x = vUpdatePos.x - vCamPos.x;
+		m_vMove.y = vUpdatePos.y - vCamPos.y;
+
+		if (m_vMove.Length() > (vTargetPos - vCamPos).Length())
+			vUpdatePos = vTargetPos;
+
+		vUpdatePos = CheckCamArea(vUpdatePos);
+		m_vMove = vUpdatePos - vCamPos;
+
+		Transform()->SetRelativePos(Vec3(vUpdatePos.x, vUpdatePos.y, vCamPos.z));
 	}
 
-	Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
-	Vec3 vCamPos = GetOwner()->Transform()->GetWorldPos();
-	Vec3 vUpdatePos;
-	vTargetPos.z = vCamPos.z;
+	// play effect
+	if (!m_queueEffect.empty())
+	{
+		FCamEffect& CurEffect = m_queueEffect.front();
 
-	Vec3 vDir = (vTargetPos - vCamPos).Normalize();
-	vUpdatePos = vCamPos + vDir * DT * m_fSpeed;
-	m_vMove.x = vUpdatePos.x - vCamPos.x;
-	m_vMove.y = vUpdatePos.y - vCamPos.y;
+		switch (CurEffect.Type)
+		{
+		case CAMEFFECT_TYPE::SHAKE:
+		{
+			float Strength = CurEffect.fVar;
+			Vec3 vDelta;
+			vDelta.x = sin(CTimeMgr::GetInst()->GetGameTime() * 30.f) * Strength;
+			vDelta.y = cos(CTimeMgr::GetInst()->GetGameTime() * 10.f) * Strength;
 
-	if (m_vMove.Length() > (vTargetPos - vCamPos).Length())
-		vUpdatePos = vTargetPos;
+			Vec3 Pos = Transform()->GetRelativePos() + vDelta;
+			Transform()->SetRelativePos(Pos);
+		}
+		break;
 
-	vUpdatePos = CheckCamArea(vUpdatePos);
-	m_vMove = vUpdatePos - vCamPos;
+		case CAMEFFECT_TYPE::TRANSITION_ON:
+		{
 
-	GetOwner()->Transform()->SetRelativePos(Vec3(vUpdatePos.x, vUpdatePos.y, vCamPos.z));
+		}
+		break;
+
+		case CAMEFFECT_TYPE::TRANSITION_OFF:
+		{
+
+		}
+		break;
+		}
+
+		CurEffect.fAccTime += DT;
+		if (CurEffect.fAccTime > CurEffect.fPlayTime)
+			m_queueEffect.pop_front();
+	}
 }
 
 void CCamCtrlScript::SaveToFile(FILE* _File)

@@ -1,5 +1,22 @@
 #pragma once
 #include <Engine/CScript.h>
+#include <deque>
+
+enum class CAMEFFECT_TYPE
+{
+    SHAKE,
+    TRANSITION_OFF,
+    TRANSITION_ON,
+    END,
+};
+
+struct FCamEffect
+{
+    CAMEFFECT_TYPE Type;
+    float fPlayTime;
+    float fAccTime;
+    float fVar;
+};
 
 class CGameObejct;
 
@@ -11,6 +28,7 @@ private:
     Vec3 m_vPrevPos;
     Vec3 m_vMove;
     float m_fSpeed;
+    deque<FCamEffect> m_queueEffect;
 
 public:
     virtual void begin() override;
@@ -21,6 +39,7 @@ public:
 
 public:
     void SetTarget(CGameObject* _Target) { m_Target = _Target; }
+    void PushEffect(FCamEffect _Effect) { m_queueEffect.push_back(_Effect); }
 
     Vec3 GetMove() { return m_vMove; }
 

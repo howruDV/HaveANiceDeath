@@ -28,6 +28,9 @@ void CElevatorScript::begin()
 {
 	if (m_bStartOpen)
 		Open();
+
+	GetOwner()->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.1f, 0.2f, 0.1f, 1.f));
+	GetOwner()->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.8f);
 }
 
 void CElevatorScript::tick()

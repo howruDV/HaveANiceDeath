@@ -101,6 +101,14 @@ void GamePlayStatic::Play2DSound(const wstring& _SoundPath, int _Loop, float _Vo
 	}
 }
 
+void GamePlayStatic::Stop2DSound(const wstring& _SoundPath)
+{
+	Ptr<CSound> pSound = CAssetMgr::GetInst()->Load<CSound>(_SoundPath, _SoundPath);
+
+	if (nullptr != pSound)
+		pSound->Stop();
+}
+
 void GamePlayStatic::Play2DBGM(const wstring& _SoundPath, float _Volume)
 {
 	static Ptr<CSound> CurBGM = nullptr;

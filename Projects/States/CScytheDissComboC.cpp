@@ -6,6 +6,8 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts\CGameMgr.h>
+#include <Scripts\CCamCtrlScript.h>
 
 CScytheDissComboC::CScytheDissComboC()
 	: CState(SCYTHEDISSCOMBOC)
@@ -55,6 +57,13 @@ void CScytheDissComboC::Enter()
 	GamePlayStatic::Play2DSound(L"sound\\scythe\\diss\\PC_Atk_Flail_Combo3_01.wav", 1, 0.25f);
 	GetOwner()->Animator2D()->Play(L"ScytheDiss_ComboC", false);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+
+	// camera
+	FCamEffect Shake{};
+	Shake.Type = CAMEFFECT_TYPE::SHAKE;
+	Shake.fPlayTime = 1.f;
+	Shake.fVar = 1.5f;
+	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
 
 	// hitbox
 	m_pHitbox = GetOwner()->GetChildByName(L"ComboC_Hitbox");

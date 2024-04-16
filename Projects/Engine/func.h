@@ -25,6 +25,7 @@ namespace GamePlayStatic
 
 	// sound
 	void Play2DSound(const wstring& _SoundPath, int _Loop, float _Volume, bool _Overlap = true);
+	void Stop2DSound(const wstring& _SoundPath);
 	void Play2DBGM(const wstring& _SoundPath, float _Volume);
 	void Stop2DBGM(const wstring& _SoundPath);
 }

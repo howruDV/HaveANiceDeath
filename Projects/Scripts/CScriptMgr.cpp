@@ -3,6 +3,7 @@
 
 #include "CBloomScript.h"
 #include "CCamCtrlScript.h"
+#include "CCameraEffect.h"
 #include "CCornerTriggerScript.h"
 #include "CElevatorScript.h"
 #include "CGameMgr.h"
@@ -27,6 +28,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"CBloomScript");
 	_vec.push_back(L"CCamCtrlScript");
+	_vec.push_back(L"CCameraEffect");
 	_vec.push_back(L"CCornerTriggerScript");
 	_vec.push_back(L"CElevatorScript");
 	_vec.push_back(L"CGameMgr");
@@ -54,6 +56,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CBloomScript;
 	if (L"CCamCtrlScript" == _strScriptName)
 		return new CCamCtrlScript;
+	if (L"CCameraEffect" == _strScriptName)
+		return new CCameraEffect;
 	if (L"CCornerTriggerScript" == _strScriptName)
 		return new CCornerTriggerScript;
 	if (L"CElevatorScript" == _strScriptName)
@@ -104,6 +108,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::CAMCTRLSCRIPT:
 		return new CCamCtrlScript;
+		break;
+	case (UINT)SCRIPT_TYPE::CAMERAEFFECT:
+		return new CCameraEffect;
 		break;
 	case (UINT)SCRIPT_TYPE::CORNERTRIGGERSCRIPT:
 		return new CCornerTriggerScript;
@@ -176,6 +183,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::CAMCTRLSCRIPT:
 		return L"CCamCtrlScript";
+		break;
+
+	case SCRIPT_TYPE::CAMERAEFFECT:
+		return L"CCameraEffect";
 		break;
 
 	case SCRIPT_TYPE::CORNERTRIGGERSCRIPT:

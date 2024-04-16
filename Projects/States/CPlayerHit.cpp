@@ -3,6 +3,8 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts/CGameMgr.h>
+#include <Scripts\CCamCtrlScript.h>
 
 CPlayerHit::CPlayerHit()
 	: CState(PLAYERHIT)
@@ -25,6 +27,13 @@ void CPlayerHit::finaltick()
 
 void CPlayerHit::Enter()
 {
+	// camera
+	FCamEffect Shake{};
+	Shake.Type = CAMEFFECT_TYPE::SHAKE;
+	Shake.fPlayTime = 0.3f;
+	Shake.fVar = 2.f;
+	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
+	
 	// setting
 	GetOwner()->Movement()->SetVelocity(Vec3());
 	PLAYERSCRIPT->SetDirLock(true);

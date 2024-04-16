@@ -11,6 +11,7 @@ class CGameMgr :
     public CScript
 {
 private:
+	static CGameObject* m_pMainCamera;
 	CGameObject* m_GameEnding_Fail;
 
 public:
@@ -26,6 +27,8 @@ private:
 
 public:
 	void SetGameEndingFail(CGameObject* pObj) { m_GameEnding_Fail = pObj; }
+
+	static CGameObject* GetMainCamera() { return m_pMainCamera; }
 
 public:
 	CLONE_DISABLE(CGameMgr)

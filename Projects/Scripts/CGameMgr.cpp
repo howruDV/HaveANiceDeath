@@ -7,6 +7,8 @@
 #include <Engine\CLevel.h>
 #include <Engine\CStateMachine.h>
 
+CGameObject* CGameMgr::m_pMainCamera = nullptr;
+
 CGameMgr::CGameMgr()
 	: CScript(GAMEMGR)
 {
@@ -15,14 +17,23 @@ CGameMgr::CGameMgr()
 
 CGameMgr::~CGameMgr()
 {
-	GamePlayStatic::Stop2DBGM(L"sound\\field_time\\Amb_Lp_Level_W08_MysticDunes_01.wav");
+	GamePlayStatic::Stop2DBGM(L"sound\\field_time\\HAND World 8 WORLD V2 2.2.wav");
+	GamePlayStatic::Stop2DSound(L"sound\\field_time\\Amb_Elt_W08_ClockMechanisms_Lp_01.wav");
 }
 
 void CGameMgr::begin()
 {
 	CPlayerMgr::GetPlayerScript()->StateMachine()->GetFSM()->ChangeState(L"Elevator_Out");
 
-	GamePlayStatic::Play2DBGM(L"sound\\field_time\\Amb_Lp_Level_W08_MysticDunes_01.wav", 0.3f);
+	GamePlayStatic::Play2DBGM(L"sound\\field_time\\HAND World 8 WORLD V2 2.2.wav", 0.3f);
+	GamePlayStatic::Play2DSound(L"sound\\field_time\\Amb_Elt_W08_ClockMechanisms_Lp_01.wav", 0, 0.15f);
+
+	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+	if (pLevel)
+	{
+		int LayerIdx = pLevel->GetLayerIdxByName(L"Default");
+		m_pMainCamera = pLevel->FindObjectByName(L"MainCamera", LayerIdx);
+	}
 }
 
 void CGameMgr::tick()

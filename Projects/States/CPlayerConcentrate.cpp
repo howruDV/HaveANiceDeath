@@ -3,6 +3,8 @@
 
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
+#include <Scripts\CGameMgr.h>
+#include <Scripts\CCamCtrlScript.h>
 
 CPlayerConcentrate::CPlayerConcentrate()
 	: CState(PLAYERCONCENTRATE)
@@ -30,6 +32,13 @@ void CPlayerConcentrate::Enter()
 {
 	GetOwner()->Animator2D()->Play(L"Concentrate", true);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+
+	// camera
+	FCamEffect Shake{};
+	Shake.Type = CAMEFFECT_TYPE::SHAKE;
+	Shake.fPlayTime = 1.f;
+	Shake.fVar = 1.5f;
+	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
 }
 
 void CPlayerConcentrate::Exit()
