@@ -162,7 +162,6 @@ call ScriptsCopy.bat</Command>
   <ItemGroup>
     <ClInclude Include="CBloomScript.h" />
     <ClInclude Include="CCamCtrlScript.h" />
-    <ClInclude Include="CCameraEffect.h" />
     <ClInclude Include="CCornerTriggerScript.h" />
     <ClInclude Include="CElevatorScript.h" />
     <ClInclude Include="CGameMgr.h" />
@@ -195,7 +194,6 @@ call ScriptsCopy.bat</Command>
   <ItemGroup>
     <ClCompile Include="CBloomScript.cpp" />
     <ClCompile Include="CCamCtrlScript.cpp" />
-    <ClCompile Include="CCameraEffect.cpp" />
     <ClCompile Include="CCornerTriggerScript.cpp" />
     <ClCompile Include="CElevatorScript.cpp" />
     <ClCompile Include="CGameMgr.cpp" />

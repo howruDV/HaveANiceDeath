@@ -53,13 +53,11 @@ void CCamCtrlScript::tick()
 	{
 		Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
 		Vec3 vCamPos = GetOwner()->Transform()->GetWorldPos();
-		Vec3 vUpdatePos;
 		vTargetPos.z = vCamPos.z;
 
 		Vec3 vDir = (vTargetPos - vCamPos).Normalize();
-		vUpdatePos = vCamPos + vDir * DT * m_fSpeed;
-		m_vMove.x = vUpdatePos.x - vCamPos.x;
-		m_vMove.y = vUpdatePos.y - vCamPos.y;
+		Vec3 vUpdatePos = vCamPos + vDir * m_fSpeed * DT;
+		m_vMove = vUpdatePos - vCamPos;
 
 		if (m_vMove.Length() > (vTargetPos - vCamPos).Length())
 			vUpdatePos = vTargetPos;
@@ -86,6 +84,7 @@ void CCamCtrlScript::tick()
 
 			Vec3 Pos = Transform()->GetRelativePos() + vDelta;
 			Transform()->SetRelativePos(Pos);
+			m_vMove = Vec3();
 		}
 		break;
 

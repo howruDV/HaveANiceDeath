@@ -91,7 +91,6 @@
     <ClInclude Include="CTitleMgr.h">
       <Filter>Manager\TitleMgr</Filter>
     </ClInclude>
-    <ClInclude Include="CCameraEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -178,7 +177,6 @@
     <ClCompile Include="CTitleMgr.cpp">
       <Filter>Manager\TitleMgr</Filter>
     </ClCompile>
-    <ClCompile Include="CCameraEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
