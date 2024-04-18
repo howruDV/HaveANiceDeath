@@ -723,6 +723,7 @@ void UIMatEditor::Reset()
 {
 	m_TargetMtrl = nullptr;
 	m_MtrlPath = "New Material";
+	m_ShaderName = "";
 
 	char Desc_Name[255] = {};
 

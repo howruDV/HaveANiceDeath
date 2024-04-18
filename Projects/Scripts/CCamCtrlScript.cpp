@@ -51,9 +51,12 @@ void CCamCtrlScript::tick()
 	}
 	else
 	{
+		// get pos & speed
 		Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
 		Vec3 vCamPos = GetOwner()->Transform()->GetWorldPos();
 		vTargetPos.z = vCamPos.z;
+		m_fSpeed = 0.8f * (vTargetPos - vCamPos).Length();
+
 
 		Vec3 vDir = (vTargetPos - vCamPos).Normalize();
 		Vec3 vUpdatePos = vCamPos + vDir * m_fSpeed * DT;

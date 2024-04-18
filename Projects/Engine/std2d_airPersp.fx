@@ -4,7 +4,7 @@
 #include "value.fx"
 #include "func.fx"
 
-#define AirPerspUnable g_int_0
+#define AirPerspEnable g_int_0
 #define AirColor g_vec4_0
 #define ObjDepth g_float_0
 
@@ -45,19 +45,10 @@ PS_OUT PS_Std2D_AirPersp(VS_OUT _in) : SV_Target
         {
             vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
         }
-        
-    //    // alpha blending (magenta background delete)
-    //    float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f); // saturate: 0~1 넘지 않게 보정
-        
-    //    if (fAlpha == 0.f)
-    //    {
-    //        discard;
-    //    }
-    //
-        }
+    }
     
     // Air Perspective
-    if (AirPerspUnable && ObjDepth != 0.f)
+    if (AirPerspEnable && ObjDepth != 0.f)
     {
         float alpha = ObjDepth / 2000.f;
         float4 airColor = AirColor;
