@@ -25,7 +25,7 @@ class CCamCtrlScript :
 {
 private:
     CGameObject* m_Target;
-    Vec3 m_vPrevPos;
+    Vec3 m_vTargetOffset;
     Vec3 m_vMove;
     float m_fSpeed;
 

@@ -14,6 +14,7 @@ CCamCtrlScript::CCamCtrlScript()
 	, m_Target(nullptr)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
+	AddScriptParam(SCRIPT_PARAM::VEC3, "Target Offset", &m_vTargetOffset);
 }
 
 CCamCtrlScript::CCamCtrlScript(const CCamCtrlScript& _Origin)
@@ -22,6 +23,7 @@ CCamCtrlScript::CCamCtrlScript(const CCamCtrlScript& _Origin)
 	, m_Target(nullptr)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
+	AddScriptParam(SCRIPT_PARAM::VEC3, "Target Offset", &m_vTargetOffset);
 }
 
 CCamCtrlScript::~CCamCtrlScript()
@@ -35,7 +37,6 @@ void CCamCtrlScript::begin()
 	{
 		int LayerIdx = pLevel->GetLayerIdxByName(L"Player");
 		m_Target = pLevel->FindObjectByName(L"Death", LayerIdx);
-		m_vPrevPos = GetOwner()->Transform()->GetWorldPos();
 		
 		m_Transition = GetOwner()->GetChildByName(L"Transition");
 		m_Transition->Deactivate();
@@ -55,11 +56,12 @@ void CCamCtrlScript::tick()
 		Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
 		Vec3 vCamPos = GetOwner()->Transform()->GetWorldPos();
 		vTargetPos.z = vCamPos.z;
-		m_fSpeed = 0.8f * (vTargetPos - vCamPos).Length();
+		//m_fSpeed = m_fSpeed * (vTargetPos - vCamPos).Length();
+		Vec3 CurVeloc;
 
-
-		Vec3 vDir = (vTargetPos - vCamPos).Normalize();
-		Vec3 vUpdatePos = vCamPos + vDir * m_fSpeed * DT;
+		//Vec3 vDir = (vTargetPos - vCamPos).Normalize();
+		//Vec3 vUpdatePos = vCamPos + vDir * m_fSpeed * DT;
+		Vec3 vUpdatePos = SmoothDamp(vCamPos, vTargetPos + m_vTargetOffset, CurVeloc, 2.f, 2000.f, DT);
 		m_vMove = vUpdatePos - vCamPos;
 
 		if (m_vMove.Length() > (vTargetPos - vCamPos).Length())
@@ -121,11 +123,13 @@ void CCamCtrlScript::tick()
 void CCamCtrlScript::SaveToFile(FILE* _File)
 {
 	fwrite(&m_fSpeed, 1, sizeof(float), _File);
+	fwrite(&m_vTargetOffset, 1, sizeof(Vec3), _File);
 }
 
 void CCamCtrlScript::LoadFromFile(FILE* _File)
 {
 	fread(&m_fSpeed, 1, sizeof(float), _File);
+	fread(&m_vTargetOffset, 1, sizeof(Vec3), _File);
 }
 
 void CCamCtrlScript::PushTransition(bool _Start)

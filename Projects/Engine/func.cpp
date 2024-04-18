@@ -158,6 +158,23 @@ int Random(int min, int max)
 	return dis(gen); // 랜덤 정수 반환
 }
 
+Vec3 SmoothDamp(Vec3 start, Vec3 end, Vec3& Velocity, float smoothTime, float maxSpeed, float deltaTime)
+{
+	// 시작위치: current, 따라갈위치: target, 보간값: deltaTime/smoothTime
+	//  if (deltaTime >= lerpTime) deltaTime = lerpTime;
+
+	Vec3 vPos = end - start;
+	float fDelta = (deltaTime >= smoothTime) ? 1.f : deltaTime / smoothTime;
+	
+	Velocity = vPos * fDelta / deltaTime;
+	if (Velocity.Length() > maxSpeed)
+		Velocity = Velocity.Normalize() * maxSpeed;
+
+	start += Velocity * deltaTime;
+
+	return start;
+}
+
 string WstrToStr(const wstring& _wstr)
 {
 	return string(_wstr.begin(), _wstr.end());

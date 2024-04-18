@@ -24,6 +24,7 @@ void CEditorObjMgr::init()
 	pEditorCam->AddComponent(new CCamera);
 	pEditorCam->AddComponent(new CCameraMoveScript);
 
+	pEditorCam->Transform()->SetRelativePos(Vec3(0, 0, -2000));
 	pEditorCam->Camera()->LayerCheckAll();
 	pEditorCam->Camera()->LayerCheck(31, false);
 	pEditorCam->Camera()->SetProjType(PROJ_TYPE::PERSPECTIVE);
