@@ -23,6 +23,7 @@ private:
     UNIT_DIRX                       m_bFlipX;
     UNIT_DIRY                       m_bFlipY;
     bool                            m_bRepeat;
+    bool                            m_LevelStart;
 
 public:
     virtual void finaltick() override;

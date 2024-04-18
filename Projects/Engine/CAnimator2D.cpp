@@ -11,6 +11,7 @@ CAnimator2D::CAnimator2D()
     , m_bRepeat(false)
     , m_bFlipX(UNIT_DIRX::RIGHT)
     , m_bFlipY(UNIT_DIRY::UP)
+    , m_LevelStart(true)
 {
 }
 
@@ -20,6 +21,7 @@ CAnimator2D::CAnimator2D(const CAnimator2D& _OriginAnimator)
     , m_bRepeat(_OriginAnimator.m_bRepeat)
     , m_bFlipX(_OriginAnimator.m_bFlipX)
     , m_bFlipY(_OriginAnimator.m_bFlipY)
+    , m_LevelStart(true)
 {
     unordered_map<wstring, CAnim*>::const_iterator iter = _OriginAnimator.m_mapAnim.begin();
     for (; iter != _OriginAnimator.m_mapAnim.end(); ++iter)
@@ -81,15 +83,29 @@ void CAnimator2D::UpdatePipeline()
 {
     if (not m_CurAnim)
     {
-        if ((CLevelMgr::GetInst()->GetCurrentLevel()->GetState() == LEVEL_STATE::STOP || CLevelMgr::GetInst()->GetCurrentLevel()->GetState() == LEVEL_STATE::NONE)
+        if ((CLevelMgr::GetInst()->GetCurrentLevel()->GetState() == LEVEL_STATE::STOP)
             && !m_mapAnim.empty())
         {
+            // find default anim
             CAnim* pAnim = FindAnim(L"Idle");
-            if (pAnim)
-                pAnim->UpdatePipeline();
-            else
-                m_mapAnim.begin()->second->UpdatePipeline();
+            if (!pAnim)
+                pAnim = m_mapAnim.begin()->second;
+
+            // set size
+            if (m_LevelStart)
+            {
+                Vec3 newBgSize = Vec3(pAnim->m_vecFrm[0].vBackgroundSize.x, pAnim->m_vecFrm[0].vBackgroundSize.y, 1.f);
+                newBgSize.x *= pAnim->m_AtlasTex->GetWidth();
+                newBgSize.y *= pAnim->m_AtlasTex->GetHeight();
+
+                Transform()->SetRelativeScale(newBgSize);
+                m_LevelStart = false;
+            }
+
+            // play anim's first frame
+            pAnim->UpdatePipeline();
         }
+
         return;
     }
 
