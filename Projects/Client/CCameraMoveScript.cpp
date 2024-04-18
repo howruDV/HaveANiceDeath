@@ -26,9 +26,9 @@ void CCameraMoveScript::MoveOrthographic()
 		Vec2 vMouseDrag = CKeyMgr::GetInst()->GetMouseDrag();
 
 		 if (vMouseDrag.x < 0.f)
-			 vPos.x -= DT_ENGINE * m_CamSpeed;
-		 else if (vMouseDrag.x > 0.f)
 			 vPos.x += DT_ENGINE * m_CamSpeed;
+		 else if (vMouseDrag.x > 0.f)
+			 vPos.x -= DT_ENGINE * m_CamSpeed;
 
 		 if (vMouseDrag.y < 0.f)
 			 vPos.y -= DT_ENGINE * m_CamSpeed;
