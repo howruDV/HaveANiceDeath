@@ -37,8 +37,6 @@ void LoadWString(wstring& _str, FILE* _FILE);
 
 int Random(int min, int max);
 
-Vec3 SmoothDamp(Vec3 start, Vec3 end, Vec3& Velocity, float smoothTime, float maxSpeed, float deltaTime);
-
 template<typename T, UINT SIZE>
 void Delete_Array(T* (&Arr)[SIZE])
 {

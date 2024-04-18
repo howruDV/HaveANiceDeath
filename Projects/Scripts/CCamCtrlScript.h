@@ -28,6 +28,7 @@ private:
     Vec3 m_vTargetOffset;
     Vec3 m_vMove;
     float m_fSpeed;
+    float m_fSpeedScale;
 
     deque<FCamEffect> m_queueEffect;
     CGameObject* m_Transition;

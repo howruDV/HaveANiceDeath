@@ -10,19 +10,21 @@
 
 CCamCtrlScript::CCamCtrlScript()
 	: CScript(CAMCTRLSCRIPT)
-	, m_fSpeed(1500.f)
+	, m_fSpeed(0.f)
+	, m_fSpeedScale(1500.f)
 	, m_Target(nullptr)
 {
-	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
+	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeedScale);
 	AddScriptParam(SCRIPT_PARAM::VEC3, "Target Offset", &m_vTargetOffset);
 }
 
 CCamCtrlScript::CCamCtrlScript(const CCamCtrlScript& _Origin)
 	: CScript(CAMCTRLSCRIPT)
 	, m_fSpeed(_Origin.m_fSpeed)
+	, m_fSpeedScale(_Origin.m_fSpeedScale)
 	, m_Target(nullptr)
 {
-	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
+	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeedScale);
 	AddScriptParam(SCRIPT_PARAM::VEC3, "Target Offset", &m_vTargetOffset);
 }
 
@@ -43,34 +45,50 @@ void CCamCtrlScript::begin()
 	}
 }
 
+#define CENTER		150.f
+#define MAXWIDTH	(1600.f / 2.f)
+#define MAXHEIGHT	(900.f / 2.f)
+#define MAXDIFF		(MAXWIDTH - CENTER)
+
 void CCamCtrlScript::tick()
 {
-	// chase target
-	if (!m_Target)
+	m_vMove = Vec3();
+
+	// track target
+	if (m_Target)
 	{
-		m_vMove = Vec3();
-	}
-	else
-	{
-		// get pos & speed
-		Vec3 vTargetPos = m_Target->Transform()->GetWorldPos();
+		Vec3 vTargetPos = m_Target->Transform()->GetWorldPos() + m_vTargetOffset;
 		Vec3 vCamPos = GetOwner()->Transform()->GetWorldPos();
 		vTargetPos.z = vCamPos.z;
-		//m_fSpeed = m_fSpeed * (vTargetPos - vCamPos).Length();
-		Vec3 CurVeloc;
+		float vDist = (vTargetPos - vCamPos).Length();
 
-		//Vec3 vDir = (vTargetPos - vCamPos).Normalize();
-		//Vec3 vUpdatePos = vCamPos + vDir * m_fSpeed * DT;
-		Vec3 vUpdatePos = SmoothDamp(vCamPos, vTargetPos + m_vTargetOffset, CurVeloc, 2.f, 2000.f, DT);
-		m_vMove = vUpdatePos - vCamPos;
+		// case: in tracking distance
+		if (vDist > CENTER)
+		{
+			if (vDist > MAXDIFF)
+				vDist = MAXDIFF;
+			vDist = (vDist - CENTER) / MAXDIFF;
 
-		if (m_vMove.Length() > (vTargetPos - vCamPos).Length())
-			vUpdatePos = vTargetPos;
+			m_fSpeed = m_fSpeedScale * sinf(vDist * XM_PI / 2);
+			Vec3 vDir = (vTargetPos - vCamPos).Normalize();
+			Vec3 vUpdatePos = vCamPos + vDir * m_fSpeed * DT;
 
-		vUpdatePos = CheckCamArea(vUpdatePos);
-		m_vMove = vUpdatePos - vCamPos;
+			// case: out of screen
+			if (fabs(vUpdatePos.x - vTargetPos.x) > (MAXWIDTH - CENTER))
+				vUpdatePos.x = vTargetPos.x - vDir.x * (MAXWIDTH - CENTER);
+			if (fabs(vUpdatePos.y - vTargetPos.y) > (MAXHEIGHT))
+				vUpdatePos.y = vTargetPos.y - vDir.y * (MAXHEIGHT);
+			m_vMove = vUpdatePos - vCamPos;
 
-		Transform()->SetRelativePos(Vec3(vUpdatePos.x, vUpdatePos.y, vCamPos.z));
+			// case: exceed target
+			if (m_vMove.Length() > (vTargetPos - vCamPos).Length())
+				vUpdatePos = vTargetPos;
+
+			// update camera position
+			vUpdatePos = CheckCamArea(vUpdatePos);
+			Transform()->SetRelativePos(Vec3(vUpdatePos.x, vUpdatePos.y, vCamPos.z));
+			m_vMove = vUpdatePos - vCamPos;
+		}
 	}
 
 	// play effect
