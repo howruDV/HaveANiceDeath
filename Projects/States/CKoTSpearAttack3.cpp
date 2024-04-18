@@ -23,7 +23,7 @@ void CKoTSpearAttack3::finaltick()
 		return;
 
 	// Update HitBox Transform
-	int CurFrame = GetOwner()->Animator2D()->GetCurAnimFrmIdx();
+ 	int CurFrame = GetOwner()->Animator2D()->GetCurAnimFrmIdx();
 	Vec3 Offset;
 	Vec3 Scale;
 

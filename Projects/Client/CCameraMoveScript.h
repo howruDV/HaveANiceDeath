@@ -10,6 +10,7 @@ class CCameraMoveScript :
 {
 private:
     float m_CamSpeed;
+    float m_ZoomSpeed;
 
 public:
     virtual void tick();

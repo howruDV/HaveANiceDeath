@@ -120,7 +120,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     CImGuiMgr::GetInst()->init(hWnd, DEVICE, CONTEXT);
     CImGuiMgr::GetInst()->begin();
 #else
-    CLevel* pLevel = CLevelSaveLoad::LoadLevel(L"level\\Field1");
+    CLevel* pLevel = CLevelSaveLoad::LoadLevel(L"level\\Title.lv");
     CLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::PLAY);
     CCollisionMgr::GetInst()->LayerCheck(3, 4);
     CCollisionMgr::GetInst()->LayerCheck(3, 6);
@@ -231,25 +231,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
+
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
+
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
         }
         break;
-    //case WM_PAINT:
-    //    {
-    //        PAINTSTRUCT ps;
-    //        HDC hdc = BeginPaint(hWnd, &ps);
-    //        // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-    //        EndPaint(hWnd, &ps);
-    //    }
-    //    break;
+
+    case WM_MOUSEWHEEL:
+        {
+            short zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+            CKeyMgr::GetInst()->SetMouseWheel(zDelta);
+        }
+        break;
+
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+
     case WM_DPICHANGED:
         // 해상도가 변하는 경우 (듀얼모니터 등)
         if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
@@ -258,8 +261,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             ::SetWindowPos(hWnd, nullptr, suggested_rect->left, suggested_rect->top, suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top, SWP_NOZORDER | SWP_NOACTIVATE);
         }
         break;
+
     default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
+        {
+            CKeyMgr::GetInst()->SetMouseWheel(0);
+            return DefWindowProc(hWnd, message, wParam, lParam);
+        }
     }
     return 0;
 }

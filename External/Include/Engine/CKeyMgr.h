@@ -19,7 +19,7 @@ enum class KEY
 	ESC, ENTER, BACK, DEL,
 	LEFT, RIGHT, UP, DOWN,
 
-	LBTN, RBTN,
+	LBTN, RBTN, MBTN,
 
 	KEY_END,
 };
@@ -50,12 +50,17 @@ private:
 	Vec2				m_vMousePos;
 	Vec2				m_vMousePrevPos;
 	Vec2				m_vMouseDrag;
+	short				m_fMouseWheel;
 
 public:
 	void init();
 	void tick();
 
+public:
+	void		SetMouseWheel(short _val) { m_fMouseWheel = _val; }
+
 	KEY_STATE	GetKeyState(KEY _Key) { return m_vecKeyData[(int)_Key].eState; }
 	Vec2		GetMousePos() { return m_vMousePos; }
 	Vec2		GetMouseDrag() { return m_vMouseDrag; }
+	short		GetMouseWheel() { return m_fMouseWheel; }
 };

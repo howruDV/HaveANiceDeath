@@ -8,7 +8,8 @@
 
 CCameraMoveScript::CCameraMoveScript()
 	: CScript(-1)
-	, m_CamSpeed(300.f)
+	, m_CamSpeed(1500.f)
+	, m_ZoomSpeed(200.f)
 {
 }
 
@@ -20,27 +21,22 @@ void CCameraMoveScript::MoveOrthographic()
 {
 	Vec3 vPos = Transform()->GetRelativePos();
 
-	if (KEY_PRESSED(KEY::UP))
+	if (KEY_PRESSED(KEY::MBTN))
 	{
-		vPos.y += DT_ENGINE * m_CamSpeed;
-	}
+		Vec2 vMouseDrag = CKeyMgr::GetInst()->GetMouseDrag();
 
-	if (KEY_PRESSED(KEY::DOWN))
-	{
-		vPos.y -= DT_ENGINE * m_CamSpeed;
-	}
+		 if (vMouseDrag.x < 0.f)
+			 vPos.x -= DT_ENGINE * m_CamSpeed;
+		 else if (vMouseDrag.x > 0.f)
+			 vPos.x += DT_ENGINE * m_CamSpeed;
 
-	if (KEY_PRESSED(KEY::LEFT))
-	{
-		vPos.x -= DT_ENGINE * m_CamSpeed;
-	}
+		 if (vMouseDrag.y < 0.f)
+			 vPos.y -= DT_ENGINE * m_CamSpeed;
+		 else if (vMouseDrag.y > 0.f)
+			 vPos.y += DT_ENGINE * m_CamSpeed;
 
-	if (KEY_PRESSED(KEY::RIGHT))
-	{
-		vPos.x += DT_ENGINE * m_CamSpeed;
+		Transform()->SetRelativePos(vPos);
 	}
-
-	Transform()->SetRelativePos(vPos);
 }
 
 void CCameraMoveScript::MovePerspective()
@@ -48,28 +44,23 @@ void CCameraMoveScript::MovePerspective()
 	Vec3 vPos = Transform()->GetRelativePos();
 	Vec3 vFront = Transform()->GetLocalDir(DIR_TYPE::FRONT);	// 카메라의 현재 방향으로 이동해야 하므로
 	Vec3 vRight = Transform()->GetLocalDir(DIR_TYPE::RIGHT);
-
-	if (KEY_PRESSED(KEY::UP))
+	
+	if (KEY_PRESSED(KEY::MBTN))
 	{
-		vPos += DT_ENGINE * m_CamSpeed * vFront;
-	}
+		Vec2 vMouseDrag = CKeyMgr::GetInst()->GetMouseDrag();
 
-	if (KEY_PRESSED(KEY::DOWN))
-	{
-		vPos -= DT_ENGINE * m_CamSpeed * vFront;
-	}
+		if (vMouseDrag.x < 0.f)
+			vPos.x += DT_ENGINE * m_CamSpeed;
+		else if (vMouseDrag.x > 0.f)
+			vPos.x -= DT_ENGINE * m_CamSpeed;
 
-	if (KEY_PRESSED(KEY::LEFT))
-	{
-		vPos -= DT_ENGINE * m_CamSpeed * vRight;
+		if (vMouseDrag.y < 0.f)
+			vPos.y -= DT_ENGINE * m_CamSpeed;
+		else if (vMouseDrag.y > 0.f)
+			vPos.y += DT_ENGINE * m_CamSpeed;
+		
+		Transform()->SetRelativePos(vPos);
 	}
-
-	if (KEY_PRESSED(KEY::RIGHT))
-	{
-		vPos += DT_ENGINE * m_CamSpeed * vRight;
-	}
-
-	Transform()->SetRelativePos(vPos);
 
 	if (KEY_PRESSED(KEY::RBTN))
 	{
@@ -104,20 +95,22 @@ void CCameraMoveScript::tick()
 	else
 		MovePerspective();
 
-	// camera setting control
-	if (KEY_PRESSED(KEY::_1))
+	// camera zooming
+	short MouseWheel = CKeyMgr::GetInst()->GetMouseWheel();
+
+	if (MouseWheel < 0.f)
 	{
 		if (ProjType == PROJ_TYPE::ORTHOGRAPHIC)
-			Camera()->SetScale(Camera()->GetScale() + DT_ENGINE * 0.1f);
+			Camera()->SetScale(Camera()->GetScale() + DT_ENGINE * m_ZoomSpeed);
 		else
-			Camera()->SetFOV(Camera()->GetFOV() + DT_ENGINE * 2.f);
+			Camera()->SetFOV(Camera()->GetFOV() + DT_ENGINE * m_ZoomSpeed);
 	}
 
-	if (KEY_PRESSED(KEY::_2))
+	else if (MouseWheel > 0.f)
 	{
 		if (ProjType == PROJ_TYPE::ORTHOGRAPHIC)
-			Camera()->SetScale(Camera()->GetScale() - DT_ENGINE * 0.1f);
+			Camera()->SetScale(Camera()->GetScale() - DT_ENGINE * m_ZoomSpeed);
 		else
-			Camera()->SetFOV(Camera()->GetFOV() - DT_ENGINE * 2.f);
+			Camera()->SetFOV(Camera()->GetFOV() - DT_ENGINE * m_ZoomSpeed);
 	}
 }

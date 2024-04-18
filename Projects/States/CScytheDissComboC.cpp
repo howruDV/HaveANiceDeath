@@ -62,7 +62,7 @@ void CScytheDissComboC::Enter()
 	FCamEffect Shake{};
 	Shake.Type = CAMEFFECT_TYPE::SHAKE;
 	Shake.fPlayTime = 1.f;
-	Shake.fVar = 1.5f;
+	Shake.fVar = 1.2f;
 	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
 
 	// hitbox

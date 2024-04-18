@@ -202,7 +202,8 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat, bool _bRevers
     }
 
     // claer before animation
-    if (m_CurAnim && (m_CurAnim->GetName() != _strAnimName))
+    //if (m_CurAnim && (m_CurAnim->GetName() != _strAnimName))
+    if (m_CurAnim)
         m_CurAnim->Reset();
 
     m_bRepeat = _bRepeat;
