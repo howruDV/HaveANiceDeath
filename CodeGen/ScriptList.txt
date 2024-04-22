@@ -7,6 +7,7 @@ CGaugeScript
 CHitboxScript
 CInvenMgr
 CKoTSpear_ProjScript
+CLevelMgrScript_W09_Field1
 CMissileScript_Test
 CMonsterScript
 CMonsterScript_Test

@@ -91,6 +91,7 @@
     <ClInclude Include="CTitleMgr.h">
       <Filter>Manager\TitleMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CLevelMgrScript_W09_Field1.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -177,6 +178,7 @@
     <ClCompile Include="CTitleMgr.cpp">
       <Filter>Manager\TitleMgr</Filter>
     </ClCompile>
+    <ClCompile Include="CLevelMgrScript_W09_Field1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -274,6 +276,18 @@
     </Filter>
     <Filter Include="Manager\TitleMgr">
       <UniqueIdentifier>{bbb1656e-dced-4492-802e-53a3d5cd6c26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameMgr\Field1">
+      <UniqueIdentifier>{f8ca412e-e5a7-4c08-a3f1-8398125111d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameMgr\Miniboss">
+      <UniqueIdentifier>{a7d8ba5d-d1fe-4ba0-b8e4-9848e1283465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameMgr\Boss_Time">
+      <UniqueIdentifier>{7c9b5e10-42ef-44df-83e1-a6253e6c08c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\GameMgr\Boss_Life">
+      <UniqueIdentifier>{e6e48fb5-4bc4-427d-bf25-e87fc128a201}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -80,6 +80,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     SetWindowPos(hWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
 #else
     Vec2 WinSize = Vec2 (1600,900);
+    //Vec2 WinSize = Vec2(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN));
     //LONG_PTR style = GetWindowLongPtr(hWnd, GWL_STYLE);
     //style &= ~WS_OVERLAPPEDWINDOW;
     //style |= WS_POPUP;

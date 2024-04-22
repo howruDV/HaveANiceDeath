@@ -6,15 +6,16 @@
 // =======================================
 
 class CGameObject;
+class CScript;
 
 class CGameMgr :
     public CScript
 {
 private:
 	static CGameObject* m_pMainCamera;
-	CGameObject* m_GameEnding_Fail;
-	bool m_bTitle;
-	float m_bTitleAcc;
+	CScript* m_pCurLevelMgr;
+	//bool m_bTitle;
+	//float m_bTitleAcc;
 
 public:
 	virtual void begin() override;
@@ -26,10 +27,9 @@ public:
 private:
 	void GameEnding_Fail();
 	void GameEnding_Win();
+	void CreateLevelMgr(class CLevel* _Level);
 
 public:
-	void SetGameEndingFail(CGameObject* pObj) { m_GameEnding_Fail = pObj; }
-
 	static CGameObject* GetMainCamera() { return m_pMainCamera; }
 
 public:

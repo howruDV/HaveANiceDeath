@@ -33,6 +33,7 @@ void CLevelSaveLoad::SaveLevel(CLevel* _Level, const wstring& _strLevelPath)
 		saveMat->Save(pair.second->GetKey());
 	}
 
+	// save all using FSM
 	const unordered_map<wstring, Ptr<CAsset>>& mapFSM = CAssetMgr::GetInst()->GetAssetsByType(ASSET_TYPE::FSM);
 	for (const pair<wstring, Ptr<CAsset>>& pair : mapFSM)
 	{
@@ -148,7 +149,8 @@ CLevel* CLevelSaveLoad::LoadLevel(const wstring& _strLevelPath)
 	pLevel = new CLevel;
 	wstring strLevelName;
 	LoadWString(strLevelName, pFile);
-	pLevel->SetName(strLevelName);
+	wstring pathLevel = path(strLevelPath).filename().generic_wstring();
+	pLevel->SetName(pathLevel);
 
 	for (UINT i = 0; i < LAYER_MAX; ++i)
 	{

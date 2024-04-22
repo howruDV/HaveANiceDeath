@@ -169,6 +169,7 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CHitboxScript.h" />
     <ClInclude Include="CInvenMgr.h" />
     <ClInclude Include="CKoTSpear_ProjScript.h" />
+    <ClInclude Include="CLevelMgrScript_W09_Field1.h" />
     <ClInclude Include="CMissileScript_Test.h" />
     <ClInclude Include="CMonsterScript.h" />
     <ClInclude Include="CMonsterScript_Test.h" />
@@ -201,6 +202,7 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CHitboxScript.cpp" />
     <ClCompile Include="CInvenMgr.cpp" />
     <ClCompile Include="CKoTSpear_ProjScript.cpp" />
+    <ClCompile Include="CLevelMgrScript_W09_Field1.cpp" />
     <ClCompile Include="CMissileScript_Test.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />
     <ClCompile Include="CMonsterScript_Test.cpp" />

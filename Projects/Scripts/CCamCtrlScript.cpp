@@ -9,6 +9,8 @@
 #include <Engine/CGameObject.h>
 #include <Engine/CTransform.h>
 
+DELEGATE_CAMCTRL CCamCtrlScript::CheckCamArea = nullptr;
+
 CCamCtrlScript::CCamCtrlScript()
 	: CScript(CAMCTRLSCRIPT)
 	, m_fSpeed(0.f)
@@ -107,7 +109,8 @@ void CCamCtrlScript::tick()
 			}
 
 			// update camera position
-			vUpdatePos = CheckCamArea(vUpdatePos);
+			if (CheckCamArea)
+				vUpdatePos = CheckCamArea(vUpdatePos);
 			Transform()->SetRelativePos(Vec3(vUpdatePos.x, vUpdatePos.y, vCamPos.z));
 			m_vMove = vUpdatePos - vCamPos;
 		}
@@ -146,9 +149,8 @@ void CCamCtrlScript::tick()
 			if (!m_Transition)
 				break;
 
-			GamePlayStatic::Play2DSound(L"sound\\title\\Menu_Main_Whsh_Play_01.wav", 1, 0.3f);
 			m_Transition->Activate();
-			m_Transition->Animator2D()->Play(L"Transition", false, true);
+			m_Transition->Animator2D()->Play(L"Transition", false);
 		}
 		break;
 
@@ -157,10 +159,12 @@ void CCamCtrlScript::tick()
 			if (!m_Transition)
 				break;
 
+			GamePlayStatic::Play2DSound(L"sound\\title\\Menu_Main_Whsh_Play_01.wav", 1, 0.3f);
 			m_Transition->Activate();
-			m_Transition->Animator2D()->Play(L"Transition", false);
+			m_Transition->Animator2D()->Play(L"Transition", false, true);
 		}
 		break;
+
 		}
 
 		if (CurEffect.fPlayTime != -1.f && CurEffect.fAccTime > CurEffect.fPlayTime)
@@ -201,17 +205,4 @@ void CCamCtrlScript::PushTransition(bool _Start)
 	FCamEffect Transition = {};
 	Transition.Type = _Start ? CAMEFFECT_TYPE::TRANSITION_ON : CAMEFFECT_TYPE::TRANSITION_OFF;
 	m_queueEffect.push_back(Transition);
-}
-
-Vec3 CCamCtrlScript::CheckCamArea(Vec3 _Pos)
-{
-	Vec3 ret = _Pos;
-
-	if (_Pos.x < -7200.f)
-		ret.x = -7200.f;
-
-	if (_Pos.x > 7120.f)
-		ret.x = 7120.f;
-
-	return ret;
 }

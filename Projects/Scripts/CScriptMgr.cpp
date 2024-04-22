@@ -10,6 +10,7 @@
 #include "CHitboxScript.h"
 #include "CInvenMgr.h"
 #include "CKoTSpear_ProjScript.h"
+#include "CLevelMgrScript_W09_Field1.h"
 #include "CMissileScript_Test.h"
 #include "CMonsterScript.h"
 #include "CMonsterScript_Test.h"
@@ -35,6 +36,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CHitboxScript");
 	_vec.push_back(L"CInvenMgr");
 	_vec.push_back(L"CKoTSpear_ProjScript");
+	_vec.push_back(L"CLevelMgrScript_W09_Field1");
 	_vec.push_back(L"CMissileScript_Test");
 	_vec.push_back(L"CMonsterScript");
 	_vec.push_back(L"CMonsterScript_Test");
@@ -70,6 +72,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CInvenMgr;
 	if (L"CKoTSpear_ProjScript" == _strScriptName)
 		return new CKoTSpear_ProjScript;
+	if (L"CLevelMgrScript_W09_Field1" == _strScriptName)
+		return new CLevelMgrScript_W09_Field1;
 	if (L"CMissileScript_Test" == _strScriptName)
 		return new CMissileScript_Test;
 	if (L"CMonsterScript" == _strScriptName)
@@ -129,6 +133,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::KOTSPEAR_PROJSCRIPT:
 		return new CKoTSpear_ProjScript;
+		break;
+	case (UINT)SCRIPT_TYPE::LEVELMGRSCRIPT_W09_FIELD1:
+		return new CLevelMgrScript_W09_Field1;
 		break;
 	case (UINT)SCRIPT_TYPE::MISSILESCRIPT_TEST:
 		return new CMissileScript_Test;
@@ -211,6 +218,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::KOTSPEAR_PROJSCRIPT:
 		return L"CKoTSpear_ProjScript";
+		break;
+
+	case SCRIPT_TYPE::LEVELMGRSCRIPT_W09_FIELD1:
+		return L"CLevelMgrScript_W09_Field1";
 		break;
 
 	case SCRIPT_TYPE::MISSILESCRIPT_TEST:

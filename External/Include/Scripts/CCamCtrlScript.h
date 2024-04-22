@@ -2,6 +2,8 @@
 #include <Engine/CScript.h>
 #include <deque>
 
+typedef Vec3 (*DELEGATE_CAMCTRL)(Vec3);
+
 enum class CAMEFFECT_TYPE
 {
     SHAKE,
@@ -24,6 +26,10 @@ class CCamCtrlScript :
     public CScript
 {
 private:
+    // delegate
+    static DELEGATE_CAMCTRL CheckCamArea;
+
+    // target follow
     CGameObject*        m_Target;
     Vec3                m_vTargetOffset;
     Vec3                m_vMove;
@@ -31,6 +37,7 @@ private:
     float               m_fSpeedScale;
     bool                m_IsTracking;
 
+    // effect
     deque<FCamEffect>   m_queueEffect;
     CGameObject*        m_Transition;
 
@@ -46,11 +53,12 @@ public:
     void PushEffect(FCamEffect _Effect);
     void PushTransition(bool _Start);
     void PopEffect();
+    void SetCheckCamArea(DELEGATE_CAMCTRL _address) { CheckCamArea = _address; }
 
     Vec3 GetMove() { return m_vMove; }
 
-private:
-    Vec3 CheckCamArea(Vec3 _Pos);
+//private:
+//    Vec3 CheckCamArea(Vec3 _Pos);
 
 public:
     CLONE(CCamCtrlScript);
