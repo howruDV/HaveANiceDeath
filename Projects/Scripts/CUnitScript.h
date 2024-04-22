@@ -80,6 +80,7 @@ public:
     bool IsDirLock() { return m_bDirLock; }
     bool IsGround(CGameObject* _Platform);
     bool IsStun() { return m_bStun; }
+    bool IsOverlapGround(CGameObject* _pObject);
 
 public:
     CLONE(CUnitScript);

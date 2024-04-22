@@ -84,7 +84,7 @@ void CWallScript::BeginOverlap(CCollider2D* _Collider, CGameObject* _OtherObj, C
 	// case: side collision
 	if (vMoveDir.x != 0.f && fabs(vOtherColPos.x - vThisColPos.x) <= (vOtherColScale.x + vThisColScale.x) / 2.f)
 	{
-		if (m_bSideCollision)
+		if (m_bSideCollision && !pUnit->IsOverlapGround(GetOwner()))
 		{
 			float fPrevOtherL = vOtherColPos.x - vOtherColScale.x / 2.f - vMoveDir.x;
 			float fPrevOtherR = vOtherColPos.x + vOtherColScale.x / 2.f - vMoveDir.x;
@@ -165,7 +165,7 @@ void CWallScript::Overlap(CCollider2D* _Collider, CGameObject* _OtherObj, CColli
 	// case: side collision
 	if (vMoveDir.x != 0.f && fabs(vOtherColPos.x - vThisColPos.x) <= (vOtherColScale.x + vThisColScale.x) / 2.f)
 	{
-		if (m_bSideCollision)
+		if (m_bSideCollision && !_OtherObj->GetScriptByType<CUnitScript>()->IsOverlapGround(GetOwner()))
 		{
 			float fPrevOtherL = vOtherColPos.x - vOtherColScale.x / 2.f - vMoveDir.x;
 			float fPrevOtherR = vOtherColPos.x + vOtherColScale.x / 2.f - vMoveDir.x;

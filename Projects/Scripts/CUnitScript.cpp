@@ -174,3 +174,18 @@ bool CUnitScript::IsGround(CGameObject* _Platform)
 		return true;
 	return false;
 }
+
+bool CUnitScript::IsOverlapGround(CGameObject* _pObject)
+{
+	vector<CGameObject*>::iterator iter = m_CollisionGround.begin();
+
+	for (; iter != m_CollisionGround.end(); ++iter)
+	{
+		if (*iter == _pObject)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
