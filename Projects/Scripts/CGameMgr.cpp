@@ -37,7 +37,7 @@ void CGameMgr::begin()
 	{
 		int LayerIdx = pLevel->GetLayerIdxByName(L"Default");
 		m_pMainCamera = pLevel->FindObjectByName(L"MainCamera", LayerIdx);
-		//m_pMainCamera->GetScriptByType<CCamCtrlScript>()->PushTransition(true);
+		m_pMainCamera->GetScriptByType<CCamCtrlScript>()->PushTransition(true);
 	}
 }
 

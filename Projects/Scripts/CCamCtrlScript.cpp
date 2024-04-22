@@ -15,6 +15,7 @@ CCamCtrlScript::CCamCtrlScript()
 	, m_fSpeedScale(1500.f)
 	, m_Target(nullptr)
 	, m_Transition(nullptr)
+	, m_IsTracking(false)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeedScale);
 	AddScriptParam(SCRIPT_PARAM::VEC3, "Target Offset", &m_vTargetOffset);
@@ -26,6 +27,7 @@ CCamCtrlScript::CCamCtrlScript(const CCamCtrlScript& _Origin)
 	, m_fSpeedScale(_Origin.m_fSpeedScale)
 	, m_Target(nullptr)
 	, m_Transition(nullptr)
+	, m_IsTracking(false)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeedScale);
 	AddScriptParam(SCRIPT_PARAM::VEC3, "Target Offset", &m_vTargetOffset);
@@ -69,9 +71,15 @@ void CCamCtrlScript::tick()
 		// case: in tracking distance
 		if (vDist > CENTER)
 		{
+			m_IsTracking = true;
+		}
+
+		if (m_IsTracking)
+		{
 			if (vDist > MAXDIFF)
 				vDist = MAXDIFF;
-			vDist = (vDist - CENTER) / MAXDIFF;
+			//vDist = (vDist - CENTER) / MAXDIFF;
+			vDist = (vDist) / MAXDIFF;
 
 			m_fSpeed = m_fSpeedScale * sinf(vDist * XM_PI / 2);
 			Vec3 vDir = (vTargetPos - vCamPos).Normalize();
@@ -87,6 +95,13 @@ void CCamCtrlScript::tick()
 			// case: exceed target
 			if (m_vMove.Length() > (vTargetPos - vCamPos).Length())
 				vUpdatePos = vTargetPos;
+
+			// case: 거의 다 온경우
+			if ((vTargetPos - vCamPos).Length() < 1.f)
+			{
+				vUpdatePos = vTargetPos;
+				m_IsTracking = false;
+			}
 
 			// update camera position
 			vUpdatePos = CheckCamArea(vUpdatePos);

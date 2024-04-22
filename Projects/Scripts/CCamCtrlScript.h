@@ -24,14 +24,15 @@ class CCamCtrlScript :
     public CScript
 {
 private:
-    CGameObject* m_Target;
-    Vec3 m_vTargetOffset;
-    Vec3 m_vMove;
-    float m_fSpeed;
-    float m_fSpeedScale;
+    CGameObject*        m_Target;
+    Vec3                m_vTargetOffset;
+    Vec3                m_vMove;
+    float               m_fSpeed;
+    float               m_fSpeedScale;
+    bool                m_IsTracking;
 
-    deque<FCamEffect> m_queueEffect;
-    CGameObject* m_Transition;
+    deque<FCamEffect>   m_queueEffect;
+    CGameObject*        m_Transition;
 
 public:
     virtual void begin() override;

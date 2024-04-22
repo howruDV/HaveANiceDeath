@@ -105,7 +105,7 @@ void GamePlayStatic::Stop2DSound(const wstring& _SoundPath)
 {
 	Ptr<CSound> pSound = CAssetMgr::GetInst()->Load<CSound>(_SoundPath, _SoundPath);
 
-	if (nullptr != pSound)
+	if (nullptr != pSound && pSound->IsPlaying())
 		pSound->Stop();
 }
 
@@ -130,7 +130,7 @@ void GamePlayStatic::Play2DBGM(const wstring& _SoundPath, float _Volume)
 void GamePlayStatic::Stop2DBGM(const wstring& _SoundPath)
 {
 	Ptr<CSound> pSound = CAssetMgr::GetInst()->Load<CSound>(_SoundPath, _SoundPath);
-	if (nullptr != pSound)
+	if (nullptr != pSound && pSound->IsPlaying())
 		pSound->Stop();
 }
 
