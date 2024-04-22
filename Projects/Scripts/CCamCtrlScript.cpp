@@ -47,7 +47,10 @@ void CCamCtrlScript::begin()
 		
 		m_Transition = GetOwner()->GetChildByName(L"Transition");
 		if (m_Transition)
+		{
+			m_Transition->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC2_0, CRenderMgr::GetInst()->GetWinResol());
 			m_Transition->Deactivate();
+		}
 	}
 }
 
@@ -146,7 +149,7 @@ void CCamCtrlScript::tick()
 			GamePlayStatic::Play2DSound(L"sound\\title\\Menu_Main_Whsh_Play_01.wav", 1, 0.3f);
 			m_Transition->Activate();
 			m_Transition->Animator2D()->Play(L"Transition", false, true);
-			m_Transition->Transform()->SetRelativeScale(Vec3(CRenderMgr::GetInst()->GetWinResol().x, CRenderMgr::GetInst()->GetWinResol().y, 0.f));
+			//m_Transition->Transform()->SetRelativeScale(Vec3(CRenderMgr::GetInst()->GetWinResol().x, CRenderMgr::GetInst()->GetWinResol().y, 0.f));
 		}
 		break;
 
@@ -157,7 +160,7 @@ void CCamCtrlScript::tick()
 
 			m_Transition->Activate();
 			m_Transition->Animator2D()->Play(L"Transition", false);
-			m_Transition->Transform()->SetRelativeScale(Vec3(CRenderMgr::GetInst()->GetWinResol().x, CRenderMgr::GetInst()->GetWinResol().y, 0.f));
+			//m_Transition->Transform()->SetRelativeScale(Vec3(CRenderMgr::GetInst()->GetWinResol().x, CRenderMgr::GetInst()->GetWinResol().y, 0.f));
 		}
 		break;
 		}

@@ -65,7 +65,7 @@ void CGameMgr::tick()
 
 void CGameMgr::GameEnding_Fail()
 {
-	//m_pMainCamera->GetScriptByType<CCamCtrlScript>()->PushTransition(false);
+	m_pMainCamera->GetScriptByType<CCamCtrlScript>()->PushTransition(false);
 }
 
 void CGameMgr::GameEnding_Win()

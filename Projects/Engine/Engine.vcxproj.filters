@@ -607,6 +607,9 @@
     <FxCompile Include="std2d_mask.fx">
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
+    <FxCompile Include="std2d_rescaling.fx">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

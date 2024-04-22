@@ -1,5 +1,5 @@
-#ifndef _STD2D
-#define _STD2D
+#ifndef _STD2D_BLOOM
+#define _STD2D_BLOOM
 
 #include "value.fx"
 #include "func.fx"
@@ -83,15 +83,8 @@ PS_OUT PS_Std2D_Bloom(VS_OUT _in) : SV_Target
     vColor.rgb *= LightColor.vColor.rgb + LightColor.vAmbient.rgb;
     
     // 3. cut masked
-    if (vColor.a <= 0.05f)
+    if (vColor.a == 0.f)
         discard;
-    
-    // ex. effect - paper burn
-    //float x = g_NoiseTex.Sample(g_sam_0, _in.vUV).x;
-    //if (0 > x - g_float_1)
-    //{
-    //    discard;
-    //}
     
     // render target 0
     output.RenderTarget = vColor;
