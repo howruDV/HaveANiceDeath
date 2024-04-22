@@ -13,6 +13,7 @@ CCamCtrlScript::CCamCtrlScript()
 	, m_fSpeed(0.f)
 	, m_fSpeedScale(1500.f)
 	, m_Target(nullptr)
+	, m_Transition(nullptr)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeedScale);
 	AddScriptParam(SCRIPT_PARAM::VEC3, "Target Offset", &m_vTargetOffset);
@@ -23,6 +24,7 @@ CCamCtrlScript::CCamCtrlScript(const CCamCtrlScript& _Origin)
 	, m_fSpeed(_Origin.m_fSpeed)
 	, m_fSpeedScale(_Origin.m_fSpeedScale)
 	, m_Target(nullptr)
+	, m_Transition(nullptr)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeedScale);
 	AddScriptParam(SCRIPT_PARAM::VEC3, "Target Offset", &m_vTargetOffset);
@@ -41,7 +43,8 @@ void CCamCtrlScript::begin()
 		m_Target = pLevel->FindObjectByName(L"Death", LayerIdx);
 		
 		m_Transition = GetOwner()->GetChildByName(L"Transition");
-		m_Transition->Deactivate();
+		if (m_Transition)
+			m_Transition->Deactivate();
 	}
 }
 
@@ -95,24 +98,35 @@ void CCamCtrlScript::tick()
 	if (!m_queueEffect.empty())
 	{
 		FCamEffect& CurEffect = m_queueEffect.front();
+		CurEffect.fAccTime += DT;
 
 		switch (CurEffect.Type)
 		{
 		case CAMEFFECT_TYPE::SHAKE:
 		{
 			float Strength = CurEffect.fVar;
-			Vec3 vDelta;
-			vDelta.x = sin(CTimeMgr::GetInst()->GetGameTime() * 30.f) * Strength;
-			vDelta.y = cos(CTimeMgr::GetInst()->GetGameTime() * 10.f) * Strength;
 
-			Vec3 Pos = Transform()->GetRelativePos() + vDelta;
+			Vec3 vCurDelta;
+			vCurDelta.x = sin(CurEffect.fAccTime * 30.f) * Strength;
+			vCurDelta.y = cos(CurEffect.fAccTime * 10.f) * Strength;
+
+			Vec3 vPrevDelta;
+			float vPrevTime = CurEffect.fAccTime - DT;
+			vPrevDelta.x = sin(vPrevTime * 30.f) * Strength;
+			vPrevDelta.y = cos(vPrevTime * 10.f) * Strength;
+
+			Vec3 Pos = Transform()->GetRelativePos() + vCurDelta - vPrevDelta;
 			Transform()->SetRelativePos(Pos);
+
 			m_vMove = Vec3();
 		}
 		break;
 
 		case CAMEFFECT_TYPE::TRANSITION_ON:
 		{
+			if (!m_Transition)
+				break;
+
 			GamePlayStatic::Play2DSound(L"sound\\title\\Menu_Main_Whsh_Play_01.wav", 1, 0.3f);
 			m_Transition->Activate();
 			m_Transition->Animator2D()->Play(L"Transition", false, true);
@@ -122,6 +136,9 @@ void CCamCtrlScript::tick()
 
 		case CAMEFFECT_TYPE::TRANSITION_OFF:
 		{
+			if (!m_Transition)
+				break;
+
 			m_Transition->Activate();
 			m_Transition->Animator2D()->Play(L"Transition", false);
 			m_Transition->Transform()->SetRelativeScale(Vec3(1600, 900, 0));
@@ -129,12 +146,11 @@ void CCamCtrlScript::tick()
 		break;
 		}
 
-		CurEffect.fAccTime += DT;
-		if (CurEffect.fAccTime > CurEffect.fPlayTime)
+		if (CurEffect.fPlayTime != -1.f && CurEffect.fAccTime > CurEffect.fPlayTime)
 			m_queueEffect.pop_front();
 	}
 
-	if (m_Transition->IsActivate() && !m_Transition->Animator2D()->IsPlaying())
+	if (m_Transition && m_Transition->IsActivate() && !m_Transition->Animator2D()->IsPlaying())
 		m_Transition->Deactivate();
 }
 
@@ -150,13 +166,25 @@ void CCamCtrlScript::LoadFromFile(FILE* _File)
 	fread(&m_vTargetOffset, 1, sizeof(Vec3), _File);
 }
 
+void CCamCtrlScript::PushEffect(FCamEffect _Effect)
+{
+	m_queueEffect.push_back(_Effect);
+}
+
+void CCamCtrlScript::PopEffect()
+{
+	if (m_queueEffect.empty())
+		return;
+
+	m_queueEffect.pop_front();
+}
+
 void CCamCtrlScript::PushTransition(bool _Start)
 {
 	FCamEffect Transition = {};
 	Transition.Type = _Start ? CAMEFFECT_TYPE::TRANSITION_ON : CAMEFFECT_TYPE::TRANSITION_OFF;
 	m_queueEffect.push_back(Transition);
 }
-
 
 Vec3 CCamCtrlScript::CheckCamArea(Vec3 _Pos)
 {

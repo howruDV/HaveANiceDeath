@@ -59,10 +59,11 @@ void CScytheDissComboC::Enter()
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 
 	// camera
-	FCamEffect Shake{};
+	FCamEffect Shake {};
 	Shake.Type = CAMEFFECT_TYPE::SHAKE;
-	Shake.fPlayTime = 1.f;
-	Shake.fVar = 1.2f;
+	Shake.fPlayTime = -1.f;
+	Shake.fAccTime = 0.f;
+	Shake.fVar = 3.f;
 	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
 
 	// hitbox
@@ -88,7 +89,11 @@ void CScytheDissComboC::Enter()
 void CScytheDissComboC::Exit()
 {
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+	m_pHitbox->Collider2D()->Deactivate();
+
+	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PopEffect();
+
+	// combo
 	PLAYERSCRIPT->StartCombo(2);
 	m_bCombo = false;
-	m_pHitbox->Collider2D()->Deactivate();
 }

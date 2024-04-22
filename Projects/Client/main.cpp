@@ -120,7 +120,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     CImGuiMgr::GetInst()->init(hWnd, DEVICE, CONTEXT);
     CImGuiMgr::GetInst()->begin();
 #else
-    CLevel* pLevel = CLevelSaveLoad::LoadLevel(L"level\\Title.lv");
+    CLevel* pLevel = CLevelSaveLoad::LoadLevel(L"level\\Field1");
     CLevelMgr::GetInst()->ChangeLevel(pLevel, LEVEL_STATE::PLAY);
     CCollisionMgr::GetInst()->LayerCheck(3, 4);
     CCollisionMgr::GetInst()->LayerCheck(3, 6);

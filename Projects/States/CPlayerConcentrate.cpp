@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CPlayerConcentrate.h"
 
+#include <Engine\CTimeMgr.h>
+
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
 #include <Scripts\CGameMgr.h>
@@ -36,12 +38,15 @@ void CPlayerConcentrate::Enter()
 	// camera
 	FCamEffect Shake{};
 	Shake.Type = CAMEFFECT_TYPE::SHAKE;
-	Shake.fPlayTime = 1.f;
-	Shake.fVar = 1.2f;
+	Shake.fPlayTime = -1.f;
+	Shake.fAccTime = 0.f;
+	Shake.fVar = 5.f;
+
 	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
 }
 
 void CPlayerConcentrate::Exit()
 {
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PopEffect();
 }

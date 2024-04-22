@@ -31,7 +31,8 @@ void CPlayerHit::Enter()
 	FCamEffect Shake{};
 	Shake.Type = CAMEFFECT_TYPE::SHAKE;
 	Shake.fPlayTime = 0.3f;
-	Shake.fVar = 1.5f;
+	Shake.fAccTime = 0.f;
+	Shake.fVar = 5.f;
 	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
 	
 	// setting

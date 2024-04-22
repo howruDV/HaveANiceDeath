@@ -13,9 +13,9 @@ enum class CAMEFFECT_TYPE
 struct FCamEffect
 {
     CAMEFFECT_TYPE Type;
-    float fPlayTime;
-    float fAccTime;
-    float fVar;
+    float fPlayTime = 0.f;
+    float fAccTime = 0.f;
+    float fVar = 0.f;
 };
 
 class CGameObejct;
@@ -42,8 +42,9 @@ public:
 
 public:
     void SetTarget(CGameObject* _Target) { m_Target = _Target; }
-    void PushEffect(FCamEffect _Effect) { m_queueEffect.push_back(_Effect); }
+    void PushEffect(FCamEffect _Effect);
     void PushTransition(bool _Start);
+    void PopEffect();
 
     Vec3 GetMove() { return m_vMove; }
 
