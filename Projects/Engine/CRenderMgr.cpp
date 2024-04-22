@@ -24,8 +24,10 @@ CRenderMgr::CRenderMgr()
 
 #ifdef _DEBUG
 	m_isEditorMode = true;
+	m_WinResol = Vec2(1600.f, 900.f);
 #else
 	m_isEditorMode = false;
+	m_WinResol = CDevice::GetInst()->GetRenderResolution();
 #endif
 
 }

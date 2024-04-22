@@ -3,6 +3,7 @@
 #include "CPlayerMgr.h"
 
 #include <Engine/CTimeMgr.h>
+#include <Engine/CRenderMgr.h>
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
 #include <Engine/CGameObject.h>
@@ -49,8 +50,8 @@ void CCamCtrlScript::begin()
 }
 
 #define CENTER		150.f
-#define MAXWIDTH	(1600.f / 2.f)
-#define MAXHEIGHT	(900.f / 2.f)
+#define MAXWIDTH	(CRenderMgr::GetInst()->GetWinResol().x / 2.f)
+#define MAXHEIGHT	(CRenderMgr::GetInst()->GetWinResol().y / 2.f)
 #define MAXDIFF		(MAXWIDTH - CENTER)
 
 void CCamCtrlScript::tick()
@@ -130,7 +131,7 @@ void CCamCtrlScript::tick()
 			GamePlayStatic::Play2DSound(L"sound\\title\\Menu_Main_Whsh_Play_01.wav", 1, 0.3f);
 			m_Transition->Activate();
 			m_Transition->Animator2D()->Play(L"Transition", false, true);
-			m_Transition->Transform()->SetRelativeScale(Vec3(1600, 900, 0));
+			m_Transition->Transform()->SetRelativeScale(Vec3(CRenderMgr::GetInst()->GetWinResol().x, CRenderMgr::GetInst()->GetWinResol().y, 0.f));
 		}
 		break;
 
@@ -141,7 +142,7 @@ void CCamCtrlScript::tick()
 
 			m_Transition->Activate();
 			m_Transition->Animator2D()->Play(L"Transition", false);
-			m_Transition->Transform()->SetRelativeScale(Vec3(1600, 900, 0));
+			m_Transition->Transform()->SetRelativeScale(Vec3(CRenderMgr::GetInst()->GetWinResol().x, CRenderMgr::GetInst()->GetWinResol().y, 0.f));
 		}
 		break;
 		}

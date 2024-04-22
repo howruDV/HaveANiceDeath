@@ -22,6 +22,8 @@ class CRenderMgr :
     SINGLE(CRenderMgr);
 
 private:
+    Vec2                    m_WinResol;
+
     // camera ---------------------------------
     CCamera*                m_EditorCam;
     vector<CCamera*>        m_vecCam;       // cam은 componets라 여러개 있을 수 있음
@@ -94,6 +96,7 @@ public:
     Ptr<CTexture> GetBloomRTTex() { return m_BloomRTTex; }
     const vector<CCamera*>& GetCameras() { return m_vecCam; }
     CCamera* GetEditorCamera() { return m_EditorCam; }
+    Vec2 GetWinResol() { return m_WinResol; }
     bool IsDebugPosition() { return m_DebugPosition; }
     bool IsEditorMode() { return m_isEditorMode; }
 };
