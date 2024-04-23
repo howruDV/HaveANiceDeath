@@ -172,6 +172,12 @@ call CodeGen.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CElevatorAppear.h" />
+    <ClInclude Include="CElevatorClose.h" />
+    <ClInclude Include="CElevatorDisappear.h" />
+    <ClInclude Include="CElevatorOpen.h" />
+    <ClInclude Include="CElevatorWait.h" />
+    <ClInclude Include="CEmpty.h" />
     <ClInclude Include="CKoTBigAttack1.h" />
     <ClInclude Include="CMonsterAppear.h" />
     <ClInclude Include="CMonsterAppearWait.h" />
@@ -221,6 +227,12 @@ call CodeGen.exe</Command>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CElevatorAppear.cpp" />
+    <ClCompile Include="CElevatorClose.cpp" />
+    <ClCompile Include="CElevatorDisappear.cpp" />
+    <ClCompile Include="CElevatorOpen.cpp" />
+    <ClCompile Include="CElevatorWait.cpp" />
+    <ClCompile Include="CEmpty.cpp" />
     <ClCompile Include="CKoTBigAttack1.cpp" />
     <ClCompile Include="CMonsterAppear.cpp" />
     <ClCompile Include="CMonsterAppearWait.cpp" />

@@ -63,16 +63,19 @@ void CAnimator2D::finaltick()
     {
         if (m_bRepeat)
             m_CurAnim->Reset();
-        else if (!m_bRepeat && !m_listNextAnim.empty())
+        else
         {
-            // reset before anim
-            m_CurAnim->Reset();
+            if (!m_listNextAnim.empty())
+            {
+                // reset before anim
+                m_CurAnim->Reset();
 
-            m_CurAnim = m_listNextAnim.front().pAnim;
-            m_bRepeat = m_listNextAnim.front().bRepeat;
-            m_listNextAnim.pop_front();
+                m_CurAnim = m_listNextAnim.front().pAnim;
+                m_bRepeat = m_listNextAnim.front().bRepeat;
+                m_listNextAnim.pop_front();
 
-            Play(m_CurAnim->GetName(), m_bRepeat);
+                Play(m_CurAnim->GetName(), m_bRepeat);
+            }
         }
     }
 

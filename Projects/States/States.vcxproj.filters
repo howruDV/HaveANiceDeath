@@ -13,48 +13,6 @@
     <Filter Include="States\Dummy">
       <UniqueIdentifier>{884800aa-1073-47f6-9fe0-2e16c1475f79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="States\Player">
-      <UniqueIdentifier>{8664fd06-5daa-4544-ae61-a3db2f4cf73c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Idle">
-      <UniqueIdentifier>{3e0922d2-2ebf-4d44-b556-43bc62d45878}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Run">
-      <UniqueIdentifier>{8a5f2b84-8124-4a8e-85de-d14f30251069}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Idle_ToRun">
-      <UniqueIdentifier>{a7b58336-d5a0-4836-a5ba-bb4d3aca6f72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Run_ToIdle">
-      <UniqueIdentifier>{6bc01316-2895-406e-b014-b79a23265ca0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Jump_Start">
-      <UniqueIdentifier>{a39512bc-858d-4366-bfb2-166d794042e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Jump_Falling">
-      <UniqueIdentifier>{1c4cc1e9-435c-4eef-a1e5-41e862b464b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Jump_Landing">
-      <UniqueIdentifier>{6530dbe5-87ae-48f7-8644-4c12052e4a58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Run_UTurn">
-      <UniqueIdentifier>{2bf8af8c-9ddc-4279-83a1-57d0cc570489}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Idle_UTurn">
-      <UniqueIdentifier>{bed0dddf-1ba3-4f30-be81-b4a6ae3fa978}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Dash">
-      <UniqueIdentifier>{18cebd33-e9ea-4b8d-821e-d83ac58c43b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Concentrate_Start">
-      <UniqueIdentifier>{6f73aa3a-9269-4c10-9e18-7a340183f7ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Concentrate">
-      <UniqueIdentifier>{fcd36940-ffca-4011-bfd3-84be546ee83f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\PowerUp">
-      <UniqueIdentifier>{931ae09a-cc7c-44bf-aee2-29cd1e8e410d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="States\Weapon">
       <UniqueIdentifier>{13ad4982-ccb7-4000-890e-405504e34a7d}</UniqueIdentifier>
     </Filter>
@@ -90,12 +48,6 @@
     </Filter>
     <Filter Include="States\Weapon\Scythe\Diss\Rest">
       <UniqueIdentifier>{db9a9a8c-94a6-4941-afb9-1f0273cda45b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Hit">
-      <UniqueIdentifier>{ef62df18-c909-4cd9-a88c-df555c9fb6a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States\Player\Die">
-      <UniqueIdentifier>{fe253018-074f-4b21-8203-615a77130711}</UniqueIdentifier>
     </Filter>
     <Filter Include="States\Monster">
       <UniqueIdentifier>{21d0067b-c8b9-43d3-b0d0-786287632166}</UniqueIdentifier>
@@ -154,11 +106,77 @@
     <Filter Include="States\Monster\Attack\KoTFlying">
       <UniqueIdentifier>{a7b24aac-8bc1-4529-8c58-926711e659dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Player">
+      <UniqueIdentifier>{8664fd06-5daa-4544-ae61-a3db2f4cf73c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Idle">
+      <UniqueIdentifier>{3e0922d2-2ebf-4d44-b556-43bc62d45878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Run">
+      <UniqueIdentifier>{8a5f2b84-8124-4a8e-85de-d14f30251069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Idle_ToRun">
+      <UniqueIdentifier>{a7b58336-d5a0-4836-a5ba-bb4d3aca6f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Run_ToIdle">
+      <UniqueIdentifier>{6bc01316-2895-406e-b014-b79a23265ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Jump_Start">
+      <UniqueIdentifier>{a39512bc-858d-4366-bfb2-166d794042e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Jump_Falling">
+      <UniqueIdentifier>{1c4cc1e9-435c-4eef-a1e5-41e862b464b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Jump_Landing">
+      <UniqueIdentifier>{6530dbe5-87ae-48f7-8644-4c12052e4a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Run_UTurn">
+      <UniqueIdentifier>{2bf8af8c-9ddc-4279-83a1-57d0cc570489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Idle_UTurn">
+      <UniqueIdentifier>{bed0dddf-1ba3-4f30-be81-b4a6ae3fa978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Dash">
+      <UniqueIdentifier>{18cebd33-e9ea-4b8d-821e-d83ac58c43b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Concentrate_Start">
+      <UniqueIdentifier>{6f73aa3a-9269-4c10-9e18-7a340183f7ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Concentrate">
+      <UniqueIdentifier>{fcd36940-ffca-4011-bfd3-84be546ee83f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\PowerUp">
+      <UniqueIdentifier>{931ae09a-cc7c-44bf-aee2-29cd1e8e410d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Hit">
+      <UniqueIdentifier>{ef62df18-c909-4cd9-a88c-df555c9fb6a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Player\Die">
+      <UniqueIdentifier>{fe253018-074f-4b21-8203-615a77130711}</UniqueIdentifier>
+    </Filter>
     <Filter Include="States\Player\Elevator_Out">
       <UniqueIdentifier>{8e18eda1-b28f-4dd0-9539-7a5f050e83d5}</UniqueIdentifier>
     </Filter>
     <Filter Include="States\Player\Elevator_In">
       <UniqueIdentifier>{02ac6b66-dea5-4a00-b497-43ea9884e382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Elevator">
+      <UniqueIdentifier>{5ecb17b2-f3bc-4f78-9d51-4662104062f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Elevator\Open">
+      <UniqueIdentifier>{ae832423-3b2b-4e41-87f3-c91ecc703ba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Elevator\Close">
+      <UniqueIdentifier>{0f114857-7afb-4bbd-8f76-ab414c3a0a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Elevator\Wait">
+      <UniqueIdentifier>{8f284303-28ca-433d-af0d-3700914f97d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Elevator\Appear">
+      <UniqueIdentifier>{88015e87-a6be-45d8-a40b-03bef519b138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Elevator\Disappear">
+      <UniqueIdentifier>{cde56a9f-d6b7-4117-9577-e8d4a1617832}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +320,24 @@
     <ClInclude Include="CPlayerElevator_In.h">
       <Filter>States\Player\Elevator_In</Filter>
     </ClInclude>
+    <ClInclude Include="CElevatorAppear.h">
+      <Filter>States\Elevator\Appear</Filter>
+    </ClInclude>
+    <ClInclude Include="CElevatorOpen.h">
+      <Filter>States\Elevator\Open</Filter>
+    </ClInclude>
+    <ClInclude Include="CElevatorWait.h">
+      <Filter>States\Elevator\Wait</Filter>
+    </ClInclude>
+    <ClInclude Include="CElevatorClose.h">
+      <Filter>States\Elevator\Close</Filter>
+    </ClInclude>
+    <ClInclude Include="CElevatorDisappear.h">
+      <Filter>States\Elevator\Disappear</Filter>
+    </ClInclude>
+    <ClInclude Include="CEmpty.h">
+      <Filter>States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -442,6 +478,24 @@
     </ClCompile>
     <ClCompile Include="CPlayerElevator_In.cpp">
       <Filter>States\Player\Elevator_In</Filter>
+    </ClCompile>
+    <ClCompile Include="CElevatorAppear.cpp">
+      <Filter>States\Elevator\Appear</Filter>
+    </ClCompile>
+    <ClCompile Include="CElevatorOpen.cpp">
+      <Filter>States\Elevator\Open</Filter>
+    </ClCompile>
+    <ClCompile Include="CElevatorWait.cpp">
+      <Filter>States\Elevator\Wait</Filter>
+    </ClCompile>
+    <ClCompile Include="CElevatorClose.cpp">
+      <Filter>States\Elevator\Close</Filter>
+    </ClCompile>
+    <ClCompile Include="CElevatorDisappear.cpp">
+      <Filter>States\Elevator\Disappear</Filter>
+    </ClCompile>
+    <ClCompile Include="CEmpty.cpp">
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

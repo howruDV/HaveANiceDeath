@@ -8,8 +8,7 @@ class CElevatorScript :
 {
 private:
     deque<Ptr<CSound>> m_vecSound;
-    bool m_bStartOpen;
-    bool m_bGameEnd;
+    bool m_bCanClose;
 
 public:
     virtual void begin() override;

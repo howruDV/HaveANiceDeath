@@ -7,7 +7,6 @@
 #include <Engine\CLevelMgr.h>
 #include <Engine\CTimeMgr.h>
 #include <Engine\CLevel.h>
-#include <Engine\CStateMachine.h>
 
 CGameObject* CGameMgr::m_pMainCamera = nullptr;
 
@@ -25,9 +24,8 @@ CGameMgr::~CGameMgr()
 
 void CGameMgr::begin()
 {
-	CPlayerMgr::GetPlayerScript()->StateMachine()->GetFSM()->ChangeState(L"Elevator_Out");
-
 	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+
 	if (pLevel)
 	{
 		// camera

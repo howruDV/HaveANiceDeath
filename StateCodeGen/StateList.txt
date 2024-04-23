@@ -1,3 +1,9 @@
+CElevatorAppear
+CElevatorClose
+CElevatorDisappear
+CElevatorOpen
+CElevatorWait
+CEmpty
 CIdleState
 CKoTBigAttack1
 CKoTBigAttack2

@@ -1,6 +1,12 @@
 #include "pch.h"
 #include "CStateMgr.h"
 
+#include "CElevatorAppear.h"
+#include "CElevatorClose.h"
+#include "CElevatorDisappear.h"
+#include "CElevatorOpen.h"
+#include "CElevatorWait.h"
+#include "CEmpty.h"
 #include "CIdleState.h"
 #include "CKoTBigAttack1.h"
 #include "CKoTBigAttack2.h"
@@ -47,6 +53,12 @@
 
 void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 {
+	_vec.push_back(L"CElevatorAppear");
+	_vec.push_back(L"CElevatorClose");
+	_vec.push_back(L"CElevatorDisappear");
+	_vec.push_back(L"CElevatorOpen");
+	_vec.push_back(L"CElevatorWait");
+	_vec.push_back(L"CEmpty");
 	_vec.push_back(L"CIdleState");
 	_vec.push_back(L"CKoTBigAttack1");
 	_vec.push_back(L"CKoTBigAttack2");
@@ -94,6 +106,18 @@ void CStateMgr::GetStateInfo(vector<wstring>& _vec)
 
 CState* CStateMgr::GetState(const wstring& _strStateName)
 {
+	if (L"CElevatorAppear" == _strStateName)
+		return new CElevatorAppear;
+	if (L"CElevatorClose" == _strStateName)
+		return new CElevatorClose;
+	if (L"CElevatorDisappear" == _strStateName)
+		return new CElevatorDisappear;
+	if (L"CElevatorOpen" == _strStateName)
+		return new CElevatorOpen;
+	if (L"CElevatorWait" == _strStateName)
+		return new CElevatorWait;
+	if (L"CEmpty" == _strStateName)
+		return new CEmpty;
 	if (L"CIdleState" == _strStateName)
 		return new CIdleState;
 	if (L"CKoTBigAttack1" == _strStateName)
@@ -187,6 +211,24 @@ CState* CStateMgr::GetState(UINT _iStateType)
 {
 	switch (_iStateType)
 	{
+	case (UINT)STATE_TYPE::ELEVATORAPPEAR:
+		return new CElevatorAppear;
+		break;
+	case (UINT)STATE_TYPE::ELEVATORCLOSE:
+		return new CElevatorClose;
+		break;
+	case (UINT)STATE_TYPE::ELEVATORDISAPPEAR:
+		return new CElevatorDisappear;
+		break;
+	case (UINT)STATE_TYPE::ELEVATOROPEN:
+		return new CElevatorOpen;
+		break;
+	case (UINT)STATE_TYPE::ELEVATORWAIT:
+		return new CElevatorWait;
+		break;
+	case (UINT)STATE_TYPE::EMPTY:
+		return new CEmpty;
+		break;
 	case (UINT)STATE_TYPE::IDLESTATE:
 		return new CIdleState;
 		break;
@@ -324,6 +366,30 @@ const wchar_t * CStateMgr::GetStateName(CState * _pState)
 {
 	switch ((STATE_TYPE)_pState->GetStateType())
 	{
+	case STATE_TYPE::ELEVATORAPPEAR:
+		return L"CElevatorAppear";
+		break;
+
+	case STATE_TYPE::ELEVATORCLOSE:
+		return L"CElevatorClose";
+		break;
+
+	case STATE_TYPE::ELEVATORDISAPPEAR:
+		return L"CElevatorDisappear";
+		break;
+
+	case STATE_TYPE::ELEVATOROPEN:
+		return L"CElevatorOpen";
+		break;
+
+	case STATE_TYPE::ELEVATORWAIT:
+		return L"CElevatorWait";
+		break;
+
+	case STATE_TYPE::EMPTY:
+		return L"CEmpty";
+		break;
+
 	case STATE_TYPE::IDLESTATE:
 		return L"CIdleState";
 		break;
