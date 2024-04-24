@@ -7,7 +7,6 @@ class CElevatorScript :
     public CScript
 {
 private:
-    deque<Ptr<CSound>> m_vecSound;
     bool m_bCanClose;
 
 public:
@@ -16,9 +15,6 @@ public:
 
     virtual void SaveToFile(FILE* _File);
     virtual void LoadFromFile(FILE* _File);
-
-    void Open();
-    void Close();
 
 public:
     CLONE(CElevatorScript);
