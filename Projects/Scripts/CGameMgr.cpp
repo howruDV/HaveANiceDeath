@@ -9,6 +9,7 @@
 #include <Engine\CLevel.h>
 
 CGameObject* CGameMgr::m_pMainCamera = nullptr;
+Vec2 CGameMgr::m_vHUDPosFromScreenLT(Vec2(120.f, 80.f));
 
 CGameMgr::CGameMgr()
 	: CScript(GAMEMGR)

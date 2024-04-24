@@ -13,7 +13,8 @@ class CGameMgr :
 {
 private:
 	static CGameObject* m_pMainCamera;
-	CScript* m_pCurLevelMgr;
+	static Vec2			m_vHUDPosFromScreenLT;
+	CScript*			m_pCurLevelMgr;
 	//bool m_bTitle;
 	//float m_bTitleAcc;
 
@@ -31,6 +32,7 @@ private:
 
 public:
 	static CGameObject* GetMainCamera() { return m_pMainCamera; }
+	static Vec2 GetHUDPosFromScreenLT() { return m_vHUDPosFromScreenLT; }
 
 public:
 	CLONE_DISABLE(CGameMgr)

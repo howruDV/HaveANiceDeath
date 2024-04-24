@@ -2,8 +2,13 @@
 #include "CLevelMgrScript_W09_Field1.h"
 #include "CPlayerMgr.h"
 #include "CPlayerScript.h"
+#include "CGameMgr.h"
 
+#include <Engine\CRenderMgr.h>
+#include <Engine\CLevelMgr.h>
+#include <Engine\CLevel.h>
 #include <Engine\CStateMachine.h>
+#include <Engine\CTransform.h>
 
 CLevelMgrScript_W09_Field1::CLevelMgrScript_W09_Field1()
 	: CScript(LEVELMGRSCRIPT_W09_FIELD1)
@@ -24,6 +29,23 @@ void CLevelMgrScript_W09_Field1::begin()
 
 	// player
 	CPlayerMgr::GetPlayer()->StateMachine()->GetFSM()->ChangeState(L"Idle");
+
+	// UI
+	CLevel* pLevel = CLevelMgr::GetInst()->GetCurrentLevel();
+
+	if (pLevel)
+	{
+		CGameObject* HUD = pLevel->FindObjectByName(L"HUD", 31);
+
+		if (HUD)
+		{
+			Vec3 Pos = HUD->Transform()->GetRelativePos();
+			Pos.x =	- CRenderMgr::GetInst()->GetWinResol().x / 2.f + CGameMgr::GetHUDPosFromScreenLT().x;
+			Pos.y =	CRenderMgr::GetInst()->GetWinResol().y / 2.f - CGameMgr::GetHUDPosFromScreenLT().y;
+
+			HUD->Transform()->SetRelativePos(Pos);
+		}
+	}
 }
 
 void CLevelMgrScript_W09_Field1::tick()
