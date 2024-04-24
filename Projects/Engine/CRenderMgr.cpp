@@ -10,6 +10,8 @@
 #include "CLight2D.h"
 #include "CConstBuffer.h"
 
+#define DEFAULT_WINSIZE Vec2(1600.f, 900.f)
+
 CRenderMgr::CRenderMgr()
 	: m_vecCam{}
 	, m_DbgShapeInfo {}
@@ -24,12 +26,13 @@ CRenderMgr::CRenderMgr()
 
 #ifdef _DEBUG
 	m_isEditorMode = true;
-	m_WinResol = Vec2(1600.f, 900.f);
+	m_WinResol = DEFAULT_WINSIZE;
 #else
 	m_isEditorMode = false;
 	m_WinResol = CDevice::GetInst()->GetRenderResolution();
 #endif
 
+	m_WinScale = m_WinResol / DEFAULT_WINSIZE;
 }
 
 CRenderMgr::~CRenderMgr()

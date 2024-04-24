@@ -39,11 +39,42 @@ void CLevelMgrScript_W09_Field1::begin()
 
 		if (HUD)
 		{
+			// pos
 			Vec3 Pos = HUD->Transform()->GetRelativePos();
-			Pos.x =	- CRenderMgr::GetInst()->GetWinResol().x / 2.f + CGameMgr::GetHUDPosFromScreenLT().x;
-			Pos.y =	CRenderMgr::GetInst()->GetWinResol().y / 2.f - CGameMgr::GetHUDPosFromScreenLT().y;
-
+			Pos.x =	- CRenderMgr::GetInst()->GetWinResol().x / 2.f + CGameMgr::GetHUDPosFromScreenLT().x * CRenderMgr::GetInst()->GetWinScale().x;
+			Pos.y =	CRenderMgr::GetInst()->GetWinResol().y / 2.f - CGameMgr::GetHUDPosFromScreenLT().y * CRenderMgr::GetInst()->GetWinScale().y;
 			HUD->Transform()->SetRelativePos(Pos);
+
+			list<CGameObject*> vecChild {HUD};
+
+			while (!vecChild.empty())
+			{
+				CGameObject* Cur = vecChild.front();
+				vecChild.pop_front();
+
+				// pos
+				if (Cur->GetParent())
+				{
+					Pos = Cur->Transform()->GetRelativePos();
+					Pos.x *= CRenderMgr::GetInst()->GetWinScale().x;
+					Pos.y *= CRenderMgr::GetInst()->GetWinScale().y;
+					Cur->Transform()->SetRelativePos(Pos);
+				}
+
+				// scale
+				if (Cur->Transform()->IsAbsolute())
+				{
+					Vec3 Scale = Cur->Transform()->GetRelativeScale();
+					Scale.x *= CRenderMgr::GetInst()->GetWinScale().x;
+					Scale.y *= CRenderMgr::GetInst()->GetWinScale().y;
+					Cur->Transform()->SetRelativeScale(Scale);
+				}
+
+				// get child
+				vector<CGameObject*> vec = Cur->GetChild();
+				for (CGameObject* it : vec)
+					vecChild.push_back(it);
+			}
 		}
 	}
 }

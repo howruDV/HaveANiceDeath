@@ -79,18 +79,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
     SetWindowPos(hWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
 #else
-    Vec2 WinSize = Vec2 (1600,900);
-    //Vec2 WinSize = Vec2(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN));
-    //LONG_PTR style = GetWindowLongPtr(hWnd, GWL_STYLE);
-    //style &= ~WS_OVERLAPPEDWINDOW;
-    //style |= WS_POPUP;
-    //SetWindowLongPtr(hWnd, GWL_STYLE, style);
-    //SetWindowPos(hWnd, HWND_TOP, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+    Vec2 WinSize = Vec2(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN));
+    LONG_PTR style = GetWindowLongPtr(hWnd, GWL_STYLE);
+    style &= ~WS_OVERLAPPEDWINDOW;
+    style |= WS_POPUP;
+    SetWindowLongPtr(hWnd, GWL_STYLE, style);
+    SetWindowPos(hWnd, HWND_TOP, 0, 0, WinSize.x, WinSize.y, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 
     // window size, position
-    RECT rect = { 0, 0, (int)WinSize.x, (int)WinSize.y };
-    AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
-    SetWindowPos(hWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
+    //Vec2 WinSize = Vec2 (1600,900);
+    //RECT rect = { 0, 0, (int)WinSize.x, (int)WinSize.y };
+    //AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+    //SetWindowPos(hWnd, nullptr, -10, 0, rect.right - rect.left, rect.bottom - rect.top, 0);
 #endif
 
     // window style

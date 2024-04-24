@@ -23,6 +23,7 @@ class CRenderMgr :
 
 private:
     Vec2                    m_WinResol;
+    Vec2                    m_WinScale;
 
     // camera ---------------------------------
     CCamera*                m_EditorCam;
@@ -97,6 +98,7 @@ public:
     const vector<CCamera*>& GetCameras() { return m_vecCam; }
     CCamera* GetEditorCamera() { return m_EditorCam; }
     Vec2 GetWinResol() { return m_WinResol; }
+    Vec2 GetWinScale() { return m_WinScale; }
     bool IsDebugPosition() { return m_DebugPosition; }
     bool IsEditorMode() { return m_isEditorMode; }
 };
