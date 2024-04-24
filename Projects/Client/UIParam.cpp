@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include "UIListPannel.h"
 #include "func_ImGUI.h"
+
 #include <Engine/CAssetMgr.h>
 
 int UIParam::g_ID = 0;
@@ -104,65 +105,71 @@ bool UIParam::Param_TEXTURE(_Inout_ Ptr<CTexture>& _Texture, const string& _Desc
 	TextBox(_Desc.c_str());
 	ImGui::SameLine();
 
-	char szID[256] = {};
-	sprintf_s(szID, "##Texture%d", g_ID++);
-	ImTextureID texid = nullptr;
-	string strTexKey;
-
-	if (_Texture.Get())
+	ImGui::BeginGroup();
 	{
-		texid = _Texture->GetSRV().Get();
-		strTexKey = string(_Texture->GetKey().begin(), _Texture->GetKey().end());
-	}
+		char szID[256] = {};
+		sprintf_s(szID, "##Texture%d", g_ID++);
+		ImTextureID texid = nullptr;
+		string strTexKey;
 
-	// texture name
-	ImGui::InputText(szID, (char*)strTexKey.c_str(), strTexKey.length(), ImGuiInputTextFlags_ReadOnly);
-
-	// drop check
-	if (ImGui::BeginDragDropTarget())
-	{
-		const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ContentTree");
-
-		if (payload)
+		if (_Texture.Get())
 		{
-			DWORD_PTR data = *((DWORD_PTR*)payload->Data);
-			CAsset* pAsset = (CAsset*)data;
-			if (ASSET_TYPE::TEXTURE == pAsset->GetType())
+			texid = _Texture->GetSRV().Get();
+			strTexKey = string(_Texture->GetKey().begin(), _Texture->GetKey().end());
+		}
+
+		// texture name
+		ImGui::InputText(szID, (char*)strTexKey.c_str(), strTexKey.length(), ImGuiInputTextFlags_ReadOnly);
+
+		// drop check
+		if (ImGui::BeginDragDropTarget())
+		{
+			const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ContentTree");
+
+			if (payload)
 			{
-				_Texture = (CTexture*)pAsset;
+				DWORD_PTR data = *((DWORD_PTR*)payload->Data);
+				CAsset* pAsset = (CAsset*)data;
+				if (ASSET_TYPE::TEXTURE == pAsset->GetType())
+				{
+					_Texture = (CTexture*)pAsset;
+				}
+			}
+
+			ImGui::EndDragDropTarget();
+		}
+
+		// select btn
+		if (_Inst && _Func)
+		{
+			ImGui::SameLine();
+			sprintf_s(szID, "##TexBtn%d", g_ID++);
+			if (ImGui::Button(szID, ImVec2(20, 20)))
+			{
+				// 리스트 UI
+				UIListPannel* pListUI = (UIListPannel*)CImGuiMgr::GetInst()->FindUI("##List");
+
+				vector<string> vecTexName;
+				CAssetMgr::GetInst()->GetAssetName(ASSET_TYPE::TEXTURE, vecTexName);
+
+				pListUI->AddString(vecTexName);
+				pListUI->SetDBClickeDelegate(_Inst, (DELEGATE_1)_Func);
+				pListUI->Activate();
+
+				ImGui::EndGroup();
+				return true;
 			}
 		}
 
-		ImGui::EndDragDropTarget();
-	}
+		// image
+		static bool use_text_color_for_tint = false;
+		ImVec2 uv_min = ImVec2(0.0f, 0.0f);
+		ImVec2 uv_max = ImVec2(1.0f, 1.0f);
+		ImVec4 tint_col = use_text_color_for_tint ? ImGui::GetStyleColorVec4(ImGuiCol_Text) : ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // No tint
+		ImVec4 border_col = ImGui::GetStyleColorVec4(ImGuiCol_Border);
+		ImGui::Image(texid, ImVec2(150, 150), uv_min, uv_max, tint_col, border_col);
 
-	// image
-	static bool use_text_color_for_tint = false;
-	ImVec2 uv_min = ImVec2(0.0f, 0.0f);
-	ImVec2 uv_max = ImVec2(1.0f, 1.0f);
-	ImVec4 tint_col = use_text_color_for_tint ? ImGui::GetStyleColorVec4(ImGuiCol_Text) : ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // No tint
-	ImVec4 border_col = ImGui::GetStyleColorVec4(ImGuiCol_Border);
-	ImGui::Image(texid, ImVec2(150, 150), uv_min, uv_max, tint_col, border_col);
-
-	// click func
-	if (_Inst && _Func)
-	{
-		ImGui::SameLine();
-		sprintf_s(szID, "##TexBtn%d", g_ID++);
-		if (ImGui::Button(szID, ImVec2(20, 20)))
-		{
-			// 리스트 UI
-			UIListPannel* pListUI = (UIListPannel*)CImGuiMgr::GetInst()->FindUI("##List");
-
-			vector<string> vecTexName;
-			CAssetMgr::GetInst()->GetAssetName(ASSET_TYPE::TEXTURE, vecTexName);
-
-			pListUI->AddString(vecTexName);
-			pListUI->SetDBClickeDelegate(_Inst, (DELEGATE_1)_Func);
-			pListUI->Activate();
-
-			return true;
-		}
+		ImGui::EndGroup();
 	}
 
 	return false;

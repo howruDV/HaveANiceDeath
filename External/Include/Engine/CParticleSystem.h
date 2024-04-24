@@ -14,9 +14,8 @@ class CParticleSystem :
     public CRenderComponent
 {
 private:
-    
     CStructuredBuffer*      m_ParticleBuffer;
-    UINT                    m_ParticleCountMax;
+    UINT                    m_ParticleSpawnMax;
     Ptr<CTexture>           m_ParticleTex;
     
     // Compute Shader
@@ -37,6 +36,15 @@ public:
 
     virtual void SaveToFile(FILE* _File) override;
     virtual void LoadFromFile(FILE* _File) override;
+
+public:
+    void SetParticleSpawnMax(UINT _Max) { m_ParticleSpawnMax = _Max; }
+    void SetParticleTex(Ptr<CTexture> _Tex) { m_ParticleTex = _Tex; }
+    void SetModule(FParticleModule _Module) { m_Module = _Module; }
+
+    UINT GetParticleSpawnMax() { return m_ParticleSpawnMax; }
+    Ptr<CTexture> GetParticleTex() { return m_ParticleTex; }
+    FParticleModule GetModule() { return m_Module; }
 
 public:
     CLONE(CParticleSystem);

@@ -63,8 +63,8 @@ void UIMaterial::SelectTexture(DWORD_PTR _dwData)
     wstring strTexName = StrToWstr(strTex);
 
     Ptr<CTexture> pTex = CAssetMgr::GetInst()->FindAsset<CTexture>(strTexName);
-    Ptr<CMaterial> pMtrl = (CMaterial*)GetAsset().Get();
-    pMtrl->SetTexParam(m_SelectTexParam, pTex);
+    Ptr<CMaterial> pMat = (CMaterial*)GetAsset().Get();
+    pMat->SetTexParam(m_SelectTexParam, pTex);
 }
 
 void UIMaterial::render_UIMatParam(Ptr<CMaterial> pMat, Ptr<CGraphicsShader> pShader)

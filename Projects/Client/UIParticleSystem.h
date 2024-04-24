@@ -5,6 +5,7 @@ class UIParticleSystem :
 {
 public:
     virtual void render_update() override;
+    void SelectTexture(DWORD_PTR _dwData);
 
 public:
     UIParticleSystem();

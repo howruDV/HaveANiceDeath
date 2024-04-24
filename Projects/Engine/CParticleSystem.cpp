@@ -8,7 +8,7 @@
 
 CParticleSystem::CParticleSystem()
 	: CRenderComponent(COMPONENT_TYPE::PARTICLESYSTEM)
-	, m_ParticleCountMax(20)
+	, m_ParticleSpawnMax(20)
 	, m_ParticleBuffer(nullptr)
 	, m_SpawnAccTime(0.f)
 {
@@ -16,20 +16,8 @@ CParticleSystem::CParticleSystem()
 	SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"PointMesh"));
 	SetMaterial(CAssetMgr::GetInst()->FindAsset<CMaterial>(L"ParticleMat"));
 
-	m_ParticleTex = CAssetMgr::GetInst()->Load<CTexture>(L"texture\\particle\\CartoonSmoke.png");
-
-	Vec2 vResol = CDevice::GetInst()->GetRenderResolution();
-	// 임시 paritcle system 생성
-	//FParticle arrParticle[100] = {};
-	//for (UINT i = 0; i < m_ParticleCountMax; ++i)
-	//{
-	//	arrParticle[i].vWorldPos = Vec3(vResol.x / (m_ParticleCountMax + 1) * (i + 1) - (vResol.x / 2.f), 0.f, 99.f);
-	//	arrParticle[i].vWorldScale = Vec3(50.f, 50.f, 1.f);
-	//	arrParticle[i].Active = 0;
-	//}
-
 	m_ParticleBuffer = new CStructuredBuffer;
-	m_ParticleBuffer->Create(sizeof(FParticle), m_ParticleCountMax, SB_TYPE::READ_WRITE, true);	// 확인용으로 READ_WRITE (CPU 읽기 허용)
+	m_ParticleBuffer->Create(sizeof(FParticle), m_ParticleSpawnMax, SB_TYPE::READ_WRITE, true);	// 확인용으로 READ_WRITE (CPU 읽기 허용)
 	
 	m_ParticleModuleBuffer = new CStructuredBuffer;
 	UINT ModuleResize = sizeof(FParticleModule);
@@ -98,7 +86,7 @@ CParticleSystem::CParticleSystem()
 CParticleSystem::CParticleSystem(const CParticleSystem& _OriginParticle)
 	: CRenderComponent(_OriginParticle)
 	, m_ParticleBuffer(nullptr)
-	, m_ParticleCountMax(_OriginParticle.m_ParticleCountMax)
+	, m_ParticleSpawnMax(_OriginParticle.m_ParticleSpawnMax)
 	, m_Module(_OriginParticle.m_Module)
 	, m_ParticleModuleBuffer(nullptr)
 	, m_SpawnCountBuffer(nullptr)
@@ -186,7 +174,7 @@ void CParticleSystem::render()
 	// 2. rendering
 	GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, m_ParticleTex);
 	GetMaterial()->UpdatePipeline();
-	GetMesh()->renderInstanced(m_ParticleCountMax);
+	GetMesh()->renderInstanced(m_ParticleSpawnMax);
 
 	// pipeline binding clear
 	m_ParticleBuffer->Clear(20);
@@ -198,7 +186,7 @@ void CParticleSystem::SaveToFile(FILE* _File)
 	CRenderComponent::SaveToFile(_File);
 
 	// 파티클 최대 갯수 및 모듈 정보 저장
-	fwrite(&m_ParticleCountMax, sizeof(UINT), 1, _File);
+	fwrite(&m_ParticleSpawnMax, sizeof(UINT), 1, _File);
 	fwrite(&m_Module, sizeof(FParticleModule), 1, _File);
 
 	// 사용하던 CS 가 누군지 저장
@@ -213,7 +201,7 @@ void CParticleSystem::LoadFromFile(FILE* _File)
 	CRenderComponent::LoadFromFile(_File);
 
 	// 파티클 최대 갯수 및 모듈 정보 로드
-	fread(&m_ParticleCountMax, sizeof(UINT), 1, _File);
+	fread(&m_ParticleSpawnMax, sizeof(UINT), 1, _File);
 	fread(&m_Module, sizeof(FParticleModule), 1, _File);
 
 	// 사용하던 CS 가 누군지 로드

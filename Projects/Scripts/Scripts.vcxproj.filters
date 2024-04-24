@@ -26,10 +26,10 @@
       <Filter>Manager\GameMgr</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerScript.h">
-      <Filter>Scripts\Obj\Unit\Player</Filter>
+      <Filter>Scripts\Unit\Player</Filter>
     </ClInclude>
     <ClInclude Include="CUnitScript.h">
-      <Filter>Scripts\Obj\Unit</Filter>
+      <Filter>Scripts\Unit</Filter>
     </ClInclude>
     <ClInclude Include="CCornerTriggerScript.h">
       <Filter>Scripts\Function\Platform\CornerTrigger</Filter>
@@ -50,7 +50,7 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="CMonsterScript.h">
-      <Filter>Scripts\Obj\Unit\Enemy</Filter>
+      <Filter>Scripts\Unit\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="CBloomScript.h">
       <Filter>Scripts\Effect\Bloom</Filter>
@@ -121,10 +121,10 @@
       <Filter>Manager\GameMgr</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
-      <Filter>Scripts\Obj\Unit\Player</Filter>
+      <Filter>Scripts\Unit\Player</Filter>
     </ClCompile>
     <ClCompile Include="CUnitScript.cpp">
-      <Filter>Scripts\Obj\Unit</Filter>
+      <Filter>Scripts\Unit</Filter>
     </ClCompile>
     <ClCompile Include="CCornerTriggerScript.cpp">
       <Filter>Scripts\Function\Platform\CornerTrigger</Filter>
@@ -139,7 +139,7 @@
       <Filter>Header</Filter>
     </ClCompile>
     <ClCompile Include="CMonsterScript.cpp">
-      <Filter>Scripts\Obj\Unit\Enemy</Filter>
+      <Filter>Scripts\Unit\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="CBloomScript.cpp">
       <Filter>Scripts\Effect\Bloom</Filter>
@@ -215,15 +215,6 @@
     <Filter Include="Scripts\Obj\KoTSpear_Proj">
       <UniqueIdentifier>{2a696216-48da-4dab-add9-7c6b1827e920}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Obj\Unit">
-      <UniqueIdentifier>{4df81294-5a06-45c1-8ba4-413d46147310}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Obj\Unit\Player">
-      <UniqueIdentifier>{1cf859de-d203-4603-b5a9-56d36a4a181d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Obj\Unit\Enemy">
-      <UniqueIdentifier>{df411cb7-8c48-41e0-9b91-12d74bfb26bc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\_ScriptMgr">
       <UniqueIdentifier>{7145593e-0694-420e-a0e1-38eef2e47fb4}</UniqueIdentifier>
     </Filter>
@@ -292,6 +283,15 @@
     </Filter>
     <Filter Include="Manager\GameMgr\W10_Boss_Life">
       <UniqueIdentifier>{e6e48fb5-4bc4-427d-bf25-e87fc128a201}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit">
+      <UniqueIdentifier>{4df81294-5a06-45c1-8ba4-413d46147310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit\Player">
+      <UniqueIdentifier>{1cf859de-d203-4603-b5a9-56d36a4a181d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Unit\Enemy">
+      <UniqueIdentifier>{df411cb7-8c48-41e0-9b91-12d74bfb26bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
