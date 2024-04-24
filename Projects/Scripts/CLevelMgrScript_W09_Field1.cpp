@@ -4,11 +4,9 @@
 #include "CPlayerScript.h"
 #include "CGameMgr.h"
 
-#include <Engine\CRenderMgr.h>
 #include <Engine\CLevelMgr.h>
 #include <Engine\CLevel.h>
 #include <Engine\CStateMachine.h>
-#include <Engine\CTransform.h>
 
 CLevelMgrScript_W09_Field1::CLevelMgrScript_W09_Field1()
 	: CScript(LEVELMGRSCRIPT_W09_FIELD1)
@@ -36,46 +34,7 @@ void CLevelMgrScript_W09_Field1::begin()
 	if (pLevel)
 	{
 		CGameObject* HUD = pLevel->FindObjectByName(L"HUD", 31);
-
-		if (HUD)
-		{
-			// pos
-			Vec3 Pos = HUD->Transform()->GetRelativePos();
-			Pos.x =	- CRenderMgr::GetInst()->GetWinResol().x / 2.f + CGameMgr::GetHUDPosFromScreenLT().x * CRenderMgr::GetInst()->GetWinScale().x;
-			Pos.y =	CRenderMgr::GetInst()->GetWinResol().y / 2.f - CGameMgr::GetHUDPosFromScreenLT().y * CRenderMgr::GetInst()->GetWinScale().y;
-			HUD->Transform()->SetRelativePos(Pos);
-
-			list<CGameObject*> vecChild {HUD};
-
-			while (!vecChild.empty())
-			{
-				CGameObject* Cur = vecChild.front();
-				vecChild.pop_front();
-
-				// pos
-				if (Cur->GetParent())
-				{
-					Pos = Cur->Transform()->GetRelativePos();
-					Pos.x *= CRenderMgr::GetInst()->GetWinScale().x;
-					Pos.y *= CRenderMgr::GetInst()->GetWinScale().y;
-					Cur->Transform()->SetRelativePos(Pos);
-				}
-
-				// scale
-				if (Cur->Transform()->IsAbsolute())
-				{
-					Vec3 Scale = Cur->Transform()->GetRelativeScale();
-					Scale.x *= CRenderMgr::GetInst()->GetWinScale().x;
-					Scale.y *= CRenderMgr::GetInst()->GetWinScale().y;
-					Cur->Transform()->SetRelativeScale(Scale);
-				}
-
-				// get child
-				vector<CGameObject*> vec = Cur->GetChild();
-				for (CGameObject* it : vec)
-					vecChild.push_back(it);
-			}
-		}
+		m_GameMgr->RescaleHUD(HUD);
 	}
 }
 

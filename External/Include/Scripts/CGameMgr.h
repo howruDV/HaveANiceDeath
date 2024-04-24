@@ -13,8 +13,8 @@ class CGameMgr :
 {
 private:
 	static CGameObject* m_pMainCamera;
-	static Vec2			m_vHUDPosFromScreenLT;
 	CScript*			m_pCurLevelMgr;
+	Vec2				m_vHUDPosFromScreenLT;
 	//bool m_bTitle;
 	//float m_bTitleAcc;
 
@@ -25,6 +25,8 @@ public:
 	virtual void SaveToFile(FILE* _File) override {};
 	virtual void LoadFromFile(FILE* _File) override {};
 
+	void RescaleHUD(CGameObject* HUD);
+
 private:
 	void GameEnding_Fail();
 	void GameEnding_Win();
@@ -32,7 +34,6 @@ private:
 
 public:
 	static CGameObject* GetMainCamera() { return m_pMainCamera; }
-	static Vec2 GetHUDPosFromScreenLT() { return m_vHUDPosFromScreenLT; }
 
 public:
 	CLONE_DISABLE(CGameMgr)
