@@ -271,7 +271,6 @@ void CAnimator2D::SaveToFile(FILE* _File)
 
     SaveWString(PlayAnimName, _File);
     fwrite(&m_bRepeat, sizeof(bool), 1, _File);
-    //fwrite(&m_bAfterDestroy, sizeof(bool), 1, _File);
     fwrite(&m_bFlipX, sizeof(int), 1, _File);
     fwrite(&m_bFlipY, sizeof(int), 1, _File);
 }

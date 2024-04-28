@@ -41,14 +41,13 @@ CHitboxScript::~CHitboxScript()
 void CHitboxScript::begin()
 {
 	// change layer
-	int Layer = 0;
+	int Layer = GetOwner()->GetLayerIdx();
 
-	if (GetOwner()->GetParent())
+	if (Layer == 0 && GetOwner()->GetParent())
+	{
 		Layer = GetOwner()->GetParent()->GetLayerIdx();
-	else
-		Layer = GetOwner()->GetLayerIdx();
-
-	GetOwner()->ChangeLayer(Layer);
+		GetOwner()->ChangeLayer(Layer);
+	}
 
 	// change hositle layer
 	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurrentLevel();

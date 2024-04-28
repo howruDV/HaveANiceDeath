@@ -97,6 +97,7 @@
     <ClInclude Include="CStunStarScript.h">
       <Filter>Scripts\Function\StunStar</Filter>
     </ClInclude>
+    <ClInclude Include="CScaleScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -189,6 +190,7 @@
     <ClCompile Include="CStunStarScript.cpp">
       <Filter>Scripts\Function\StunStar</Filter>
     </ClCompile>
+    <ClCompile Include="CScaleScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -301,6 +303,9 @@
     </Filter>
     <Filter Include="Scripts\Function\StunStar">
       <UniqueIdentifier>{877e2b11-4a80-4b2d-8800-8784ce0e7458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function\Scale">
+      <UniqueIdentifier>{cce639c1-587f-419a-b2a0-e14d07256135}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

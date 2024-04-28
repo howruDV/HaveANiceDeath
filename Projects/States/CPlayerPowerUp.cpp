@@ -48,12 +48,14 @@ void CPlayerPowerUp::finaltick()
 			if (!m_bSpawnEffect)
 			{
 				//play effect
-				Vec3 Pos = GetOwner()->Transform()->GetRelativePos();
+				Vec3 Pos = m_LandPos;
+				Pos.y -= 10.f;
 				Pos.z -= 0.1f;
 
 				CGameObject* pEffect = m_bEffectRepulsive->Instantiate();
 				pEffect->Transform()->SetRelativePos(Pos);
 				pEffect->Animator2D()->Play(L"Repulsive", false);
+				pEffect->Animator2D()->DestroyAfterPlay();
 
 				GamePlayStatic::SpawnGameObject(pEffect, 30);
 				m_bSpawnEffect = true;
