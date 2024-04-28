@@ -83,6 +83,7 @@ void CKoTFlyingAttack1::finaltick()
 
 void CKoTFlyingAttack1::Enter()
 {
+	MONSTERSCRIPT->SetDirLock(true);
 	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Collider2D()->Activate();
 	GetOwner()->Animator2D()->Play(L"Attack2", false);
 
@@ -92,6 +93,7 @@ void CKoTFlyingAttack1::Enter()
 
 void CKoTFlyingAttack1::Exit()
 {
+	MONSTERSCRIPT->SetDirLock(false);
 	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Collider2D()->Deactivate();
 	MONSTERSCRIPT->StartAttackCool();
 }

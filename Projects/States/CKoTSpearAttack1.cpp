@@ -57,6 +57,7 @@ void CKoTSpearAttack1::finaltick()
 
 void CKoTSpearAttack1::Enter()
 {
+	MONSTERSCRIPT->SetDirLock(true);
 	GetOwner()->Animator2D()->Play(L"Attack1", false);
 
 	for (bool& iter : m_SoundPlay)
@@ -65,6 +66,7 @@ void CKoTSpearAttack1::Enter()
 
 void CKoTSpearAttack1::Exit()
 {
+	MONSTERSCRIPT->SetDirLock(false);
 	MONSTERSCRIPT->StartAttackCool();
 	m_bThrow = false;
 }

@@ -30,12 +30,7 @@ void CMonsterRun::finaltick()
 	Vec3 vDir = pTarget->Transform()->GetWorldPos() - GetOwner()->Transform()->GetWorldPos();
 	if (!Flying) vDir.y = 0.f;
 	vDir.Normalize();
-
 	GetOwner()->Movement()->AddForce(vDir * Speed);
-	//if (vDir.x < 0)
-	//	MONSTERSCRIPT->SetDir(UNIT_DIRX::LEFT);
-	//else
-	//	MONSTERSCRIPT->SetDir(UNIT_DIRX::RIGHT);
 
 	// range & dir check
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos() + GetOwner()->Collider2D()->GetOffsetPos();
@@ -72,10 +67,12 @@ void CMonsterRun::finaltick()
 
 void CMonsterRun::Enter()
 {
+	MONSTERSCRIPT->SetDirLock(true);
 	GetOwner()->Animator2D()->Play(L"Run", true);
 }
 
 void CMonsterRun::Exit()
 {
+	MONSTERSCRIPT->SetDirLock(false);
 	GetOwner()->Movement()->SetVelocity(Vec3());
 }

@@ -71,6 +71,7 @@ void CKoTBigAttack1::finaltick()
 
 void CKoTBigAttack1::Enter()
 {
+	MONSTERSCRIPT->SetDirLock(true);
 	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Collider2D()->Activate();
 	GetOwner()->Animator2D()->Play(L"Attack1", false);
 	GamePlayStatic::Play2DSound(L"sound\\npc_time_hammer\\NPC_TimeHammer_Atk_Ground_Prepa_01.wav", 1, 0.2f);
@@ -80,6 +81,7 @@ void CKoTBigAttack1::Enter()
 
 void CKoTBigAttack1::Exit()
 {
+	MONSTERSCRIPT->SetDirLock(false);
 	GetOwner()->GetChildByName(L"Attack1_Hitbox")->Collider2D()->Deactivate();
 	MONSTERSCRIPT->StartAttackCool();
 }

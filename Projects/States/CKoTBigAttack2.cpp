@@ -95,6 +95,7 @@ void CKoTBigAttack2::finaltick()
 
 void CKoTBigAttack2::Enter()
 {
+	MONSTERSCRIPT->SetDirLock(true);
 	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Collider2D()->Activate();
 
 	GetOwner()->Animator2D()->Play(L"Attack2", false);
@@ -106,6 +107,7 @@ void CKoTBigAttack2::Enter()
 
 void CKoTBigAttack2::Exit()
 {
+	MONSTERSCRIPT->SetDirLock(false);
 	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Collider2D()->Deactivate();
 	MONSTERSCRIPT->StartAttackCool();
 }

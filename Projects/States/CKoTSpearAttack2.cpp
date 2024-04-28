@@ -85,6 +85,7 @@ void CKoTSpearAttack2::finaltick()
 
 void CKoTSpearAttack2::Enter()
 {
+	MONSTERSCRIPT->SetDirLock(true);
 	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Collider2D()->Activate();
 	GetOwner()->Animator2D()->Play(L"Attack4", false);
 
@@ -94,6 +95,7 @@ void CKoTSpearAttack2::Enter()
 
 void CKoTSpearAttack2::Exit()
 {
+	MONSTERSCRIPT->SetDirLock(false);
 	GetOwner()->GetChildByName(L"Attack2_Hitbox")->Collider2D()->Deactivate();
 	GetOwner()->Movement()->SetVelocity(Vec3());
 	MONSTERSCRIPT->StartAttackCool();
