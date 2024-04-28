@@ -173,22 +173,15 @@ void CFSM::ChangeState_proc(CState* _pNextState)
 		return;
 
 	if (m_CurState)
+	{
+		m_CurState->m_FSM = this;
 		m_CurState->Exit();
-
-	//if (m_CurState
-	//	&& (m_CurState->GetName() == L"CMonsterHit" || m_CurState->GetName() == L"CMonsterStun" || m_CurState->GetName() == L"CMonsterDie")
-	//	&& m_bGlobalState)
-	//	int a = 0;
+	}
 
 	m_PrevState = m_CurState;
 	m_CurState = _pNextState;
 	m_CurState->m_FSM = this;
 	m_CurState->Enter();
-
-	//if (m_CurState && m_StateMachine->GetOwner()->GetName() == L"KoTBig"
-	//	&& !(m_CurState->GetName() == L"CMonsterHit" || m_CurState->GetName() == L"CMonsterStun" || m_CurState->GetName() == L"CMonsterDie")
-	//	&& m_bGlobalState)
-	//	int a = 0;
 }
 
 CFSM* CFSM::GetFSMIstance()

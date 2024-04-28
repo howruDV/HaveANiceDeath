@@ -88,9 +88,6 @@ void CPlayerIdle::finaltick()
 
 void CPlayerIdle::Enter()
 {
-	// setting
-	GetOwner()->Movement()->SetVelocity(Vec3());
-
 	// anim
 	GetOwner()->Animator2D()->Play(L"Idle", true);
 }

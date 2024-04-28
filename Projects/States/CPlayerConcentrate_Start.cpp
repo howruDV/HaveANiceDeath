@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CPlayerConcentrate_Start.h"
 
+#include <Engine\CTransform.h>
+
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
 
@@ -38,6 +40,17 @@ void CPlayerConcentrate_Start::Enter()
 {
 	GetOwner()->Animator2D()->Play(L"Concentrate_Start", false);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+
+	// play effect
+	Vec3 Pos = GetOwner()->Transform()->GetWorldPos();
+	Pos.z += 0.1f;
+
+	//CGameObject* pEffect = m_ConcentrateEffect->Instantiate();
+	//pEffect->Transform()->SetRelativePos(Pos);
+	//pEffect->Animator2D()->Play(L"Concentrate");
+	//pEffect->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.3f, 0.1f, 1.f, 1.f));
+	//GamePlayStatic::SpawnChild(GetOwner(), pEffect, 30);
+	//PLAYERSCRIPT->SetEffectConcentrate(pEffect);
 }
 
 void CPlayerConcentrate_Start::Exit()
