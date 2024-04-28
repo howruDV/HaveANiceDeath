@@ -50,6 +50,7 @@ public:
 
 public:
     void SetTarget(CGameObject* _Target) { m_Target = _Target; }
+    void SetEffect(FCamEffect _Effect);
     void PushEffect(FCamEffect _Effect);
     void PushTransition(bool _Start);
     void PopEffect();

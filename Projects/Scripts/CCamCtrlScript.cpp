@@ -187,6 +187,12 @@ void CCamCtrlScript::LoadFromFile(FILE* _File)
 	fread(&m_vTargetOffset, 1, sizeof(Vec3), _File);
 }
 
+void CCamCtrlScript::SetEffect(FCamEffect _Effect)
+{
+	m_queueEffect.clear();
+	PushEffect(_Effect);
+}
+
 void CCamCtrlScript::PushEffect(FCamEffect _Effect)
 {
 	m_queueEffect.push_back(_Effect);
