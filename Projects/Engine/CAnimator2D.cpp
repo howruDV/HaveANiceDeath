@@ -12,6 +12,7 @@ CAnimator2D::CAnimator2D()
     , m_bFlipX(UNIT_DIRX::RIGHT)
     , m_bFlipY(UNIT_DIRY::UP)
     , m_LevelStart(true)
+    , m_bAfterDestroy(false)
 {
 }
 
@@ -22,6 +23,7 @@ CAnimator2D::CAnimator2D(const CAnimator2D& _OriginAnimator)
     , m_bFlipX(_OriginAnimator.m_bFlipX)
     , m_bFlipY(_OriginAnimator.m_bFlipY)
     , m_LevelStart(true)
+    , m_bAfterDestroy(_OriginAnimator.m_bAfterDestroy)
 {
     unordered_map<wstring, CAnim*>::const_iterator iter = _OriginAnimator.m_mapAnim.begin();
     for (; iter != _OriginAnimator.m_mapAnim.end(); ++iter)
@@ -75,6 +77,11 @@ void CAnimator2D::finaltick()
                 m_listNextAnim.pop_front();
 
                 Play(m_CurAnim->GetName(), m_bRepeat);
+            }
+            else
+            {
+                if (m_bAfterDestroy)
+                    GamePlayStatic::DestroyGameObject(GetOwner());
             }
         }
     }
@@ -264,6 +271,7 @@ void CAnimator2D::SaveToFile(FILE* _File)
 
     SaveWString(PlayAnimName, _File);
     fwrite(&m_bRepeat, sizeof(bool), 1, _File);
+    //fwrite(&m_bAfterDestroy, sizeof(bool), 1, _File);
     fwrite(&m_bFlipX, sizeof(int), 1, _File);
     fwrite(&m_bFlipY, sizeof(int), 1, _File);
 }

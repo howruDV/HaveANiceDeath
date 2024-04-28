@@ -42,19 +42,17 @@ void CPlayerConcentrate_Start::Enter()
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
 
 	// play effect
-	Vec3 Pos = GetOwner()->Transform()->GetWorldPos();
-	Pos.z += 0.1f;
-
-	//CGameObject* pEffect = m_ConcentrateEffect->Instantiate();
-	//pEffect->Transform()->SetRelativePos(Pos);
-	//pEffect->Animator2D()->Play(L"Concentrate");
-	//pEffect->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.3f, 0.1f, 1.f, 1.f));
-	//GamePlayStatic::SpawnChild(GetOwner(), pEffect, 30);
-	//PLAYERSCRIPT->SetEffectConcentrate(pEffect);
+	CGameObject* pEffect = PLAYERSCRIPT->GetEffect();
+	pEffect->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(0.3f, 0.1f, 1.f, 1.f));
+	pEffect->Animator2D()->Play(L"Concentrate");
+	pEffect->Activate();
 }
 
 void CPlayerConcentrate_Start::Exit()
 {
 	PLAYERSCRIPT->DeactiveCombo();
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+
+	// off effect
+	PLAYERSCRIPT->GetEffect()->Deactivate();
 }

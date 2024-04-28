@@ -23,6 +23,7 @@ CUnitScript::CUnitScript(UINT m_iScriptType)
 	, m_fStunTime(3.f)
 	, m_fStunCoolAcc(0.f)
 	, m_bStun(false)
+	, m_pEffect(nullptr)
 {
 	m_StunEffect = CAssetMgr::GetInst()->Load<CPrefab>(L"prefab\\pref_EffectAnim_Stun.pref");
 
@@ -47,6 +48,7 @@ CUnitScript::CUnitScript(const CUnitScript& _Origin)
 	, m_fStunCoolAcc(0.f)
 	, m_bStun(false)
 	, m_StunEffect(_Origin.m_StunEffect)
+	, m_pEffect(nullptr)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Max", &m_iHPMax);
@@ -66,6 +68,10 @@ void CUnitScript::begin()
 		if (iter->Collider2D())
 			iter->Collider2D()->Deactivate();
 	}
+
+	m_pEffect = GetOwner()->GetChildByName(L"Effect");
+	if (m_pEffect)
+		m_pEffect->Deactivate();
 }
 
 void CUnitScript::tick()

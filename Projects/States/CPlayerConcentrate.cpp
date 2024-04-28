@@ -43,10 +43,18 @@ void CPlayerConcentrate::Enter()
 	Shake.fVar = 5.f;
 
 	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
+
+	// play effect
+	CGameObject* pEffect = PLAYERSCRIPT->GetEffect();
+	pEffect->Animator2D()->Play(L"Concentrate");
+	pEffect->Activate();
 }
 
 void CPlayerConcentrate::Exit()
 {
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
 	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PopEffect();
+
+	// off effect
+	PLAYERSCRIPT->GetEffect()->Deactivate();
 }

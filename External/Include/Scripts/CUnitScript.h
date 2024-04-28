@@ -33,6 +33,7 @@ protected:
     vector<CGameObject*> m_CollisionGround;
 
     // effect
+    CGameObject* m_pEffect;
     Ptr<CPrefab> m_StunEffect;
 
     // State
@@ -65,17 +66,19 @@ public:
     virtual void Stun();
 
 public:
+    void PushGround(CGameObject* _Ground) { m_CollisionGround.push_back(_Ground); }
+    void DeleteGround(CGameObject* _Ground);
+    void StartStun() { m_bStun = true; m_fStunCoolAcc = 0.f; }
     void SetSpeed(float _fSpeed) { m_fSpeed = m_fSpeed; }
     void SetDir(UNIT_DIRX _dir) { if(!m_bDirLock) m_Dir_Next = _dir; }
     void SetHPMax(int _iHP) { m_iHPMax = _iHP; }
     void SetHPCur(int _iHP) { m_iHPCur = _iHP; }
     void SetDirLock(bool _bLock) { m_bDirLock = _bLock; }
-    void PushGround(CGameObject* _Ground) { m_CollisionGround.push_back(_Ground); }
-    void DeleteGround(CGameObject* _Ground);
-    void StartStun() { m_bStun = true; m_fStunCoolAcc = 0.f; }
+    void SetEffect(CGameObject* _Effect) { m_pEffect = _Effect; }
 
-    float GetSpeed() { return m_fSpeed; }
+    CGameObject* GetEffect() { return m_pEffect; }
     UNIT_DIRX GetDir() { return m_Dir_Prev; }
+    float GetSpeed() { return m_fSpeed; }
     int GetHPMax() { return m_iHPMax; }
     int GetHPCur() { return m_iHPCur; }
     int GetGroundCount() { return (int)m_CollisionGround.size(); }

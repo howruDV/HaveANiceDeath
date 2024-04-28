@@ -32,7 +32,6 @@ CPlayerScript::CPlayerScript()
 	, m_NextComboIdx(0)
 	, m_bAerialCan(true)
 	, m_bComboCan(false)
-	, m_pEffectConcentrate(nullptr)
 {
 	m_fSpeed = 500.f;
 	m_fSpeedInAir = m_fSpeed;
@@ -58,7 +57,6 @@ CPlayerScript::CPlayerScript(const CPlayerScript& _Origin)
 	, m_fComboAccTime(_Origin.m_fComboAccTime)
 	, m_NextComboIdx(_Origin.m_NextComboIdx)
 	, m_bAerialCan(_Origin.m_bAerialCan)
-	, m_pEffectConcentrate(nullptr)
 {
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Active", &m_iHPActive);
 }

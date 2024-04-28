@@ -49,9 +49,6 @@ private:
     CGameObject* m_AirColPlatform;
     bool m_bAirCol;
 
-    // effect
-    CGameObject* m_pEffectConcentrate;
-
 public:
     virtual void begin() override;
     virtual void tick() override;
@@ -82,13 +79,11 @@ public:
     void SetHPActive(int _HPActive) { m_iHPActive = _HPActive; }
     void SetiMPMax(int _MPMax) { m_iMPMax = _MPMax; }
     void SetiMPCur(int _MPCur) { m_iMPCur = _MPCur; }
-    void SetEffectConcentrate(CGameObject* _Effect) { m_pEffectConcentrate = _Effect; }
     void ResetRest();
     void DeactiveCombo() { m_bComboCan = false; m_fComboAccTime = 0; m_NextComboIdx = 0; }
     void DeactiveAerialAttack() { m_bAerialCan = false; }
 
     CGameObject* GetAirColPlatform() { return m_AirColPlatform; }
-    CGameObject* GetEffectConcentrate() { return m_pEffectConcentrate; }
     int GetMPCur() { return m_iMPCur; }
     int GetMPMax() { return m_iMPMax; }
     int GetHPActive() { return m_iHPActive; }

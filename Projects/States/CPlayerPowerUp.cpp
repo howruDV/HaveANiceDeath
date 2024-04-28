@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CPlayerPowerUp.h"
 
+#include <Engine\CAssetMgr.h>
 #include <Engine/CTimeMgr.h>
 #include <Engine/CTransform.h>
 #include <Engine/CAnim.h>
@@ -12,7 +13,9 @@
 CPlayerPowerUp::CPlayerPowerUp()
 	: CState(PLAYERPOWERUP)
 	, m_MoveTop(Vec3(0, 200, 0))
+	, m_bSpawnEffect(false)
 {
+	m_bEffectRepulsive = CAssetMgr::GetInst()->Load<CPrefab>(L"prefab\\pref_EffectAnim_Repulsive.pref");
 }
 
 CPlayerPowerUp::~CPlayerPowerUp()
@@ -42,6 +45,20 @@ void CPlayerPowerUp::finaltick()
 		// ÇÏ°­
 		else
 		{
+			if (!m_bSpawnEffect)
+			{
+				//play effect
+				Vec3 Pos = GetOwner()->Transform()->GetRelativePos();
+				Pos.z -= 0.1f;
+
+				CGameObject* pEffect = m_bEffectRepulsive->Instantiate();
+				pEffect->Transform()->SetRelativePos(Pos);
+				pEffect->Animator2D()->Play(L"Repulsive", false);
+
+				GamePlayStatic::SpawnGameObject(pEffect, 30);
+				m_bSpawnEffect = true;
+			}
+
 			Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 			Vec3 vRemain = m_LandPos - vPos;
 
@@ -60,6 +77,7 @@ void CPlayerPowerUp::Enter()
 	GetOwner()->Movement()->UseGravity(false);
 	m_LandPos = GetOwner()->Transform()->GetRelativePos();
 	m_TargetPos = m_LandPos + m_MoveTop;
+	m_bSpawnEffect = false;
 
 	GetOwner()->Animator2D()->Play(L"PowerUp", false);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
@@ -69,4 +87,7 @@ void CPlayerPowerUp::Exit()
 {
 	GetOwner()->Movement()->UseGravity(true);
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+
+	// off effect
+	PLAYERSCRIPT->GetEffect()->Deactivate();
 }
