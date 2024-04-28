@@ -7,7 +7,7 @@
 #define GlowEnable g_int_0
 #define GlowColor g_vec4_0
 #define Threshold g_float_0
-
+#define VarColor g_vec4_1
 
 
 struct VS_OUT
@@ -72,7 +72,6 @@ PS_OUT PS_Std2D_Bloom(VS_OUT _in) : SV_Target
     {
         output.GlowTarget = float4(0.f, 0.f, 0.f, 1.f);
     }
-
     
     // 2. lighting
     tLightColor LightColor = (tLightColor) 0.f;
@@ -81,6 +80,12 @@ PS_OUT PS_Std2D_Bloom(VS_OUT _in) : SV_Target
         CalLight2D(_in.vWorldPos, i, LightColor);
     
     vColor.rgb *= LightColor.vColor.rgb + LightColor.vAmbient.rgb;
+    
+    if (VarColor.a != 0.f)
+    {
+        vColor.rgb += VarColor.rgb * VarColor.a;
+        vColor.rgb = saturate(vColor.rgb);
+    }
     
     // 3. cut masked
     if (vColor.a == 0.f)

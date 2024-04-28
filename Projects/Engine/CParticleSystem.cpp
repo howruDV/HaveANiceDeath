@@ -11,6 +11,9 @@ CParticleSystem::CParticleSystem()
 	, m_ParticleSpawnMax(20)
 	, m_ParticleBuffer(nullptr)
 	, m_SpawnAccTime(0.f)
+	, m_fPlayTime(0.f)
+	, m_fPlayAccTime(0.f)
+	, m_bSpawnRepeat(true)
 {
 	// 전용 mesh & material 사용
 	SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"PointMesh"));
@@ -35,52 +38,52 @@ CParticleSystem::CParticleSystem()
 	// Module Setting
 	// -------------------------
 	// Spawn
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = true;
-	m_Module.vSpawnColor = Vec4(1.f, 0.f, 0.f, 1.f);
-	m_Module.vSpawnScaleMin = Vec4(20.f, 20.f, 1.f, 1.f);
-	m_Module.vSpawnScaleMax = Vec4(50.f, 50.f, 1.f, 1.f);
-	m_Module.LifeMin = 3.f;
-	m_Module.LifeMax = 5.f;
-	m_Module.MassMin = 1.f;
-	m_Module.MassMax = 1.f;
-	m_Module.SpawnRate = 10;
-	m_Module.SpaceType = 1;
+	//m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = true;
+	//m_Module.vSpawnColor = Vec4(1.f, 0.f, 0.f, 1.f);
+	//m_Module.vSpawnScaleMin = Vec4(20.f, 20.f, 1.f, 1.f);
+	//m_Module.vSpawnScaleMax = Vec4(50.f, 50.f, 1.f, 1.f);
+	//m_Module.LifeMin = 3.f;
+	//m_Module.LifeMax = 5.f;
+	//m_Module.MassMin = 1.f;
+	//m_Module.MassMax = 1.f;
+	//m_Module.SpawnRate = 10;
+	//m_Module.SpaceType = 1;
 
-	m_Module.SpawnShape = 0;
-	m_Module.Radius = 100.f;									// spawn shape 0 : circle
-	m_Module.vSpawnBoxScale = Vec4(500.f, 500.f, 0.f, 0.f);		// spawn shape 1 : box
+	//m_Module.SpawnShape = 0;
+	//m_Module.Radius = 100.f;									// spawn shape 0 : circle
+	//m_Module.vSpawnBoxScale = Vec4(500.f, 500.f, 0.f, 0.f);		// spawn shape 1 : box
 
-	// Drag
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::DRAG] = false;
-	m_Module.DragTime = 0.5f;
+	//// Drag
+	//m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::DRAG] = false;
+	//m_Module.DragTime = 0.5f;
 
-	// Scale
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SCALE] = false;
-	m_Module.vScaleRatio = Vec3(0.1f, 0.1f, 0.1f);
+	//// Scale
+	//m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SCALE] = false;
+	//m_Module.vScaleRatio = Vec3(0.1f, 0.1f, 0.1f);
 
-	// Add Velocity
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = true;
-	m_Module.AddVelocityType = 0;
-	m_Module.SpeedMin = 100;
-	m_Module.SpeedMax = 200;
-	m_Module.FixedDirection;
-	m_Module.FixedAngle;
+	//// Add Velocity
+	//m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = true;
+	//m_Module.AddVelocityType = 0;
+	//m_Module.SpeedMin = 100;
+	//m_Module.SpeedMax = 200;
+	//m_Module.FixedDirection;
+	//m_Module.FixedAngle;
 
-	// Nosie Force
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::NOISE_FORCE] = false;
-	m_Module.NosieForceScale = 50.f;
-	m_Module.NosieForceTerm = 0.3f;
+	//// Nosie Force
+	//m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::NOISE_FORCE] = false;
+	//m_Module.NosieForceScale = 50.f;
+	//m_Module.NosieForceTerm = 0.3f;
 
-	// Caculate Force
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::CACULATE_FORCE] = true;
-	m_Module.Gravity = false;
+	//// Caculate Force
+	//m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::CACULATE_FORCE] = true;
+	//m_Module.Gravity = false;
 	m_Module.GravityScale = Vec3(0.f, -980.f, 0.f);
 
-	// Render
-	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::RENDER] = false;
-	m_Module.VelocityAlignment = false;	// 속도에 따른 방향 정렬
-	m_Module.AlphaBasedLife = 2;		// 0: Off, 1: NormalizedAge, 2: Age						
-	m_Module.AlphaMaxAge = 2.f;
+	//// Render
+	//m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::RENDER] = false;
+	//m_Module.VelocityAlignment = false;	// 속도에 따른 방향 정렬
+	//m_Module.AlphaBasedLife = 2;		// 0: Off, 1: NormalizedAge, 2: Age						
+	//m_Module.AlphaMaxAge = 2.f;
 }
 
 CParticleSystem::CParticleSystem(const CParticleSystem& _OriginParticle)
@@ -93,6 +96,9 @@ CParticleSystem::CParticleSystem(const CParticleSystem& _OriginParticle)
 	, m_CSParticleUpdate(_OriginParticle.m_CSParticleUpdate)
 	, m_ParticleTex(_OriginParticle.m_ParticleTex)
 	, m_SpawnAccTime(0.f)
+	, m_fPlayTime(_OriginParticle.m_fPlayTime)
+	, m_fPlayAccTime(0.f)
+	, m_bSpawnRepeat(_OriginParticle.m_bSpawnRepeat)
 {
 	if (nullptr != _OriginParticle.m_ParticleBuffer)
 		m_ParticleBuffer = _OriginParticle.m_ParticleBuffer->Clone();
@@ -122,6 +128,22 @@ void CParticleSystem::UpdatePipeline()
 
 void CParticleSystem::finaltick()
 {
+	// ----------------------
+	// Active
+	// ----------------------
+	if (!m_bSpawnRepeat)
+	{
+		m_fPlayAccTime += DT;
+
+		if (m_fPlayAccTime > m_fPlayTime)
+		{
+			m_Module.arrModuleCheck[0] = false;
+
+			if (m_fPlayAccTime > m_fPlayTime + m_Module.LifeMax)
+				GamePlayStatic::DestroyGameObject(this->GetOwner());
+		}
+	}
+
 	// ----------------------
 	// Set Module
 	// ----------------------
@@ -157,9 +179,7 @@ void CParticleSystem::finaltick()
 	m_CSParticleUpdate->SetParticleWorldPos(Transform()->GetWorldPos());
 
 	m_CSParticleUpdate->Execute();
-
-	FParticle arrParticle[20] = {};
-	m_ParticleBuffer->GetData(arrParticle);
+	//CheckSpawnCount();
 }
 
 void CParticleSystem::render()
@@ -194,6 +214,9 @@ void CParticleSystem::SaveToFile(FILE* _File)
 
 	// 파티클 입자 텍스쳐 정보 저장
 	SaveAssetRef(m_ParticleTex, _File);
+
+	fwrite(&m_fPlayTime, sizeof(float), 1, _File);
+	fwrite(&m_bSpawnRepeat, sizeof(bool), 1, _File);
 }
 
 void CParticleSystem::LoadFromFile(FILE* _File)
@@ -211,4 +234,22 @@ void CParticleSystem::LoadFromFile(FILE* _File)
 
 	// 파티클 입자 텍스쳐 정보 로드
 	LoadAssetRef(m_ParticleTex, _File);
+
+	fread(&m_fPlayTime, sizeof(float), 1, _File);
+	fread(&m_bSpawnRepeat, sizeof(bool), 1, _File);
+}
+
+UINT CParticleSystem::CheckSpawnCount()
+{
+	vector<FParticle> arrParticle ( m_ParticleSpawnMax );
+	m_ParticleBuffer->GetData_ToVec(arrParticle);
+	int Spawn = 0;
+
+	for (FParticle& it : arrParticle)
+	{
+		if (it.Active)
+			Spawn++;
+	}
+
+	return Spawn;
 }

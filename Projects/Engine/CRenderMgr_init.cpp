@@ -28,6 +28,7 @@ void CRenderMgr::init()
 	m_vecNoiseTex.push_back(CAssetMgr::GetInst()->Load<CTexture>(L"texture\\noise\\noise_02.png", L"texture\\noise\\noise_02.png"));
 	m_vecNoiseTex.push_back(CAssetMgr::GetInst()->Load<CTexture>(L"texture\\noise\\noise_03.jpg", L"texture\\noise\\noise_03.jpg"));
 	m_vecNoiseTex.push_back(CAssetMgr::GetInst()->Load<CTexture>(L"texture\\noise\\noise_04.jpg", L"texture\\noise\\noise_04.jpg"));
-	m_vecNoiseTex[3]->UpdatePipeline(14);
-	m_vecNoiseTex[3]->UpdateCS_SRV(14);
+	m_vecNoiseTex.push_back(CAssetMgr::GetInst()->Load<CTexture>(L"texture\\noise\\noise_05.png", L"texture\\noise\\noise_05.png"));
+	m_vecNoiseTex[4]->UpdatePipeline(14);
+	m_vecNoiseTex[4]->UpdateCS_SRV(14);
 }

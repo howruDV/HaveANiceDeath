@@ -19,5 +19,6 @@ CProgress_PlayerHP
 CProgress_PlayerHP_Active
 CProgress_PlayerMP
 CRotateScript
+CStunStarScript
 CTitleMgr
 CWallScript

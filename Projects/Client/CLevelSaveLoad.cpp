@@ -239,6 +239,7 @@ CGameObject* CLevelSaveLoad::LoadGameObject(FILE* _File)
 			pComponent = new CMovement;
 			break;
 		default:
+
 			assert(nullptr);
 			break;
 		}

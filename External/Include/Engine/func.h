@@ -8,6 +8,7 @@ namespace GamePlayStatic
 {
 	// object create/delete
 	void SpawnGameObject(CGameObject* _Target, int _LayerIdx);
+	void SpawnChild(CGameObject* _Parent, CGameObject* _Child, int _LayerIdx);
 	void DestroyGameObject(CGameObject* _Target);
 
 	// register asset

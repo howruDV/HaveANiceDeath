@@ -4,15 +4,15 @@
 #include "CInvenMgr.h"
 #include "CProgressBarScript.h"
 #include "CGaugeScript.h"
+#include "CCamCtrlScript.h"
+#include "CGameMgr.h"
 
 #include <Engine/components.h>
 #include <Engine/CKeyMgr.h>
 #include <Engine/CTimeMgr.h>
+#include <Engine/CAssetMgr.h>
 #include <Engine/CLevelMgr.h>
 #include <Engine/CLevel.h>
-#include <Engine/CMovement.h>
-#include <Engine/CAnimator2D.h>
-#include <Engine/CTransform.h>
 
 CPlayerScript::CPlayerScript()
 	: CUnitScript(PLAYERSCRIPT)
@@ -232,6 +232,8 @@ void CPlayerScript::begin()
 		StateMachine()->AddBlackboardData(L"fSpeedInAir", BB_DATA::FLOAT, &m_fSpeedInAir);
 		StateMachine()->AddBlackboardData(L"fSpeedDash", BB_DATA::FLOAT, &m_fSpeedDash);
 		StateMachine()->AddBlackboardData(L"fJumpVelocMax", BB_DATA::FLOAT, &m_fJumpVelocMax);
+		
+		StateMachine()->GetFSM()->ChangeState(L"Idle");
 	}
 
 	// Find Level Obj
@@ -441,6 +443,15 @@ void CPlayerScript::HitDamage(FDamage _Damage)
 
 void CPlayerScript::Attack()
 {
+	// camera shake
+	FCamEffect Shake{};
+	Shake.Type = CAMEFFECT_TYPE::SHAKE;
+	Shake.fPlayTime = 0.5f;
+	Shake.fAccTime = 0.f;
+	Shake.fVar = 5.f;
+	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
+
+	// add Rest
 	if (m_iRestCur >= m_iRestMax)
 		return;
 

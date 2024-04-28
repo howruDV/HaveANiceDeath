@@ -22,6 +22,7 @@
 #include "CProgress_PlayerHP_Active.h"
 #include "CProgress_PlayerMP.h"
 #include "CRotateScript.h"
+#include "CStunStarScript.h"
 #include "CTitleMgr.h"
 #include "CWallScript.h"
 
@@ -48,6 +49,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CProgress_PlayerHP_Active");
 	_vec.push_back(L"CProgress_PlayerMP");
 	_vec.push_back(L"CRotateScript");
+	_vec.push_back(L"CStunStarScript");
 	_vec.push_back(L"CTitleMgr");
 	_vec.push_back(L"CWallScript");
 }
@@ -96,6 +98,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CProgress_PlayerMP;
 	if (L"CRotateScript" == _strScriptName)
 		return new CRotateScript;
+	if (L"CStunStarScript" == _strScriptName)
+		return new CStunStarScript;
 	if (L"CTitleMgr" == _strScriptName)
 		return new CTitleMgr;
 	if (L"CWallScript" == _strScriptName)
@@ -169,6 +173,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::ROTATESCRIPT:
 		return new CRotateScript;
+		break;
+	case (UINT)SCRIPT_TYPE::STUNSTARSCRIPT:
+		return new CStunStarScript;
 		break;
 	case (UINT)SCRIPT_TYPE::TITLEMGR:
 		return new CTitleMgr;
@@ -266,6 +273,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::ROTATESCRIPT:
 		return L"CRotateScript";
+		break;
+
+	case SCRIPT_TYPE::STUNSTARSCRIPT:
+		return L"CStunStarScript";
 		break;
 
 	case SCRIPT_TYPE::TITLEMGR:

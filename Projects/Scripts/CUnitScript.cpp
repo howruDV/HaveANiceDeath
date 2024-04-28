@@ -1,11 +1,13 @@
 #include "pch.h"
 #include "CUnitScript.h"
 
+#include <Engine/CAssetMgr.h>
 #include <Engine/CTimeMgr.h>
 #include <Engine/CGameObject.h>
 #include <Engine/CAnimator2D.h>
 #include <Engine/CStateMachine.h>
 #include <Engine/CCollider2D.h>
+#include <Engine/CTransform.h>
 
 CUnitScript::CUnitScript(UINT m_iScriptType)
 	: CScript(m_iScriptType)
@@ -22,6 +24,8 @@ CUnitScript::CUnitScript(UINT m_iScriptType)
 	, m_fStunCoolAcc(0.f)
 	, m_bStun(false)
 {
+	m_StunEffect = CAssetMgr::GetInst()->Load<CPrefab>(L"prefab\\pref_EffectAnim_Stun.pref");
+
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Max", &m_iHPMax);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Current", &m_iHPCur);
@@ -42,6 +46,7 @@ CUnitScript::CUnitScript(const CUnitScript& _Origin)
 	, m_fStunTime(3.f)
 	, m_fStunCoolAcc(0.f)
 	, m_bStun(false)
+	, m_StunEffect(_Origin.m_StunEffect)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Speed", &m_fSpeed);
 	AddScriptParam(SCRIPT_PARAM::INT, "HP Max", &m_iHPMax);
@@ -158,6 +163,20 @@ void CUnitScript::HitDamage(FDamage _Damage)
 		StateMachine()->GetFSM()->ChangeState(L"Hit");
 
 	m_iHPCur -= _Damage.iCurHPDamage;
+}
+
+void CUnitScript::Stun()
+{
+	wstring tmp = StateMachine()->GetFSM()->GetCurState()->GetName();
+	if (StateMachine()->GetFSM()->GetCurState()->GetName() == L"Stun")
+		return;
+
+	CGameObject* pEffect = m_StunEffect->Instantiate();
+	Vec3 Pos = Vec3();
+	Pos.y += Transform()->GetRelativeScale().y / 2.f + 10.f;
+	pEffect->Transform()->SetRelativePos(Pos);
+
+	GamePlayStatic::SpawnChild(GetOwner(), pEffect, 30);
 }
 
 void CUnitScript::DeleteGround(CGameObject* _Ground)

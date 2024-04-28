@@ -183,6 +183,7 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CProgress_PlayerHP_Active.h" />
     <ClInclude Include="CRotateScript.h" />
     <ClInclude Include="CScriptMgr.h" />
+    <ClInclude Include="CStunStarScript.h" />
     <ClInclude Include="CTitleMgr.h" />
     <ClInclude Include="CUnitScript.h" />
     <ClInclude Include="CWallScript.h" />
@@ -216,6 +217,7 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CProgress_PlayerHP_Active.cpp" />
     <ClCompile Include="CRotateScript.cpp" />
     <ClCompile Include="CScriptMgr.cpp" />
+    <ClCompile Include="CStunStarScript.cpp" />
     <ClCompile Include="CTitleMgr.cpp" />
     <ClCompile Include="CUnitScript.cpp" />
     <ClCompile Include="CWallScript.cpp" />

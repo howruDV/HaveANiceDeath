@@ -1,5 +1,6 @@
 #pragma once
 #include <Engine/CScript.h>
+#include <Engine\CPrefab.h>
 #include "CHitboxScript.h"
 // =======================================
 // CUnitScript: Unit을 정의하는 Parent Script
@@ -31,6 +32,9 @@ protected:
     // Collision
     vector<CGameObject*> m_CollisionGround;
 
+    // effect
+    Ptr<CPrefab> m_StunEffect;
+
     // State
     float       m_fStunTime;
     float       m_fStunCoolAcc;
@@ -58,6 +62,7 @@ public:
     // Hit & Attack
     virtual void HitDamage(FDamage _Damage);  // Hit: Unit의 Hit에 따른 패널티 처리 (HP 감소 등)
     virtual void Attack() {};                 // Attack: Unit의 Attack에 따른 보상 처리 (각성게이지 증가 등)
+    virtual void Stun();
 
 public:
     void SetSpeed(float _fSpeed) { m_fSpeed = m_fSpeed; }

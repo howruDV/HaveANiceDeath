@@ -3,9 +3,12 @@
 #include "CPlayerMgr.h"
 
 #include <Engine\CTimeMgr.h>
+#include <Engine\CAssetMgr.h>
 #include <Engine\CStateMachine.h>
 #include <Engine\CTransform.h>
 #include <Engine\CCollider2D.h>
+#include <Engine\CPrefab.h>
+#include <Engine\CGameObject.h>
 
 #include <States\func.h>
 
@@ -20,6 +23,9 @@ CMonsterScript::CMonsterScript()
 	, m_bAttackCool(false)
 	, m_bFlying(false)
 {
+	m_HitParticle = CAssetMgr::GetInst()->Load<CPrefab>(L"prefab\\pref_EffectParticle_PlayerAtck.pref");
+	//m_HitAnims = CAssetMgr::GetInst()->Load<CPrefab>(L"prefab\\pref_EffectAnim_PlayerAtck.pref");
+
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Detect Range", &m_fDetectRange);
 	AddScriptParam(SCRIPT_PARAM::INT, "Attack Type Count", &m_iAttackTypeCount);
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Attack Range", &m_fAttackRange);
@@ -38,6 +44,8 @@ CMonsterScript::CMonsterScript(const CMonsterScript& _Origin)
 	, m_fAttackCoolAcc(_Origin.m_fAttackCoolAcc)
 	, m_bAttackCool(false)
 	, m_bFlying(false)
+	, m_HitParticle(_Origin.m_HitParticle)
+	//, m_HitAnims(_Origin.m_HitAnims)
 {
 	AddScriptParam(SCRIPT_PARAM::FLOAT, "Detect Range", &m_fDetectRange);
 	AddScriptParam(SCRIPT_PARAM::INT, "Attack Type Count", &m_iAttackTypeCount);
@@ -162,11 +170,28 @@ void CMonsterScript::LoadFromFile(FILE* _File)
 
 void CMonsterScript::HitDamage(FDamage _Damage)
 {
+	// add damage
 	int rand = Random(0, 10);
 	m_iHPCur -= _Damage.iCurHPDamage;
 
-	if (rand > 5)
+	if (rand > 7)
+	{
 		StateMachine()->GetFSM()->ChangeState(L"Stun");
+		CUnitScript::Stun();
+	}
 	else
 		StateMachine()->GetFSM()->ChangeState(L"Hit");
+
+	// play effect
+	Vec3 Pos = Transform()->GetWorldPos();
+	Pos.z = -1.f;
+	
+	CGameObject* pParticle = m_HitParticle->Instantiate();
+	pParticle->Transform()->SetRelativePos(Pos);
+	GamePlayStatic::SpawnGameObject(pParticle, 30);
+	
+	//CGameObject* pAnim = m_HitAnims->Instantiate();
+	//pAnim->Transform()->SetRelativePos(Pos);
+	//pAnim->Animator2D()->Play(L"Flare", false);
+	//GamePlayStatic::SpawnGameObject(pAnim, 30);
 }

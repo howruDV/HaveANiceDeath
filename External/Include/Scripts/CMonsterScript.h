@@ -1,5 +1,6 @@
 #pragma once
 #include "CUnitScript.h"
+#include <Engine\CPrefab.h>
 
 class CHitboxScript;
 
@@ -17,6 +18,10 @@ private:
     float   m_fAttackCoolAcc;
     bool    m_bAttackCool;
     bool    m_bFlying;
+
+    // effect
+    Ptr<CPrefab> m_HitParticle;
+    //Ptr<CPrefab> m_HitAnims;
 
 public:
     virtual void begin() override;

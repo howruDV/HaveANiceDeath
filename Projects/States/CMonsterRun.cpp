@@ -31,11 +31,11 @@ void CMonsterRun::finaltick()
 	if (!Flying) vDir.y = 0.f;
 	vDir.Normalize();
 
-	GetOwner()->Movement()->AddForce(vDir);
-	if (vDir.x < 0)
-		MONSTERSCRIPT->SetDir(UNIT_DIRX::LEFT);
-	else
-		MONSTERSCRIPT->SetDir(UNIT_DIRX::RIGHT);
+	GetOwner()->Movement()->AddForce(vDir * Speed);
+	//if (vDir.x < 0)
+	//	MONSTERSCRIPT->SetDir(UNIT_DIRX::LEFT);
+	//else
+	//	MONSTERSCRIPT->SetDir(UNIT_DIRX::RIGHT);
 
 	// range & dir check
 	Vec3 vPos = GetOwner()->Transform()->GetRelativePos() + GetOwner()->Collider2D()->GetOffsetPos();

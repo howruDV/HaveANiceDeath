@@ -49,6 +49,8 @@ private:
     CGameObject* m_AirColPlatform;
     bool m_bAirCol;
 
+    // effect
+
 public:
     virtual void init() override;
     virtual void begin() override;

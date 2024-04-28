@@ -110,7 +110,14 @@ void CTaskMgr::tick()
 		break;
 
 		case TASK_TYPE::ADD_CHILD:
+		{
+			CGameObject* pParent = (CGameObject*)m_vecTask[i].Param_1;
+			CGameObject* pChild = (CGameObject*)m_vecTask[i].Param_2;
+			pParent->AddChild(pChild);
+			m_bCreateObject = true;
+		}
 			break;
+		
 		case TASK_TYPE::DISCONNECT_PARENT:
 			break;
 

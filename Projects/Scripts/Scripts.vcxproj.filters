@@ -94,6 +94,9 @@
     <ClInclude Include="CLevelMgrScript_W09_Field1.h">
       <Filter>Manager\GameMgr\W09_Field1</Filter>
     </ClInclude>
+    <ClInclude Include="CStunStarScript.h">
+      <Filter>Scripts\Function\StunStar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -182,6 +185,9 @@
     </ClCompile>
     <ClCompile Include="CLevelMgrScript_W09_Field1.cpp">
       <Filter>Manager\GameMgr\W09_Field1</Filter>
+    </ClCompile>
+    <ClCompile Include="CStunStarScript.cpp">
+      <Filter>Scripts\Function\StunStar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +298,9 @@
     </Filter>
     <Filter Include="Scripts\Unit\Enemy">
       <UniqueIdentifier>{df411cb7-8c48-41e0-9b91-12d74bfb26bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function\StunStar">
+      <UniqueIdentifier>{877e2b11-4a80-4b2d-8800-8784ce0e7458}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -28,6 +28,9 @@ private:
     // Module: Spawn
     CStructuredBuffer*      m_SpawnCountBuffer;
     float                   m_SpawnAccTime;
+    float                   m_fPlayTime;
+    float                   m_fPlayAccTime;
+    bool                    m_bSpawnRepeat;
 
 public:
     virtual void UpdatePipeline() override;
@@ -37,14 +40,21 @@ public:
     virtual void SaveToFile(FILE* _File) override;
     virtual void LoadFromFile(FILE* _File) override;
 
+    void Play() { m_fPlayAccTime = 0.f; }
+    UINT CheckSpawnCount();
+
 public:
     void SetParticleSpawnMax(UINT _Max) { m_ParticleSpawnMax = _Max; }
     void SetParticleTex(Ptr<CTexture> _Tex) { m_ParticleTex = _Tex; }
     void SetModule(FParticleModule _Module) { m_Module = _Module; }
+    void SetPlayTime(float _Time) { m_fPlayTime = _Time; }
+    void SetRepeat(bool _Repeat) { m_bSpawnRepeat = _Repeat; }
 
     UINT GetParticleSpawnMax() { return m_ParticleSpawnMax; }
     Ptr<CTexture> GetParticleTex() { return m_ParticleTex; }
     FParticleModule GetModule() { return m_Module; }
+    float GetPlayTime() { return m_fPlayTime; }
+    bool IsRepeat() { return m_bSpawnRepeat; }
 
 public:
     CLONE(CParticleSystem);

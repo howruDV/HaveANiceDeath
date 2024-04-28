@@ -4,6 +4,9 @@
 class CMonsterHit :
     public CState
 {
+private:
+    float m_fHitBlinkTime;
+
 public:
     virtual void finaltick() override;
     virtual void Enter() override;
