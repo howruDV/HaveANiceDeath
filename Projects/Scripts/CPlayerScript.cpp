@@ -280,6 +280,9 @@ void CPlayerScript::LoadFromFile(FILE* _File)
 
 void CPlayerScript::HitDamage(FDamage _Damage)
 {
+	if (StateMachine()->GetFSM()->GetCurState()->GetName() == L"Dash")
+		return;
+
 	CUnitScript::HitDamage(_Damage);  
 	m_iHPActive -= _Damage.iActiveHPDamage;
 

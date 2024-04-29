@@ -37,12 +37,6 @@ void CPlayerIdleUTurn::finaltick()
 		GetOwner()->Movement()->SetVelocity(Vec3());
 	}
 
-	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
-	{
-		ChangeState(L"Dash");
-		return;
-	}
-
 	if (KEY_TAP(KEY::SPACE) || KEY_PRESSED(KEY::SPACE))
 	{
 		ChangeState(L"Jump_Start");

@@ -22,4 +22,5 @@ CRotateScript
 CScaleScript
 CStunStarScript
 CTitleMgr
+CTransparentScript
 CWallScript

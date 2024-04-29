@@ -25,6 +25,7 @@
 #include "CScaleScript.h"
 #include "CStunStarScript.h"
 #include "CTitleMgr.h"
+#include "CTransparentScript.h"
 #include "CWallScript.h"
 
 void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
@@ -53,6 +54,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CScaleScript");
 	_vec.push_back(L"CStunStarScript");
 	_vec.push_back(L"CTitleMgr");
+	_vec.push_back(L"CTransparentScript");
 	_vec.push_back(L"CWallScript");
 }
 
@@ -106,6 +108,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CStunStarScript;
 	if (L"CTitleMgr" == _strScriptName)
 		return new CTitleMgr;
+	if (L"CTransparentScript" == _strScriptName)
+		return new CTransparentScript;
 	if (L"CWallScript" == _strScriptName)
 		return new CWallScript;
 	return nullptr;
@@ -186,6 +190,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::TITLEMGR:
 		return new CTitleMgr;
+		break;
+	case (UINT)SCRIPT_TYPE::TRANSPARENTSCRIPT:
+		return new CTransparentScript;
 		break;
 	case (UINT)SCRIPT_TYPE::WALLSCRIPT:
 		return new CWallScript;
@@ -292,6 +299,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::TITLEMGR:
 		return L"CTitleMgr";
+		break;
+
+	case SCRIPT_TYPE::TRANSPARENTSCRIPT:
+		return L"CTransparentScript";
 		break;
 
 	case SCRIPT_TYPE::WALLSCRIPT:

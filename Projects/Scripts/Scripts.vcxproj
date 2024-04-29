@@ -186,6 +186,7 @@ call ScriptsCopy.bat</Command>
     <ClInclude Include="CScriptMgr.h" />
     <ClInclude Include="CStunStarScript.h" />
     <ClInclude Include="CTitleMgr.h" />
+    <ClInclude Include="CTransparentScript.h" />
     <ClInclude Include="CUnitScript.h" />
     <ClInclude Include="CWallScript.h" />
     <ClInclude Include="define.h" />
@@ -221,6 +222,7 @@ call ScriptsCopy.bat</Command>
     <ClCompile Include="CScriptMgr.cpp" />
     <ClCompile Include="CStunStarScript.cpp" />
     <ClCompile Include="CTitleMgr.cpp" />
+    <ClCompile Include="CTransparentScript.cpp" />
     <ClCompile Include="CUnitScript.cpp" />
     <ClCompile Include="CWallScript.cpp" />
     <ClCompile Include="extern.cpp" />

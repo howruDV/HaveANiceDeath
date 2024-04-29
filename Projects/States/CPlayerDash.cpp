@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "CPlayerDash.h"
 
+#include <Engine\CAssetMgr.h>
+#include <Engine\CTransform.h>
+
 #include <Scripts/CPlayerMgr.h>
 #include <Scripts/CPlayerScript.h>
 
@@ -8,6 +11,7 @@ CPlayerDash::CPlayerDash()
 	: CState(PLAYERDASH)
 	, m_PlayerMgr(nullptr)
 {
+	m_EffectDash = CAssetMgr::GetInst()->Load<CPrefab>(L"prefab\\pref_EffectAnim_Dash.pref");
 }
 
 CPlayerDash::~CPlayerDash()
@@ -44,6 +48,11 @@ void CPlayerDash::Enter()
 {
 	GetOwner()->Movement()->SetVelocity(Vec3());
 
+	// anim
+	GamePlayStatic::Play2DSound(L"sound\\player\\PC_Nav_Dash_Lgt_01.wav", 1, 0.25f);
+	GetOwner()->Animator2D()->Play(L"Dash", true);
+	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+
 	// set speed
 	Vec3 vSpeed = Vec3();
 	vSpeed.x = *((float*)GetBlackboardData(L"fSpeedDash"));
@@ -52,10 +61,13 @@ void CPlayerDash::Enter()
 	GetOwner()->Movement()->UseMaxSpeed(false);
 	GetOwner()->Movement()->SetVelocity(vSpeed);
 
-	// anim
-	GamePlayStatic::Play2DSound(L"sound\\player\\PC_Nav_Dash_Lgt_01.wav", 1, 0.25f);
-	GetOwner()->Animator2D()->Play(L"Dash", true);
-	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+	//play effect
+	Vec3 Pos = GetOwner()->Transform()->GetRelativePos();
+	Pos.z -= 0.1f;
+
+	CGameObject* pEffect = m_EffectDash->Instantiate();
+	pEffect->Transform()->SetRelativePos(Pos);
+	GamePlayStatic::SpawnGameObject(pEffect, 30);
 }
 
 void CPlayerDash::Exit()

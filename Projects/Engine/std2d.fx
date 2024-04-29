@@ -5,7 +5,7 @@
 #include "func.fx"
 
 #define MixColor g_vec4_0
-
+#define Transparent (1.f - g_float_1)
 
 
 struct VS_IN
@@ -107,6 +107,7 @@ PS_OUT PS_Std2D(VS_OUT _in) : SV_Target
         //    discard;
     }
 
+    vColor.a *= Transparent;
     
     // 2. lighting
     tLightColor LightColor = (tLightColor) 0.f;

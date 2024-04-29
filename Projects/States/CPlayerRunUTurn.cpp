@@ -44,12 +44,6 @@ void CPlayerRunUTurn::finaltick()
 		return;
 	}
 
-	if (KEY_TAP(KEY::LSHIFT) && PLAYERSCRIPT->CanDash())
-	{
-		ChangeState(L"Dash");
-		return;
-	}
-
 	if (KEY_TAP(KEY::LBTN))
 	{
 		int nextCombo = PLAYERSCRIPT->GetNextComboIdx();

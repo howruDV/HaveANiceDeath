@@ -97,7 +97,12 @@
     <ClInclude Include="CStunStarScript.h">
       <Filter>Scripts\Function\StunStar</Filter>
     </ClInclude>
-    <ClInclude Include="CScaleScript.h" />
+    <ClInclude Include="CScaleScript.h">
+      <Filter>Scripts\Function\Scale</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransparentScript.h">
+      <Filter>Scripts\Function\Transparent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -190,7 +195,12 @@
     <ClCompile Include="CStunStarScript.cpp">
       <Filter>Scripts\Function\StunStar</Filter>
     </ClCompile>
-    <ClCompile Include="CScaleScript.cpp" />
+    <ClCompile Include="CScaleScript.cpp">
+      <Filter>Scripts\Function\Scale</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransparentScript.cpp">
+      <Filter>Scripts\Function\Transparent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Default">
@@ -306,6 +316,9 @@
     </Filter>
     <Filter Include="Scripts\Function\Scale">
       <UniqueIdentifier>{cce639c1-587f-419a-b2a0-e14d07256135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Function\Transparent">
+      <UniqueIdentifier>{5d6b328d-d1b1-4563-8da8-62e9338b7b37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

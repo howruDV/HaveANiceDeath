@@ -1,5 +1,6 @@
 #pragma once
 #include <Engine/CState.h>
+#include <Engine/CPrefab.h>
 
 class CPlayerMgr;
 
@@ -8,6 +9,7 @@ class CPlayerDash :
 {
 private:
     CPlayerMgr* m_PlayerMgr;
+    Ptr<CPrefab> m_EffectDash;
 
 public:
     virtual void finaltick() override;

@@ -8,6 +8,7 @@
 #define GlowColor g_vec4_0
 #define Threshold g_float_0
 #define VarColor g_vec4_1
+#define Transparent (1.f - g_float_1)
 
 
 struct VS_OUT
@@ -28,7 +29,7 @@ PS_OUT PS_Std2D_Bloom(VS_OUT _in) : SV_Target
 {
     // 1. sampling
     PS_OUT output;
-    float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
+    float4 vColor = (float4)0.f;
     
     if (g_UseAnim2D)
     {
@@ -49,15 +50,9 @@ PS_OUT PS_Std2D_Bloom(VS_OUT _in) : SV_Target
         {
             vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
         }
-        
-        // alpha blending (magenta background delete)
-        float fAlpha = 1.f - saturate(dot(vColor.rb, vColor.rb) / 2.f); // saturate: 0~1 넘지 않게 보정
-        
-        if (fAlpha < 0.1f)
-        {
-            discard;
-        }
     }
+    
+    vColor.a *= Transparent;
     
     // Relative luminance
     float RelativeLuminance = dot(vColor.rgb, float3(0.2126f, 0.7152f, 0.0722f));
