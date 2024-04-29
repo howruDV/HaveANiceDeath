@@ -57,8 +57,10 @@ void UIParticleSystem::render_update()
 		TextBox("Spawn Scale (Max)");	ImGui::SameLine(); ImGui::DragFloat4("##Spawn_SpawnScaleMax", Module.vSpawnScaleMax);
 		TextBox("Life (Min)");			ImGui::SameLine(); ImGui::DragFloat("##Spawn_LifeMin", &Module.LifeMin);
 		TextBox("Life (Max)");			ImGui::SameLine(); ImGui::DragFloat("##Spawn_LifeMax", &Module.LifeMax);
-		TextBox("Spawn Rate");			ImGui::SameLine(); ImGui::DragFloat("##Spawn_SpawnLate", &Module.MassMin);
-		TextBox("Spawn Space"); ImGui::SetItemTooltip("ÁÂÇ¥°è (0: Local, 1 : World)"); ImGui::SameLine(); ImGui::DragFloat("##Spawn_SpawnType", &Module.MassMax);
+		TextBox("Mass (Min)");			ImGui::SameLine(); ImGui::DragFloat("##Spawn_MassMin", &Module.MassMin);
+		TextBox("Mass (Max)");			ImGui::SameLine(); ImGui::DragFloat("##Spawn_MassMax", &Module.MassMax);
+		TextBox("Spawn Rate");			ImGui::SameLine(); ImGui::DragInt("##Spawn_SpawnLate", &Module.SpawnRate);
+		TextBox("Spawn Space"); ImGui::SetItemTooltip("coord (0: Local, 1 : World)"); ImGui::SameLine(); ImGui::DragInt("##Spawn_SpawnType", &Module.SpaceType);
 		TextBox("Spawn Shape"); ImGui::SetItemTooltip("(0: Sphere, 1: Box)"); ImGui::SameLine(); ImGui::DragInt("##Spawn_SpawnShape", &Module.SpawnShape);
 		TextBox("L Sphere Radius");ImGui::SameLine(); ImGui::DragFloat("##Spawn_SpawnShapeRadius", &Module.Radius);
 		TextBox("L Box Scale");	ImGui::SameLine(); ImGui::DragFloat4("##Spawn_SpawnShapeScale", Module.vSpawnBoxScale);

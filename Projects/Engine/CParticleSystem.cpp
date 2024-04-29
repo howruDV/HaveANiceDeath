@@ -14,6 +14,7 @@ CParticleSystem::CParticleSystem()
 	, m_fPlayTime(0.f)
 	, m_fPlayAccTime(0.f)
 	, m_bSpawnRepeat(true)
+	, m_bNextDeactive(false)
 {
 	// 전용 mesh & material 사용
 	SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"PointMesh"));
@@ -99,6 +100,7 @@ CParticleSystem::CParticleSystem(const CParticleSystem& _OriginParticle)
 	, m_fPlayTime(_OriginParticle.m_fPlayTime)
 	, m_fPlayAccTime(0.f)
 	, m_bSpawnRepeat(_OriginParticle.m_bSpawnRepeat)
+	, m_bNextDeactive(false)
 {
 	if (nullptr != _OriginParticle.m_ParticleBuffer)
 		m_ParticleBuffer = _OriginParticle.m_ParticleBuffer->Clone();
@@ -131,16 +133,25 @@ void CParticleSystem::finaltick()
 	// ----------------------
 	// Active
 	// ----------------------
-	if (!m_bSpawnRepeat)
+	if (!m_bSpawnRepeat || m_bNextDeactive)
 	{
 		m_fPlayAccTime += DT;
 
 		if (m_fPlayAccTime > m_fPlayTime)
 		{
-			m_Module.arrModuleCheck[0] = false;
+			m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = false;
 
-			if (m_fPlayAccTime > m_fPlayTime + m_Module.LifeMax)
+			if (m_bNextDeactive && (m_fPlayAccTime > m_Module.LifeMax) )
+			{
+				m_fPlayAccTime = 0.f;
+				m_bNextDeactive = false;
+				GetOwner()->Deactivate();
+			}
+
+			if (!m_bSpawnRepeat && (m_fPlayAccTime > m_fPlayTime + m_Module.LifeMax))
+			{
 				GamePlayStatic::DestroyGameObject(this->GetOwner());
+			}
 		}
 	}
 
@@ -252,4 +263,29 @@ UINT CParticleSystem::CheckSpawnCount()
 	}
 
 	return Spawn;
+}
+
+void CParticleSystem::CreateParticleBuffer()
+{
+	if (m_ParticleBuffer->GetElementCount() == m_ParticleSpawnMax)
+		return;
+
+	if (m_ParticleBuffer)
+		delete m_ParticleBuffer;
+
+	m_ParticleBuffer = new CStructuredBuffer;
+	m_ParticleBuffer->Create(sizeof(FParticle), m_ParticleSpawnMax, SB_TYPE::READ_WRITE, true);	// 확인용으로 READ_WRITE (CPU 읽기 허용)
+}
+
+void CParticleSystem::SpawnOn()
+{
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = true;
+	GetOwner()->Activate();
+	m_bNextDeactive = false;
+}
+
+void CParticleSystem::SpawnOff()
+{
+	m_Module.arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = false;
+	m_bNextDeactive = true;
 }

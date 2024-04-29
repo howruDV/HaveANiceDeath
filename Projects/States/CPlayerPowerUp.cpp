@@ -24,6 +24,25 @@ CPlayerPowerUp::~CPlayerPowerUp()
 
 void CPlayerPowerUp::finaltick()
 {
+	//play effect
+	if (GetOwner()->Animator2D()->GetCurAnimFrmIdx() == 16)
+	{
+		if (!m_bSpawnEffect)
+		{
+			Vec3 Pos = m_LandPos;
+			Pos.y -= 10.f;
+			Pos.z -= 0.1f;
+
+			CGameObject* pEffect = m_bEffectRepulsive->Instantiate();
+			pEffect->Transform()->SetRelativePos(Pos);
+			pEffect->Animator2D()->Play(L"Repulsive", false);
+			pEffect->Animator2D()->DestroyAfterPlay();
+
+			GamePlayStatic::SpawnGameObject(pEffect, 30);
+			m_bSpawnEffect = true;
+		}
+	}
+
 	// playing anim
 	if (GetOwner()->Animator2D()->IsPlaying())
 	{
@@ -45,22 +64,6 @@ void CPlayerPowerUp::finaltick()
 		// ÇÏ°­
 		else
 		{
-			if (!m_bSpawnEffect)
-			{
-				//play effect
-				Vec3 Pos = m_LandPos;
-				Pos.y -= 10.f;
-				Pos.z -= 0.1f;
-
-				CGameObject* pEffect = m_bEffectRepulsive->Instantiate();
-				pEffect->Transform()->SetRelativePos(Pos);
-				pEffect->Animator2D()->Play(L"Repulsive", false);
-				pEffect->Animator2D()->DestroyAfterPlay();
-
-				GamePlayStatic::SpawnGameObject(pEffect, 30);
-				m_bSpawnEffect = true;
-			}
-
 			Vec3 vPos = GetOwner()->Transform()->GetRelativePos();
 			Vec3 vRemain = m_LandPos - vPos;
 

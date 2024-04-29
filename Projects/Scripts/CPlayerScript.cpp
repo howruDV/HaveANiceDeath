@@ -103,6 +103,10 @@ void CPlayerScript::begin()
 		if (pObj)
 			m_RestGauge = pObj->GetScriptByType<CGaugeScript>();
 	}
+
+	m_pEffectDash = GetOwner()->GetChildByName(L"EffectDash");
+	if (m_pEffectDash)
+		OffEffectDash();
 }
 
 void CPlayerScript::tick()
@@ -347,4 +351,20 @@ void CPlayerScript::ResetRest()
 {
 	m_iRestCur = 0.f;
 	m_RestGauge->Reset();
+}
+
+void CPlayerScript::OnEffectDash()
+{
+	if (!m_pEffectDash)
+		return;
+
+	m_pEffectDash->ParticleSystem()->SpawnOn();
+}
+
+void CPlayerScript::OffEffectDash()
+{
+	if (!m_pEffectDash)
+		return;
+
+	m_pEffectDash->ParticleSystem()->SpawnOff();
 }

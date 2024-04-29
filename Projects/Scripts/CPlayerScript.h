@@ -33,6 +33,13 @@ private:
     int m_iRestCur;
     CGaugeScript* m_RestGauge;
 
+    // collision
+    CGameObject* m_AirColPlatform;
+    bool m_bAirCol;
+
+    // effect
+    CGameObject* m_pEffectDash;
+
     // cooltime
     float m_fDashCoolTime;
     float m_fDashAccTime;
@@ -45,9 +52,6 @@ private:
 
     bool m_bAerialCan;
 
-    // collision
-    CGameObject* m_AirColPlatform;
-    bool m_bAirCol;
 
 public:
     virtual void begin() override;
@@ -76,12 +80,14 @@ public:
     void StartCombo(int _ComboIdx);
 
 public:
-    void SetHPActive(int _HPActive) { m_iHPActive = _HPActive; }
-    void SetiMPMax(int _MPMax) { m_iMPMax = _MPMax; }
-    void SetiMPCur(int _MPCur) { m_iMPCur = _MPCur; }
     void ResetRest();
     void DeactiveCombo() { m_bComboCan = false; m_fComboAccTime = 0; m_NextComboIdx = 0; }
     void DeactiveAerialAttack() { m_bAerialCan = false; }
+    void OnEffectDash();
+    void OffEffectDash();
+    void SetHPActive(int _HPActive) { m_iHPActive = _HPActive; }
+    void SetiMPMax(int _MPMax) { m_iMPMax = _MPMax; }
+    void SetiMPCur(int _MPCur) { m_iMPCur = _MPCur; }
 
     CGameObject* GetAirColPlatform() { return m_AirColPlatform; }
     int GetMPCur() { return m_iMPCur; }

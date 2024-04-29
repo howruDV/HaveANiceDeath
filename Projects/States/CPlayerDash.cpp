@@ -61,13 +61,15 @@ void CPlayerDash::Enter()
 	GetOwner()->Movement()->UseMaxSpeed(false);
 	GetOwner()->Movement()->SetVelocity(vSpeed);
 
-	//play effect
+	// play effect
 	Vec3 Pos = GetOwner()->Transform()->GetRelativePos();
 	Pos.z -= 0.1f;
 
 	CGameObject* pEffect = m_EffectDash->Instantiate();
 	pEffect->Transform()->SetRelativePos(Pos);
 	GamePlayStatic::SpawnGameObject(pEffect, 30);
+
+	PLAYERSCRIPT->OnEffectDash();
 }
 
 void CPlayerDash::Exit()
@@ -76,4 +78,7 @@ void CPlayerDash::Exit()
 	GetOwner()->Movement()->SetVelocity(Vec3());
 	PLAYERSCRIPT->StartDashCoolTime();
 	GetOwner()->MeshRender()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+
+	// effect
+	PLAYERSCRIPT->OffEffectDash();
 }

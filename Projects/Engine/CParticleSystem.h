@@ -31,6 +31,7 @@ private:
     float                   m_fPlayTime;
     float                   m_fPlayAccTime;
     bool                    m_bSpawnRepeat;
+    bool                    m_bNextDeactive;
 
 public:
     virtual void UpdatePipeline() override;
@@ -44,7 +45,10 @@ public:
     UINT CheckSpawnCount();
 
 public:
-    void SetParticleSpawnMax(UINT _Max) { m_ParticleSpawnMax = _Max; }
+    void CreateParticleBuffer();
+    void SpawnOn();
+    void SpawnOff();
+    void SetParticleSpawnMax(UINT _Max) { m_ParticleSpawnMax = _Max; CreateParticleBuffer(); }
     void SetParticleTex(Ptr<CTexture> _Tex) { m_ParticleTex = _Tex; }
     void SetModule(FParticleModule _Module) { m_Module = _Module; }
     void SetPlayTime(float _Time) { m_fPlayTime = _Time; }
