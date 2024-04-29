@@ -6,6 +6,7 @@ CGameMgr
 CGaugeScript
 CHitboxScript
 CInvenMgr
+CJumpEffectScript
 CKoTSpear_ProjScript
 CLevelMgrScript_W09_Field1
 CMissileScript_Test

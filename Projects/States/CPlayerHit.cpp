@@ -33,7 +33,7 @@ void CPlayerHit::Enter()
 	Shake.fPlayTime = 0.3f;
 	Shake.fAccTime = 0.f;
 	Shake.fVar = 5.f;
-	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->PushEffect(Shake);
+	CGameMgr::GetMainCamera()->GetScriptByType<CCamCtrlScript>()->SetEffect(Shake);
 	
 	// setting
 	GetOwner()->Movement()->SetVelocity(Vec3());
@@ -47,7 +47,7 @@ void CPlayerHit::Enter()
 	wstring strName = L"sound\\player\\Onos_Player_Death_Hit_light_0";
 	int rand = Random(1, 9);
 	strName += std::to_wstring(rand) + L".wav";
-	GamePlayStatic::Play2DSound(strName, 1, 0.2f);
+	GamePlayStatic::Play2DSound(strName, 1, 0.5f);
 }
 
 void CPlayerHit::Exit()

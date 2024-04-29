@@ -9,6 +9,7 @@
 #include "CGaugeScript.h"
 #include "CHitboxScript.h"
 #include "CInvenMgr.h"
+#include "CJumpEffectScript.h"
 #include "CKoTSpear_ProjScript.h"
 #include "CLevelMgrScript_W09_Field1.h"
 #include "CMissileScript_Test.h"
@@ -38,6 +39,7 @@ void CScriptMgr::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"CGaugeScript");
 	_vec.push_back(L"CHitboxScript");
 	_vec.push_back(L"CInvenMgr");
+	_vec.push_back(L"CJumpEffectScript");
 	_vec.push_back(L"CKoTSpear_ProjScript");
 	_vec.push_back(L"CLevelMgrScript_W09_Field1");
 	_vec.push_back(L"CMissileScript_Test");
@@ -76,6 +78,8 @@ CScript * CScriptMgr::GetScript(const wstring& _strScriptName)
 		return new CHitboxScript;
 	if (L"CInvenMgr" == _strScriptName)
 		return new CInvenMgr;
+	if (L"CJumpEffectScript" == _strScriptName)
+		return new CJumpEffectScript;
 	if (L"CKoTSpear_ProjScript" == _strScriptName)
 		return new CKoTSpear_ProjScript;
 	if (L"CLevelMgrScript_W09_Field1" == _strScriptName)
@@ -142,6 +146,9 @@ CScript * CScriptMgr::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::INVENMGR:
 		return new CInvenMgr;
+		break;
+	case (UINT)SCRIPT_TYPE::JUMPEFFECTSCRIPT:
+		return new CJumpEffectScript;
 		break;
 	case (UINT)SCRIPT_TYPE::KOTSPEAR_PROJSCRIPT:
 		return new CKoTSpear_ProjScript;
@@ -235,6 +242,10 @@ const wchar_t * CScriptMgr::GetScriptName(CScript * _pScript)
 
 	case SCRIPT_TYPE::INVENMGR:
 		return L"CInvenMgr";
+		break;
+
+	case SCRIPT_TYPE::JUMPEFFECTSCRIPT:
+		return L"CJumpEffectScript";
 		break;
 
 	case SCRIPT_TYPE::KOTSPEAR_PROJSCRIPT:

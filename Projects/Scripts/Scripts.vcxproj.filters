@@ -103,6 +103,9 @@
     <ClInclude Include="CTransparentScript.h">
       <Filter>Scripts\Function\Transparent</Filter>
     </ClInclude>
+    <ClInclude Include="CJumpEffectScript.h">
+      <Filter>Scripts\Obj\JumpEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -200,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="CTransparentScript.cpp">
       <Filter>Scripts\Function\Transparent</Filter>
+    </ClCompile>
+    <ClCompile Include="CJumpEffectScript.cpp">
+      <Filter>Scripts\Obj\JumpEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +325,9 @@
     </Filter>
     <Filter Include="Scripts\Function\Transparent">
       <UniqueIdentifier>{5d6b328d-d1b1-4563-8da8-62e9338b7b37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Obj\JumpEffect">
+      <UniqueIdentifier>{24f810c2-db90-44af-b5dd-eb7e7405986b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
