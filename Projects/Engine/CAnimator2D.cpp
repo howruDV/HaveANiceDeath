@@ -13,6 +13,7 @@ CAnimator2D::CAnimator2D()
     , m_bFlipY(UNIT_DIRY::UP)
     , m_LevelStart(true)
     , m_bAfterDestroy(false)
+    , m_bAfterDeactive(false)
 {
 }
 
@@ -24,6 +25,7 @@ CAnimator2D::CAnimator2D(const CAnimator2D& _OriginAnimator)
     , m_bFlipY(_OriginAnimator.m_bFlipY)
     , m_LevelStart(true)
     , m_bAfterDestroy(_OriginAnimator.m_bAfterDestroy)
+    , m_bAfterDeactive(_OriginAnimator.m_bAfterDeactive)
 {
     unordered_map<wstring, CAnim*>::const_iterator iter = _OriginAnimator.m_mapAnim.begin();
     for (; iter != _OriginAnimator.m_mapAnim.end(); ++iter)
@@ -80,6 +82,11 @@ void CAnimator2D::finaltick()
             }
             else
             {
+                if (m_bAfterDeactive)
+                {
+                    GetOwner()->Deactivate();
+                    m_bAfterDeactive = false;
+                }
                 if (m_bAfterDestroy)
                     GamePlayStatic::DestroyGameObject(GetOwner());
             }
@@ -232,6 +239,7 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat, bool _bRevers
     if (m_CurAnim)
         m_CurAnim->Reset();
 
+    m_bAfterDeactive = false;
     m_bRepeat = _bRepeat;
     m_CurAnim = pAnim;
     m_CurAnim->Reset();

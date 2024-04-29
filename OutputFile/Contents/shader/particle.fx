@@ -4,6 +4,10 @@
 #include "value.fx"
 #include "struct.fx"
 
+#define GlowEnable g_int_0
+#define GlowColor g_vec4_0
+#define Threshold g_float_0
+
 StructuredBuffer<FParticle> g_ParticleBuffer : register(t20);
 StructuredBuffer<FParticleModule> g_ParticleModule : register(t21);
 
@@ -26,6 +30,12 @@ struct GS_OUT
     float4 vPosition : SV_Position;
     float2 vUV : TEXCOORD;
     uint InstID : FOG;
+};
+
+struct PS_OUT
+{
+    float4 RenderTarget : SV_Target0;
+    float4 GlowTarget : SV_Target1;
 };
 
 VS_OUT VS_Particle(VS_IN _in)
@@ -140,18 +150,32 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     }
 }
 
-float4 PS_Particle(GS_OUT _in) : SV_Target
+PS_OUT PS_Particle(GS_OUT _in) : SV_Target
 {
     FParticle particle = g_ParticleBuffer[_in.InstID];
     FParticleModule module = g_ParticleModule[0];
+    PS_OUT output;
     float4 vOutColor = g_ParticleBuffer[(uint) _in.InstID].vColor;
     vOutColor.a = 1.f;
 
+    // 1. sampling
     if (g_btex_0)
     {
         float4 vSampleColor = g_tex_0.Sample(g_sam_0, _in.vUV);
         vOutColor.rbg *= vSampleColor.rbg;
         vOutColor.a = vSampleColor.a;
+    }
+    
+    // Relative luminance
+    float RelativeLuminance = dot(vOutColor.rgb, float3(0.2126f, 0.7152f, 0.0722f));
+    
+    if (GlowEnable && (Threshold < RelativeLuminance))
+    {
+        output.GlowTarget = GlowColor;
+    }
+    else
+    {
+        output.GlowTarget = float4(0.f, 0.f, 0.f, 1.f);
     }
     
     // -------------------------
@@ -171,7 +195,9 @@ float4 PS_Particle(GS_OUT _in) : SV_Target
         }
     }
     
-    return vOutColor;
+    // render target
+    output.RenderTarget = vOutColor;
+    return output;
 }
 
 #endif

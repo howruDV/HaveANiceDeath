@@ -25,6 +25,7 @@ private:
     bool                            m_bRepeat;
     bool                            m_LevelStart;
     bool                            m_bAfterDestroy;
+    bool                            m_bAfterDeactive;
 
 public:
     virtual void finaltick() override;
@@ -46,6 +47,7 @@ public:
     void SetFlipX(UNIT_DIRX _bool) { m_bFlipX = _bool; }
     void SetFlipY(UNIT_DIRY _bool) { m_bFlipY = _bool; }
     void DestroyAfterPlay() { m_bAfterDestroy = true; }
+    void DeactiveAfterPlay() { m_bAfterDeactive = true; }
     void ClearNextAnim() { m_listNextAnim.clear(); }
     void PushNextAnim(const wstring& _strAnimName, bool _bRepeat = false);
 

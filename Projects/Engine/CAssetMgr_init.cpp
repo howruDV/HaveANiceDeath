@@ -273,6 +273,9 @@ void CAssetMgr::CreateDefaultGraphicsShader()
 	pShader->CreateVertexShader(L"shader\\particle.fx", "VS_Particle");
 	pShader->CreateGeometryShader(L"shader\\particle.fx", "GS_Particle");
 	pShader->CreatePixelShader(L"shader\\particle.fx", "PS_Particle");
+	pShader->AddScalarParam(SCALAR_PARAM::VEC4_0, "Glow Color");
+	pShader->AddScalarParam(SCALAR_PARAM::INT_0, "Glow Enable");
+	pShader->AddScalarParam(SCALAR_PARAM::FLOAT_0, "Glow Threshold");
 	pShader->AddTexParam(TEX_PARAM::TEX_0, "Particle Texture");
 	
 	pShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
@@ -390,6 +393,9 @@ void CAssetMgr::CreateDefaultMaterial()
 	pMat = new CMaterial(true);
 	pMat->SetShader(FindAsset<CGraphicsShader>(L"ParticleRenderShader"));
 	AddAsset(L"ParticleMat", pMat);
+	pMat->SetScalarParam(SCALAR_PARAM::INT_0, 0);
+	pMat->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1.f, 0.f, 0.f, 1.f));
+	pMat->SetScalarParam(SCALAR_PARAM::FLOAT_0, 0.2f);
 
 	// Background Mat
 	pMat = new CMaterial(true);
