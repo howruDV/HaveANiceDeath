@@ -42,13 +42,13 @@ PS_OUT PS_Std2D_Bloom(VS_OUT _in) : SV_Target
             || vUV.y < g_vLeftTop.y || vUV.y > g_vLeftTop.y + g_vCutSize.y)
             discard;
         else
-            vColor = g_anim2d_tex.Sample(g_sam_1, vUV);
+            vColor = g_anim2d_tex.Sample(g_sam_0, vUV);
     }
     else
     {
         if (g_btex_0)
         {
-            vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+            vColor = g_tex_0.Sample(g_sam_0, _in.vUV);
         }
     }
     

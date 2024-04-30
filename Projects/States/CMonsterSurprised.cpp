@@ -11,6 +11,7 @@
 CMonsterSurprised::CMonsterSurprised()
 	: CState(MONSTERSURPRISED)
 {
+	m_EffectSurprised = CAssetMgr::GetInst()->Load<CPrefab>(L"prefab\\pref_EffectAnim_Surprised.pref");
 }
 
 CMonsterSurprised::~CMonsterSurprised()
@@ -71,6 +72,36 @@ void CMonsterSurprised::Enter()
 {
 	MONSTERSCRIPT->SetDirLock(true);
 	GetOwner()->Animator2D()->Play(L"Surprised", false);
+
+	// play effect
+	Vec3 Pos = Vec3();
+	Pos.y += GetOwner()->Transform()->GetRelativeScale().y / 2.f + 10.f;
+	Pos.z = -1.f;
+
+	// effect: above head
+	CGameObject* pEffect = m_EffectSurprised->Instantiate();
+	pEffect->Transform()->SetRelativePos(Pos);
+	pEffect->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_1, Vec4(1, 0, 0, 1));
+	pEffect->Animator2D()->Play(L"Surprised", false);
+	pEffect->Animator2D()->DestroyAfterPlay();
+	GamePlayStatic::SpawnChild(GetOwner(), pEffect, 30);
+
+	// effect: unit effect
+	pEffect = MONSTERSCRIPT->GetEffect();
+	if (pEffect)
+	{
+		Vec3 Scale = pEffect->Transform()->GetRelativeScale();
+		float ScaleFactor = GetOwner()->Transform()->GetRelativeScale().x / Scale.x;
+		Scale.x *= ScaleFactor;
+		Scale.y *= ScaleFactor;
+
+		pEffect->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_0, 1);
+		pEffect->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1, 0, 0, 1));
+		pEffect->Animator2D()->Play(L"Surprised", false);
+		pEffect->Animator2D()->DeactiveAfterPlay();
+		pEffect->Transform()->SetRelativeScale(Scale);
+		pEffect->Activate();
+	}
 }
 
 void CMonsterSurprised::Exit()
