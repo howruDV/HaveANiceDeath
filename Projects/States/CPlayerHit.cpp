@@ -52,12 +52,14 @@ void CPlayerHit::Enter()
 	GamePlayStatic::Play2DSound(strName, 1, 0.5f);
 
 	// play effect
+	// effect: unit anim (explosion)
 	CGameObject* pEffect = PLAYERSCRIPT->GetEffect();
 	pEffect->GetRenderComponent()->GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, Vec4(1, 0, 0, 1));
 	pEffect->Animator2D()->Play(L"Hit", false);
 	pEffect->Animator2D()->DeactiveAfterPlay();
 	pEffect->Activate();
 
+	// effect: particle
 	Vec3 Pos = GetOwner()->Transform()->GetRelativePos();
 	Pos.z = - 0.1f;
 	pEffect = m_EffectHit->Instantiate();

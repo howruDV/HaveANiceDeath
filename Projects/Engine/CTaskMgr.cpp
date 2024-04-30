@@ -106,6 +106,9 @@ void CTaskMgr::tick()
 			CLevelMgr::GetInst()->ChangeLevel_proc(pNextLevel, State);
 			m_bCreateObject = true;
 			m_bChangeLevel = true;
+
+			// @TODO
+			m_vecTask.clear();
 		}
 		break;
 
