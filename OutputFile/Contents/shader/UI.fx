@@ -45,12 +45,12 @@ float4 PS_UI(VS_OUT _in) : SV_Target
         if (vUV.x < g_vLeftTop.x || vUV.x > g_vLeftTop.x + g_vCutSize.x
             || vUV.y < g_vLeftTop.y || vUV.y > g_vLeftTop.y + g_vCutSize.y)
             discard;
-        vColor = g_anim2d_tex.Sample(g_sam_1, vUV);
+        vColor = g_anim2d_tex.Sample(g_sam_0, vUV);
     }
     else
     {
         if (g_btex_0)
-            vColor = g_tex_0.Sample(g_sam_1, _in.vUV);
+            vColor = g_tex_0.Sample(g_sam_0, _in.vUV);
     }
     
     return vColor;

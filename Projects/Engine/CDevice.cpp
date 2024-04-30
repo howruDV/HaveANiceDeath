@@ -356,6 +356,13 @@ int CDevice::CreateSamplerState()
 
     DEVICE->CreateSamplerState(&tDesc, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS].GetAddressOf());
 
+    // anisotropic & Clamp
+    tDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+    tDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+    tDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+
+    DEVICE->CreateSamplerState(&tDesc, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS_CLAMP].GetAddressOf());
+
     // mimap ¹Ó¸Ê ÇÊÅÍ¸µ
     tDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
     tDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -365,13 +372,6 @@ int CDevice::CreateSamplerState()
     tDesc.MaxLOD = 1;
 
     DEVICE->CreateSamplerState(&tDesc, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP].GetAddressOf());
-
-    // mipmap & Clamp
-    tDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
-    tDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-    tDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-
-    DEVICE->CreateSamplerState(&tDesc, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
 
     // pipeline sampler update
     CONTEXT->VSSetSamplers(0, 1, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS].GetAddressOf());
@@ -388,12 +388,12 @@ int CDevice::CreateSamplerState()
     CONTEXT->PSSetSamplers(1, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP].GetAddressOf());
     CONTEXT->CSSetSamplers(1, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP].GetAddressOf());
 
-    CONTEXT->VSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
-    CONTEXT->HSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
-    CONTEXT->DSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
-    CONTEXT->GSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
-    CONTEXT->PSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
-    CONTEXT->CSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::MIPMAP_CLAMP].GetAddressOf());
+    CONTEXT->VSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS_CLAMP].GetAddressOf());
+    CONTEXT->HSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS_CLAMP].GetAddressOf());
+    CONTEXT->DSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS_CLAMP].GetAddressOf());
+    CONTEXT->GSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS_CLAMP].GetAddressOf());
+    CONTEXT->PSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS_CLAMP].GetAddressOf());
+    CONTEXT->CSSetSamplers(2, 1, m_arrSampler[(UINT)SAMPLER_TYPE::ANIS_CLAMP].GetAddressOf());
 
     return 0;
 }
