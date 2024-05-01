@@ -46,6 +46,26 @@ VS_OUT VS_Particle(VS_IN _in)
     output.vUV = _in.vUV;
     output.InstID = _in.InstID;
     
+    // Flip & Offset
+    float2 vOffset = { g_vOffset.x * g_vAtlasSize.x, g_vOffset.y * g_vAtlasSize.y };
+    
+    if (g_UseAnim2D)
+    {
+        if (g_FlipAnimXY & (1 << 1))
+        {
+            output.vUV.x = (1.f - output.vUV.x);
+            vOffset.x *= -1;
+        }
+        
+        if (g_FlipAnimXY & (1 << 0))
+        {
+            output.vUV.y = (1.f - output.vUV.y);
+            vOffset.y *= -1;
+        }
+    }
+    
+    output.vPos.xy += vOffset;
+    
     return output;
 }
 
@@ -159,11 +179,29 @@ PS_OUT PS_Particle(GS_OUT _in) : SV_Target
     vOutColor.a = 1.f;
 
     // 1. sampling
-    if (g_btex_0)
+    if (g_UseAnim2D)
     {
-        float4 vSampleColor = g_tex_0.Sample(g_sam_0, _in.vUV);
-        vOutColor.rbg *= vSampleColor.rbg;
-        vOutColor.a = vSampleColor.a;
+        float2 vBackgroundLeftTop = g_vLeftTop + (g_vCutSize / 2.f) - (g_vBackgroundSize / 2.f);
+        float2 vUV = vBackgroundLeftTop + _in.vUV * g_vBackgroundSize;
+        
+        if (vUV.x < g_vLeftTop.x || vUV.x > g_vLeftTop.x + g_vCutSize.x
+            || vUV.y < g_vLeftTop.y || vUV.y > g_vLeftTop.y + g_vCutSize.y)
+            discard;
+        else
+        {
+            float4 vSampleColor = g_anim2d_tex.Sample(g_sam_0, vUV);
+            vOutColor.rgb *= vSampleColor.rgb;
+            vOutColor.a = vSampleColor.a;
+        }
+    }
+    else
+    {
+        if (g_btex_0)
+        {
+            float4 vSampleColor = g_tex_0.Sample(g_sam_0, _in.vUV);
+            vOutColor.rbg *= vSampleColor.rbg;
+            vOutColor.a = vSampleColor.a;
+        }
     }
     
     // Relative luminance

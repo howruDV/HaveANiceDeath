@@ -22,19 +22,53 @@ void UIAnimator2D::render_update()
 	UIComponent::render_update();
 
 	string CurAnim = WstrToStr(GetTargetObject()->Animator2D()->GetCurAnimName());
+	int CurAnimIdx = -1;
+
 	const unordered_map<wstring, CAnim*> CurAnimList = GetTargetObject()->Animator2D()->GetAnimations();
 	vector<string> items;
-	static int item_current_idx = 0;
+	static int itemList_current_idx = 0;
 	items.reserve(CurAnimList.size());
 
 	for (const auto& iter : CurAnimList)
 	{
 		items.push_back(WstrToStr(iter.first).c_str());
+		if (CurAnim == WstrToStr(iter.first))
+			CurAnimIdx = items.size() - 1;
 	}
 
 	// 현재 애니메이션
 	TextBox("Current Animation"); ImGui::SameLine();
-	ImGui::InputText("##CurrentAnimation", (char*)CurAnim.c_str(), CurAnim.length(), ImGuiInputTextFlags_ReadOnly);
+	//ImGui::InputText("##CurrentAnimation", (char*)CurAnim.c_str(), CurAnim.length(), ImGuiInputTextFlags_ReadOnly);
+	ImGui::BeginGroup();
+	{
+		int item_prev_idx = CurAnimIdx;
+		string strCurItem = (CurAnimIdx == -1) ? "" : items[CurAnimIdx];
+
+		if (ImGui::BeginCombo("##CurAnimCombo", strCurItem.c_str()))
+		{
+			for (int i = 0; i < items.size(); i++)
+			{
+				const bool is_selected = (CurAnimIdx == i);
+
+				if (ImGui::Selectable(items[i].c_str(), is_selected))
+					CurAnimIdx = i;
+
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+		}
+
+		if (item_prev_idx != CurAnimIdx)
+		{
+			CurAnim = items[CurAnimIdx];
+			GetTargetObject()->Animator2D()->Play(StrToWstr(CurAnim));
+		}
+
+		item_prev_idx = CurAnimIdx;
+
+		ImGui::EndGroup();
+	}
 
 	char buffer[64];
 	strcpy_s(buffer, m_AddStateKey.c_str());
@@ -51,10 +85,10 @@ void UIAnimator2D::render_update()
 		{
 			for (int i = 0; i < items.size(); i++)
 			{
-				const bool is_selected = (item_current_idx == i);
+				const bool is_selected = (itemList_current_idx == i);
 
 				if (ImGui::Selectable(items[i].c_str(), is_selected))
-					item_current_idx = i;
+					itemList_current_idx = i;
 
 				// 리스트 중 해당 항목이 클릭되면 하이라이트 걸어줌
 				if (is_selected)
@@ -79,7 +113,7 @@ void UIAnimator2D::render_update()
 
 		if (ImGui::Button("Delete##DeleteAnimation", buttonSize))
 		{
-			wstring SelectedAnimKey = StrToWstr(items[item_current_idx]);
+			wstring SelectedAnimKey = StrToWstr(items[itemList_current_idx]);
 			DeleteAnimation(SelectedAnimKey);
 		}
 

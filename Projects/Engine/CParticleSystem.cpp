@@ -201,10 +201,17 @@ void CParticleSystem::render()
 	// 1. binding
 	m_ParticleBuffer->UpdatePipeline(20);
 	m_ParticleModuleBuffer->UpdatePipeline(21);
-
-	// 2. rendering
 	GetMaterial()->SetTexParam(TEX_PARAM::TEX_0, m_ParticleTex);
 	GetMaterial()->UpdatePipeline();
+
+	if (Animator2D())
+		Animator2D()->UpdatePipeline();
+	else
+	{
+		Animator2D()->Clear();
+	}
+
+	// 2. rendering
 	GetMesh()->renderInstanced(m_ParticleSpawnMax);
 
 	// pipeline binding clear

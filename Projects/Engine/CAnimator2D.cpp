@@ -47,6 +47,12 @@ CAnimator2D::~CAnimator2D()
     Delete_Map(m_mapAnim);
 }
 
+void CAnimator2D::begin()
+{
+    if (m_CurAnim)
+        Play(m_CurAnim, m_bRepeat, false);
+}
+
 void CAnimator2D::finaltick()
 {
     if (not m_CurAnim)
@@ -122,6 +128,8 @@ void CAnimator2D::UpdatePipeline()
             // play anim's first frame
             pAnim->UpdatePipeline();
         }
+        else
+            Clear();
 
         return;
     }
@@ -219,16 +227,12 @@ int CAnimator2D::DeleteAnim(const wstring& _AnimationKey)
     return S_OK;
 }
 
-void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat, bool _bReverse)
+void CAnimator2D::Play(CAnim* _pAnim, bool _bRepeat, bool _bReverse)
 {
-    CAnim* pAnim = FindAnim(_strAnimName);
-    if (!pAnim)
-        return;
-
     // set background size
-    Vec3 newBgSize = Vec3(pAnim->m_vecFrm[0].vBackgroundSize.x, pAnim->m_vecFrm[0].vBackgroundSize.y, 1.f);
-    newBgSize.x *= pAnim->m_AtlasTex->GetWidth();
-    newBgSize.y *= pAnim->m_AtlasTex->GetHeight();
+    Vec3 newBgSize = Vec3(_pAnim->m_vecFrm[0].vBackgroundSize.x, _pAnim->m_vecFrm[0].vBackgroundSize.y, 1.f);
+    newBgSize.x *= _pAnim->m_AtlasTex->GetWidth();
+    newBgSize.y *= _pAnim->m_AtlasTex->GetHeight();
     if (Transform()->GetRelativeScale() != newBgSize)
     {
         Transform()->SetRelativeScale(newBgSize);
@@ -241,11 +245,20 @@ void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat, bool _bRevers
 
     m_bAfterDeactive = false;
     m_bRepeat = _bRepeat;
-    m_CurAnim = pAnim;
+    m_CurAnim = _pAnim;
     m_CurAnim->Reset();
 
     if (_bReverse)
         m_CurAnim->SetReverse();
+}
+
+void CAnimator2D::Play(const wstring& _strAnimName, bool _bRepeat, bool _bReverse)
+{
+    CAnim* pAnim = FindAnim(_strAnimName);
+    if (!pAnim)
+        return;
+
+    Play(pAnim, _bRepeat, _bReverse);
 }
 
 void CAnimator2D::PushNextAnim(const wstring& _strAnimName, bool _bRepeat)

@@ -107,7 +107,7 @@ void CTaskMgr::tick()
 			m_bCreateObject = true;
 			m_bChangeLevel = true;
 
-			// @TODO
+			// @TODO 터지면여기
 			m_vecTask.clear();
 		}
 		break;

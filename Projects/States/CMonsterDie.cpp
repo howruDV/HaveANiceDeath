@@ -43,6 +43,7 @@ void CMonsterDie::Enter()
 	// effect: particle spawn
 	CGameObject* pEffect = m_EffectParticle->Instantiate();
 	pEffect->Transform()->SetRelativePos(Pos);
+	pEffect->Animator2D()->Play(L"Ghost1", false);
 	GamePlayStatic::SpawnGameObject(pEffect, 30);
 
 	// effect: anim spawn

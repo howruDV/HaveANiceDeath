@@ -28,6 +28,7 @@ private:
     bool                            m_bAfterDeactive;
 
 public:
+    virtual void begin() override;
     virtual void finaltick() override;
     void UpdatePipeline();
 
@@ -35,6 +36,7 @@ public:
     virtual void LoadFromFile(FILE* _File) override;
 
     static void Clear();    // Animator가 없어도 동작해야하는 함수
+    void Play(CAnim* _pAnim, bool _bRepeat, bool _bReverse);
     void Play(const wstring& _strAnimName, bool _bRepeat = true, bool _bReverse = false);
     void Create(const wstring& _strKey, Ptr<CTexture> _AtlasTex, Vec2 _vLeftTop, Vec2 _vOffset, Vec2 _vCutSize, Vec2 _vBackgroundSize, int _FrmCount, float _FPS);
     void Create(const wstring& _strKey, Ptr<CTexture> _AltasTex, const vector<FAnimFrm>& _vecFrm);
@@ -50,6 +52,7 @@ public:
     void DeactiveAfterPlay() { m_bAfterDeactive = true; }
     void ClearNextAnim() { m_listNextAnim.clear(); }
     void PushNextAnim(const wstring& _strAnimName, bool _bRepeat = false);
+    void SetRepeat(bool _bool) { m_bRepeat = _bool; }
 
     const unordered_map<wstring, CAnim*>& GetAnimations() { return m_mapAnim; }
     const wstring& GetCurAnimName() { if (m_CurAnim) { return m_CurAnim->GetName(); } return L""; }
@@ -57,6 +60,7 @@ public:
     UNIT_DIRY GetFlipY() { return m_bFlipY; }
     int GetCurAnimFrmIdx() { return m_CurAnim->GetCurFrmIdx(); }
     FAnimFrm GetCurAnimFrm() { return m_CurAnim->GetCurFrm(); }
+    bool IsRepeat() { return m_bRepeat; }
     bool IsPlaying() { if (m_CurAnim) { return !m_CurAnim->IsFinish(); } return false; }
 
 public:
