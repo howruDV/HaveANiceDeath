@@ -60,6 +60,7 @@ public:
     UNIT_DIRY GetFlipY() { return m_bFlipY; }
     int GetCurAnimFrmIdx() { return m_CurAnim->GetCurFrmIdx(); }
     FAnimFrm GetCurAnimFrm() { return m_CurAnim->GetCurFrm(); }
+    CAnim* GetCurAnim() { return m_CurAnim; }
     bool IsRepeat() { return m_bRepeat; }
     bool IsPlaying() { if (m_CurAnim) { return !m_CurAnim->IsFinish(); } return false; }
 

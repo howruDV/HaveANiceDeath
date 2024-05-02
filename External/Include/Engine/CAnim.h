@@ -41,7 +41,10 @@ public:
     void SetReverse();
 
     int GetCurFrmIdx() { return m_CurFrmIdx; }
+    int GetFrmSize() { return m_vecFrm.size(); }
     FAnimFrm GetCurFrm() { return m_vecFrm[m_CurFrmIdx]; }
+    vector<Vec4> GetOffsetList();
+    vector<float> GetDurationList();
 
 public:
     bool IsFinish() { return m_bFinish; }

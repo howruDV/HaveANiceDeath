@@ -65,13 +65,10 @@ struct FParticle
 	float	NormalizedAge;		// Life 기준으로 정규화된 Age
 	int		Active;
 
-	// ----------------------------------- particle collision
-	//Vec4	vNewLocalPos;
-	//Vec3	vNewVelocity;
-	//float	fTemperature;		// 입자가 최근에 충돌했는지 여부
-	//int		iNumCollisions;
-
-	//Vec3	Padding;
+	int		AnimFrmIdx;         // Animation Frm Idx
+	int		AnimFinish;
+	float	AnimAccessTime;		// Animation 세팅받은 시간
+	float	Padding;
 };
 
 // FParticleModule: Particle System의 세팅을 담은 구조체
@@ -118,8 +115,59 @@ struct FParticleModule
 	int		AlphaBasedLife;		// 0: Off, 1: NormalizedAge, 2: Age
 	float	AlphaMaxAge;
 
-	// Module: Collision | Particle Collision
-	
+	// Module: Animation | 애니메이션
+	int		AnimFrmSize;
+	int		AnimRepeat;
+
+	// Module On / Off
+	int arrModuleCheck[(UINT)PARTICLE_MODULE::END];
+};
+
+struct FParticleModule_Prev
+{
+	// Module: Spawn | 파티클 생성
+	Vec4	vSpawnColor;
+	Vec4	vSpawnScaleMin;
+	Vec4	vSpawnScaleMax;
+	float	LifeMin;
+	float	LifeMax;
+	float	MassMin;
+	float	MassMax;
+	int		SpawnRate;
+	int		SpaceType;			// 좌표계 (0: Local, 1: World)
+
+	int		SpawnShape;			// (0: Sphere, 1: Box)
+	float	Radius;				// Spawn Shape - Sphere : 반지름 길이
+	Vec4	vSpawnBoxScale;		// Spawn Shape - Box : Box 크기
+
+	// Module: Drag	| 이동 경로
+	float	DragTime;
+
+	// Module: Scale | 크기 변화
+	Vec4	vScaleRatio;
+
+	// Module: Add Velocity	| 초기 속도 지정
+	int		AddVelocityType;	// 0: from center, 1: to center, 2: fix direction
+	float	SpeedMin;
+	float	SpeedMax;
+	float	FixedAngle;
+	Vec4	FixedDirection;
+
+	// Module: Noise Force | 위치 노이즈
+	float	NosieForceScale;
+	float	NosieForceTerm;
+
+	// Module: Cacluate Force | 힘 계산
+	int		Gravity;			// 0: Off, 1: On
+	Vec3	GravityScale;
+
+	// Module: Render | 렌더링 옵션
+	int		VelocityAlignment;	// 0: Off, 1: On 
+	int		AlphaBasedLife;		// 0: Off, 1: NormalizedAge, 2: Age
+	float	AlphaMaxAge;
+
+	// Module: Animation | 애니메이션
+
 	// Module On / Off
 	int arrModuleCheck[(UINT)PARTICLE_MODULE::END];
 };

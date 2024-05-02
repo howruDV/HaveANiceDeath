@@ -9,6 +9,8 @@ RWStructuredBuffer<FParticle>       g_ParticleBuffer : register(u0);
 RWStructuredBuffer<FSpawnCount>     g_SpawnCount : register(u1);
 
 #define MAX_COUNT   g_int_0
+#define ROTATION_Z  g_int_1
+#define ANIM_DURATION  g_int_2
 #define CENTER_POS  g_vec4_0.xyz
 #define SPAWN_COUNT g_SpawnCount[0].SpawnCount
 #define PARTICLE    g_ParticleBuffer[id.x]
@@ -71,6 +73,7 @@ void CS_UpdateParticle(uint3 id : SV_DispatchThreadID)
                 PARTICLE.vWorldPos.xyz = PARTICLE.vLocalPos.xyz + CENTER_POS;
                 
                 PARTICLE.vWorldInitScale = PARTICLE.vWorldScale = MODULE.vSpawnScaleMin + (MODULE.vSpawnScaleMax - MODULE.vSpawnScaleMin) * vRand.z;
+                PARTICLE.vWorldRotation = float4(0.f, 0.f, ROTATION_Z, 0.f);
                 PARTICLE.Age = 0.f;
                 PARTICLE.Life = MODULE.LifeMin + (MODULE.LifeMax - MODULE.LifeMin) * vRand.x;
                 PARTICLE.vColor = MODULE.vSpawnColor;
@@ -105,11 +108,16 @@ void CS_UpdateParticle(uint3 id : SV_DispatchThreadID)
                 }
                 
                 // -------------------------
-                // Module : Particle
+                // Module : Animation
                 // -------------------------
                 if (MODULE.arrModuleCheck[7])
                 {
-                    
+                    if (PARTICLE.AnimAccessTime == 0.f || ANIM_DURATION < g_time - PARTICLE.AnimAccessTime)
+                    {
+                        PARTICLE.AnimAccessTime = g_time;
+                        PARTICLE.AnimFrmIdx = 0;
+                        PARTICLE.AnimFinish = false;
+                    }
                 }
             }
         }
@@ -203,6 +211,39 @@ void CS_UpdateParticle(uint3 id : SV_DispatchThreadID)
             // Space Type - World : 
             else
                 PARTICLE.vWorldPos.xyz += PARTICLE.vVelocity.xyz * g_dt;
+        }
+        
+        // -------------------------
+        // Module : Animation
+        // -------------------------
+        if (MODULE.arrModuleCheck[7])
+        {
+            // animation AccTime
+            if (!PARTICLE.AnimFinish)
+            {
+                //if (ANIM_DURATION < g_time - PARTICLE.AnimAccessTime)
+                if (0.1 < g_time - PARTICLE.AnimAccessTime)
+                {
+                    PARTICLE.AnimAccessTime = g_time;
+                    PARTICLE.AnimFrmIdx = PARTICLE.AnimFrmIdx + 1;
+
+                    if (PARTICLE.AnimFrmIdx >= MODULE.AnimFrmSize)
+                    {
+                        PARTICLE.AnimFrmIdx = (int) MODULE.AnimFrmSize - 1;
+                        PARTICLE.AnimFinish = true;
+                    }
+                }
+            }
+            
+            // anim finish
+            if (PARTICLE.AnimFinish)
+            {
+                if (MODULE.AnimRepeat)
+                {
+                    PARTICLE.AnimFrmIdx = 0;
+                    PARTICLE.AnimFinish = false;
+                }
+            }
         }
     }
 }

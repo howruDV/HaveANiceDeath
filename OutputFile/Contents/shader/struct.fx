@@ -38,7 +38,7 @@ struct FParticle
     float4 vWorldPos;
     float4 vWorldInitScale;     // 초기 크기
     float4 vWorldScale;         // 현재 크기
-    float4 vWorldRotation;
+    float4 vWorldRotation;      // 파티클 텍스처 회전정보
     float3 vVelocity;
     float4 vColor;
     float4 vForce;              // 입자에 누적된 힘 총량
@@ -49,8 +49,13 @@ struct FParticle
     float Mass;
     float Life;                 // 총 수명
     float Age;                  // 현재 수명
-    float NormalizedAge;         // Life 기준으로 정규화된 Age
+    float NormalizedAge;        // Life 기준으로 정규화된 Age
     int Active;
+    
+    int AnimFrmIdx;             // Animation Frm Idx
+    int AnimFinish;
+    float AnimAccessTime;       // Animation 세팅받은 시간
+    float Padding;
 };
 
 struct FParticleModule
@@ -96,11 +101,12 @@ struct FParticleModule
     int AlphaBasedLife;         // 0: Off, 1: NormalizedAge, 2: Age
     float AlphaMaxAge;
     
-	// Module: Collision | Particle Collision
+	// Module: Animation | 애니메이션
+    int AnimFrmSize;
+    int AnimRepeat;
     
 	// Module On / Off
     int arrModuleCheck[8];
-    float2 padding;
 };
 
 struct FSpawnCount

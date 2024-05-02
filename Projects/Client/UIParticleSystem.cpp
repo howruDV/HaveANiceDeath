@@ -26,6 +26,7 @@ void UIParticleSystem::render_update()
 	// get object data
 	int iParticleMax = pParticleSystem->GetParticleSpawnMax();
 	float fPlayTime = pParticleSystem->GetPlayTime();
+	float fParticleRotation = pParticleSystem->GetRotation();
 	bool bRepeat = pParticleSystem->IsRepeat();
 	Ptr<CTexture> pParticleTex = pParticleSystem->GetParticleTex();
 	string strTexKey = "";
@@ -42,6 +43,7 @@ void UIParticleSystem::render_update()
 
 	// draw
 	TextBox("Spawn Max");			ImGui::SameLine(); ImGui::DragInt("##SpawnMax", &iParticleMax);
+	TextBox("Rotation");			ImGui::SameLine(); ImGui::DragFloat("##ParticleRotation", &fParticleRotation);
 	UIParam::Param_TEXTURE(pParticleTex, "Particle Texture", this, (DELEGATE_1)&UIParticleSystem::SelectTexture);
 	
 	// Module - Spawn
@@ -156,6 +158,7 @@ void UIParticleSystem::render_update()
 	}
 
 	pParticleSystem->SetParticleSpawnMax(iParticleMax);
+	pParticleSystem->SetRotation(fParticleRotation);
 	pParticleSystem->SetPlayTime(fPlayTime);
 	pParticleSystem->SetRepeat(bRepeat);
 	pParticleSystem->SetModule(Module);

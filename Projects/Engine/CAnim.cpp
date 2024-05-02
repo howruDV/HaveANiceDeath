@@ -35,10 +35,10 @@ CAnim::~CAnim()
 
 void CAnim::finaltick()
 {
-	m_AccTime += DT;
-
 	if (m_bFinish)
 		return;
+
+	m_AccTime += DT;
 
 	if (m_AccTime > m_vecFrm[m_CurFrmIdx].fDuration)
 	{
@@ -146,6 +146,26 @@ void CAnim::SetReverse()
 {
 	m_bReverse = true;
 	m_CurFrmIdx = (int)m_vecFrm.size() - 1;
+}
+
+vector<float> CAnim::GetDurationList()
+{
+	vector<float> ret;
+
+	for (FAnimFrm& it : m_vecFrm)
+		ret.push_back(it.fDuration);
+
+	return ret;
+}
+
+vector<Vec4> CAnim::GetOffsetList()
+{
+	vector<Vec4> ret;
+
+	for (FAnimFrm& it : m_vecFrm)
+		ret.push_back(Vec4(it.vOffsetUV.x, it.vOffsetUV.y, 0.f, 0.f));
+
+	return ret;
 }
 
 void CAnim::SaveToFile(FILE* _File)

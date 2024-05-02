@@ -20,11 +20,14 @@ int CParticleUpdate::UpdatePipeline()
 		return E_FAIL;
 
 	m_Const.iArr[0] = m_ParticleBuffer->GetElementCount();	// max count
+	m_Const.iArr[1] = m_fParticleRotZ;	// Particle Texture Rotation
+	m_Const.iArr[2] = m_fAnimDuration;
 	m_Const.v4Arr[0] = m_vParticleWorldPos;
 
 	m_ParticleBuffer->UpdateCS_UAV(0);
 	m_SpawnCountBuffer->UpdateCS_UAV(1);
 	m_ParticleModuleBuffer->UpdateCS_SRV(20);
+	//m_AnimDurationBuffer->UpdateCS_SRV(21);
 
 	return S_OK;
 }
@@ -46,6 +49,10 @@ void CParticleUpdate::Clear()
 	m_ParticleModuleBuffer->ClearCS_SRV();
 	m_ParticleModuleBuffer = nullptr;
 
+	//m_AnimDurationBuffer->ClearCS_SRV();
+	//m_AnimDurationBuffer = nullptr;
+
 	m_SpawnCountBuffer->ClearCS_UAV();
 	m_SpawnCountBuffer = nullptr;
+
 }

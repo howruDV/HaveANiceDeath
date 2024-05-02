@@ -38,7 +38,6 @@ void UIAnimator2D::render_update()
 
 	// 현재 애니메이션
 	TextBox("Current Animation"); ImGui::SameLine();
-	//ImGui::InputText("##CurrentAnimation", (char*)CurAnim.c_str(), CurAnim.length(), ImGuiInputTextFlags_ReadOnly);
 	ImGui::BeginGroup();
 	{
 		int item_prev_idx = CurAnimIdx;

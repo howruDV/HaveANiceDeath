@@ -234,7 +234,7 @@ enum class PARTICLE_MODULE
 	CACULATE_FORCE,		// 힘 계산
 
 	RENDER,				// 렌더링 옵션
-	PARTICLE_COLISION,	// 파티클 충돌
+	ANIMATION,			// 애니메이션
 
 	END,
 };

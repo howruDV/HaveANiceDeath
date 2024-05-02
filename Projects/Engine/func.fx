@@ -97,4 +97,19 @@ void GaussianSample(in Texture2D _NoiseTex, float2 _vResolution, float _Nomalize
     _vOut = vOut;
 }
 
+float4 Rotation(float4 Transform, float Angle)
+{
+    Angle *= PI / 180.f;
+    float fSinAngle = sin(Angle);
+    float fCosAngle = cos(Angle);
+    
+    row_major matrix M = matrix(
+        float4(fCosAngle, -fSinAngle, 0.0f, 0.0f),
+        float4(fSinAngle, fCosAngle, 0.0f, 0.0f),
+        float4(0.0f, 0.0f, 1.0f, 0.0f),
+        float4(0.0f, 0.0f, 0.0f, 1.0f));
+    
+    return mul(Transform, M);
+}
+
 #endif

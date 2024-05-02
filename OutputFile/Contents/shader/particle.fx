@@ -3,6 +3,7 @@
 
 #include "value.fx"
 #include "struct.fx"
+#include "func.fx"
 
 #define GlowEnable g_int_0
 #define GlowColor g_vec4_0
@@ -10,6 +11,7 @@
 
 StructuredBuffer<FParticle> g_ParticleBuffer : register(t20);
 StructuredBuffer<FParticleModule> g_ParticleModule : register(t21);
+StructuredBuffer<float4> g_AnimOffset : register(t22);
 
 struct VS_IN
 {
@@ -46,26 +48,6 @@ VS_OUT VS_Particle(VS_IN _in)
     output.vUV = _in.vUV;
     output.InstID = _in.InstID;
     
-    // Flip & Offset
-    float2 vOffset = { g_vOffset.x * g_vAtlasSize.x, g_vOffset.y * g_vAtlasSize.y };
-    
-    if (g_UseAnim2D)
-    {
-        if (g_FlipAnimXY & (1 << 1))
-        {
-            output.vUV.x = (1.f - output.vUV.x);
-            vOffset.x *= -1;
-        }
-        
-        if (g_FlipAnimXY & (1 << 0))
-        {
-            output.vUV.y = (1.f - output.vUV.y);
-            vOffset.y *= -1;
-        }
-    }
-    
-    output.vPos.xy += vOffset;
-    
     return output;
 }
 
@@ -83,7 +65,7 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     
     GS_OUT output[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
     GS_OUT output_cross[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
-    float3 vWorldPos = particle.vWorldPos.xyz;                  // world pos
+    float3 vWorldPos = particle.vWorldPos.xyz;                  // world pos 
     float4 vViewPos = mul(float4(vWorldPos, 1.f), g_matView);   // view pos
     
     // 0 -- 1	     
@@ -103,6 +85,39 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     output_cross[1].vUV = output[1].vUV = float2(1.f, 0.f);
     output_cross[2].vUV = output[2].vUV = float2(1.f, 1.f);
     output_cross[3].vUV = output[3].vUV = float2(0.f, 1.f);
+    
+    // Flip & Offset
+    if (g_UseAnim2D)
+    {
+        float2 vOffset = { g_AnimOffset[particle.AnimFrmIdx].x * g_vAtlasSize.x, g_AnimOffset[particle.AnimFrmIdx].y * g_vAtlasSize.y };
+    
+        for (int i = 0; i < 4; ++i)
+        {
+            if (g_FlipAnimXY & (1 << 1))
+            {
+                output_cross[i].vUV.x = output[i].vUV.x = (1.f - output[i].vUV.x);
+                vOffset.x *= -1;
+            }
+        
+            if (g_FlipAnimXY & (1 << 0))
+            {
+                output_cross[i].vUV.y = output[i].vUV.y = (1.f - output[i].vUV.y);
+                vOffset.y *= -1;
+            }
+            
+            output[i].vPosition.xy -= vOffset;
+            output_cross[i].vPosition.xy -= vOffset;
+        }
+    }
+    
+    if (particle.vWorldRotation.z != 0.f)
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            output[i].vPosition = Rotation(output[i].vPosition, particle.vWorldRotation.z);
+            output_cross[i].vPosition = Rotation(output_cross[i].vPosition, particle.vWorldRotation.z);
+        }
+    }
     
     // -------------------------
     // Module : Render Module (Before Projection)
@@ -181,17 +196,25 @@ PS_OUT PS_Particle(GS_OUT _in) : SV_Target
     // 1. sampling
     if (g_UseAnim2D)
     {
-        float2 vBackgroundLeftTop = g_vLeftTop + (g_vCutSize / 2.f) - (g_vBackgroundSize / 2.f);
-        float2 vUV = vBackgroundLeftTop + _in.vUV * g_vBackgroundSize;
-        
-        if (vUV.x < g_vLeftTop.x || vUV.x > g_vLeftTop.x + g_vCutSize.x
-            || vUV.y < g_vLeftTop.y || vUV.y > g_vLeftTop.y + g_vCutSize.y)
-            discard;
-        else
+        if (!(particle.AnimFinish && !module.AnimRepeat))
         {
-            float4 vSampleColor = g_anim2d_tex.Sample(g_sam_0, vUV);
-            vOutColor.rgb *= vSampleColor.rgb;
-            vOutColor.a = vSampleColor.a;
+            int2 AtlasFrmSize = g_vAtlasSize / (g_vCutSize * g_vAtlasSize);
+            int FrmXIdx = particle.AnimFrmIdx % AtlasFrmSize.x;
+            int FrmYIdx = particle.AnimFrmIdx / AtlasFrmSize.x;
+            float2 vLeftTop = float2(g_vCutSize.x * FrmXIdx, g_vCutSize.y * FrmYIdx);
+        
+            float2 vBackgroundLeftTop = vLeftTop + (g_vCutSize / 2.f) - (g_vBackgroundSize / 2.f);
+            float2 vUV = vBackgroundLeftTop + _in.vUV * g_vBackgroundSize;
+        
+            if (vUV.x < vLeftTop.x || vUV.x > vLeftTop.x + g_vCutSize.x
+            || vUV.y < vLeftTop.y || vUV.y > vLeftTop.y + g_vCutSize.y)
+                discard;
+            else
+            {
+                float4 vSampleColor = g_anim2d_tex.Sample(g_sam_0, vUV);
+                vOutColor.rgb *= vSampleColor.rgb;
+                vOutColor.a = vSampleColor.a;
+            }
         }
     }
     else
