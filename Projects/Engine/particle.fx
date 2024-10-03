@@ -90,11 +90,9 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     // -------------------------
     // Module : Animation
     // -------------------------
-    if (false)
-    //if (g_ParticleModule[0].arrModuleCheck[7])
+    if (g_ParticleModule[0].arrModuleCheck[7])
     {
-        float2 vOffset = { g_vOffset.x * g_vAtlasSize.x, g_vOffset.y * g_vAtlasSize.y };
-        //float2 vOffset = { g_AnimOffset[particle.AnimFrmIdx].x * g_vAtlasSize.x, g_AnimOffset[particle.AnimFrmIdx].y * g_vAtlasSize.y };
+        float2 vOffset = { g_AnimOffset[particle.AnimFrmIdx].x * g_vAtlasSize.x, g_AnimOffset[particle.AnimFrmIdx].y * g_vAtlasSize.y };
     
         for (int i = 0; i < 4; ++i)
         {

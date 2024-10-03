@@ -42,7 +42,7 @@ CParticleSystem::CParticleSystem()
 	//m_AnimDurationBuffer = new CStructuredBuffer;
 	//m_AnimDurationBuffer->Create(sizeof(Vec4), 1, SB_TYPE::READ_ONLY, true);
 	m_AnimOffsetBuffer = new CStructuredBuffer;
-	m_AnimOffsetBuffer->Create(sizeof(Vec4), 1, SB_TYPE::READ_ONLY, true);
+	m_AnimOffsetBuffer->Create(sizeof(float) * 4, 1, SB_TYPE::READ_ONLY, true);
 
 	// compute shader for particle update
 	m_CSParticleUpdate = (CParticleUpdate*)CAssetMgr::GetInst()->FindAsset<CComputeShader>(L"ParticleUpdateShader").Get();
@@ -60,6 +60,7 @@ CParticleSystem::CParticleSystem(const CParticleSystem& _OriginParticle)
 	, m_Module(_OriginParticle.m_Module)
 	, m_ParticleModuleBuffer(nullptr)
 	, m_SpawnCountBuffer(nullptr)
+	, m_AnimOffsetBuffer(nullptr)
 	, m_CSParticleUpdate(_OriginParticle.m_CSParticleUpdate)
 	, m_ParticleTex(_OriginParticle.m_ParticleTex)
 	, m_SpawnAccTime(0.f)
@@ -105,8 +106,6 @@ CParticleSystem::~CParticleSystem()
 
 void CParticleSystem::UpdatePipeline()
 {
-
-
 }
 
 void CParticleSystem::begin()
@@ -120,7 +119,8 @@ void CParticleSystem::begin()
 
 		// animation offset buffer
 		vector<Vec4> vecOffset = Animator2D()->GetCurAnim()->GetOffsetList();
-		m_AnimOffsetBuffer->SetData(&vecOffset, m_Module.AnimFrmSize);
+		//m_AnimOffsetBuffer->SetData(&vecOffset, m_Module.AnimFrmSize);
+		m_AnimOffsetBuffer->SetData(vecOffset.data(), (UINT)vecOffset.size());
 		m_CSParticleUpdate->SetAnimDuration(Animator2D()->GetCurAnimFrm().fDuration);
 
 		// animation duration list buffer
@@ -225,6 +225,7 @@ void CParticleSystem::render()
 	// pipeline binding clear
 	m_ParticleBuffer->Clear(20);
 	m_ParticleModuleBuffer->Clear(21);
+	m_AnimOffsetBuffer->Clear(22);
 }
 
 void CParticleSystem::SaveToFile(FILE* _File)
