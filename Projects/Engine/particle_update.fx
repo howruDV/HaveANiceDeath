@@ -10,7 +10,7 @@ RWStructuredBuffer<FSpawnCount>     g_SpawnCount : register(u1);
 
 #define MAX_COUNT   g_int_0
 #define ROTATION_Z  g_int_1
-#define ANIM_DURATION  g_int_2
+#define ANIM_DURATION  g_float_0
 #define CENTER_POS  g_vec4_0.xyz
 #define SPAWN_COUNT g_SpawnCount[0].SpawnCount
 #define PARTICLE    g_ParticleBuffer[id.x]
@@ -221,11 +221,10 @@ void CS_UpdateParticle(uint3 id : SV_DispatchThreadID)
             // animation AccTime
             if (!PARTICLE.AnimFinish)
             {
-                //if (ANIM_DURATION < g_time - PARTICLE.AnimAccessTime)
-                if (0.1 < g_time - PARTICLE.AnimAccessTime)
+                if (ANIM_DURATION < g_time - PARTICLE.AnimAccessTime)
                 {
                     PARTICLE.AnimAccessTime = g_time;
-                    PARTICLE.AnimFrmIdx = PARTICLE.AnimFrmIdx + 1;
+                    PARTICLE.AnimFrmIdx++;
 
                     if (PARTICLE.AnimFrmIdx >= MODULE.AnimFrmSize)
                     {

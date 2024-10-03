@@ -65,8 +65,8 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     
     GS_OUT output[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
     GS_OUT output_cross[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
-    float3 vWorldPos = particle.vWorldPos.xyz;                  // world pos 
-    float4 vViewPos = mul(float4(vWorldPos, 1.f), g_matView);   // view pos
+    float3 vWorldPos = particle.vWorldPos.xyz; // world pos 
+    float4 vViewPos = mul(float4(vWorldPos, 1.f), g_matView); // view pos
     
     // 0 -- 1	     
 	// | \  |	     
@@ -87,9 +87,14 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     output_cross[3].vUV = output[3].vUV = float2(0.f, 1.f);
     
     // Flip & Offset
-    if (g_UseAnim2D)
+    // -------------------------
+    // Module : Animation
+    // -------------------------
+    if (false)
+    //if (g_ParticleModule[0].arrModuleCheck[7])
     {
-        float2 vOffset = { g_AnimOffset[particle.AnimFrmIdx].x * g_vAtlasSize.x, g_AnimOffset[particle.AnimFrmIdx].y * g_vAtlasSize.y };
+        float2 vOffset = { g_vOffset.x * g_vAtlasSize.x, g_vOffset.y * g_vAtlasSize.y };
+        //float2 vOffset = { g_AnimOffset[particle.AnimFrmIdx].x * g_vAtlasSize.x, g_AnimOffset[particle.AnimFrmIdx].y * g_vAtlasSize.y };
     
         for (int i = 0; i < 4; ++i)
         {
@@ -143,8 +148,8 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     // local space -> view space -> screen space
     for (int i = 0; i < 4; ++i)
     {
-        output[i].vPosition.xyz += vViewPos.xyz;                    // local space -> (world space) -> view space
-        output[i].vPosition = mul(output[i].vPosition, g_matProj);  // view space -> screen space
+        output[i].vPosition.xyz += vViewPos.xyz; // local space -> (world space) -> view space
+        output[i].vPosition = mul(output[i].vPosition, g_matProj); // view space -> screen space
         
         output_cross[i].vPosition.xyz += vViewPos.xyz;
         output_cross[i].vPosition = mul(output_cross[i].vPosition, g_matProj);
@@ -194,13 +199,16 @@ PS_OUT PS_Particle(GS_OUT _in) : SV_Target
     vOutColor.a = 1.f;
 
     // 1. sampling
-    if (g_UseAnim2D)
+    // -------------------------
+    // Module : Animation
+    // -------------------------
+    if (module.arrModuleCheck[7])
     {
-        if (!(particle.AnimFinish && !module.AnimRepeat))
+        //if (!particle.AnimFinish)
         {
-            int2 AtlasFrmSize = g_vAtlasSize / (g_vCutSize * g_vAtlasSize);
-            int FrmXIdx = particle.AnimFrmIdx % AtlasFrmSize.x;
-            int FrmYIdx = particle.AnimFrmIdx / AtlasFrmSize.x;
+            int AtlasFrmCountX = g_vAtlasSize.x / (g_vCutSize.x * g_vAtlasSize.x);
+            int FrmXIdx = particle.AnimFrmIdx % AtlasFrmCountX;
+            int FrmYIdx = particle.AnimFrmIdx / AtlasFrmCountX;
             float2 vLeftTop = float2(g_vCutSize.x * FrmXIdx, g_vCutSize.y * FrmYIdx);
         
             float2 vBackgroundLeftTop = vLeftTop + (g_vCutSize / 2.f) - (g_vBackgroundSize / 2.f);
@@ -227,7 +235,7 @@ PS_OUT PS_Particle(GS_OUT _in) : SV_Target
         }
     }
     
-    // Relative luminance
+    // 2. Relative luminance
     float RelativeLuminance = dot(vOutColor.rgb, float3(0.2126f, 0.7152f, 0.0722f));
     
     if (GlowEnable && (Threshold < RelativeLuminance))
@@ -239,10 +247,11 @@ PS_OUT PS_Particle(GS_OUT _in) : SV_Target
         output.GlowTarget = float4(0.f, 0.f, 0.f, 1.f);
     }
     
+    // 3. module
     // -------------------------
     // Module : Render Module (PS)
     // -------------------------
-    if (g_ParticleModule[0].arrModuleCheck[6])
+    if (module.arrModuleCheck[6])
     {
         // Alpha º¯È­ (0: Off, 1: NormalizedAge, 2: Age)
         if (module.AlphaBasedLife == 1)
@@ -256,7 +265,7 @@ PS_OUT PS_Particle(GS_OUT _in) : SV_Target
         }
     }
     
-    // render target
+    // 4. render target
     output.RenderTarget = vOutColor;
     return output;
 }
