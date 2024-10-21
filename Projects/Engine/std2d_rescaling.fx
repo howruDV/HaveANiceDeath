@@ -66,12 +66,6 @@ VS_OUT VS_Std2D_Rescaling(VS_IN _in)
     output.vPosition = mul(output.vPosition, g_matView);
     output.vPosition = mul(output.vPosition, g_matProj);
     
-    // View Frustum Culling
-    if (output.vPosition.x > g_RenderResolution.x && output.vPosition.y > g_RenderResolution.y)
-    {
-        output.vPosition = float4(0, 0, 0, 0); // 유효하지 않은 위치를 반환 (이후 RS, PS에서 처리 X)
-    }
-    
     output.vColor = _in.vColor;
     
     return output;
